@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+yarn workspace @cldcvr/flow-lineage compile && yarn workspace @cldcvr/flow-lineage test-build  && git add -A

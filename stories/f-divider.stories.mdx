@@ -1,0 +1,33 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { html } from "lit-html";
+import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
+
+<Meta
+  title="Components/f-lineage"
+  parameters={{
+    controls: { hideNoControlsWarning: true },
+  }}
+/>
+
+# f-lineage
+
+<br />
+<br />
+
+## Overview
+
+<f-lineage></f-lineage>
+
+f-divider is a line used to separate the content of a layout.
+
+<br />
+
+### [Playground](/story/components-f-lineage--playground)
+
+<Canvas>
+  <Story name="Playground">{(args) => html`<f-lineage></f-lineage>`}</Story>
+</Canvas>
+
+<br />
+
+<ArgsTable of={"f-lineage"} />
