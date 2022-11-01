@@ -27,7 +27,10 @@ module.exports = {
       config.resolve.alias = [
         {
           find: "@cldcvr/flow-lineage/src",
-          replacement: path.resolve(__dirname, "../packages/flow-lineage/src"),
+          replacement: path.resolve(
+            __dirname,
+            "../packages/@cldcvr/flow-lineage/src"
+          ),
         },
       ];
     }
