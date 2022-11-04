@@ -1,9 +1,13 @@
 import { html, unsafeCSS, LitElement } from "lit";
-import { customElement, query } from "lit/decorators.js";
+import { customElement, property, query } from "lit/decorators.js";
 import eleStyle from "./f-lineage.scss";
 import * as d3 from "d3";
 import createLineage from "./create/create-lineage";
-import { LineageNode, LineageNodeSize } from "./lineage-types";
+import {
+  LineageDirection,
+  LineageNode,
+  LineageNodeSize,
+} from "./lineage-types";
 import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
 import drawLineage from "./draw/draw-lineage";
 import flowCoreCSS from "@cldcvr/flow-core/dist/style.css";
@@ -17,6 +21,9 @@ export class FLineage extends LitElement {
 
   @query("svg")
   svg!: SVGSVGElement;
+
+  @property({ reflect: true, type: String })
+  direction?: LineageDirection = "horizontal";
 
   render() {
     return html`${unsafeSVG(`<svg xmlns="http://www.w3.org/2000/svg"></svg>`)}`;
@@ -112,9 +119,13 @@ export class FLineage extends LitElement {
     const nodeSize: LineageNodeSize = { width: 200, height: 60 };
     const margin = 16;
     const gap = 100;
-    const lineage = createLineage(lineageData, nodeSize, margin, gap);
-
-    console.log(lineage);
+    const lineage = createLineage(
+      lineageData,
+      nodeSize,
+      margin,
+      gap,
+      this.direction ?? "horizontal"
+    );
 
     const svgElement = d3
       .select(this.svg)
@@ -122,6 +133,12 @@ export class FLineage extends LitElement {
       .attr("width", this.offsetWidth)
       .attr("height", this.offsetHeight);
 
-    drawLineage(lineage, svgElement, nodeSize, gap);
+    drawLineage(
+      lineage,
+      svgElement,
+      nodeSize,
+      gap,
+      this.direction ?? "horizontal"
+    );
   }
 }

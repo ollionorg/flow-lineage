@@ -28,7 +28,20 @@ f-lineage to display nodes and connections.
 ### [Playground](/story/components-f-lineage--playground)
 
 <Canvas>
-  <Story name="Playground">{(args) => html`<f-lineage></f-lineage>`}</Story>
+  <Story
+    name="Playground"
+    argTypes={{
+      direction: {
+        control: "select",
+        options: ["horizontal", "vertical"],
+      },
+    }}
+    args={{
+      direction: "horizontal",
+    }}
+  >
+    {(args) => html`<f-lineage .direction=${args.direction}></f-lineage>`}
+  </Story>
 </Canvas>
 
 <br />

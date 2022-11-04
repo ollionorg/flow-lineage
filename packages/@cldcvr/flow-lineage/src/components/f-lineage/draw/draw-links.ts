@@ -1,80 +1,24 @@
-import { Lineage, LineageLinkElement, LineageNodeSize } from "../lineage-types";
+import {
+  LevelLinkGap,
+  Lineage,
+  LineageDirection,
+  LineageLinkElement,
+  LineageNodeSize,
+} from "../lineage-types";
+
+import drawElbow from "./draw-elbow";
 
 export default function drawLinks(
   lineage: Lineage,
   svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
   nodeSize: LineageNodeSize,
-  gap: number
+  gap: number,
+  direction: LineageDirection
 ) {
   /**
    * holds levels links gaps and pointers
    */
-  const levelLinkGap: Record<
-    number,
-    { linkgap: number; nodeLinkGap: Record<string, number> }
-  > = {};
-
-  const getLinkGap = (level: number, nodeid: string) => {
-    const levelGaps = levelLinkGap[level];
-    if (levelGaps && levelGaps.nodeLinkGap && levelGaps.nodeLinkGap[nodeid]) {
-      return levelGaps.nodeLinkGap[nodeid];
-    }
-    if (!levelGaps) {
-      levelLinkGap[level] = {
-        linkgap: 0.2,
-        nodeLinkGap: {},
-      };
-    }
-    levelLinkGap[level].nodeLinkGap[nodeid] = levelLinkGap[level].linkgap;
-    levelLinkGap[level].linkgap += 0.2;
-    if (levelLinkGap[level].linkgap === 1) {
-      levelLinkGap[level].linkgap = 0.2;
-    }
-    return levelLinkGap[level].nodeLinkGap[nodeid];
-  };
-  const elbow = (d: LineageLinkElement) => {
-    const xoffset = nodeSize.width + 4;
-    const yoffset = nodeSize.height / 2;
-    const sx = d.source.x + xoffset;
-    const sy = d.source.y + yoffset;
-
-    const dy = d.target.y + yoffset;
-    const dx = d.target.x - 4;
-
-    const midX = sx + gap * getLinkGap(d.level, d.source.id);
-
-    if (dy > sy) {
-      /**
-       * if connection moves in downward direction
-       */
-      const endArcRadius = dx - midX;
-      const startArcRadius = midX - sx;
-      return `M ${sx} ${sy}
-	L ${
-    midX - startArcRadius
-  } ${sy} a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius} L ${midX} ${
-        dy - endArcRadius
-      } a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius} L ${dx} ${dy}`;
-    }
-    if (dy === sy) {
-      /**
-       * if connection goes straight
-       */
-      return `M ${sx} ${sy} L ${dx} ${dy}`;
-    } else {
-      /**
-       * if connection moves in upward direction
-       */
-      const startArcRadius = midX - sx;
-      const endArcRadius = dx - midX;
-      return `M ${sx} ${sy}
-	L ${
-    midX - startArcRadius
-  } ${sy} a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${-startArcRadius} L ${midX} ${
-        dy + endArcRadius
-      } a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${-endArcRadius} L ${dx} ${dy}`;
-    }
-  };
+  const levelLinkGap: LevelLinkGap = {};
 
   const links = svg
     .append("g")
@@ -89,7 +33,7 @@ export default function drawLinks(
     .append("path")
     .attr("class", "link")
     .attr("d", (d) => {
-      return elbow(d);
+      return drawElbow(d, levelLinkGap, nodeSize, gap, direction);
     })
     .attr("stroke", "var(--color-border-default)")
     .attr("stroke-width", 2)
@@ -104,9 +48,15 @@ export default function drawLinks(
     .attr("class", "source-dot")
     .attr("r", 6)
     .attr("cx", (d) => {
+      if (direction === "vertical") {
+        return d.source.x + nodeSize.width / 2;
+      }
       return d.source.x + nodeSize.width;
     })
     .attr("cy", (d) => {
+      if (direction === "vertical") {
+        return d.source.y + nodeSize.height;
+      }
       return d.source.y + nodeSize.height / 2;
     })
     .attr("fill", "var(--color-border-default)")
@@ -118,9 +68,15 @@ export default function drawLinks(
     .attr("class", "source-dot")
     .attr("r", 6)
     .attr("cx", (d) => {
+      if (direction === "vertical") {
+        return d.source.x + nodeSize.width / 2;
+      }
       return d.target.x;
     })
     .attr("cy", (d) => {
+      if (direction === "vertical") {
+        return d.target.y;
+      }
       return d.target.y + nodeSize.height / 2;
     })
     .attr("fill", "var(--color-border-default)")

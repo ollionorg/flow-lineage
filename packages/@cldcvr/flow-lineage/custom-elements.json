@@ -114,6 +114,26 @@
               "type": {
                 "text": "SVGSVGElement"
               }
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "type": {
+                "text": "LineageDirection | undefined"
+              },
+              "default": "\"horizontal\"",
+              "attribute": "direction",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "direction",
+              "type": {
+                "text": "LineageDirection | undefined"
+              },
+              "default": "\"horizontal\"",
+              "fieldName": "direction"
             }
           ],
           "superclass": {
@@ -184,6 +204,12 @@
               "name": "gap",
               "type": {
                 "text": "number"
+              }
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "LineageDirection"
               }
             }
           ]
@@ -265,6 +291,12 @@
               "type": {
                 "text": "number"
               }
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "LineageDirection"
+              }
             }
           ]
         }
@@ -276,6 +308,58 @@
           "declaration": {
             "name": "createNodeElements",
             "module": "src/components/f-lineage/create/create-node-elements.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/draw/draw-elbow.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "drawElbow",
+          "parameters": [
+            {
+              "name": "d",
+              "type": {
+                "text": "LineageLinkElement"
+              }
+            },
+            {
+              "name": "levelLinkGap",
+              "type": {
+                "text": "LevelLinkGap"
+              }
+            },
+            {
+              "name": "nodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "LineageDirection"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "drawElbow",
+            "module": "src/components/f-lineage/draw/draw-elbow.ts"
           }
         }
       ]
@@ -310,6 +394,12 @@
               "name": "gap",
               "type": {
                 "text": "number"
+              }
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "LineageDirection"
               }
             }
           ]
@@ -356,6 +446,12 @@
               "name": "gap",
               "type": {
                 "text": "number"
+              }
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "LineageDirection"
               }
             }
           ]

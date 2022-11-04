@@ -2,13 +2,15 @@ import {
   LineageNode,
   LineageNodeSize,
   LineageNodeElement,
+  LineageDirection,
 } from "./../lineage-types";
 
 export default function createNodeElements(
   data: LineageNode[],
   nodeSize: LineageNodeSize,
   margin: number,
-  gap: number
+  gap: number,
+  direction: LineageDirection
 ) {
   /**
    * sub class to hold current pointers
@@ -28,11 +30,18 @@ export default function createNodeElements(
       if (Pointer.levelPointers[level]) {
         return Pointer.levelPointers[level];
       }
+      if (direction === "horizontal") {
+        Pointer.levelPointers[level] = new Pointer(
+          this.x + nodeSize.width + gap,
+          margin
+        );
+      } else {
+        Pointer.levelPointers[level] = new Pointer(
+          margin,
+          this.y + nodeSize.height + gap
+        );
+      }
 
-      Pointer.levelPointers[level] = new Pointer(
-        this.x + nodeSize.width + gap,
-        margin
-      );
       return Pointer.levelPointers[level];
     }
   }
@@ -60,7 +69,11 @@ export default function createNodeElements(
       y: levelPointer.y,
     };
 
-    levelPointer.y += nodeSize.height + gap;
+    if (direction === "horizontal") {
+      levelPointer.y += nodeSize.height + gap;
+    } else {
+      levelPointer.x += nodeSize.width + gap;
+    }
 
     return nodeElement;
   };

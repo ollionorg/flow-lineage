@@ -39,3 +39,10 @@ export type LineageLinkElement = {
   target: LineageNodeElement;
   level: number;
 };
+
+export type LineageDirection = "horizontal" | "vertical";
+
+export type LevelLinkGap = Record<
+  number,
+  { linkgap: number; nodeLinkGap: Record<string, number> }
+>;
