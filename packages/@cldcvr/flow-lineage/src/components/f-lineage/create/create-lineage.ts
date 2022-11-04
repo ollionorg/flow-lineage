@@ -10,7 +10,7 @@ import createLinks from "./create-links";
 export default function createLineage(
   data: LineageNode[],
   nodeSize: LineageNodeSize,
-  margin: number,
+  padding: number,
   gap: number,
   direction: LineageDirection
 ): Lineage {
@@ -20,7 +20,7 @@ export default function createLineage(
   const nodeElements = createNodeElements(
     data,
     nodeSize,
-    margin,
+    padding,
     gap,
     direction
   );

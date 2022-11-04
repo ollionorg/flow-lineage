@@ -8,7 +8,7 @@ import {
 export default function createNodeElements(
   data: LineageNode[],
   nodeSize: LineageNodeSize,
-  margin: number,
+  padding: number,
   gap: number,
   direction: LineageDirection
 ) {
@@ -33,11 +33,11 @@ export default function createNodeElements(
       if (direction === "horizontal") {
         Pointer.levelPointers[level] = new Pointer(
           this.x + nodeSize.width + gap,
-          margin
+          padding
         );
       } else {
         Pointer.levelPointers[level] = new Pointer(
-          margin,
+          padding,
           this.y + nodeSize.height + gap
         );
       }
@@ -48,7 +48,7 @@ export default function createNodeElements(
   /**
    * starting point of plotting
    */
-  const pointer = new Pointer(margin, margin);
+  const pointer = new Pointer(padding, padding);
   const nodeElements: LineageNodeElement[] = [];
 
   /**

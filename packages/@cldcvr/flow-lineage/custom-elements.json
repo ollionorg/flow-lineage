@@ -124,6 +124,43 @@
               "default": "\"horizontal\"",
               "attribute": "direction",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "data",
+              "type": {
+                "text": "LineageData"
+              },
+              "attribute": "data"
+            },
+            {
+              "kind": "field",
+              "name": "padding",
+              "type": {
+                "text": "number | undefined"
+              },
+              "default": "16",
+              "attribute": "padding",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "gap",
+              "type": {
+                "text": "number | undefined"
+              },
+              "default": "100",
+              "attribute": "gap",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "[\"node-size\"]",
+              "type": {
+                "text": "LineageNodeSize"
+              },
+              "attribute": "[\"node-size\"]",
+              "reflects": true
             }
           ],
           "attributes": [
@@ -134,6 +171,36 @@
               },
               "default": "\"horizontal\"",
               "fieldName": "direction"
+            },
+            {
+              "name": "data",
+              "type": {
+                "text": "LineageData"
+              },
+              "fieldName": "data"
+            },
+            {
+              "name": "padding",
+              "type": {
+                "text": "number | undefined"
+              },
+              "default": "16",
+              "fieldName": "padding"
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "number | undefined"
+              },
+              "default": "100",
+              "fieldName": "gap"
+            },
+            {
+              "name": "[\"node-size\"]",
+              "type": {
+                "text": "LineageNodeSize"
+              },
+              "fieldName": "[\"node-size\"]"
             }
           ],
           "superclass": {
@@ -195,7 +262,7 @@
               }
             },
             {
-              "name": "margin",
+              "name": "padding",
               "type": {
                 "text": "number"
               }
@@ -281,7 +348,7 @@
               }
             },
             {
-              "name": "margin",
+              "name": "padding",
               "type": {
                 "text": "number"
               }
@@ -381,7 +448,7 @@
             {
               "name": "svg",
               "type": {
-                "text": "d3.Selection<SVGSVGElement, unknown, null, undefined>"
+                "text": "d3.Selection<SVGGElement, unknown, null, undefined>"
               }
             },
             {
@@ -433,7 +500,7 @@
             {
               "name": "svg",
               "type": {
-                "text": "d3.Selection<SVGSVGElement, unknown, null, undefined>"
+                "text": "d3.Selection<SVGGElement, unknown, null, undefined>"
               }
             },
             {
@@ -485,7 +552,7 @@
             {
               "name": "svg",
               "type": {
-                "text": "d3.Selection<SVGSVGElement, unknown, null, undefined>"
+                "text": "d3.Selection<SVGGElement, unknown, null, undefined>"
               }
             },
             {

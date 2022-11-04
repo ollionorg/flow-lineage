@@ -4,11 +4,19 @@
 
 # Change Log
 
+## [0.0.3] - 2022-11-04
+
+### Features
+
+- `data`, `padding`, `gap`, `node-size` properties added.
+- scroll to zoom in/out added.
+
 ## [0.0.2] - 2022-11-04
 
 ### Improvements
 
 - `direction` feature added.
+
 ## [0.0.1] - 2022-11-01
 
 

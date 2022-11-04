@@ -10,7 +10,7 @@ import drawElbow from "./draw-elbow";
 
 export default function drawLinks(
   lineage: Lineage,
-  svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+  svg: d3.Selection<SVGGElement, unknown, null, undefined>,
   nodeSize: LineageNodeSize,
   gap: number,
   direction: LineageDirection
@@ -29,6 +29,14 @@ export default function drawLinks(
     })
     .enter();
 
+  const dots = svg
+    .append("g")
+    .attr("class", "dots")
+    .selectAll("path.dot")
+    .data(lineage.links, (d) => {
+      return (d as LineageLinkElement).id;
+    })
+    .enter();
   links
     .append("path")
     .attr("class", "link")
@@ -43,7 +51,7 @@ export default function drawLinks(
     })
     .attr("fill", "none");
 
-  links
+  dots
     .append("circle")
     .attr("class", "source-dot")
     .attr("r", 6)
@@ -63,13 +71,13 @@ export default function drawLinks(
     .attr("stroke", "var(--color-surface-default)")
     .attr("stroke-width", "2px");
 
-  links
+  dots
     .append("circle")
-    .attr("class", "source-dot")
+    .attr("class", "target-dot")
     .attr("r", 6)
     .attr("cx", (d) => {
       if (direction === "vertical") {
-        return d.source.x + nodeSize.width / 2;
+        return d.target.x + nodeSize.width / 2;
       }
       return d.target.x;
     })

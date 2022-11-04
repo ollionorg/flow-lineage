@@ -35,12 +35,114 @@ f-lineage to display nodes and connections.
         control: "select",
         options: ["horizontal", "vertical"],
       },
+      data: {
+        control: "object",
+      },
+      padding: {
+        control: "number",
+      },
+      gap: {
+        control: "number",
+      },
+      ["node-size"]: {
+        control: "object",
+      },
     }}
     args={{
       direction: "horizontal",
+      data: [
+        {
+          id: "level1_1",
+          to: [
+            {
+              id: "level1_2_1",
+            },
+            {
+              id: "level1_2_2",
+              to: [
+                {
+                  id: "level1_3_1",
+                  to: [
+                    {
+                      id: "level1_4_1",
+                    },
+                    {
+                      id: "level1_4_2",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: "level1_2_3",
+            },
+            {
+              id: "level1_2_4",
+            },
+            {
+              id: "level1_2_5",
+            },
+            {
+              id: "level1_2_6",
+            },
+          ],
+        },
+        {
+          id: "level1_2",
+          to: [
+            {
+              id: "level2_2_1",
+            },
+            {
+              id: "level2_2_2",
+              to: [
+                {
+                  id: "level2_3_1",
+                  to: [
+                    {
+                      id: "level2_4_1",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: "level2_2_3",
+              to: [
+                {
+                  id: "node1",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "level1_3",
+          to: [
+            {
+              id: "level3_2_1",
+            },
+            {
+              id: "level3_2_2",
+            },
+          ],
+        },
+      ],
+      padding: 16,
+      gap: 100,
+      ["node-size"]: { width: 200, height: 60 },
     }}
   >
-    {(args) => html`<f-lineage .direction=${args.direction}></f-lineage>`}
+    {(args) => {
+      console.log(args["node-size"]);
+      return html`<f-lineage
+        .direction=${args.direction}
+        .data=${args.data}
+        .padding=${args.padding}
+        .gap=${args.gap}
+        .node-size=${args["node-size"]}
+      ></f-lineage>`;
+    }}
   </Story>
 </Canvas>
 

@@ -4,7 +4,7 @@ import drawNodes from "./draw-nodes";
 
 export default function drawLineage(
   lineage: Lineage,
-  svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+  svg: d3.Selection<SVGGElement, unknown, null, undefined>,
   nodeSize: LineageNodeSize,
   gap: number,
   direction: LineageDirection

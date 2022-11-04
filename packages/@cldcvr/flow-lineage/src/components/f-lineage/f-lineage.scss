@@ -10,7 +10,7 @@ f-lineage {
 }
 
 :host {
-  > svg.lineage-svg {
-    animation: none;
+  > svg {
+    animation: none !important;
   }
 }

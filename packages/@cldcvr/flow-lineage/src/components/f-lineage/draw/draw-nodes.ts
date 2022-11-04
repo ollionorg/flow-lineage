@@ -4,7 +4,7 @@ import { Lineage, LineageNodeSize } from "../lineage-types";
 
 export default function drawNodes(
   lineage: Lineage,
-  svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+  svg: d3.Selection<SVGGElement, unknown, null, undefined>,
   nodeSize: LineageNodeSize
 ) {
   svg
