@@ -6,6 +6,9 @@ import {
   setCustomElements,
 } from "@storybook/web-components";
 import "./storybook.css";
+import "@cldcvr/flow-core/dist/style.css";
+import "@cldcvr/flow-core";
+import "@cldcvr/flow-system-icon";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

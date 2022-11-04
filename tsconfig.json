@@ -31,5 +31,7 @@
       }
     ]
   },
-  "references": [{ "path": "./packages/flow-core/tsconfig.node.json" }]
+  "references": [
+    { "path": "./packages/@cldcvr/flow-lineage/tsconfig.node.json" }
+  ]
 }

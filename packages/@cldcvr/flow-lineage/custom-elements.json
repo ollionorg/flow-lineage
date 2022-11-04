@@ -14,6 +14,14 @@
             "name": "*",
             "package": "\"./components/f-lineage/f-lineage\""
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "\"./components/f-lineage/lineage-types\""
+          }
         }
       ]
     },
@@ -37,6 +45,57 @@
             "name": "content",
             "module": "src/shims.d.ts"
           }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "content",
+            "module": "src/shims.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/get-computed-html.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getComputedHTML",
+          "parameters": [
+            {
+              "name": "data",
+              "type": {
+                "text": "TemplateResult"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "getComputedHTML",
+            "module": "src/utils/get-computed-html.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getComputedHTML",
+          "declaration": {
+            "name": "getComputedHTML",
+            "module": "src/utils/index.ts"
+          }
         }
       ]
     },
@@ -51,20 +110,10 @@
           "members": [
             {
               "kind": "field",
-              "name": "title",
+              "name": "svg",
               "type": {
-                "text": "string"
-              },
-              "attribute": "title"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "title",
-              "type": {
-                "text": "string"
-              },
-              "fieldName": "title"
+                "text": "SVGSVGElement"
+              }
             }
           ],
           "superclass": {
@@ -90,6 +139,275 @@
           "declaration": {
             "name": "FLineage",
             "module": "src/components/f-lineage/f-lineage.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/lineage-types.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/create/create-lineage.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createLineage",
+          "return": {
+            "type": {
+              "text": "Lineage"
+            }
+          },
+          "parameters": [
+            {
+              "name": "data",
+              "type": {
+                "text": "LineageNode[]"
+              }
+            },
+            {
+              "name": "nodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            },
+            {
+              "name": "margin",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "createLineage",
+            "module": "src/components/f-lineage/create/create-lineage.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/create/create-links.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createLinks",
+          "parameters": [
+            {
+              "name": "nodes",
+              "type": {
+                "text": "LineageNode[]"
+              }
+            },
+            {
+              "name": "nodeElements",
+              "type": {
+                "text": "LineageNodeElement[]"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "createLinks",
+            "module": "src/components/f-lineage/create/create-links.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/create/create-node-elements.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createNodeElements",
+          "parameters": [
+            {
+              "name": "data",
+              "type": {
+                "text": "LineageNode[]"
+              }
+            },
+            {
+              "name": "nodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            },
+            {
+              "name": "margin",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "createNodeElements",
+            "module": "src/components/f-lineage/create/create-node-elements.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/draw/draw-lineage.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "drawLineage",
+          "parameters": [
+            {
+              "name": "lineage",
+              "type": {
+                "text": "Lineage"
+              }
+            },
+            {
+              "name": "svg",
+              "type": {
+                "text": "d3.Selection<SVGSVGElement, unknown, null, undefined>"
+              }
+            },
+            {
+              "name": "nodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "drawLineage",
+            "module": "src/components/f-lineage/draw/draw-lineage.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/draw/draw-links.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "drawLinks",
+          "parameters": [
+            {
+              "name": "lineage",
+              "type": {
+                "text": "Lineage"
+              }
+            },
+            {
+              "name": "svg",
+              "type": {
+                "text": "d3.Selection<SVGSVGElement, unknown, null, undefined>"
+              }
+            },
+            {
+              "name": "nodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "drawLinks",
+            "module": "src/components/f-lineage/draw/draw-links.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/draw/draw-nodes.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "drawNodes",
+          "parameters": [
+            {
+              "name": "lineage",
+              "type": {
+                "text": "Lineage"
+              }
+            },
+            {
+              "name": "svg",
+              "type": {
+                "text": "d3.Selection<SVGSVGElement, unknown, null, undefined>"
+              }
+            },
+            {
+              "name": "nodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "drawNodes",
+            "module": "src/components/f-lineage/draw/draw-nodes.ts"
           }
         }
       ]

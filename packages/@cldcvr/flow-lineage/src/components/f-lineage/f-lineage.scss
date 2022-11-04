@@ -1,3 +1,16 @@
-:host {
+f-lineage {
   display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+
+  foreignObject {
+    overflow: visible;
+  }
+}
+
+:host {
+  > svg.lineage-svg {
+    animation: none;
+  }
 }

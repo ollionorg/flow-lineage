@@ -3,13 +3,8 @@
   "tags": [
     {
       "name": "f-lineage",
-      "description": "Attributes:\n\n  * `title` {`string`} - \n\nProperties:\n\n  * `styles` {`CSSResult[]`} - css loaded from scss file\n\n  * `title` {`string`} - ",
-      "attributes": [
-        {
-          "name": "title",
-          "description": "`title` {`string`} - \n\nProperty: title"
-        }
-      ]
+      "description": "Properties:\n\n  * `styles` {`CSSResult[]`} - css loaded from scss file\n\n  * `svg` {`SVGSVGElement`} - ",
+      "attributes": []
     }
   ],
   "globalAttributes": [],
