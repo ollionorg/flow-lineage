@@ -73,18 +73,6 @@ f-lineage to display nodes and connections.
                 },
               ],
             },
-            {
-              id: "level1_2_3",
-            },
-            {
-              id: "level1_2_4",
-            },
-            {
-              id: "level1_2_5",
-            },
-            {
-              id: "level1_2_6",
-            },
           ],
           children: [
             {
@@ -157,7 +145,6 @@ f-lineage to display nodes and connections.
     }}
   >
     {(args) => {
-      console.log(args["node-size"]);
       return html`<f-lineage
         .direction=${args.direction}
         .data=${args.data}

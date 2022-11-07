@@ -28,6 +28,8 @@ export type LineageNodeElement = {
   y: number;
   level: number;
   isChildren?: boolean;
+  childrenYMax?: number;
+  childrenXMax?: number;
 } & Omit<LineageNode, "to">;
 
 export type Lineage = {

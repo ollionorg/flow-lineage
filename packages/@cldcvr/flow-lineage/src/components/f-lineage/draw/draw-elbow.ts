@@ -49,8 +49,15 @@ function verticalDirectionLink(
   const dy = d.target.y - 4;
   const dx = d.target.x + xoffset;
 
-  const sx = d.source.x + xoffset;
-  const sy = d.source.y + yoffset;
+  let sourceX = d.source.x + xoffset;
+  let sourceY = d.source.y + yoffset;
+  if (d.source.childrenXMax && d.source.childrenYMax) {
+    sourceX = d.source.childrenXMax;
+    sourceY = d.source.childrenYMax;
+  }
+
+  const sx = sourceX;
+  const sy = sourceY;
 
   const midY = sy + gap * getLinkGap(d.level, d.source.id);
 

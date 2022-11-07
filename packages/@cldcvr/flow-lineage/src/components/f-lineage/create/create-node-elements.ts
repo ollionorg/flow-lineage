@@ -21,6 +21,7 @@ export default function createNodeElements(
   class Pointer {
     x: number;
     y: number;
+    maxY?: number;
 
     static levelPointers: Record<number, Pointer> = {};
 
@@ -39,10 +40,9 @@ export default function createNodeElements(
           padding
         );
       } else {
-        Pointer.levelPointers[level] = new Pointer(
-          padding,
-          this.y + nodeSize.height + gap
-        );
+        // console.log(Pointer.levelPointers, level, this.maxY);
+        const y = this.maxY ? this.maxY + gap : this.y + nodeSize.height + gap;
+        Pointer.levelPointers[level] = new Pointer(padding, y);
       }
 
       return Pointer.levelPointers[level];
@@ -51,7 +51,8 @@ export default function createNodeElements(
   /**
    * starting point of plotting
    */
-  const pointer = new Pointer(padding, padding);
+  Pointer.levelPointers[1] = new Pointer(padding, padding);
+
   const nodeElements: LineageNodeElement[] = [];
 
   /**
@@ -73,6 +74,30 @@ export default function createNodeElements(
       x: levelPointer.x,
       y: levelPointer.y,
     };
+
+    if (node.children && node.children.length > 0) {
+      levelPointer.y += nodeSize.height;
+      computeElements(node.children, levelPointer, level, true);
+
+      /**
+       * storing last child co-ordinates
+       */
+      nodeElement.childrenYMax = levelPointer.y;
+      nodeElement.childrenXMax = levelPointer.x + childrenNodeSize.width / 2;
+      if (direction === "vertical") {
+        /**
+         * checking level max Y
+         */
+        if (levelPointer.y > (levelPointer.maxY ?? 0)) {
+          // console.log("settings maxY - ", level, levelPointer.y);
+          levelPointer.maxY = levelPointer.y;
+        }
+
+        levelPointer.y = nodeElement.y;
+      } else {
+        levelPointer.y -= nodeSize.height;
+      }
+    }
 
     if (direction === "horizontal") {
       levelPointer.y += nodeSize.height + gap;
@@ -103,11 +128,7 @@ export default function createNodeElements(
       isChildren: true,
     };
 
-    if (direction === "horizontal") {
-      levelPointer.y += childrenNodeSize.height;
-    } else {
-      levelPointer.x += childrenNodeSize.width;
-    }
+    levelPointer.y += childrenNodeSize.height;
 
     return nodeElement;
   };
@@ -118,7 +139,7 @@ export default function createNodeElements(
    * @param levelPointer : pointer from where to start calculation
    * @param level :  level or heirarhcy in lineage
    */
-  const computeElements = (
+  const computeElements = async (
     nodes: LineageBaseNode[],
     levelPointer: Pointer,
     level: number,
@@ -137,24 +158,9 @@ export default function createNodeElements(
       if (parentNode.to && parentNode.to.length > 0) {
         computeElements(parentNode.to, levelPointer.next(level + 1), level + 1);
       }
-
-      if (parentNode.children && parentNode.children.length > 0) {
-        if (direction === "horizontal") {
-          levelPointer.y -= gap;
-        } else {
-          levelPointer.x -= gap;
-        }
-        computeElements(parentNode.children, levelPointer, level, true);
-        if (direction === "horizontal") {
-          levelPointer.y += gap;
-        } else {
-          levelPointer.x += gap;
-        }
-      }
     });
   };
-
+  const pointer = Pointer.levelPointers[1];
   computeElements(data, pointer, 1);
-
   return nodeElements;
 }
