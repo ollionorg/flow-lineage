@@ -21,9 +21,9 @@ export default function createNodeElements(
   class Pointer {
     x: number;
     y: number;
-    maxY?: number;
+    maxY?: number; // maxY due to childrens
 
-    static levelPointers: Record<number, Pointer> = {};
+    static levelPointers: Record<number, Pointer> = {}; // holds level pointers
 
     constructor(x: number, y: number) {
       this.x = x;
@@ -31,16 +31,22 @@ export default function createNodeElements(
     }
 
     next(level: number) {
+      // return if exisiting pointer found
       if (Pointer.levelPointers[level]) {
         return Pointer.levelPointers[level];
       }
       if (direction === "horizontal") {
+        /**
+         * for horizontal direction calculate appropriate gap
+         */
         Pointer.levelPointers[level] = new Pointer(
           this.x + nodeSize.width + gap,
           padding
         );
       } else {
-        // console.log(Pointer.levelPointers, level, this.maxY);
+        /**
+         * for vertical direction calculate appropriate gap
+         */
         const y = this.maxY ? this.maxY + gap : this.y + nodeSize.height + gap;
         Pointer.levelPointers[level] = new Pointer(padding, y);
       }
@@ -75,8 +81,14 @@ export default function createNodeElements(
       y: levelPointer.y,
     };
 
+    /**
+     * Check if node has childrens
+     */
     if (node.children && node.children.length > 0) {
       levelPointer.y += nodeSize.height;
+      /**
+       * compute child node elements
+       */
       computeElements(node.children, levelPointer, level, true);
 
       /**
@@ -99,6 +111,9 @@ export default function createNodeElements(
       }
     }
 
+    /**
+     * Increment pointer for next node
+     */
     if (direction === "horizontal") {
       levelPointer.y += nodeSize.height + gap;
     } else {
@@ -118,6 +133,9 @@ export default function createNodeElements(
     level: number,
     levelPointer: Pointer
   ): LineageNodeElement => {
+    /**
+     * add child node co-ordinates based on current pointer
+     */
     const nodeElement: LineageNodeElement = {
       id: node.id,
       data: node.data,
@@ -127,7 +145,9 @@ export default function createNodeElements(
       y: levelPointer.y,
       isChildren: true,
     };
-
+    /**
+     * Increment child node pointer
+     */
     levelPointer.y += childrenNodeSize.height;
 
     return nodeElement;
@@ -145,6 +165,9 @@ export default function createNodeElements(
     level: number,
     isChildren?: boolean
   ) => {
+    /**
+     * Interate through nodes and calculate co-ordinates
+     */
     nodes.forEach((node) => {
       if (isChildren) {
         nodeElements.push(
@@ -162,5 +185,41 @@ export default function createNodeElements(
   };
   const pointer = Pointer.levelPointers[1];
   computeElements(data, pointer, 1);
+
+  /**
+   * Adjusting vertical gaps
+   */
+  if (direction === "vertical") {
+    Object.keys(Pointer.levelPointers).forEach((key) => {
+      const level = Number(key);
+      /**
+       * check if any level has maxY
+       */
+      const maxY = Pointer.levelPointers[level].maxY;
+      if (maxY !== undefined) {
+        /**
+         * check if any node has inconsistent gap
+         */
+        const nodeToCompare = nodeElements.find((node) => {
+          return (
+            node.level === level + 1 &&
+            node.y - maxY !== gap &&
+            !node.isChildren
+          );
+        });
+        /**
+         * Inconsistent node found , now update y for those nodes
+         */
+        if (nodeToCompare) {
+          const diff = maxY + gap - nodeToCompare?.y;
+          nodeElements
+            .filter((node) => node.level >= level + 1)
+            .forEach((node) => {
+              node.y += diff;
+            });
+        }
+      }
+    });
+  }
   return nodeElements;
 }
