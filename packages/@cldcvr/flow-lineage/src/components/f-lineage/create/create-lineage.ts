@@ -1,29 +1,29 @@
 import createNodeElements from "./create-node-elements";
-import {
-  Lineage,
-  LineageDirection,
-  LineageNode,
-  LineageNodeSize,
-} from "./../lineage-types";
+import { CreateLineageParams, Lineage } from "./../lineage-types";
 import createLinks from "./create-links";
 
-export default function createLineage(
-  data: LineageNode[],
-  nodeSize: LineageNodeSize,
-  padding: number,
-  gap: number,
-  direction: LineageDirection
-): Lineage {
+export default function createLineage({
+  data,
+  nodeSize,
+  childrenNodeSize,
+  padding,
+  gap,
+  direction,
+}: CreateLineageParams): Lineage {
   /**
    * create node elements with their cordinates
    */
   const nodeElements = createNodeElements(
     data,
     nodeSize,
+    childrenNodeSize,
     padding,
     gap,
     direction
   );
+  /**
+   * create links with their repsepctive co-ordinates
+   */
   const nodeLinks = createLinks(data, nodeElements);
   return {
     nodes: nodeElements,

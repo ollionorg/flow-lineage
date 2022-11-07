@@ -3,11 +3,14 @@ import {
   LineageNodeSize,
   LineageNodeElement,
   LineageDirection,
+  LineageBaseNode,
+  LineageNodeChildren,
 } from "./../lineage-types";
 
 export default function createNodeElements(
   data: LineageNode[],
   nodeSize: LineageNodeSize,
+  childrenNodeSize: LineageNodeSize,
   padding: number,
   gap: number,
   direction: LineageDirection
@@ -58,6 +61,7 @@ export default function createNodeElements(
    */
   const getComputedElement = (
     node: LineageNode,
+    level: number,
     levelPointer: Pointer
   ): LineageNodeElement => {
     const nodeElement: LineageNodeElement = {
@@ -65,6 +69,7 @@ export default function createNodeElements(
       data: node.data,
       links: node.links,
       children: node.children,
+      level,
       x: levelPointer.x,
       y: levelPointer.y,
     };
@@ -79,26 +84,77 @@ export default function createNodeElements(
   };
 
   /**
+   *
+   * @param node : of which x,y calculated
+   * @param levelPointer : level pointer which x,y of last node
+   */
+  const getComputedChildrenElement = (
+    node: LineageNodeChildren,
+    level: number,
+    levelPointer: Pointer
+  ): LineageNodeElement => {
+    const nodeElement: LineageNodeElement = {
+      id: node.id,
+      data: node.data,
+      links: node.links,
+      level,
+      x: levelPointer.x,
+      y: levelPointer.y,
+      isChildren: true,
+    };
+
+    if (direction === "horizontal") {
+      levelPointer.y += childrenNodeSize.height;
+    } else {
+      levelPointer.x += childrenNodeSize.width;
+    }
+
+    return nodeElement;
+  };
+
+  /**
    * compute node elements with their respective co-ordib=nates based on heirarchy and relation
    * @param nodes :  list nodes given by user
    * @param levelPointer : pointer from where to start calculation
    * @param level :  level or heirarhcy in lineage
    */
   const computeElements = (
-    nodes: LineageNode[],
+    nodes: LineageBaseNode[],
     levelPointer: Pointer,
-    level: number
+    level: number,
+    isChildren?: boolean
   ) => {
     nodes.forEach((node) => {
-      nodeElements.push(getComputedElement(node, levelPointer));
+      if (isChildren) {
+        nodeElements.push(
+          getComputedChildrenElement(node, level, levelPointer)
+        );
+      } else {
+        nodeElements.push(getComputedElement(node, level, levelPointer));
+      }
 
-      if (node.to && node.to.length > 0) {
-        computeElements(node.to, levelPointer.next(level + 1), level + 1);
+      const parentNode = node as LineageNode;
+      if (parentNode.to && parentNode.to.length > 0) {
+        computeElements(parentNode.to, levelPointer.next(level + 1), level + 1);
+      }
+
+      if (parentNode.children && parentNode.children.length > 0) {
+        if (direction === "horizontal") {
+          levelPointer.y -= gap;
+        } else {
+          levelPointer.x -= gap;
+        }
+        computeElements(parentNode.children, levelPointer, level, true);
+        if (direction === "horizontal") {
+          levelPointer.y += gap;
+        } else {
+          levelPointer.x += gap;
+        }
       }
     });
   };
 
-  computeElements(data, pointer, 0);
+  computeElements(data, pointer, 1);
 
   return nodeElements;
 }

@@ -40,6 +40,12 @@ export class FLineage extends LitElement {
   })
   ["node-size"]!: LineageNodeSize;
 
+  @property({
+    reflect: true,
+    type: Object,
+  })
+  ["children-node-size"]!: LineageNodeSize;
+
   render() {
     return html`${unsafeSVG(`<svg xmlns="http://www.w3.org/2000/svg"></svg>`)}`;
   }
@@ -59,33 +65,46 @@ export class FLineage extends LitElement {
 
     const nodeSize = this["node-size"]
       ? this["node-size"]
-      : { width: 200, height: 60 };
+      : { width: 200, height: 52 };
+
+    const childrenNodeSize = this["children-node-size"]
+      ? this["children-node-size"]
+      : { width: 200, height: 32 };
 
     const padding = this.padding ?? 16;
     const gap = this.gap ?? 100;
+    const direction = this.direction ?? "horizontal";
 
     if (this.data && this.data.length > 0) {
-      const lineage = createLineage(
-        this.data,
+      const lineage = createLineage({
+        data: this.data,
         nodeSize,
+        childrenNodeSize,
         padding,
         gap,
-        this.direction ?? "horizontal"
-      );
-
+        direction,
+      });
+      /**
+       * main svg element: setting height and width
+       */
       const svgElement = d3
         .select(this.svg)
         .attr("class", "lineage-svg")
         .attr("width", this.offsetWidth)
         .attr("height", this.offsetHeight);
+      /**
+       * Inner `g` to hold chart to handel zoom in/ zoom out
+       */
       const lineageContainer = svgElement.append("g");
-      drawLineage(
+
+      drawLineage({
         lineage,
-        lineageContainer,
+        svg: lineageContainer,
         nodeSize,
+        childrenNodeSize,
         gap,
-        this.direction ?? "horizontal"
-      );
+        direction,
+      });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleZoom = (e: any) => {
         lineageContainer.attr("transform", e.transform);

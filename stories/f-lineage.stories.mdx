@@ -86,12 +86,34 @@ f-lineage to display nodes and connections.
               id: "level1_2_6",
             },
           ],
+          children: [
+            {
+              id: "child1",
+            },
+            {
+              id: "child2",
+            },
+            {
+              id: "child3",
+            },
+            {
+              id: "child4",
+            },
+          ],
         },
         {
           id: "level1_2",
           to: [
             {
               id: "level2_2_1",
+              children: [
+                {
+                  id: "child1_2_2_1",
+                },
+                {
+                  id: "child2_2_2_1",
+                },
+              ],
             },
             {
               id: "level2_2_2",
@@ -130,7 +152,8 @@ f-lineage to display nodes and connections.
       ],
       padding: 16,
       gap: 100,
-      ["node-size"]: { width: 200, height: 60 },
+      ["node-size"]: { width: 200, height: 52 },
+      ["children-node-size"]: { width: 200, height: 32 },
     }}
   >
     {(args) => {
@@ -141,6 +164,7 @@ f-lineage to display nodes and connections.
         .padding=${args.padding}
         .gap=${args.gap}
         .node-size=${args["node-size"]}
+        .children-node-size=${args["children-node-size"]}
       ></f-lineage>`;
     }}
   </Story>

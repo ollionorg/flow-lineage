@@ -161,6 +161,15 @@
               },
               "attribute": "[\"node-size\"]",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "[\"children-node-size\"]",
+              "type": {
+                "text": "LineageNodeSize"
+              },
+              "attribute": "[\"children-node-size\"]",
+              "reflects": true
             }
           ],
           "attributes": [
@@ -201,6 +210,13 @@
                 "text": "LineageNodeSize"
               },
               "fieldName": "[\"node-size\"]"
+            },
+            {
+              "name": "[\"children-node-size\"]",
+              "type": {
+                "text": "LineageNodeSize"
+              },
+              "fieldName": "[\"children-node-size\"]"
             }
           ],
           "superclass": {
@@ -250,33 +266,9 @@
           },
           "parameters": [
             {
-              "name": "data",
+              "name": "{\n  data,\n  nodeSize,\n  childrenNodeSize,\n  padding,\n  gap,\n  direction,\n}",
               "type": {
-                "text": "LineageNode[]"
-              }
-            },
-            {
-              "name": "nodeSize",
-              "type": {
-                "text": "LineageNodeSize"
-              }
-            },
-            {
-              "name": "padding",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "gap",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "direction",
-              "type": {
-                "text": "LineageDirection"
+                "text": "CreateLineageParams"
               }
             }
           ]
@@ -343,6 +335,12 @@
             },
             {
               "name": "nodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            },
+            {
+              "name": "childrenNodeSize",
               "type": {
                 "text": "LineageNodeSize"
               }
@@ -440,33 +438,9 @@
           "name": "drawLineage",
           "parameters": [
             {
-              "name": "lineage",
+              "name": "params",
               "type": {
-                "text": "Lineage"
-              }
-            },
-            {
-              "name": "svg",
-              "type": {
-                "text": "d3.Selection<SVGGElement, unknown, null, undefined>"
-              }
-            },
-            {
-              "name": "nodeSize",
-              "type": {
-                "text": "LineageNodeSize"
-              }
-            },
-            {
-              "name": "gap",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "direction",
-              "type": {
-                "text": "LineageDirection"
+                "text": "DrawLineageParams"
               }
             }
           ]
@@ -492,33 +466,9 @@
           "name": "drawLinks",
           "parameters": [
             {
-              "name": "lineage",
+              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  gap,\n  direction,\n}",
               "type": {
-                "text": "Lineage"
-              }
-            },
-            {
-              "name": "svg",
-              "type": {
-                "text": "d3.Selection<SVGGElement, unknown, null, undefined>"
-              }
-            },
-            {
-              "name": "nodeSize",
-              "type": {
-                "text": "LineageNodeSize"
-              }
-            },
-            {
-              "name": "gap",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "direction",
-              "type": {
-                "text": "LineageDirection"
+                "text": "DrawLineageParams"
               }
             }
           ]
@@ -544,21 +494,9 @@
           "name": "drawNodes",
           "parameters": [
             {
-              "name": "lineage",
+              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  childrenNodeSize,\n}",
               "type": {
-                "text": "Lineage"
-              }
-            },
-            {
-              "name": "svg",
-              "type": {
-                "text": "d3.Selection<SVGGElement, unknown, null, undefined>"
-              }
-            },
-            {
-              "name": "nodeSize",
-              "type": {
-                "text": "LineageNodeSize"
+                "text": "DrawLineageParams"
               }
             }
           ]

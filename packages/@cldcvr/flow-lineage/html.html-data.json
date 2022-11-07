@@ -3,7 +3,7 @@
   "tags": [
     {
       "name": "f-lineage",
-      "description": "Attributes:\n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `data` {`LineageData`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize`} - \n\nProperties:\n\n  * `styles` {`CSSResult[]`} - css loaded from scss file\n\n  * `svg` {`SVGSVGElement`} - \n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `data` {`LineageData`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize`} - ",
+      "description": "Attributes:\n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `data` {`LineageData`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize`} - \n\n  * `[\"children-node-size\"]` {`LineageNodeSize`} - \n\nProperties:\n\n  * `styles` {`CSSResult[]`} - css loaded from scss file\n\n  * `svg` {`SVGSVGElement`} - \n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `data` {`LineageData`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize`} - \n\n  * `[\"children-node-size\"]` {`LineageNodeSize`} - ",
       "attributes": [
         {
           "name": "direction",
@@ -34,6 +34,10 @@
         {
           "name": "[\"node-size\"]",
           "description": "`[\"node-size\"]` {`LineageNodeSize`} - \n\nProperty: [\"node-size\"]"
+        },
+        {
+          "name": "[\"children-node-size\"]",
+          "description": "`[\"children-node-size\"]` {`LineageNodeSize`} - \n\nProperty: [\"children-node-size\"]"
         }
       ]
     }

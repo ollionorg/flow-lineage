@@ -1,20 +1,18 @@
 import {
+  DrawLineageParams,
   LevelLinkGap,
-  Lineage,
-  LineageDirection,
   LineageLinkElement,
-  LineageNodeSize,
 } from "../lineage-types";
 
 import drawElbow from "./draw-elbow";
 
-export default function drawLinks(
-  lineage: Lineage,
-  svg: d3.Selection<SVGGElement, unknown, null, undefined>,
-  nodeSize: LineageNodeSize,
-  gap: number,
-  direction: LineageDirection
-) {
+export default function drawLinks({
+  lineage,
+  svg,
+  nodeSize,
+  gap,
+  direction,
+}: DrawLineageParams) {
   /**
    * holds levels links gaps and pointers
    */

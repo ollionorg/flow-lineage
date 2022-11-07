@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+export type LineageBaseNode = {
+  id: string;
+  links?: LineageNodeLink[];
+  data?: Record<string, any>;
+};
+export type LineageNodeChildren = LineageBaseNode;
 // Lineage node type
 export type LineageNode = {
-  id: string;
   to?: LineageNode[];
-  links?: LineageNodeLink[];
   children?: LineageNodeChildren[];
-  data?: Record<string, any>;
-};
+} & LineageBaseNode;
 
 // Lineage Node children
-export type LineageNodeChildren = {
-  id: string;
-  links?: LineageNodeLink[];
-  data?: Record<string, any>;
-};
+
 export type LineageNodeLink = {
   nodeid: string;
   type?: "incoming" | "outgoing";
@@ -23,10 +23,12 @@ export type LineageNodeSize = {
   width: number;
   height: number;
 };
-export type LineageNodeElement = { x: number; y: number } & Omit<
-  LineageNode,
-  "to"
->;
+export type LineageNodeElement = {
+  x: number;
+  y: number;
+  level: number;
+  isChildren?: boolean;
+} & Omit<LineageNode, "to">;
 
 export type Lineage = {
   nodes: LineageNodeElement[];
@@ -48,3 +50,21 @@ export type LevelLinkGap = Record<
 >;
 
 export type LineageData = LineageNode[];
+
+export type DrawLineageParams = {
+  lineage: Lineage;
+  svg: d3.Selection<SVGGElement, unknown, null, undefined>;
+  nodeSize: LineageNodeSize;
+  childrenNodeSize: LineageNodeSize;
+  gap: number;
+  direction: LineageDirection;
+};
+
+export type CreateLineageParams = {
+  data: LineageNode[];
+  nodeSize: LineageNodeSize;
+  childrenNodeSize: LineageNodeSize;
+  padding: number;
+  gap: number;
+  direction: LineageDirection;
+};
