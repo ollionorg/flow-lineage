@@ -60,13 +60,15 @@ function verticalDirectionLink(
   const sy = sourceY;
 
   const midY = sy + gap * getLinkGap(d.level, d.source.id);
+  const endArcRadius = dy - midY;
+  const startArcRadius = midY - sy;
+  const dist = startArcRadius + endArcRadius;
 
-  if (dx > sx) {
+  if (dx > sx && dx - sx > dist) {
     /**
      * if connection moves in downward direction
      */
-    const endArcRadius = dy - midY;
-    const startArcRadius = midY - sy;
+
     return `M ${sx} ${sy}
        L ${sx} ${
       midY - startArcRadius
@@ -79,18 +81,36 @@ function verticalDirectionLink(
      * if connection goes straight
      */
     return `M ${sx} ${sy} L ${dx} ${dy}`;
-  } else {
+  } else if (sx > dx && sx - dx > dist) {
     /**
      * if connection moves in upward direction
      */
-    const startArcRadius = midY - sy;
-    const endArcRadius = dy - midY;
+
     return `M ${sx} ${sy}
    L ${sx} ${
       midY - startArcRadius
     } a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${startArcRadius} L ${
       dx + endArcRadius
     } ${midY} a${endArcRadius},${endArcRadius} 0 0 0 ${-endArcRadius},${endArcRadius} L ${dx} ${dy}`;
+  } else {
+    /**
+     * distance is too small to create elbow
+     */
+    const xoffset = nodeSize.width / 2;
+    const yoffset = nodeSize.height + 4;
+
+    const sx = d.source.x + xoffset;
+    const sy = d.source.y + yoffset;
+
+    const dy = d.target.y - 4;
+    const dx = d.target.x + xoffset;
+
+    const path = `M ${sx} ${sy}
+				      C ${(sx + dx) / 2} ${sy},
+				        ${(sx + dx) / 2} ${dy},
+				        ${dx} ${dy}`;
+
+    return path;
   }
 }
 
@@ -129,13 +149,16 @@ function horizontalDirectionLink(
   const sy = d.source.y + yoffset;
 
   const midX = sx + gap * getLinkGap(d.level, d.source.id);
+  const endArcRadius = dx - midX;
+  const startArcRadius = midX - sx;
 
-  if (dy > sy) {
+  const dist = startArcRadius + endArcRadius;
+
+  if (dy > sy && dy - sy > dist) {
     /**
      * if connection moves in downward direction
      */
-    const endArcRadius = dx - midX;
-    const startArcRadius = midX - sx;
+
     return `M ${sx} ${sy}
    L ${
      midX - startArcRadius
@@ -148,17 +171,35 @@ function horizontalDirectionLink(
      * if connection goes straight
      */
     return `M ${sx} ${sy} L ${dx} ${dy}`;
-  } else {
+  } else if (sy > dy && sy - dy > dist) {
     /**
      * if connection moves in upward direction
      */
-    const startArcRadius = midX - sx;
-    const endArcRadius = dx - midX;
+
     return `M ${sx} ${sy}
    L ${
      midX - startArcRadius
    } ${sy} a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${-startArcRadius} L ${midX} ${
       dy + endArcRadius
     } a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${-endArcRadius} L ${dx} ${dy}`;
+  } else {
+    /**
+     * distance is too small to create elbow
+     */
+    const xoffset = nodeSize.width + 4;
+    const yoffset = nodeSize.height / 2;
+
+    const sx = d.source.x + xoffset;
+    const sy = d.source.y + yoffset;
+
+    const dy = d.target.y + yoffset;
+    const dx = d.target.x - 4;
+
+    const path = `M ${sx} ${sy}
+				      C ${(sx + dx) / 2} ${sy},
+				        ${(sx + dx) / 2} ${dy},
+				        ${dx} ${dy}`;
+
+    return path;
   }
 }

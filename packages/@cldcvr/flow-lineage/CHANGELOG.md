@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [0.0.5] - 2022-11-08
+
+### Features
+
+- `children` with scrollbar support added.
+
 ## [0.0.4] - 2022-11-07
 
 ### Features

@@ -86,10 +86,16 @@ export default function createNodeElements(
      */
     if (node.children && node.children.length > 0) {
       levelPointer.y += nodeSize.height;
+
+      const totalChildNodeHeight =
+        childrenNodeSize.height * node.children.length;
+      if (totalChildNodeHeight > 256) {
+        nodeElement.hasScrollbaleChildren = true;
+      }
       /**
        * compute child node elements
        */
-      computeElements(node.children, levelPointer, level, true);
+      computeElements(node.children, levelPointer, level, true, node.id);
 
       /**
        * storing last child co-ordinates
@@ -100,14 +106,24 @@ export default function createNodeElements(
         /**
          * checking level max Y
          */
-        if (levelPointer.y > (levelPointer.maxY ?? 0)) {
-          // console.log("settings maxY - ", level, levelPointer.y);
+        const maxYWhenScrollBar = nodeElement.y + nodeSize.height + 256;
+        if (
+          nodeElement.hasScrollbaleChildren &&
+          levelPointer.y > maxYWhenScrollBar
+        ) {
+          levelPointer.maxY = maxYWhenScrollBar;
+          nodeElement.childrenYMax = maxYWhenScrollBar;
+        } else if (levelPointer.y > (levelPointer.maxY ?? 0)) {
           levelPointer.maxY = levelPointer.y;
         }
 
         levelPointer.y = nodeElement.y;
       } else {
         levelPointer.y -= nodeSize.height;
+
+        if (nodeElement.hasScrollbaleChildren) {
+          levelPointer.y = nodeElement.y + 256;
+        }
       }
     }
 
@@ -131,7 +147,8 @@ export default function createNodeElements(
   const getComputedChildrenElement = (
     node: LineageNodeChildren,
     level: number,
-    levelPointer: Pointer
+    levelPointer: Pointer,
+    parentId: string | undefined
   ): LineageNodeElement => {
     /**
      * add child node co-ordinates based on current pointer
@@ -144,6 +161,7 @@ export default function createNodeElements(
       x: levelPointer.x,
       y: levelPointer.y,
       isChildren: true,
+      parentId,
     };
     /**
      * Increment child node pointer
@@ -163,7 +181,8 @@ export default function createNodeElements(
     nodes: LineageBaseNode[],
     levelPointer: Pointer,
     level: number,
-    isChildren?: boolean
+    isChildren?: boolean,
+    parentId?: string
   ) => {
     /**
      * Interate through nodes and calculate co-ordinates
@@ -171,7 +190,7 @@ export default function createNodeElements(
     nodes.forEach((node) => {
       if (isChildren) {
         nodeElements.push(
-          getComputedChildrenElement(node, level, levelPointer)
+          getComputedChildrenElement(node, level, levelPointer, parentId)
         );
       } else {
         nodeElements.push(getComputedElement(node, level, levelPointer));

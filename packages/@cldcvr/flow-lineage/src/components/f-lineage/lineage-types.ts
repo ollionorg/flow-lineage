@@ -30,6 +30,8 @@ export type LineageNodeElement = {
   isChildren?: boolean;
   childrenYMax?: number;
   childrenXMax?: number;
+  hasScrollbaleChildren?: boolean;
+  parentId?: string;
 } & Omit<LineageNode, "to">;
 
 export type Lineage = {

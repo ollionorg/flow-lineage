@@ -61,7 +61,6 @@ export class FLineage extends LitElement {
     /**
      * cleaning up svg if it has any exisitng content
      */
-    this.svg.innerHTML = ``;
 
     const nodeSize = this["node-size"]
       ? this["node-size"]
@@ -74,6 +73,8 @@ export class FLineage extends LitElement {
     const padding = this.padding ?? 16;
     const gap = this.gap ?? 100;
     const direction = this.direction ?? "horizontal";
+
+    this.svg.innerHTML = ``;
 
     if (this.data && this.data.length > 0) {
       const lineage = createLineage({
