@@ -9,6 +9,7 @@ export default function createLineage({
   padding,
   gap,
   direction,
+  maxChildrenHeight,
 }: CreateLineageParams): Lineage {
   /**
    * create node elements with their cordinates
@@ -19,7 +20,8 @@ export default function createLineage({
     childrenNodeSize,
     padding,
     gap,
-    direction
+    direction,
+    maxChildrenHeight
   );
   /**
    * create links with their repsepctive co-ordinates

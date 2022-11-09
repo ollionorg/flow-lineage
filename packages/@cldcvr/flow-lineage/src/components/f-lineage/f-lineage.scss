@@ -13,4 +13,10 @@ f-lineage {
   > svg {
     animation: none !important;
   }
+
+  foreignObject {
+    > * {
+      position: fixed;
+    }
+  }
 }

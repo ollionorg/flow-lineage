@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [0.0.6] - 2022-11-09
+
+### Improvements
+
+- `children` pagination logic updated.
 ## [0.0.5] - 2022-11-08
 
 ### Features

@@ -32,6 +32,7 @@ export type LineageNodeElement = {
   childrenXMax?: number;
   hasScrollbaleChildren?: boolean;
   parentId?: string;
+  offset?: number;
 } & Omit<LineageNode, "to">;
 
 export type Lineage = {
@@ -62,6 +63,7 @@ export type DrawLineageParams = {
   childrenNodeSize: LineageNodeSize;
   gap: number;
   direction: LineageDirection;
+  maxChildrenHeight: number;
 };
 
 export type CreateLineageParams = {
@@ -71,4 +73,5 @@ export type CreateLineageParams = {
   padding: number;
   gap: number;
   direction: LineageDirection;
+  maxChildrenHeight: number;
 };

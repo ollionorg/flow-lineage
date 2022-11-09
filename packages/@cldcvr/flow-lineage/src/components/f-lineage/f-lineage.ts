@@ -46,6 +46,12 @@ export class FLineage extends LitElement {
   })
   ["children-node-size"]!: LineageNodeSize;
 
+  @property({
+    reflect: true,
+    type: Object,
+  })
+  ["max-childrens"]!: number;
+
   render() {
     return html`${unsafeSVG(`<svg xmlns="http://www.w3.org/2000/svg"></svg>`)}`;
   }
@@ -58,6 +64,8 @@ export class FLineage extends LitElement {
     super.disconnectedCallback();
   }
   updated() {
+    const startDate = new Date();
+    console.log("Start : ", startDate);
     /**
      * cleaning up svg if it has any exisitng content
      */
@@ -73,7 +81,8 @@ export class FLineage extends LitElement {
     const padding = this.padding ?? 16;
     const gap = this.gap ?? 100;
     const direction = this.direction ?? "horizontal";
-
+    const maxChildrens = this["max-childrens"] ?? 8;
+    const maxChildrenHeight = maxChildrens * childrenNodeSize.height;
     this.svg.innerHTML = ``;
 
     if (this.data && this.data.length > 0) {
@@ -84,6 +93,7 @@ export class FLineage extends LitElement {
         padding,
         gap,
         direction,
+        maxChildrenHeight,
       });
       /**
        * main svg element: setting height and width
@@ -105,6 +115,7 @@ export class FLineage extends LitElement {
         childrenNodeSize,
         gap,
         direction,
+        maxChildrenHeight,
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleZoom = (e: any) => {
@@ -118,5 +129,7 @@ export class FLineage extends LitElement {
 
       svgElement.call(zoom);
     }
+    const endDate = new Date();
+    console.log("End : ", endDate.getTime() - startDate.getTime() + "ms");
   }
 }

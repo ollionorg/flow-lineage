@@ -13,7 +13,8 @@ export default function createNodeElements(
   childrenNodeSize: LineageNodeSize,
   padding: number,
   gap: number,
-  direction: LineageDirection
+  direction: LineageDirection,
+  maxChildrenHeight: number
 ) {
   /**
    * sub class to hold current pointers
@@ -79,6 +80,7 @@ export default function createNodeElements(
       level,
       x: levelPointer.x,
       y: levelPointer.y,
+      offset: 0,
     };
 
     /**
@@ -89,7 +91,7 @@ export default function createNodeElements(
 
       const totalChildNodeHeight =
         childrenNodeSize.height * node.children.length;
-      if (totalChildNodeHeight > 256) {
+      if (totalChildNodeHeight > maxChildrenHeight) {
         nodeElement.hasScrollbaleChildren = true;
       }
       /**
@@ -106,7 +108,8 @@ export default function createNodeElements(
         /**
          * checking level max Y
          */
-        const maxYWhenScrollBar = nodeElement.y + nodeSize.height + 256;
+        const maxYWhenScrollBar =
+          nodeElement.y + nodeSize.height + maxChildrenHeight;
         if (
           nodeElement.hasScrollbaleChildren &&
           levelPointer.y > maxYWhenScrollBar
@@ -122,7 +125,7 @@ export default function createNodeElements(
         levelPointer.y -= nodeSize.height;
 
         if (nodeElement.hasScrollbaleChildren) {
-          levelPointer.y = nodeElement.y + 256;
+          levelPointer.y = nodeElement.y + maxChildrenHeight;
         }
       }
     }
@@ -240,5 +243,7 @@ export default function createNodeElements(
       }
     });
   }
+
+  console.log("Node count-" + nodeElements.length);
   return nodeElements;
 }

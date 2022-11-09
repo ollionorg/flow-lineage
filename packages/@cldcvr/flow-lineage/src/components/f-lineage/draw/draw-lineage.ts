@@ -5,4 +5,5 @@ import drawNodes from "./draw-nodes";
 export default function drawLineage(params: DrawLineageParams) {
   drawNodes(params);
   drawLinks(params);
+  console.log("Done plotting!");
 }

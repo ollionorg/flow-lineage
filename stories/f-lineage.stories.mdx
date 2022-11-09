@@ -47,6 +47,12 @@ f-lineage to display nodes and connections.
       ["node-size"]: {
         control: "object",
       },
+      ["children-node-size"]: {
+        control: "object",
+      },
+      ["max-childrens"]: {
+        control: "number",
+      },
     }}
     args={{
       direction: "horizontal",
@@ -178,6 +184,7 @@ f-lineage to display nodes and connections.
       gap: 100,
       ["node-size"]: { width: 200, height: 52 },
       ["children-node-size"]: { width: 200, height: 32 },
+      ["max-childrens"]: 8,
     }}
   >
     {(args) => {
@@ -188,6 +195,7 @@ f-lineage to display nodes and connections.
         .gap=${args.gap}
         .node-size=${args["node-size"]}
         .children-node-size=${args["children-node-size"]}
+        .max-childrens=${args["max-childrens"]}
       ></f-lineage>`;
     }}
   </Story>

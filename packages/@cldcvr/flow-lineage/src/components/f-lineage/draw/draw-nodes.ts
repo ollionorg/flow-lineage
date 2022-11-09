@@ -1,4 +1,3 @@
-import * as d3 from "d3";
 import { html } from "lit";
 import { getComputedHTML } from "../../../utils";
 import { DrawLineageParams, LineageNodeElement } from "../lineage-types";
@@ -8,8 +7,10 @@ export default function drawNodes({
   svg,
   nodeSize,
   childrenNodeSize,
+  maxChildrenHeight,
 }: DrawLineageParams) {
   const scrollBarWidth = 8;
+  const maxChildrens = maxChildrenHeight / childrenNodeSize.height;
   const parentNodes = svg
     .append("g")
     .attr("class", "nodes")
@@ -63,7 +64,7 @@ export default function drawNodes({
     .attr("transform", (d) => {
       return `translate(${d.x},${d.y + nodeSize.height})`;
     })
-    .attr("height", 256)
+    .attr("height", maxChildrenHeight)
     .attr("width", childrenNodeSize.width);
 
   /**
@@ -79,6 +80,14 @@ export default function drawNodes({
     .attr("class", "children-container")
     .attr("data-parent-id", (d) => {
       return d.id;
+    })
+    .attr("data-offset", 0)
+    .attr("data-max", maxChildrens)
+    .attr("data-parent-id", (d) => {
+      return d.id;
+    })
+    .attr("id", (d) => {
+      return "scrollable-" + d.id;
     })
     .attr("clip-path", (d) => {
       return `url(#clip-path-${d.id})`;
@@ -111,13 +120,14 @@ export default function drawNodes({
         /**
          * calculate maxY of scrollbar
          */
-        const maxY = minY + 256 - +scrollbar.attr("height");
+        const maxY = minY + maxChildrenHeight - +scrollbar.attr("height");
         /**
          * calculate currentY of scrollbar after addiong delta
          */
         const noOdChildren = d.children?.length ?? 0;
         const childHeight = noOdChildren * childrenNodeSize.height;
-        let scrollbarOffset = (childrenNodeSize.height * 256) / childHeight;
+        let scrollbarOffset =
+          (childrenNodeSize.height * maxChildrenHeight) / childHeight;
         if (event.deltaY < 0) {
           scrollbarOffset *= -1;
         }
@@ -139,27 +149,27 @@ export default function drawNodes({
         });
 
         if (applyDelta) {
-          svg
-            .selectAll(`.child-node[data-parent-id="${d.id}"]`)
-            .each((_d, idx, nodeList) => {
-              const node = d3.select(nodeList[idx] as unknown as string);
-              if (node) {
-                const nodeTransform = node.attr("transform");
-                const [x, y] = nodeTransform
-                  .substring(
-                    nodeTransform.indexOf("(") + 1,
-                    nodeTransform.indexOf(")")
-                  )
-                  .split(",");
-                let scrollOffset = childrenNodeSize.height;
-                if (event.deltaY < 0) {
-                  scrollOffset *= -1;
-                }
-                node.attr("transform", () => {
-                  return `translate(${x},${+y - scrollOffset})`;
-                });
-              }
-            });
+          if (!d.offset) {
+            d.offset = 0;
+          }
+          if (event.deltaY < 0) {
+            d.offset -= 1;
+          } else {
+            d.offset += 1;
+          }
+          if (d.offset < 0) {
+            d.offset = 0;
+          }
+
+          let start = d.offset;
+          let end = d.offset + maxChildrens;
+
+          if (d.children && end > d.children?.length) {
+            start -= -1;
+            end -= -1;
+          }
+
+          paginateChildrens(d, start, end);
         }
       }
     })
@@ -172,19 +182,25 @@ export default function drawNodes({
     .attr("height", (d) => {
       const noOdChildren = d.children?.length ?? 0;
       const childHeight = noOdChildren * childrenNodeSize.height;
-      if (childHeight > 256) {
-        return 256;
+      if (childHeight > maxChildrenHeight) {
+        return maxChildrenHeight;
       }
       return childHeight;
     })
     .attr("width", childrenNodeSize.width);
 
-  /**
-   * Adding child nodes
-   */
-  svg.selectAll(".scrollable-container").each((d) => {
-    const nData = d as LineageNodeElement;
-    const childNodes = lineage.nodes.filter((n) => n.parentId === nData.id);
+  const paginateChildrens = (
+    nData: LineageNodeElement,
+    start: number,
+    end: number
+  ) => {
+    const childNodes = lineage.nodes
+      .filter((n) => n.parentId === nData.id)
+      .slice(start, end);
+    svg.select(`.children-container[data-parent-id="${nData.id}"]`).html("");
+
+    const startX = nData.x;
+    let startY = nData.y + nodeSize.height;
     svg
       .select(`.children-container[data-parent-id="${nData.id}"]`)
       .selectAll("g.node")
@@ -192,8 +208,10 @@ export default function drawNodes({
       .enter()
       .append("g")
       .attr("class", "child-node")
-      .attr("transform", (d) => {
-        return `translate(${d.x},${d.y})`;
+      .attr("transform", () => {
+        const translate = `translate(${startX},${startY})`;
+        startY += childrenNodeSize.height;
+        return translate;
       })
       .attr("data-parent-id", (d) => {
         return d.parentId ?? "";
@@ -217,6 +235,13 @@ export default function drawNodes({
           <f-text variant="code" size="medium">${nodeid}</f-text>
         </f-div>`);
       });
+  };
+  /**
+   * Adding child nodes
+   */
+  svg.selectAll(".scrollable-container").each((d) => {
+    const nData = d as LineageNodeElement;
+    paginateChildrens(nData, 0, maxChildrens);
   });
 
   /**
@@ -236,7 +261,7 @@ export default function drawNodes({
     .attr("height", (d) => {
       const noOdChildren = d.children?.length ?? 0;
       const childHeight = noOdChildren * childrenNodeSize.height;
-      return (256 / childHeight) * 256;
+      return (maxChildrenHeight / childHeight) * maxChildrenHeight;
     })
     .attr("rx", scrollBarWidth / 2)
     .attr("ry", scrollBarWidth / 2)

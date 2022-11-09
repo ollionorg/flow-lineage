@@ -170,6 +170,15 @@
               },
               "attribute": "[\"children-node-size\"]",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "[\"max-childrens\"]",
+              "type": {
+                "text": "number"
+              },
+              "attribute": "[\"max-childrens\"]",
+              "reflects": true
             }
           ],
           "attributes": [
@@ -217,6 +226,13 @@
                 "text": "LineageNodeSize"
               },
               "fieldName": "[\"children-node-size\"]"
+            },
+            {
+              "name": "[\"max-childrens\"]",
+              "type": {
+                "text": "number"
+              },
+              "fieldName": "[\"max-childrens\"]"
             }
           ],
           "superclass": {
@@ -266,7 +282,7 @@
           },
           "parameters": [
             {
-              "name": "{\n  data,\n  nodeSize,\n  childrenNodeSize,\n  padding,\n  gap,\n  direction,\n}",
+              "name": "{\n  data,\n  nodeSize,\n  childrenNodeSize,\n  padding,\n  gap,\n  direction,\n  maxChildrenHeight,\n}",
               "type": {
                 "text": "CreateLineageParams"
               }
@@ -361,6 +377,12 @@
               "name": "direction",
               "type": {
                 "text": "LineageDirection"
+              }
+            },
+            {
+              "name": "maxChildrenHeight",
+              "type": {
+                "text": "number"
               }
             }
           ]
@@ -494,7 +516,7 @@
           "name": "drawNodes",
           "parameters": [
             {
-              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  childrenNodeSize,\n}",
+              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  childrenNodeSize,\n  maxChildrenHeight,\n}",
               "type": {
                 "text": "DrawLineageParams"
               }
