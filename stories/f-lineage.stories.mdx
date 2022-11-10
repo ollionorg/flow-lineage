@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { html } from "lit-html";
 import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
+import lineageDataGenerator from "./lineage-data-generator.ts";
 
 <Meta
   title="Components/f-lineage"
@@ -188,6 +189,7 @@ f-lineage to display nodes and connections.
     }}
   >
     {(args) => {
+      // const data = lineageDataGenerator();
       return html`<f-lineage
         .direction=${args.direction}
         .data=${args.data}

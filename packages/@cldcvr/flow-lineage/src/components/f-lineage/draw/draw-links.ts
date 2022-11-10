@@ -27,14 +27,14 @@ export default function drawLinks({
     })
     .enter();
 
-  const dots = svg
-    .append("g")
-    .attr("class", "dots")
-    .selectAll("path.dot")
-    .data(lineage.links, (d) => {
-      return (d as LineageLinkElement).id;
-    })
-    .enter();
+  //   const dots = svg
+  //     .append("g")
+  //     .attr("class", "dots")
+  //     .selectAll("path.dot")
+  //     .data(lineage.links, (d) => {
+  //       return (d as LineageLinkElement).id;
+  //     })
+  //     .enter();
   links
     .append("path")
     .attr("class", "link")
@@ -49,7 +49,7 @@ export default function drawLinks({
     })
     .attr("fill", "none");
 
-  dots
+  links
     .append("circle")
     .attr("class", "source-dot")
     .attr("r", 6)
@@ -69,7 +69,7 @@ export default function drawLinks({
     .attr("stroke", "var(--color-surface-default)")
     .attr("stroke-width", "2px");
 
-  dots
+  links
     .append("circle")
     .attr("class", "target-dot")
     .attr("r", 6)

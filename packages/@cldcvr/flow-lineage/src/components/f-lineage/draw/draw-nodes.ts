@@ -27,7 +27,7 @@ export default function drawNodes({
     .attr("height", nodeSize.height)
     .html((d) => {
       const nodeid = d.id;
-
+      // console.log("in html");
       return getComputedHTML(html` <f-div
         state="secondary"
         width="100%"
@@ -45,27 +45,6 @@ export default function drawNodes({
         </f-div>
       </f-div>`);
     });
-
-  /**
-   *
-   * Adding clipPath for scrolling
-   */
-  svg
-    .append("g")
-    .attr("class", "scrollable-clip-paths")
-    .selectAll("g")
-    .data(lineage.nodes.filter((n) => n.hasScrollbaleChildren))
-    .enter()
-    .append("clipPath")
-    .attr("id", (d) => {
-      return "clip-path-" + d.id;
-    })
-    .append("rect")
-    .attr("transform", (d) => {
-      return `translate(${d.x},${d.y + nodeSize.height})`;
-    })
-    .attr("height", maxChildrenHeight)
-    .attr("width", childrenNodeSize.width);
 
   /**
    * Adding scrollable containers with rect
@@ -89,9 +68,7 @@ export default function drawNodes({
     .attr("id", (d) => {
       return "scrollable-" + d.id;
     })
-    .attr("clip-path", (d) => {
-      return `url(#clip-path-${d.id})`;
-    })
+
     .on("wheel", (e, d) => {
       if (d.hasScrollbaleChildren) {
         const event = e as WheelEvent;
@@ -189,6 +166,8 @@ export default function drawNodes({
     })
     .attr("width", childrenNodeSize.width);
 
+  console.log("Done adding containers");
+
   const paginateChildrens = (
     nData: LineageNodeElement,
     start: number,
@@ -243,7 +222,7 @@ export default function drawNodes({
     const nData = d as LineageNodeElement;
     paginateChildrens(nData, 0, maxChildrens);
   });
-
+  console.log("Adding childrens to containers");
   /**
    * adding scrollbar
    */
@@ -270,4 +249,6 @@ export default function drawNodes({
         d.y + nodeSize.height
       })`;
     });
+
+  console.log("Scrollbars added");
 }
