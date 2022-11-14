@@ -4,6 +4,13 @@
 
 # Change Log
 
+## [0.0.7] - 2022-11-14
+
+### Features
+
+- Highlight on click of node.
+- `console.time`, `console.group` added for better debugging metrices.
+
 ## [0.0.6] - 2022-11-09
 
 ### Improvements

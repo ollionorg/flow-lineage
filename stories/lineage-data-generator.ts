@@ -3,7 +3,7 @@ import { LineageNode } from "packages/@cldcvr/flow-lineage/src";
 export default function (): LineageNode[] {
   const nodes = [];
 
-  for (let index = 0; index < 24; index++) {
+  for (let index = 0; index < 4; index++) {
     nodes.push({
       id: `node-${index}`,
       to: [
@@ -29,7 +29,7 @@ export default function (): LineageNode[] {
                       id: `node-${index}-2-1-2-2`,
                       to: [
                         {
-                          id: `node-${index}-2-1-2-1`,
+                          id: `node-${index}-2-1-2-2-1`,
                         },
                       ],
                     },

@@ -516,7 +516,7 @@
           "name": "drawNodes",
           "parameters": [
             {
-              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  childrenNodeSize,\n  maxChildrenHeight,\n}",
+              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  childrenNodeSize,\n  maxChildrenHeight,\n  element,\n}",
               "type": {
                 "text": "DrawLineageParams"
               }
@@ -531,6 +531,68 @@
           "declaration": {
             "name": "drawNodes",
             "module": "src/components/f-lineage/draw/draw-nodes.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/highlight/highlight-path.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "highlightPath",
+          "parameters": [
+            {
+              "name": "node",
+              "type": {
+                "text": "LineageNodeElement"
+              }
+            },
+            {
+              "name": "lineage",
+              "type": {
+                "text": "FLineage"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "highlightPath",
+            "module": "src/components/f-lineage/highlight/highlight-path.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/highlight/lowlight-path.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "lowlightPath",
+          "parameters": [
+            {
+              "name": "lineage",
+              "type": {
+                "text": "FLineage"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "lowlightPath",
+            "module": "src/components/f-lineage/highlight/lowlight-path.ts"
           }
         }
       ]

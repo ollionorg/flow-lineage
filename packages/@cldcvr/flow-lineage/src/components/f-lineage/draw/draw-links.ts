@@ -13,6 +13,7 @@ export default function drawLinks({
   gap,
   direction,
 }: DrawLineageParams) {
+  console.time("Links duration");
   /**
    * holds levels links gaps and pointers
    */
@@ -27,17 +28,9 @@ export default function drawLinks({
     })
     .enter();
 
-  //   const dots = svg
-  //     .append("g")
-  //     .attr("class", "dots")
-  //     .selectAll("path.dot")
-  //     .data(lineage.links, (d) => {
-  //       return (d as LineageLinkElement).id;
-  //     })
-  //     .enter();
   links
     .append("path")
-    .attr("class", "link")
+    .attr("class", "link lineage-element")
     .attr("d", (d) => {
       return drawElbow(d, levelLinkGap, nodeSize, gap, direction);
     })
@@ -51,7 +44,10 @@ export default function drawLinks({
 
   links
     .append("circle")
-    .attr("class", "source-dot")
+    .attr("class", "source-dot lineage-element")
+    .attr("id", (d) => {
+      return `source-dot-${d.id}`;
+    })
     .attr("r", 6)
     .attr("cx", (d) => {
       if (direction === "vertical") {
@@ -71,7 +67,10 @@ export default function drawLinks({
 
   links
     .append("circle")
-    .attr("class", "target-dot")
+    .attr("class", "target-dot lineage-element")
+    .attr("id", (d) => {
+      return `${d.id}~target-dot`;
+    })
     .attr("r", 6)
     .attr("cx", (d) => {
       if (direction === "vertical") {
@@ -91,7 +90,7 @@ export default function drawLinks({
 
   links
     .append("text")
-    .attr("class", "link-arrow")
+    .attr("class", "link-arrow lineage-element")
     .attr("id", function (d) {
       return `${d.id}~arrow`;
     })
@@ -108,4 +107,6 @@ export default function drawLinks({
     .attr("startOffset", "100%")
     .attr("fill", "var(--color-border-default)")
     .text("▶");
+
+  console.timeEnd("Links duration");
 }

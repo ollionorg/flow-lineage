@@ -189,10 +189,10 @@ f-lineage to display nodes and connections.
     }}
   >
     {(args) => {
-      // const data = lineageDataGenerator();
+      const data = lineageDataGenerator();
       return html`<f-lineage
         .direction=${args.direction}
-        .data=${args.data}
+        .data=${data}
         .padding=${args.padding}
         .gap=${args.gap}
         .node-size=${args["node-size"]}

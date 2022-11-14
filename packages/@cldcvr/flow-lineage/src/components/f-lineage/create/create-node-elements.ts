@@ -16,6 +16,7 @@ export default function createNodeElements(
   direction: LineageDirection,
   maxChildrenHeight: number
 ) {
+  console.time("Co-ordinate Algo duration");
   /**
    * sub class to hold current pointers
    */
@@ -244,6 +245,7 @@ export default function createNodeElements(
     });
   }
 
-  console.log("Node count-" + nodeElements.length);
+  console.timeEnd("Co-ordinate Algo duration");
+
   return nodeElements;
 }

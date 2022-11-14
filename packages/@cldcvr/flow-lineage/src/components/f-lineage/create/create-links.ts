@@ -33,7 +33,7 @@ export default function createLinks(
         if (sourceNode) {
           node.to.forEach((targetNode) => {
             linkElements.push({
-              id: sourceNode.id + "_" + targetNode.id,
+              id: sourceNode.id + "->" + targetNode.id,
               level: level,
               source: sourceNode,
               target: nodeElementsObj[targetNode.id],

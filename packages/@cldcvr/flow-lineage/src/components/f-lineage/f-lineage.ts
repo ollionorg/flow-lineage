@@ -11,6 +11,7 @@ import {
 import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
 import drawLineage from "./draw/draw-lineage";
 import flowCoreCSS from "@cldcvr/flow-core/dist/style.css";
+import lowlightPath from "./highlight/lowlight-path";
 
 @customElement("f-lineage")
 export class FLineage extends LitElement {
@@ -64,8 +65,9 @@ export class FLineage extends LitElement {
     super.disconnectedCallback();
   }
   updated() {
-    const startDate = new Date();
-    console.log("Start : ", startDate);
+    console.group("Lineage");
+    console.time("Total duration");
+
     /**
      * cleaning up svg if it has any exisitng content
      */
@@ -116,6 +118,7 @@ export class FLineage extends LitElement {
         gap,
         direction,
         maxChildrenHeight,
+        element: this,
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleZoom = (e: any) => {
@@ -128,8 +131,14 @@ export class FLineage extends LitElement {
         .on("zoom", handleZoom) as any;
 
       svgElement.call(zoom);
+
+      svgElement.on("click", (event: MouseEvent) => {
+        event.stopPropagation();
+        lowlightPath(this);
+      });
     }
-    const endDate = new Date();
-    console.log("End : ", endDate.getTime() - startDate.getTime() + "ms");
+
+    console.timeEnd("Total duration");
+    console.groupEnd();
   }
 }

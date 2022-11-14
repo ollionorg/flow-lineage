@@ -1,6 +1,7 @@
 import { html } from "lit";
 import { getComputedHTML } from "../../../utils";
 import { DrawLineageParams, LineageNodeElement } from "../lineage-types";
+import highlightPath from "../highlight/highlight-path";
 
 export default function drawNodes({
   lineage,
@@ -8,7 +9,9 @@ export default function drawNodes({
   nodeSize,
   childrenNodeSize,
   maxChildrenHeight,
+  element,
 }: DrawLineageParams) {
+  console.time("Nodes duration");
   const scrollBarWidth = 8;
   const maxChildrens = maxChildrenHeight / childrenNodeSize.height;
   const parentNodes = svg
@@ -22,9 +25,18 @@ export default function drawNodes({
     .attr("transform", (d) => {
       return `translate(${d.x},${d.y})`;
     })
+    .attr("id", (d) => {
+      return d.id;
+    })
+    .attr("class", "lineage-node lineage-element")
+    .on("click", (event: MouseEvent, d) => {
+      event.stopPropagation();
+      highlightPath(d, element);
+    })
     .append("foreignObject")
     .attr("width", nodeSize.width)
     .attr("height", nodeSize.height)
+
     .html((d) => {
       const nodeid = d.id;
       // console.log("in html");
@@ -40,8 +52,10 @@ export default function drawNodes({
       >
         <f-icon source="i-launch" size="large"></f-icon>
         <f-div direction="column" height="hug-content" align="middle-left">
-          <f-text variant="code" size="large">${nodeid}</f-text>
-          <f-text variant="code" size="small">x: ${d.x}, y: ${d.y}</f-text>
+          <f-text variant="code" size="large" ellipsis>${nodeid}</f-text>
+          <f-text variant="code" size="small" ellipsis
+            >x: ${d.x}, y: ${d.y}</f-text
+          >
         </f-div>
       </f-div>`);
     });
@@ -166,8 +180,6 @@ export default function drawNodes({
     })
     .attr("width", childrenNodeSize.width);
 
-  console.log("Done adding containers");
-
   const paginateChildrens = (
     nData: LineageNodeElement,
     start: number,
@@ -186,7 +198,9 @@ export default function drawNodes({
       .data(childNodes)
       .enter()
       .append("g")
-      .attr("class", "child-node")
+      .attr("class", (d) => {
+        return `child-node lineage-node lineage-element child-node-${d.parentId}`;
+      })
       .attr("transform", () => {
         const translate = `translate(${startX},${startY})`;
         startY += childrenNodeSize.height;
@@ -211,7 +225,7 @@ export default function drawNodes({
           border="small solid default bottom"
         >
           <f-icon source="i-hashtag" size="small"></f-icon>
-          <f-text variant="code" size="medium">${nodeid}</f-text>
+          <f-text variant="code" size="medium" ellipsis>${nodeid}</f-text>
         </f-div>`);
       });
   };
@@ -222,13 +236,13 @@ export default function drawNodes({
     const nData = d as LineageNodeElement;
     paginateChildrens(nData, 0, maxChildrens);
   });
-  console.log("Adding childrens to containers");
+
   /**
    * adding scrollbar
    */
   svg
     .append("g")
-    .attr("class", "scrollbars")
+    .attr("class", "scrollbars lineage-element")
     .selectAll("g")
     .data(lineage.nodes.filter((n) => n.hasScrollbaleChildren))
     .enter()
@@ -250,5 +264,5 @@ export default function drawNodes({
       })`;
     });
 
-  console.log("Scrollbars added");
+  console.timeEnd("Nodes duration");
 }

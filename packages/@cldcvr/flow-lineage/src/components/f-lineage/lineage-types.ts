@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { FLineage } from "./f-lineage";
+
 export type LineageBaseNode = {
   id: string;
   links?: LineageNodeLink[];
@@ -64,6 +66,7 @@ export type DrawLineageParams = {
   gap: number;
   direction: LineageDirection;
   maxChildrenHeight: number;
+  element: FLineage;
 };
 
 export type CreateLineageParams = {
