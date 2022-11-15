@@ -131,6 +131,11 @@ f-lineage to display nodes and connections.
               id: "child16",
             },
           ],
+          links: [
+            {
+              nodeid: "level2_4_1",
+            },
+          ],
         },
         {
           id: "level1_2",
@@ -168,6 +173,14 @@ f-lineage to display nodes and connections.
               ],
             },
           ],
+          links: [
+            {
+              nodeid: "level1_4_1",
+            },
+            {
+              nodeid: "level2_4_1",
+            },
+          ],
         },
         {
           id: "level1_3",
@@ -179,6 +192,11 @@ f-lineage to display nodes and connections.
               id: "level3_2_2",
             },
           ],
+          links: [
+            {
+              nodeid: "level2_4_1",
+            },
+          ],
         },
       ],
       padding: 16,
@@ -186,18 +204,37 @@ f-lineage to display nodes and connections.
       ["node-size"]: { width: 200, height: 52 },
       ["children-node-size"]: { width: 200, height: 32 },
       ["max-childrens"]: 8,
+      ["node-template"]: `<f-div
+        state="secondary"
+        width="100%"
+        height="100%"
+        padding="none medium"
+        align="middle-left"
+        variant="curved"
+        gap="small"
+        \${d.children ? 'border="small solid default bottom"' : ""}
+      >
+        <f-icon source="i-user" size="medium"></f-icon>
+        <f-div direction="column" height="hug-content" align="middle-left">
+          <f-text variant="code" size="large" ellipsis>\${id}</f-text>
+          <f-text variant="code" size="small" ellipsis
+            >x: \${d.x}, y: \${d.y}</f-text
+          >
+        </f-div>
+      </f-div>`,
     }}
   >
     {(args) => {
-      const data = lineageDataGenerator();
+      //  const data = lineageDataGenerator();
       return html`<f-lineage
         .direction=${args.direction}
-        .data=${data}
+        .data=${args.data}
         .padding=${args.padding}
         .gap=${args.gap}
         .node-size=${args["node-size"]}
         .children-node-size=${args["children-node-size"]}
         .max-childrens=${args["max-childrens"]}
+        .node-template=${args["node-template"]}
       ></f-lineage>`;
     }}
   </Story>

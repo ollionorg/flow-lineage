@@ -18,7 +18,6 @@ export type LineageNode = {
 
 export type LineageNodeLink = {
   nodeid: string;
-  type?: "incoming" | "outgoing";
 };
 
 export type LineageNodeSize = {
@@ -78,3 +77,23 @@ export type CreateLineageParams = {
   direction: LineageDirection;
   maxChildrenHeight: number;
 };
+
+export type CreateLinkPathParams = {
+  sx: number;
+  sy: number;
+  dx: number;
+  dy: number;
+  endArcRadius: number;
+  startArcRadius: number;
+  getLinkGap: (level: number, nodeid: string) => number;
+  nodeSize: LineageNodeSize;
+  gap: number;
+  d: LineageLinkElement;
+};
+
+export type HorizontalLinkPathParams = {
+  midX: number;
+} & CreateLinkPathParams;
+export type VerticalLinkPathParams = {
+  midY: number;
+} & CreateLinkPathParams;

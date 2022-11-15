@@ -1,9 +1,9 @@
 import { LineageNode } from "packages/@cldcvr/flow-lineage/src";
 
-export default function (): LineageNode[] {
+export default function (iterations = 4): LineageNode[] {
   const nodes = [];
 
-  for (let index = 0; index < 4; index++) {
+  for (let index = 0; index < iterations; index++) {
     nodes.push({
       id: `node-${index}`,
       to: [

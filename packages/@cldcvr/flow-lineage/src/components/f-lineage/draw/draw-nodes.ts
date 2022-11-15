@@ -36,28 +36,16 @@ export default function drawNodes({
     .append("foreignObject")
     .attr("width", nodeSize.width)
     .attr("height", nodeSize.height)
-
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    /* eslint-disable @typescript-eslint/ban-ts-comment */
     .html((d) => {
-      const nodeid = d.id;
-      // console.log("in html");
-      return getComputedHTML(html` <f-div
-        state="secondary"
-        width="100%"
-        height="100%"
-        padding="none medium"
-        align="middle-left"
-        variant="curved"
-        gap="small"
-        ${d.children ? 'border="small solid default bottom"' : ""}
-      >
-        <f-icon source="i-launch" size="large"></f-icon>
-        <f-div direction="column" height="hug-content" align="middle-left">
-          <f-text variant="code" size="large" ellipsis>${nodeid}</f-text>
-          <f-text variant="code" size="small" ellipsis
-            >x: ${d.x}, y: ${d.y}</f-text
-          >
-        </f-div>
-      </f-div>`);
+      // @ts-ignore
+      const data = d.data;
+      // @ts-ignore
+      const id = d.id;
+      return getComputedHTML(
+        html`${eval("`" + element["node-template"] + "`")}`
+      );
     });
 
   /**

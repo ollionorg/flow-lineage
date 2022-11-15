@@ -4,6 +4,13 @@
 
 # Change Log
 
+## [0.0.8] - 2022-11-15
+
+### Features
+
+- `links` added in node schema to support additional link to connect nth level node.
+- `node-template` property added to customize node template.
+
 ## [0.0.7] - 2022-11-14
 
 ### Features

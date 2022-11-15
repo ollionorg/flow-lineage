@@ -39,19 +39,25 @@ export class FLineage extends LitElement {
     reflect: true,
     type: Object,
   })
-  ["node-size"]!: LineageNodeSize;
+  ["node-size"]?: LineageNodeSize;
 
   @property({
     reflect: true,
     type: Object,
   })
-  ["children-node-size"]!: LineageNodeSize;
+  ["children-node-size"]?: LineageNodeSize;
 
   @property({
     reflect: true,
     type: Object,
   })
-  ["max-childrens"]!: number;
+  ["max-childrens"]?: number;
+
+  @property({
+    reflect: false,
+    type: Object,
+  })
+  ["node-template"]?: string;
 
   render() {
     return html`${unsafeSVG(`<svg xmlns="http://www.w3.org/2000/svg"></svg>`)}`;
@@ -85,6 +91,9 @@ export class FLineage extends LitElement {
     const direction = this.direction ?? "horizontal";
     const maxChildrens = this["max-childrens"] ?? 8;
     const maxChildrenHeight = maxChildrens * childrenNodeSize.height;
+
+    this["node-template"] =
+      this["node-template"] ?? "<f-text ellipsis>${id}</f-text>";
     this.svg.innerHTML = ``;
 
     if (this.data && this.data.length > 0) {

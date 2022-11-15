@@ -4,6 +4,7 @@ import {
   LineageLinkElement,
   LineageNodeSize,
 } from "../lineage-types";
+import { getForwardLinkPath, getVerticalForwardLinkPath } from "./draw-paths";
 
 export default function drawElbow(
   d: LineageLinkElement,
@@ -60,57 +61,82 @@ function verticalDirectionLink(
   const sy = sourceY;
 
   const midY = sy + gap * getLinkGap(d.level, d.source.id);
-  const endArcRadius = dy - midY;
-  const startArcRadius = midY - sy;
-  const dist = startArcRadius + endArcRadius;
+  let endArcRadius = dy - midY;
+  let startArcRadius = midY - sy;
 
-  if (dx > sx && dx - sx > dist) {
-    /**
-     * if connection moves in downward direction
-     */
-
-    return `M ${sx} ${sy}
-       L ${sx} ${
-      midY - startArcRadius
-    } a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${startArcRadius} L ${
-      dx - endArcRadius
-    } ${midY} a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${endArcRadius} L ${dx} ${dy}`;
+  const maxCurveRadius = 30;
+  if (startArcRadius > maxCurveRadius || startArcRadius < 0) {
+    startArcRadius = maxCurveRadius;
   }
-  if (dx === sx) {
-    /**
-     * if connection goes straight
-     */
-    return `M ${sx} ${sy} L ${dx} ${dy}`;
-  } else if (sx > dx && sx - dx > dist) {
-    /**
-     * if connection moves in upward direction
-     */
 
-    return `M ${sx} ${sy}
-   L ${sx} ${
-      midY - startArcRadius
-    } a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${startArcRadius} L ${
-      dx + endArcRadius
-    } ${midY} a${endArcRadius},${endArcRadius} 0 0 0 ${-endArcRadius},${endArcRadius} L ${dx} ${dy}`;
+  if (endArcRadius > maxCurveRadius || endArcRadius < 0) {
+    endArcRadius = maxCurveRadius;
+  }
+
+  const dist = startArcRadius + endArcRadius;
+  if (dy - sy > gap && d.target.level - d.source.level > 1) {
+    return getVerticalForwardLinkPath({
+      sx,
+      sy,
+      dx,
+      dy,
+      endArcRadius,
+      startArcRadius,
+      getLinkGap,
+      nodeSize,
+      gap,
+      midY,
+      d,
+    });
   } else {
-    /**
-     * distance is too small to create elbow
-     */
-    const xoffset = nodeSize.width / 2;
-    const yoffset = nodeSize.height + 4;
+    if (dx > sx && dx - sx > dist) {
+      /**
+       * if connection moves in downward direction
+       */
 
-    const sx = d.source.x + xoffset;
-    const sy = d.source.y + yoffset;
+      return `M ${sx} ${sy}
+       L ${sx} ${
+        midY - startArcRadius
+      } a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${startArcRadius} L ${
+        dx - endArcRadius
+      } ${midY} a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${endArcRadius} L ${dx} ${dy}`;
+    }
+    if (dx === sx) {
+      /**
+       * if connection goes straight
+       */
+      return `M ${sx} ${sy} L ${dx} ${dy}`;
+    } else if (sx > dx && sx - dx > dist) {
+      /**
+       * if connection moves in upward direction
+       */
 
-    const dy = d.target.y - 4;
-    const dx = d.target.x + xoffset;
+      return `M ${sx} ${sy}
+   L ${sx} ${
+        midY - startArcRadius
+      } a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${startArcRadius} L ${
+        dx + endArcRadius
+      } ${midY} a${endArcRadius},${endArcRadius} 0 0 0 ${-endArcRadius},${endArcRadius} L ${dx} ${dy}`;
+    } else {
+      /**
+       * distance is too small to create elbow
+       */
+      const xoffset = nodeSize.width / 2;
+      const yoffset = nodeSize.height + 4;
 
-    const path = `M ${sx} ${sy}
+      const sx = d.source.x + xoffset;
+      const sy = d.source.y + yoffset;
+
+      const dy = d.target.y - 4;
+      const dx = d.target.x + xoffset;
+
+      const path = `M ${sx} ${sy}
 				      C ${(sx + dx) / 2} ${sy},
 				        ${(sx + dx) / 2} ${dy},
 				        ${dx} ${dy}`;
 
-    return path;
+      return path;
+    }
   }
 }
 
@@ -149,57 +175,82 @@ function horizontalDirectionLink(
   const sy = d.source.y + yoffset;
 
   const midX = sx + gap * getLinkGap(d.level, d.source.id);
-  const endArcRadius = dx - midX;
-  const startArcRadius = midX - sx;
+  let endArcRadius = dx - midX;
+  let startArcRadius = midX - sx;
+
+  const maxCurveRadius = 30;
+  if (startArcRadius > maxCurveRadius || startArcRadius < 0) {
+    startArcRadius = maxCurveRadius;
+  }
+
+  if (endArcRadius > maxCurveRadius || endArcRadius < 0) {
+    endArcRadius = maxCurveRadius;
+  }
 
   const dist = startArcRadius + endArcRadius;
 
-  if (dy > sy && dy - sy > dist) {
-    /**
-     * if connection moves in downward direction
-     */
+  if (dx - sx > gap) {
+    return getForwardLinkPath({
+      sx,
+      sy,
+      dx,
+      dy,
+      endArcRadius,
+      startArcRadius,
+      getLinkGap,
+      nodeSize,
+      gap,
+      midX,
+      d,
+    });
+  } else {
+    if (dy > sy && dy - sy > dist) {
+      /**
+       * if connection moves in downward direction
+       */
 
-    return `M ${sx} ${sy}
+      return `M ${sx} ${sy}
    L ${
      midX - startArcRadius
    } ${sy} a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius} L ${midX} ${
-      dy - endArcRadius
-    } a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius} L ${dx} ${dy}`;
-  }
-  if (dy === sy) {
-    /**
-     * if connection goes straight
-     */
-    return `M ${sx} ${sy} L ${dx} ${dy}`;
-  } else if (sy > dy && sy - dy > dist) {
-    /**
-     * if connection moves in upward direction
-     */
+        dy - endArcRadius
+      } a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius} L ${dx} ${dy}`;
+    }
+    if (dy === sy) {
+      /**
+       * if connection goes straight
+       */
+      return `M ${sx} ${sy} L ${dx} ${dy}`;
+    } else if (sy > dy && sy - dy > dist) {
+      /**
+       * if connection moves in upward direction
+       */
 
-    return `M ${sx} ${sy}
+      return `M ${sx} ${sy}
    L ${
      midX - startArcRadius
    } ${sy} a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${-startArcRadius} L ${midX} ${
-      dy + endArcRadius
-    } a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${-endArcRadius} L ${dx} ${dy}`;
-  } else {
-    /**
-     * distance is too small to create elbow
-     */
-    const xoffset = nodeSize.width + 4;
-    const yoffset = nodeSize.height / 2;
+        dy + endArcRadius
+      } a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${-endArcRadius} L ${dx} ${dy}`;
+    } else {
+      /**
+       * distance is too small to create elbow
+       */
+      const xoffset = nodeSize.width + 4;
+      const yoffset = nodeSize.height / 2;
 
-    const sx = d.source.x + xoffset;
-    const sy = d.source.y + yoffset;
+      const sx = d.source.x + xoffset;
+      const sy = d.source.y + yoffset;
 
-    const dy = d.target.y + yoffset;
-    const dx = d.target.x - 4;
+      const dy = d.target.y + yoffset;
+      const dx = d.target.x - 4;
 
-    const path = `M ${sx} ${sy}
+      const path = `M ${sx} ${sy}
 				      C ${(sx + dx) / 2} ${sy},
 				        ${(sx + dx) / 2} ${dy},
 				        ${dx} ${dy}`;
 
-    return path;
+      return path;
+    }
   }
 }

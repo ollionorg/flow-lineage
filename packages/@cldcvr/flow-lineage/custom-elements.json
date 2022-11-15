@@ -157,7 +157,7 @@
               "kind": "field",
               "name": "[\"node-size\"]",
               "type": {
-                "text": "LineageNodeSize"
+                "text": "LineageNodeSize | undefined"
               },
               "attribute": "[\"node-size\"]",
               "reflects": true
@@ -166,7 +166,7 @@
               "kind": "field",
               "name": "[\"children-node-size\"]",
               "type": {
-                "text": "LineageNodeSize"
+                "text": "LineageNodeSize | undefined"
               },
               "attribute": "[\"children-node-size\"]",
               "reflects": true
@@ -175,10 +175,18 @@
               "kind": "field",
               "name": "[\"max-childrens\"]",
               "type": {
-                "text": "number"
+                "text": "number | undefined"
               },
               "attribute": "[\"max-childrens\"]",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "[\"node-template\"]",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "[\"node-template\"]"
             }
           ],
           "attributes": [
@@ -216,23 +224,30 @@
             {
               "name": "[\"node-size\"]",
               "type": {
-                "text": "LineageNodeSize"
+                "text": "LineageNodeSize | undefined"
               },
               "fieldName": "[\"node-size\"]"
             },
             {
               "name": "[\"children-node-size\"]",
               "type": {
-                "text": "LineageNodeSize"
+                "text": "LineageNodeSize | undefined"
               },
               "fieldName": "[\"children-node-size\"]"
             },
             {
               "name": "[\"max-childrens\"]",
               "type": {
-                "text": "number"
+                "text": "number | undefined"
               },
               "fieldName": "[\"max-childrens\"]"
+            },
+            {
+              "name": "[\"node-template\"]",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "[\"node-template\"]"
             }
           ],
           "superclass": {
@@ -531,6 +546,54 @@
           "declaration": {
             "name": "drawNodes",
             "module": "src/components/f-lineage/draw/draw-nodes.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/draw/draw-paths.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getForwardLinkPath",
+          "parameters": [
+            {
+              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  endArcRadius,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  midX,\n  d,\n}",
+              "type": {
+                "text": "HorizontalLinkPathParams"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getVerticalForwardLinkPath",
+          "parameters": [
+            {
+              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  endArcRadius,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  midY,\n  d,\n}",
+              "type": {
+                "text": "VerticalLinkPathParams"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getForwardLinkPath",
+          "declaration": {
+            "name": "getForwardLinkPath",
+            "module": "src/components/f-lineage/draw/draw-paths.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getVerticalForwardLinkPath",
+          "declaration": {
+            "name": "getVerticalForwardLinkPath",
+            "module": "src/components/f-lineage/draw/draw-paths.ts"
           }
         }
       ]
