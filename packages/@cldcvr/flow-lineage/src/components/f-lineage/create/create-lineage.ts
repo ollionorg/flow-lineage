@@ -14,7 +14,7 @@ export default function createLineage({
   /**
    * create node elements with their cordinates
    */
-  const { nodeElements, levelGaps } = createNodeElements(
+  const { nodeElements, levelGaps, levelPointers } = createNodeElements(
     data,
     nodeSize,
     childrenNodeSize,
@@ -31,5 +31,6 @@ export default function createLineage({
     nodes: nodeElements,
     links: nodeLinks,
     gaps: levelGaps,
+    levelPointers,
   };
 }

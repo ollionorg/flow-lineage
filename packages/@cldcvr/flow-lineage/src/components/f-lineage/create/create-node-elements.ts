@@ -6,6 +6,7 @@ import {
   LineageBaseNode,
   LineageNodeChildren,
   LineageLevelGaps,
+  LevelPointer,
 } from "./../lineage-types";
 
 export default function createNodeElements(
@@ -268,7 +269,17 @@ export default function createNodeElements(
     });
   }
 
+  const levelPointers: LevelPointer = {};
+  Object.entries(Pointer.levelPointers).forEach((p) => {
+    const level = +p[0];
+    const pointer = p[1];
+    levelPointers[level] = {
+      x: pointer.x,
+      y: pointer.y,
+    };
+  });
+
   console.timeEnd("Co-ordinate Algo duration");
 
-  return { nodeElements, levelGaps };
+  return { nodeElements, levelGaps, levelPointers };
 }

@@ -46,6 +46,7 @@ export type Lineage = {
   nodes: LineageNodeElement[];
   links: LineageLinkElement[];
   gaps: LineageLevelGaps;
+  levelPointers: LevelPointer;
 };
 
 export type LineageLinkElement = {
@@ -96,7 +97,7 @@ export type CreateLinkPathParams = {
   nodeSize: LineageNodeSize;
   gap: number;
   d: LineageLinkElement;
-  levelGaps: LineageLevelGaps;
+  lineage: Lineage;
 };
 
 export type HorizontalLinkPathParams = {
@@ -105,3 +106,5 @@ export type HorizontalLinkPathParams = {
 export type VerticalLinkPathParams = {
   midY: number;
 } & CreateLinkPathParams;
+
+export type LevelPointer = Record<number, { x: number; y: number }>;

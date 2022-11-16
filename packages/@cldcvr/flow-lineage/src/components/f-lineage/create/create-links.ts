@@ -41,16 +41,21 @@ export default function createLinks(
             if (node.to && node.to.length > 0) {
               computeLinks(node.to, level + 1);
             }
-            if (node.links && node.links.length > 0) {
-              node.links.forEach((link) => {
-                linkElements.push({
-                  id: sourceNode.id + "->" + link.nodeid,
-                  level: level,
-                  source: sourceNode,
-                  target: nodeElementsObj[link.nodeid],
-                });
-              });
-            }
+          });
+        }
+      }
+
+      if (node.links && node.links.length > 0) {
+        const sourceNode = nodeElementsObj[node.id];
+
+        if (sourceNode) {
+          node.links.forEach((link) => {
+            linkElements.push({
+              id: sourceNode.id + "->" + link.nodeid,
+              level: level,
+              source: sourceNode,
+              target: nodeElementsObj[link.nodeid],
+            });
           });
         }
       }

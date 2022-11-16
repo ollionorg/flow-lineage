@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [0.0.9] - 2022-11-16
+
+### Improvements
+
+- `links` logic improved and it is not overlapping with any node
 ## [0.0.8] - 2022-11-15
 
 ### Features

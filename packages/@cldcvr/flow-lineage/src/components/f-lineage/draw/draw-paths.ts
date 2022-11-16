@@ -2,65 +2,84 @@ import {
   HorizontalLinkPathParams,
   VerticalLinkPathParams,
 } from "../lineage-types";
-
+type Point = {
+  x: number;
+  y: number;
+};
 export function getForwardLinkPath({
   sx,
   sy,
   dx,
   dy,
-  endArcRadius,
   startArcRadius,
   getLinkGap,
   nodeSize,
   gap,
-  midX,
   d,
-  levelGaps,
+  lineage,
 }: HorizontalLinkPathParams) {
-  if (dy > sy) {
-    const antiClockEndCurve = `a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius}`;
-    const clockWiseEndCurve = `a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${endArcRadius}`;
+  // console.log(d.source.level, d.target.level);
+  const levelGaps = lineage.gaps;
 
-    const clockWiseStartCurve = `a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius}`;
-    let midY = sy + nodeSize.height / 2 + gap / 2 - endArcRadius;
-    const gapCoOrdinates = levelGaps[d.source.level + 1].find((g) => g.y > sy);
+  const startPoint: Point = {
+    x: sx,
+    y: sy,
+  };
 
-    if (gapCoOrdinates) {
-      midY = gapCoOrdinates.y + gap / 2 - endArcRadius;
-    }
-    const dMidX = dx - endArcRadius - gap * getLinkGap(d.level, d.target.id);
-    return `M ${sx} ${sy}
-	  L ${
-      midX - startArcRadius
-    } ${sy} ${clockWiseStartCurve} L ${midX} ${midY} ${antiClockEndCurve} L${dMidX} ${
-      midY + endArcRadius
-    } ${clockWiseEndCurve} L ${dMidX + endArcRadius} ${
-      dy - endArcRadius
-    } ${antiClockEndCurve} L ${dx} ${dy}`;
-  } else {
-    const antiClockEndCurve = `a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius}`;
-    const antiClockEndCurveInvert = `a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${-endArcRadius}`;
-    const clockWiseEndCurve = `a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${-endArcRadius}`;
+  let line = `M ${startPoint.x} ${startPoint.y} `;
+  for (let l = d.source.level; l < d.target.level; l++) {
+    // calclulating gapDelta (i.e. coordinate between gap)
+    const gapDelta = gap * getLinkGap(l, d.source.id);
 
-    const clockWiseStartCurve = `a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius}`;
-    let midY = sy + nodeSize.height / 2 + gap / 2 - endArcRadius;
-
-    const gapCoOrdinates = levelGaps[d.source.level + 1].find((g) => g.y > sy);
-
-    if (gapCoOrdinates) {
-      midY = gapCoOrdinates.y + gap / 2 - endArcRadius;
+    // calculating arc radius
+    let endArcRadius = 30;
+    // check if endArc radius crosses destinaiton point
+    if (startPoint.x + gapDelta + endArcRadius > dx) {
+      endArcRadius = dx - startPoint.x - gapDelta;
     }
 
-    const dMidX = dx - endArcRadius - gap * getLinkGap(d.level, d.target.id);
-    return `M ${sx} ${sy}
-		L ${
-      midX - startArcRadius
-    } ${sy} ${clockWiseStartCurve} L ${midX} ${midY} ${antiClockEndCurve} L${dMidX} ${
-      midY + endArcRadius
-    } ${antiClockEndCurveInvert} L ${dMidX + endArcRadius} ${
-      dy + endArcRadius
-    } ${clockWiseEndCurve} L ${dx} ${dy}`;
+    // get gap co-ordinates from where line will pass
+    const gapCoOrdinates = levelGaps[l + 1].find((g) => g.y > startPoint.y);
+
+    // last y co-ordinate where line end at given level
+    let nextY = lineage.levelPointers[l + 1].y;
+
+    // use gap co-ordinates to calclulate y co-ordinate where line end at given level
+    if (gapCoOrdinates) {
+      nextY = gapCoOrdinates.y + gapDelta - endArcRadius;
+    }
+
+    // at destination Y
+    if (l === d.target.level - 1) {
+      nextY = d.target.y + nodeSize.height / 2 - endArcRadius;
+    }
+
+    if (nextY > startPoint.y) {
+      line += `h ${
+        gapDelta - startArcRadius
+      } a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius} V ${nextY} `;
+      line += `a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius} `;
+    } else {
+      if (l === d.target.level - 1) {
+        nextY = d.target.y + nodeSize.height / 2 + endArcRadius;
+      }
+      line += `h ${
+        gapDelta - startArcRadius
+      } a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${-startArcRadius} V ${nextY} `;
+
+      line += `a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${-endArcRadius} `;
+    }
+
+    if (l === d.target.level - 1) {
+      line += `L ${dx} ${dy}`;
+    } else {
+      line += `H ${startPoint.x + gap + nodeSize.width}`;
+    }
+
+    startPoint.x += gap + nodeSize.width;
+    startPoint.y = nextY += endArcRadius;
   }
+  return line;
 }
 
 export function getVerticalForwardLinkPath({

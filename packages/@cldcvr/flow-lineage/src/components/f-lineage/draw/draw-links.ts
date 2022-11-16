@@ -33,7 +33,7 @@ export default function drawLinks({
     .append("path")
     .attr("class", "link lineage-element")
     .attr("d", (d) => {
-      return drawElbow(d, levelLinkGap, nodeSize, gap, direction, lineage.gaps);
+      return drawElbow(d, levelLinkGap, nodeSize, gap, direction, lineage);
     })
     .attr("stroke", "var(--color-border-default)")
     .attr("stroke-width", 2)
