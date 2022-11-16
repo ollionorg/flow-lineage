@@ -451,6 +451,12 @@
               "type": {
                 "text": "LineageDirection"
               }
+            },
+            {
+              "name": "levelGaps",
+              "type": {
+                "text": "LineageLevelGaps"
+              }
             }
           ]
         }
@@ -559,7 +565,7 @@
           "name": "getForwardLinkPath",
           "parameters": [
             {
-              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  endArcRadius,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  midX,\n  d,\n}",
+              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  endArcRadius,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  midX,\n  d,\n  levelGaps,\n}",
               "type": {
                 "text": "HorizontalLinkPathParams"
               }

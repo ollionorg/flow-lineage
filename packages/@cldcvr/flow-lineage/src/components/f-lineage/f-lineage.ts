@@ -139,7 +139,7 @@ export class FLineage extends LitElement {
         .scaleExtent([0.3, 4])
         .on("zoom", handleZoom) as any;
 
-      svgElement.call(zoom);
+      svgElement.call(zoom).on("dblclick.zoom", null);
 
       svgElement.on("click", (event: MouseEvent) => {
         event.stopPropagation();

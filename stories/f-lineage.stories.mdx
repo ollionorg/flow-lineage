@@ -63,6 +63,14 @@ f-lineage to display nodes and connections.
           to: [
             {
               id: "level1_2_1",
+              children: [
+                {
+                  id: "child1_1_2_1",
+                },
+                {
+                  id: "child2_1_2_1",
+                },
+              ],
             },
             {
               id: "level1_2_2",
@@ -149,6 +157,9 @@ f-lineage to display nodes and connections.
                 {
                   id: "child2_2_2_1",
                 },
+                {
+                  id: "child3_2_2_1",
+                },
               ],
             },
             {
@@ -216,7 +227,7 @@ f-lineage to display nodes and connections.
       >
         <f-icon source="i-user" size="medium"></f-icon>
         <f-div direction="column" height="hug-content" align="middle-left">
-          <f-text variant="code" size="large" ellipsis>\${id}</f-text>
+          <f-text variant="code" size="large" ellipsis>\${d.id}</f-text>
           <f-text variant="code" size="small" ellipsis
             >x: \${d.x}, y: \${d.y}</f-text
           >

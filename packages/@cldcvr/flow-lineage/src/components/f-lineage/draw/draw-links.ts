@@ -14,6 +14,7 @@ export default function drawLinks({
   direction,
 }: DrawLineageParams) {
   console.time("Links duration");
+
   /**
    * holds levels links gaps and pointers
    */
@@ -32,7 +33,7 @@ export default function drawLinks({
     .append("path")
     .attr("class", "link lineage-element")
     .attr("d", (d) => {
-      return drawElbow(d, levelLinkGap, nodeSize, gap, direction);
+      return drawElbow(d, levelLinkGap, nodeSize, gap, direction, lineage.gaps);
     })
     .attr("stroke", "var(--color-border-default)")
     .attr("stroke-width", 2)

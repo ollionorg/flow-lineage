@@ -1,6 +1,7 @@
 import {
   LevelLinkGap,
   LineageDirection,
+  LineageLevelGaps,
   LineageLinkElement,
   LineageNodeSize,
 } from "../lineage-types";
@@ -11,19 +12,22 @@ export default function drawElbow(
   levelLinkGap: LevelLinkGap,
   nodeSize: LineageNodeSize,
   gap: number,
-  direction: LineageDirection
+  direction: LineageDirection,
+  levelGaps: LineageLevelGaps
 ) {
+  //console.log(levelGaps);
   if (direction === "horizontal") {
-    return horizontalDirectionLink(d, levelLinkGap, nodeSize, gap);
+    return horizontalDirectionLink(d, levelLinkGap, nodeSize, gap, levelGaps);
   } else {
-    return verticalDirectionLink(d, levelLinkGap, nodeSize, gap);
+    return verticalDirectionLink(d, levelLinkGap, nodeSize, gap, levelGaps);
   }
 }
 function verticalDirectionLink(
   d: LineageLinkElement,
   levelLinkGap: LevelLinkGap,
   nodeSize: LineageNodeSize,
-  gap: number
+  gap: number,
+  levelGaps: LineageLevelGaps
 ) {
   const getLinkGap = (level: number, nodeid: string) => {
     const levelGaps = levelLinkGap[level];
@@ -87,6 +91,7 @@ function verticalDirectionLink(
       gap,
       midY,
       d,
+      levelGaps,
     });
   } else {
     if (dx > sx && dx - sx > dist) {
@@ -144,7 +149,8 @@ function horizontalDirectionLink(
   d: LineageLinkElement,
   levelLinkGap: LevelLinkGap,
   nodeSize: LineageNodeSize,
-  gap: number
+  gap: number,
+  levelGaps: LineageLevelGaps
 ) {
   const getLinkGap = (level: number, nodeid: string) => {
     const levelGaps = levelLinkGap[level];
@@ -202,6 +208,7 @@ function horizontalDirectionLink(
       gap,
       midX,
       d,
+      levelGaps,
     });
   } else {
     if (dy > sy && dy - sy > dist) {

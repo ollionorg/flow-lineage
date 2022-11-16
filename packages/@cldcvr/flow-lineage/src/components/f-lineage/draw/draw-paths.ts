@@ -15,13 +15,19 @@ export function getForwardLinkPath({
   gap,
   midX,
   d,
+  levelGaps,
 }: HorizontalLinkPathParams) {
   if (dy > sy) {
     const antiClockEndCurve = `a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius}`;
     const clockWiseEndCurve = `a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${endArcRadius}`;
-    //  const antiClockStartCurve = `a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${startArcRadius}`;
+
     const clockWiseStartCurve = `a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius}`;
-    const midY = sy + nodeSize.height / 2 + gap / 2 - endArcRadius;
+    let midY = sy + nodeSize.height / 2 + gap / 2 - endArcRadius;
+    const gapCoOrdinates = levelGaps[d.source.level + 1].find((g) => g.y > sy);
+
+    if (gapCoOrdinates) {
+      midY = gapCoOrdinates.y + gap / 2 - endArcRadius;
+    }
     const dMidX = dx - endArcRadius - gap * getLinkGap(d.level, d.target.id);
     return `M ${sx} ${sy}
 	  L ${
@@ -35,9 +41,16 @@ export function getForwardLinkPath({
     const antiClockEndCurve = `a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius}`;
     const antiClockEndCurveInvert = `a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${-endArcRadius}`;
     const clockWiseEndCurve = `a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${-endArcRadius}`;
-    //  const antiClockStartCurve = `a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${startArcRadius}`;
+
     const clockWiseStartCurve = `a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius}`;
-    const midY = sy + nodeSize.height / 2 + gap / 2 - endArcRadius;
+    let midY = sy + nodeSize.height / 2 + gap / 2 - endArcRadius;
+
+    const gapCoOrdinates = levelGaps[d.source.level + 1].find((g) => g.y > sy);
+
+    if (gapCoOrdinates) {
+      midY = gapCoOrdinates.y + gap / 2 - endArcRadius;
+    }
+
     const dMidX = dx - endArcRadius - gap * getLinkGap(d.level, d.target.id);
     return `M ${sx} ${sy}
 		L ${

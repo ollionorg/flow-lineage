@@ -36,9 +36,16 @@ export type LineageNodeElement = {
   offset?: number;
 } & Omit<LineageNode, "to">;
 
+export type LineageGapElement = {
+  x: number;
+  y: number;
+};
+
+export type LineageLevelGaps = Record<number, LineageGapElement[]>;
 export type Lineage = {
   nodes: LineageNodeElement[];
   links: LineageLinkElement[];
+  gaps: LineageLevelGaps;
 };
 
 export type LineageLinkElement = {
@@ -89,6 +96,7 @@ export type CreateLinkPathParams = {
   nodeSize: LineageNodeSize;
   gap: number;
   d: LineageLinkElement;
+  levelGaps: LineageLevelGaps;
 };
 
 export type HorizontalLinkPathParams = {

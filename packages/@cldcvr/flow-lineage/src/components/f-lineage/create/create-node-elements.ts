@@ -5,6 +5,7 @@ import {
   LineageDirection,
   LineageBaseNode,
   LineageNodeChildren,
+  LineageLevelGaps,
 } from "./../lineage-types";
 
 export default function createNodeElements(
@@ -62,6 +63,8 @@ export default function createNodeElements(
   Pointer.levelPointers[1] = new Pointer(padding, padding);
 
   const nodeElements: LineageNodeElement[] = [];
+
+  const levelGaps: LineageLevelGaps = {};
 
   /**
    *
@@ -136,8 +139,28 @@ export default function createNodeElements(
      */
     if (direction === "horizontal") {
       levelPointer.y += nodeSize.height + gap;
+      /**
+       * adding gap co-ordinates
+       */
+      if (!levelGaps[level]) {
+        levelGaps[level] = [];
+      }
+      levelGaps[level].push({
+        x: levelPointer.x,
+        y: levelPointer.y - gap,
+      });
     } else {
       levelPointer.x += nodeSize.width + gap;
+      /**
+       * adding gap co-ordinates
+       */
+      if (!levelGaps[level]) {
+        levelGaps[level] = [];
+      }
+      levelGaps[level].push({
+        x: levelPointer.x - gap,
+        y: levelPointer.y,
+      });
     }
 
     return nodeElement;
@@ -247,5 +270,5 @@ export default function createNodeElements(
 
   console.timeEnd("Co-ordinate Algo duration");
 
-  return nodeElements;
+  return { nodeElements, levelGaps };
 }
