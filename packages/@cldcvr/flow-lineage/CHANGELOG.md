@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [0.1.1] - 2022-11-18
+
+### Features
+
+- `children-node-template` property support added.
+- We can specify template on individual node as well (for more customization and advanced usecases)
 ## [0.1.0] - 2022-11-18
 
 ### Features

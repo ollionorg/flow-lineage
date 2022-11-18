@@ -6,6 +6,7 @@ export type LineageBaseNode = {
   id: string;
   links?: LineageNodeLink[];
   data?: Record<string, any>;
+  template?: string;
 };
 export type LineageNodeChildren = LineageBaseNode;
 // Lineage node type

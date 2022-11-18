@@ -262,16 +262,28 @@ f-lineage to display nodes and connections.
         align="middle-left"
         variant="curved"
         gap="small"
-        \${d.children ? 'border="small solid default bottom"' : ""}
+        \${node.children ? 'border="small solid default bottom"' : ""}
       >
         <f-icon source="i-user" size="medium"></f-icon>
         <f-div direction="column" height="hug-content" align="middle-left">
-          <f-text variant="code" size="large" ellipsis>\${d.id}</f-text>
+          <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
           <f-text variant="code" size="small" ellipsis
-            >x: \${d.x}, y: \${d.y}</f-text
+            >x: \${node.x}, y: \${node.y}</f-text
           >
         </f-div>
       </f-div>`,
+      ["children-node-template"]: `<f-div
+          state="secondary"
+          width="100%"
+          height="100%"
+          padding="none medium"
+          align="middle-left"
+          gap="small"
+          border="small solid default bottom"
+        >
+          <f-icon source="i-hashtag" size="small"></f-icon>
+          <f-text variant="code" size="medium" ellipsis>\${node.id}</f-text>
+        </f-div>`,
     }}
   >
     {(args) => {
@@ -285,6 +297,7 @@ f-lineage to display nodes and connections.
         .children-node-size=${args["children-node-size"]}
         .max-childrens=${args["max-childrens"]}
         .node-template=${args["node-template"]}
+        .children-node-template=${args["children-node-template"]}
       ></f-lineage>`;
     }}
   </Story>

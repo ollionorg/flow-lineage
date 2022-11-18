@@ -41,14 +41,15 @@ export default function drawNodes(params: DrawLineageParams) {
     .attr("height", nodeSize.height)
     /* eslint-disable @typescript-eslint/no-unused-vars */
     /* eslint-disable @typescript-eslint/ban-ts-comment */
-    .html((d) => {
-      // @ts-ignore
-      const data = d.data;
-      // @ts-ignore
-      const id = d.id;
-      return getComputedHTML(
-        html`${eval("`" + element["node-template"] + "`")}`
-      );
+    // @ts-ignore
+    .html((node) => {
+      if (node.template) {
+        return getComputedHTML(html`${eval("`" + node.template + "`")}`);
+      } else {
+        return getComputedHTML(
+          html`${eval("`" + element["node-template"] + "`")}`
+        );
+      }
     });
 
   /**
@@ -212,21 +213,15 @@ export default function drawNodes(params: DrawLineageParams) {
         event.stopPropagation();
         highlightPath(d, element);
       })
-      .html((d) => {
-        const nodeid = d.id;
-
-        return getComputedHTML(html` <f-div
-          state="secondary"
-          width="100%"
-          height="100%"
-          padding="none medium"
-          align="middle-left"
-          gap="small"
-          border="small solid default bottom"
-        >
-          <f-icon source="i-hashtag" size="small"></f-icon>
-          <f-text variant="code" size="medium" ellipsis>${nodeid}</f-text>
-        </f-div>`);
+      //@ts-ignore
+      .html((node) => {
+        if (node.template) {
+          return getComputedHTML(html`${eval("`" + node.template + "`")}`);
+        } else {
+          return getComputedHTML(
+            html`${eval("`" + element["children-node-template"] + "`")}`
+          );
+        }
       });
 
     drawLinks({

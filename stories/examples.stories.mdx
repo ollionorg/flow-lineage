@@ -1,0 +1,294 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { html } from "lit-html";
+import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
+import lineageDataGenerator from "./lineage-data-generator.ts";
+
+<Meta
+  title="Examples/Organizational Structure "
+  parameters={{
+    controls: { hideNoControlsWarning: true },
+  }}
+/>
+
+# f-lineage
+
+<br />
+<br />
+
+## Overview
+
+<f-div direction="column" gap="x-small" height="hug-content">
+  <f-icon-button icon="i-delete" type="transparent"></f-icon-button>
+  <f-icon-button icon="i-edit" type="transparent"></f-icon-button>
+</f-div>
+
+f-lineage to display nodes and connections.
+
+<br />
+
+### [Playground](/story/components-f-lineage--playground)
+
+<Canvas>
+  <Story
+    name="Playground"
+    argTypes={{
+      direction: {
+        control: "select",
+        options: ["horizontal", "vertical"],
+      },
+      data: {
+        control: "object",
+      },
+      padding: {
+        control: "number",
+      },
+      gap: {
+        control: "number",
+      },
+      ["node-size"]: {
+        control: "object",
+      },
+      ["children-node-size"]: {
+        control: "object",
+      },
+      ["max-childrens"]: {
+        control: "number",
+      },
+    }}
+    args={{
+      direction: "vertical",
+      data: [
+        {
+          id: "root",
+          data: {
+            fullName: "Carey McLaughlin",
+            designation: "Vice President",
+            mobile: "+1 123 456 000",
+            email: "abc@xyz.com",
+          },
+          to: [
+            {
+              id: "hr",
+              data: {
+                fullName: "Angelena Doyle",
+                designation: "Director Human Resources",
+                mobile: "+1 123 456 000",
+                email: "abc@xyz.com",
+              },
+            },
+            {
+              id: "am",
+              data: {
+                fullName: "Max Oliver",
+                designation: "Director Accounting",
+                mobile: "+1 123 456 000",
+                email: "abc@xyz.com",
+              },
+            },
+            {
+              id: "mo",
+              data: {
+                fullName: "Aubree Matthews",
+                designation: "Director Marketing",
+                mobile: "+1 123 456 000",
+                email: "abc@xyz.com",
+              },
+              to: [
+                {
+                  id: "mo-tl1",
+                  data: {
+                    fullName: "Anastasia Day",
+                    designation: "Team Lead",
+                    mobile: "+1 123 456 000",
+                    email: "abc@xyz.com",
+                  },
+                  children: [
+                    {
+                      id: "mo-tl1-1",
+                      data: {
+                        fullName: "Whitney Lambert",
+                      },
+                    },
+                    {
+                      id: "mo-tl1-2",
+                      data: {
+                        fullName: "Jennifer Pearson",
+                      },
+                    },
+                    {
+                      id: "mo-tl1-2",
+                      data: {
+                        fullName: "Lark Motley",
+                      },
+                    },
+                  ],
+                },
+                {
+                  id: "mo-tl2",
+                  data: {
+                    fullName: "Osmond Wise",
+                    designation: "Team Lead",
+                    mobile: "+1 123 456 000",
+                    email: "abc@xyz.com",
+                  },
+                  children: [
+                    {
+                      id: "mo-tl2-1",
+                      data: {
+                        fullName: "Adele Green",
+                      },
+                    },
+                    {
+                      id: "mo-tl2-2",
+                      data: {
+                        fullName: "Lawrence Potter",
+                      },
+                    },
+                    {
+                      id: "mo-tl2-2",
+                      data: {
+                        fullName: "Darlene Holden",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: "de",
+              data: {
+                fullName: "Ben Stokes",
+                designation: "Director Engineering",
+                mobile: "+1 123 456 000",
+                email: "abc@xyz.com",
+              },
+              to: [
+                {
+                  id: "tl1",
+                  data: {
+                    fullName: "Aaron Verler",
+                    designation: "Team Lead",
+                    mobile: "+1 123 456 000",
+                    email: "abc@xyz.com",
+                  },
+                  children: [
+                    {
+                      id: "tl1-1",
+                      data: {
+                        fullName: "Max Furry",
+                      },
+                    },
+                    {
+                      id: "tl1-2",
+                      data: {
+                        fullName: "Steve Roger",
+                      },
+                    },
+                    {
+                      id: "tl1-2",
+                      data: {
+                        fullName: "Tony Stark",
+                      },
+                    },
+                  ],
+                },
+                {
+                  id: "tl2",
+                  data: {
+                    fullName: "Bruce Banner",
+                    designation: "Team Lead",
+                    mobile: "+1 123 456 000",
+                    email: "abc@xyz.com",
+                  },
+                  children: [
+                    {
+                      id: "tl2-1",
+                      data: {
+                        fullName: "Celeste Waters",
+                      },
+                    },
+                    {
+                      id: "tl2-2",
+                      data: {
+                        fullName: "Jeffrey Bell",
+                      },
+                    },
+                    {
+                      id: "tl2-2",
+                      data: {
+                        fullName: "Mona Hancock",
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      padding: 16,
+      gap: 100,
+      ["node-size"]: { width: 250, height: 115 },
+      ["children-node-size"]: { width: 250, height: 32 },
+      ["max-childrens"]: 8,
+      ["node-template"]: /*html*/ `<f-div
+        state="secondary"
+        width="100%"
+        height="100%"
+        padding="medium"
+        align="top-left"
+        variant="curved"
+		gap="x-small"
+		direction="column"
+        \${node.children ? 'border="small solid default bottom"' : ""}
+      >
+	  	<f-div height="hug-content">
+	  		<f-text variant="heading" size="medium">\${node.data.designation}</f-text>
+		</f-div>
+		<f-div height="hug-content" gap="small">
+			<f-pictogram source="i-user" state="success" size="large" variant="circle"></f-pictogram>
+			<f-div direction="column" height="hug-content" align="middle-left">
+				<f-text  ellipsis>\${node.data.fullName}</f-text>
+				<f-div padding="x-small none none none">
+					<f-text size="small" ellipsis>Mobile No : \${node.data.mobile}</f-text>
+				</f-div>
+				<f-div padding="x-small none none none">
+					<f-text size="small" ellipsis>Email : \${node.data.email}</f-text>
+				</f-div>
+			</f-div>
+		</f-div>
+      </f-div>`,
+      ["children-node-template"]: /*html*/ `<f-div
+          state="secondary"
+          width="100%"
+          height="100%"
+          padding="none medium"
+          align="middle-left"
+          gap="small"
+          border="small solid default bottom"
+        >
+          <f-icon source="i-user" size="small"></f-icon>
+          <f-text variant="code" size="medium" ellipsis>\${node.data.fullName}</f-text>
+        </f-div>`,
+    }}
+  >
+    {(args) => {
+      //  const data = lineageDataGenerator();
+      return html`<f-lineage
+        .direction=${args.direction}
+        .data=${args.data}
+        .padding=${args.padding}
+        .gap=${args.gap}
+        .node-size=${args["node-size"]}
+        .children-node-size=${args["children-node-size"]}
+        .max-childrens=${args["max-childrens"]}
+        .node-template=${args["node-template"]}
+        .children-node-template=${args["children-node-template"]}
+      ></f-lineage>`;
+    }}
+  </Story>
+</Canvas>
+
+<br />
+
+<ArgsTable of={"f-lineage"} />
