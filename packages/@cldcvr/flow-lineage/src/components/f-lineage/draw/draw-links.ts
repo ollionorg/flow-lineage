@@ -1,3 +1,4 @@
+import { Selection } from "d3-selection";
 import {
   DrawLineageParams,
   LevelLinkGap,
@@ -10,8 +11,10 @@ export default function drawLinks({
   lineage,
   svg,
   nodeSize,
+  childrenNodeSize,
   gap,
   direction,
+  filter,
 }: DrawLineageParams) {
   console.time("Links duration");
 
@@ -20,20 +23,42 @@ export default function drawLinks({
    */
   const levelLinkGap: LevelLinkGap = {};
 
-  const links = svg
-    .append("g")
-    .attr("class", "links")
+  let linksElement = svg.select("g.links") as unknown as Selection<
+    SVGGElement,
+    unknown,
+    null,
+    undefined
+  >;
+  const isEmptyLinks = linksElement.empty();
+  if (isEmptyLinks) {
+    linksElement = svg.append("g").attr("class", "links");
+  }
+
+  const links = linksElement
     .selectAll("path.link")
-    .data(lineage.links, (d) => {
-      return (d as LineageLinkElement).id;
-    })
+    .data(
+      lineage.links.filter((l) => {
+        return filter ? filter(l) : true;
+      }),
+      (d) => {
+        return (d as LineageLinkElement).id;
+      }
+    )
     .enter();
 
   links
     .append("path")
     .attr("class", "link lineage-element")
     .attr("d", (d) => {
-      return drawElbow(d, levelLinkGap, nodeSize, gap, direction, lineage);
+      return drawElbow(
+        d,
+        levelLinkGap,
+        nodeSize,
+        childrenNodeSize,
+        gap,
+        direction,
+        lineage
+      );
     })
     .attr("stroke", "var(--color-border-default)")
     .attr("stroke-width", 2)
@@ -51,16 +76,22 @@ export default function drawLinks({
     })
     .attr("r", 6)
     .attr("cx", (d) => {
+      const nodeWidth = d.source.isChildren
+        ? childrenNodeSize.width
+        : nodeSize.width;
       if (direction === "vertical") {
-        return d.source.x + nodeSize.width / 2;
+        return d.source.x + nodeWidth / 2;
       }
-      return d.source.x + nodeSize.width;
+      return d.source.x + nodeWidth;
     })
     .attr("cy", (d) => {
+      const nodeHeight = d.source.isChildren
+        ? childrenNodeSize.height
+        : nodeSize.height;
       if (direction === "vertical") {
-        return d.source.y + nodeSize.height;
+        return d.source.y + nodeHeight;
       }
-      return d.source.y + nodeSize.height / 2;
+      return d.source.y + nodeHeight / 2;
     })
     .attr("fill", "var(--color-border-default)")
     .attr("stroke", "var(--color-surface-default)")
@@ -75,7 +106,12 @@ export default function drawLinks({
     .attr("r", 6)
     .attr("cx", (d) => {
       if (direction === "vertical") {
-        return d.target.x + nodeSize.width / 2;
+        return (
+          d.target.x +
+          (d.target.isChildren
+            ? childrenNodeSize.width / 2
+            : nodeSize.width / 2)
+        );
       }
       return d.target.x;
     })
@@ -83,7 +119,12 @@ export default function drawLinks({
       if (direction === "vertical") {
         return d.target.y;
       }
-      return d.target.y + nodeSize.height / 2;
+      return (
+        d.target.y +
+        (d.target.isChildren
+          ? childrenNodeSize.height / 2
+          : nodeSize.height / 2)
+      );
     })
     .attr("fill", "var(--color-border-default)")
     .attr("stroke", "var(--color-surface-default)")

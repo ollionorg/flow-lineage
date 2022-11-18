@@ -4,6 +4,13 @@
 
 # Change Log
 
+## [0.1.0] - 2022-11-18
+
+### Features
+
+- `children` links features added.
+- Whenever children scrolled their respective links removed.
+
 ## [0.0.9] - 2022-11-16
 
 ### Improvements

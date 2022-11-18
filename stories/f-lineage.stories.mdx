@@ -102,6 +102,17 @@ f-lineage to display nodes and connections.
           children: [
             {
               id: "child1",
+              links: [
+                {
+                  nodeid: "level1_2_2",
+                },
+                {
+                  nodeid: "child1_1_2_1",
+                },
+                {
+                  nodeid: "level2_4_4",
+                },
+              ],
             },
             {
               id: "child2",
@@ -147,14 +158,17 @@ f-lineage to display nodes and connections.
             },
             {
               id: "child16",
-            },
-          ],
-          links: [
-            {
-              nodeid: "level2_4_1",
-            },
-            {
-              nodeid: "level2_4_4",
+              links: [
+                {
+                  nodeid: "level1_2_2",
+                },
+                {
+                  nodeid: "child1_1_2_1",
+                },
+                {
+                  nodeid: "level2_4_4",
+                },
+              ],
             },
           ],
         },
@@ -166,6 +180,11 @@ f-lineage to display nodes and connections.
               children: [
                 {
                   id: "child1_2_2_1",
+                  links: [
+                    {
+                      nodeid: "level2_4_4",
+                    },
+                  ],
                 },
                 {
                   id: "child2_2_2_1",
@@ -206,14 +225,6 @@ f-lineage to display nodes and connections.
               ],
             },
           ],
-          links: [
-            {
-              nodeid: "level1_4_1",
-            },
-            {
-              nodeid: "level2_4_1",
-            },
-          ],
         },
         {
           id: "level1_3",
@@ -223,11 +234,6 @@ f-lineage to display nodes and connections.
             },
             {
               id: "level3_2_2",
-            },
-          ],
-          links: [
-            {
-              nodeid: "level2_4_1",
             },
           ],
         },

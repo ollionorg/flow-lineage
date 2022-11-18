@@ -2,16 +2,19 @@ import { html } from "lit";
 import { getComputedHTML } from "../../../utils";
 import { DrawLineageParams, LineageNodeElement } from "../lineage-types";
 import highlightPath from "../highlight/highlight-path";
+import removeLinks from "./remove-links";
+import drawLinks from "./draw-links";
 
-export default function drawNodes({
-  lineage,
-  svg,
-  nodeSize,
-  childrenNodeSize,
-  maxChildrenHeight,
-  element,
-}: DrawLineageParams) {
+export default function drawNodes(params: DrawLineageParams) {
   console.time("Nodes duration");
+  const {
+    lineage,
+    svg,
+    nodeSize,
+    childrenNodeSize,
+    maxChildrenHeight,
+    element,
+  } = params;
   const scrollBarWidth = 8;
   const maxChildrens = maxChildrenHeight / childrenNodeSize.height;
   const parentNodes = svg
@@ -173,11 +176,11 @@ export default function drawNodes({
     start: number,
     end: number
   ) => {
-    const childNodes = lineage.nodes
-      .filter((n) => n.parentId === nData.id)
-      .slice(start, end);
+    console.log("In paginateChildrens");
+    const allChildNodes = lineage.nodes.filter((n) => n.parentId === nData.id);
+    const childNodes = allChildNodes.slice(start, end);
     svg.select(`.children-container[data-parent-id="${nData.id}"]`).html("");
-
+    removeLinks(allChildNodes, element);
     const startX = nData.x;
     let startY = nData.y + nodeSize.height;
     svg
@@ -189,7 +192,12 @@ export default function drawNodes({
       .attr("class", (d) => {
         return `child-node lineage-node lineage-element child-node-${d.parentId}`;
       })
-      .attr("transform", () => {
+      .attr("id", (d) => {
+        return d.id;
+      })
+      .attr("transform", (d) => {
+        d.x = startX;
+        d.y = startY;
         const translate = `translate(${startX},${startY})`;
         startY += childrenNodeSize.height;
         return translate;
@@ -200,6 +208,10 @@ export default function drawNodes({
       .append("foreignObject")
       .attr("width", childrenNodeSize.width)
       .attr("height", childrenNodeSize.height)
+      .on("click", (event: MouseEvent, d) => {
+        event.stopPropagation();
+        highlightPath(d, element);
+      })
       .html((d) => {
         const nodeid = d.id;
 
@@ -216,6 +228,21 @@ export default function drawNodes({
           <f-text variant="code" size="medium" ellipsis>${nodeid}</f-text>
         </f-div>`);
       });
+
+    drawLinks({
+      ...params,
+      filter: (link) => {
+        const sourceLink = childNodes.find((c) => {
+          return c.id === link.source.id;
+        });
+
+        const targetLink = childNodes.find((c) => {
+          return c.id === link.target.id;
+        });
+
+        return sourceLink !== undefined || targetLink !== undefined;
+      },
+    });
   };
   /**
    * Adding child nodes

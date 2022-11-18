@@ -59,6 +59,10 @@ export default function createLinks(
           });
         }
       }
+
+      if (node.children && node.children.length > 0) {
+        computeLinks(node.children, level);
+      }
     });
   };
 

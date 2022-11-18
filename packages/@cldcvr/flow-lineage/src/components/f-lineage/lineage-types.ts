@@ -74,6 +74,7 @@ export type DrawLineageParams = {
   direction: LineageDirection;
   maxChildrenHeight: number;
   element: FLineage;
+  filter?: (link: LineageLinkElement) => boolean;
 };
 
 export type CreateLineageParams = {

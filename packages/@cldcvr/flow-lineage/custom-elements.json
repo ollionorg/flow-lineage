@@ -441,6 +441,12 @@
               }
             },
             {
+              "name": "childrenNodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            },
+            {
               "name": "gap",
               "type": {
                 "text": "number"
@@ -509,7 +515,7 @@
           "name": "drawLinks",
           "parameters": [
             {
-              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  gap,\n  direction,\n}",
+              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  childrenNodeSize,\n  gap,\n  direction,\n  filter,\n}",
               "type": {
                 "text": "DrawLineageParams"
               }
@@ -537,7 +543,7 @@
           "name": "drawNodes",
           "parameters": [
             {
-              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  childrenNodeSize,\n  maxChildrenHeight,\n  element,\n}",
+              "name": "params",
               "type": {
                 "text": "DrawLineageParams"
               }
@@ -577,7 +583,7 @@
           "name": "getVerticalForwardLinkPath",
           "parameters": [
             {
-              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  endArcRadius,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  midY,\n  d,\n}",
+              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  lineage,\n  d,\n}",
               "type": {
                 "text": "VerticalLinkPathParams"
               }
@@ -600,6 +606,40 @@
           "declaration": {
             "name": "getVerticalForwardLinkPath",
             "module": "src/components/f-lineage/draw/draw-paths.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/draw/remove-links.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "removeLinks",
+          "parameters": [
+            {
+              "name": "nodes",
+              "type": {
+                "text": "LineageNodeElement[]"
+              }
+            },
+            {
+              "name": "lineage",
+              "type": {
+                "text": "FLineage"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "removeLinks",
+            "module": "src/components/f-lineage/draw/remove-links.ts"
           }
         }
       ]

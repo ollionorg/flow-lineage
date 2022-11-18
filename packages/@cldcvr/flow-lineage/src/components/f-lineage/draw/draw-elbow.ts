@@ -11,21 +11,37 @@ export default function drawElbow(
   d: LineageLinkElement,
   levelLinkGap: LevelLinkGap,
   nodeSize: LineageNodeSize,
+  childrenNodeSize: LineageNodeSize,
   gap: number,
   direction: LineageDirection,
   lineage: Lineage
 ) {
   //console.log(levelGaps);
   if (direction === "horizontal") {
-    return horizontalDirectionLink(d, levelLinkGap, nodeSize, gap, lineage);
+    return horizontalDirectionLink(
+      d,
+      levelLinkGap,
+      nodeSize,
+      childrenNodeSize,
+      gap,
+      lineage
+    );
   } else {
-    return verticalDirectionLink(d, levelLinkGap, nodeSize, gap, lineage);
+    return verticalDirectionLink(
+      d,
+      levelLinkGap,
+      nodeSize,
+      childrenNodeSize,
+      gap,
+      lineage
+    );
   }
 }
 function verticalDirectionLink(
   d: LineageLinkElement,
   levelLinkGap: LevelLinkGap,
   nodeSize: LineageNodeSize,
+  childrenNodeSize: LineageNodeSize,
   gap: number,
   lineage: Lineage
 ) {
@@ -50,12 +66,13 @@ function verticalDirectionLink(
 
   const xoffset = nodeSize.width / 2;
   const yoffset = nodeSize.height + 4;
-
+  const childXoffset = childrenNodeSize.width / 2;
+  const childYoffset = childrenNodeSize.height + 4;
   const dy = d.target.y - 4;
-  const dx = d.target.x + xoffset;
+  const dx = d.target.x + (d.target.isChildren ? childXoffset : xoffset);
 
-  let sourceX = d.source.x + xoffset;
-  let sourceY = d.source.y + yoffset;
+  let sourceX = d.source.x + (d.source.isChildren ? childXoffset : xoffset);
+  let sourceY = d.source.y + (d.source.isChildren ? childYoffset : yoffset);
   if (d.source.childrenXMax && d.source.childrenYMax) {
     sourceX = d.source.childrenXMax;
     sourceY = d.source.childrenYMax;
@@ -149,6 +166,7 @@ function horizontalDirectionLink(
   d: LineageLinkElement,
   levelLinkGap: LevelLinkGap,
   nodeSize: LineageNodeSize,
+  childrenNodeSize: LineageNodeSize,
   gap: number,
   lineage: Lineage
 ) {
@@ -173,12 +191,14 @@ function horizontalDirectionLink(
 
   const xoffset = nodeSize.width + 4;
   const yoffset = nodeSize.height / 2;
+  const childXoffset = childrenNodeSize.width + 4;
+  const childYoffset = childrenNodeSize.height / 2;
 
-  const dy = d.target.y + yoffset;
+  const dy = d.target.y + (d.target.isChildren ? childYoffset : yoffset);
   const dx = d.target.x - 4;
 
-  const sx = d.source.x + xoffset;
-  const sy = d.source.y + yoffset;
+  const sx = d.source.x + (d.source.isChildren ? childXoffset : xoffset);
+  const sy = d.source.y + (d.source.isChildren ? childYoffset : yoffset);
 
   const midX = sx + gap * getLinkGap(d.level, d.source.id);
   let endArcRadius = dx - midX;
