@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [0.1.4] - 2022-11-25
+
+### Features
+
+- Birectional link if `from` and `to` are swapped and added as additional link.
 ## [0.1.3] - 2022-11-25
 
 ### Bug fixes

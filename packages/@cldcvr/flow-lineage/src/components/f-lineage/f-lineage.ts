@@ -71,6 +71,8 @@ export class FLineage extends LitElement {
   })
   ["children-node-template"]?: string;
 
+  biDirectionalLinks: string[] = [];
+
   private data?: LineageData;
 
   render() {
@@ -113,7 +115,12 @@ export class FLineage extends LitElement {
     this.svg.innerHTML = ``;
 
     if (this.links && this.links.length > 0) {
-      this.data = createHierarchy(this.links, this.nodes);
+      const { data, biDirectionalLinks } = createHierarchy(
+        this.links,
+        this.nodes
+      );
+      this.data = data;
+      this.biDirectionalLinks = biDirectionalLinks;
     }
     if (this.data && this.data.length > 0) {
       const lineage = createLineage({

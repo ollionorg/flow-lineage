@@ -116,6 +116,11 @@ export function getBackwardLinkPath({
     if (gapCoOrdinates) {
       nextY = gapCoOrdinates.y + gapDelta;
     }
+
+    let yDiff = nextY - startPoint.y;
+    if (yDiff < 0) {
+      yDiff *= -1;
+    }
     if (l === d.source.level) {
       line += `h ${
         gapDelta - startArcRadius
@@ -123,7 +128,7 @@ export function getBackwardLinkPath({
       line += `a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${startArcRadius} `;
 
       line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
-    } else if (nextY === startPoint.y) {
+    } else if (nextY === startPoint.y || yDiff < 2 * startArcRadius) {
       line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
     } else if (nextY > startPoint.y) {
       line += `a${startArcRadius},${startArcRadius} 0 0 0 ${-startArcRadius},${startArcRadius} V ${nextY} `;

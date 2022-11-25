@@ -14,6 +14,7 @@ export default function drawLinks({
   childrenNodeSize,
   gap,
   direction,
+  element,
   filter,
 }: DrawLineageParams) {
   console.time("Links duration");
@@ -149,6 +150,27 @@ export default function drawLinks({
     .attr("startOffset", "100%")
     .attr("fill", "var(--color-border-default)")
     .text("▶");
+
+  links
+    .filter((l) => element.biDirectionalLinks.includes(l.id))
+    .append("text")
+    .attr("class", "b link-arrow lineage-element")
+    .attr("id", function (d) {
+      return `${d.id}~arrow-reverse`;
+    })
+    .attr("stroke", "var(--color-surface-default)")
+    .attr("stroke-width", "1px")
+    .attr("dy", 6)
+    .attr("dx", 0.3)
+    .append("textPath")
+    .attr("text-anchor", "start")
+
+    .attr("xlink:href", function (d) {
+      return `#${d.id}`;
+    })
+    .attr("startOffset", "0%")
+    .attr("fill", "var(--color-border-default)")
+    .text("◀");
 
   console.timeEnd("Links duration");
 }

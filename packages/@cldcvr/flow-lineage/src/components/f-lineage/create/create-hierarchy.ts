@@ -19,6 +19,9 @@ export default function createHierarchy(
     }
   > = {};
 
+  const addedLinks: string[] = [];
+  const biDirectionalLinks: string[] = [];
+
   const data: LineageData = [];
 
   Object.entries(nodes).forEach(([id, n]) => {
@@ -44,30 +47,36 @@ export default function createHierarchy(
   });
 
   links.forEach((link) => {
-    const to = hierarchyMeta[link.to].ref;
-    const from = hierarchyMeta[link.from].ref;
+    if (addedLinks.findIndex((l) => l === `${link.to}->${link.from}`) === -1) {
+      const to = hierarchyMeta[link.to].ref;
+      const from = hierarchyMeta[link.from].ref;
 
-    if (!hierarchyMeta[link.to].isLinked && data.length > 1) {
-      if (!from.to) {
-        from.to = [];
+      if (!hierarchyMeta[link.to].isLinked && data.length > 1) {
+        if (!from.to) {
+          from.to = [];
+        }
+
+        from.to.push(to);
+        const idxToRemove = data.findIndex((n) => n.id === link.to);
+
+        data.splice(idxToRemove, 1);
+
+        hierarchyMeta[link.to].level = hierarchyMeta[link.from].level + 1;
+        hierarchyMeta[link.to].isLinked = true;
+      } else {
+        if (!from.links) {
+          from.links = [];
+        }
+
+        from.links.push({
+          nodeid: to.id,
+        });
       }
 
-      from.to.push(to);
-      const idxToRemove = data.findIndex((n) => n.id === link.to);
-
-      data.splice(idxToRemove, 1);
-
-      hierarchyMeta[link.to].level = hierarchyMeta[link.from].level + 1;
-      hierarchyMeta[link.to].isLinked = true;
+      addedLinks.push(`${link.from}->${link.to}`);
     } else {
-      if (!from.links) {
-        from.links = [];
-      }
-
-      from.links.push({
-        nodeid: to.id,
-      });
+      biDirectionalLinks.push(`${link.to}->${link.from}`);
     }
   });
-  return data;
+  return { data, biDirectionalLinks };
 }

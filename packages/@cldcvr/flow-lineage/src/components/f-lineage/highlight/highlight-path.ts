@@ -84,6 +84,12 @@ export default function highlightPath(
             el.classList.add("highlight");
             el.classList.remove("lowlight");
           });
+          root
+            .querySelectorAll(`[id$="->${id}~arrow-reverse"]`)
+            .forEach((el) => {
+              el.classList.add("highlight");
+              el.classList.remove("lowlight");
+            });
         }
       }
     };
