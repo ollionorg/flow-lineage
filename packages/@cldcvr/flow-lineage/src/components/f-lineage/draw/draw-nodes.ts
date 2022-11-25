@@ -177,9 +177,15 @@ export default function drawNodes(params: DrawLineageParams) {
     start: number,
     end: number
   ) => {
-    console.log("In paginateChildrens");
+    // console.log("In paginateChildrens");
     const allChildNodes = lineage.nodes.filter((n) => n.parentId === nData.id);
+    allChildNodes.forEach((cn) => {
+      cn.isVisible = false;
+    });
     const childNodes = allChildNodes.slice(start, end);
+    childNodes.forEach((cn) => {
+      cn.isVisible = true;
+    });
     svg.select(`.children-container[data-parent-id="${nData.id}"]`).html("");
     removeLinks(allChildNodes, element);
     const startX = nData.x;
@@ -228,11 +234,17 @@ export default function drawNodes(params: DrawLineageParams) {
       ...params,
       filter: (link) => {
         const sourceLink = childNodes.find((c) => {
-          return c.id === link.source.id;
+          const isTargetNodeAvailable =
+            !link.target.isChildren ||
+            (link.target.isChildren && link.target.isVisible);
+          return c.id === link.source.id && isTargetNodeAvailable;
         });
 
         const targetLink = childNodes.find((c) => {
-          return c.id === link.target.id;
+          const isSourceNodeAvailable =
+            !link.source.isChildren ||
+            (link.source.isChildren && link.source.isVisible);
+          return c.id === link.target.id && isSourceNodeAvailable;
         });
 
         return sourceLink !== undefined || targetLink !== undefined;

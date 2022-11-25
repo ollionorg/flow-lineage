@@ -57,62 +57,121 @@ f-lineage to display nodes and connections.
     }}
     args={{
       direction: "horizontal",
-      data: [
+      padding: 16,
+      gap: 100,
+      ["node-size"]: { width: 200, height: 52 },
+      ["children-node-size"]: { width: 200, height: 32 },
+      ["max-childrens"]: 8,
+      ["node-template"]: `<f-div
+        state="secondary"
+        width="100%"
+        height="100%"
+        padding="none medium"
+        align="middle-left"
+        variant="curved"
+        gap="small"
+        \${node.children ? 'border="small solid default bottom"' : ""}
+      >
+        <f-icon source="i-user" size="medium"></f-icon>
+        <f-div direction="column" height="hug-content" align="middle-left">
+          <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
+          <f-text variant="code" size="small" ellipsis
+            >x: \${node.x}, y: \${node.y}</f-text
+          >
+        </f-div>
+      </f-div>`,
+      ["children-node-template"]: `<f-div
+          state="secondary"
+          width="100%"
+          height="100%"
+          padding="none medium"
+          align="middle-left"
+          gap="small"
+          border="small solid default bottom"
+        >
+          <f-icon source="i-hashtag" size="small"></f-icon>
+          <f-text variant="code" size="medium" ellipsis>\${node.id}</f-text>
+        </f-div>`,
+      links: [
         {
-          id: "level1_1",
-          to: [
-            {
-              id: "level1_2_1",
-              children: [
-                {
-                  id: "child1_1_2_1",
-                },
-                {
-                  id: "child2_1_2_1",
-                },
-              ],
-              links: [
-                {
-                  nodeid: "level2_4_4",
-                },
-              ],
-              to: [
-                {
-                  id: "node-2",
-                },
-              ],
-            },
-            {
-              id: "level1_2_2",
-              to: [
-                {
-                  id: "level1_3_1",
-                  to: [
-                    {
-                      id: "level1_4_1",
-                    },
-                    {
-                      id: "level1_4_2",
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
+          from: "SuperRootBrother",
+          to: "Root",
+        },
+        {
+          from: "SuperRoot",
+          to: "Root",
+        },
+        {
+          from: "Calvin",
+          to: "Hansen",
+        },
+        {
+          from: "Brooke",
+          to: "Tamara",
+        },
+        {
+          from: "Calvin",
+          to: "Bradley",
+        },
+        {
+          from: "Tamara",
+          to: "Bradley",
+        },
+        {
+          from: "Root",
+          to: "Cldcvr",
+        },
+        {
+          from: "Root",
+          to: "Brooke",
+        },
+        {
+          from: "Bradley",
+          to: "John",
+        },
+        {
+          from: "Bradley",
+          to: "Tim",
+        },
+        {
+          from: "Bradley",
+          to: "Sam",
+        },
+        {
+          from: "Bradley",
+          to: "Rex",
+        },
+        {
+          from: "Cldcvr",
+          to: "Calvin",
+        },
+        {
+          from: "Root",
+          to: "Flow",
+        },
+        {
+          from: "Flow",
+          to: "Codepipes",
+        },
+        {
+          from: "Codepipes",
+          to: "Cldcvr",
+        },
+        {
+          from: "child1",
+          to: "Rex",
+        },
+      ],
+      nodes: {
+        Calvin: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Calvin",
+          },
           children: [
             {
               id: "child1",
-              links: [
-                {
-                  nodeid: "level1_2_2",
-                },
-                {
-                  nodeid: "child1_1_2_1",
-                },
-                {
-                  nodeid: "level2_4_4",
-                },
-              ],
             },
             {
               id: "child2",
@@ -158,139 +217,119 @@ f-lineage to display nodes and connections.
             },
             {
               id: "child16",
-              links: [
-                {
-                  nodeid: "level1_2_2",
-                },
-                {
-                  nodeid: "child1_1_2_1",
-                },
-                {
-                  nodeid: "level2_4_4",
-                },
-              ],
             },
           ],
         },
-        {
-          id: "level1_2",
-          to: [
+        Hansen: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Hansen",
+          },
+          children: [
             {
-              id: "level2_2_1",
-              children: [
-                {
-                  id: "child1_2_2_1",
-                  links: [
-                    {
-                      nodeid: "level2_4_4",
-                    },
-                  ],
-                },
-                {
-                  id: "child2_2_2_1",
-                },
-                {
-                  id: "child3_2_2_1",
-                },
-              ],
-            },
-            {
-              id: "level2_2_2",
-              to: [
-                {
-                  id: "level2_3_1",
-                  to: [
-                    {
-                      id: "level2_4_1",
-                    },
-                    {
-                      id: "level2_4_2",
-                    },
-                    {
-                      id: "level2_4_3",
-                    },
-                    {
-                      id: "level2_4_4",
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              id: "level2_2_3",
-              to: [
-                {
-                  id: "node1",
-                },
-              ],
+              id: "hchild1",
             },
           ],
         },
-        {
-          id: "level1_3",
-          to: [
-            {
-              id: "level3_2_1",
-            },
-            {
-              id: "level3_2_2",
-            },
-          ],
+        Flow: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Flow",
+          },
         },
-        {
-          id: "level1_4",
-          links: [
-            {
-              nodeid: "level2_4_1",
-            },
-            {
-              nodeid: "level2_3_1",
-            },
-          ],
+        Codepipes: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Codepipes",
+          },
         },
-      ],
-      padding: 16,
-      gap: 100,
-      ["node-size"]: { width: 200, height: 52 },
-      ["children-node-size"]: { width: 200, height: 32 },
-      ["max-childrens"]: 8,
-      ["node-template"]: `<f-div
-        state="secondary"
-        width="100%"
-        height="100%"
-        padding="none medium"
-        align="middle-left"
-        variant="curved"
-        gap="small"
-        \${node.children ? 'border="small solid default bottom"' : ""}
-      >
-        <f-icon source="i-user" size="medium"></f-icon>
-        <f-div direction="column" height="hug-content" align="middle-left">
-          <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
-          <f-text variant="code" size="small" ellipsis
-            >x: \${node.x}, y: \${node.y}</f-text
-          >
-        </f-div>
-      </f-div>`,
-      ["children-node-template"]: `<f-div
-          state="secondary"
-          width="100%"
-          height="100%"
-          padding="none medium"
-          align="middle-left"
-          gap="small"
-          border="small solid default bottom"
-        >
-          <f-icon source="i-hashtag" size="small"></f-icon>
-          <f-text variant="code" size="medium" ellipsis>\${node.id}</f-text>
-        </f-div>`,
+        Brooke: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Brooke",
+          },
+        },
+        Tamara: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Tamara",
+          },
+        },
+        Bradley: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Bradley",
+          },
+        },
+        Cldcvr: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Cldcvr",
+          },
+        },
+        SuperRoot: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "SuperRoot",
+          },
+        },
+        SuperRootBrother: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "SuperRootBrother",
+          },
+        },
+        Root: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Cldcvr",
+          },
+        },
+        John: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "John",
+          },
+        },
+        Tim: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Tim",
+          },
+        },
+        Sam: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Sam",
+          },
+        },
+        Rex: {
+          data: {
+            email: "abc@cldcvr.com",
+            mobile: "+91-12345 67890",
+            name: "Rex",
+          },
+        },
+      },
     }}
   >
     {(args) => {
       //  const data = lineageDataGenerator();
       return html`<f-lineage
         .direction=${args.direction}
-        .data=${args.data}
         .padding=${args.padding}
         .gap=${args.gap}
         .node-size=${args["node-size"]}
@@ -298,6 +337,8 @@ f-lineage to display nodes and connections.
         .max-childrens=${args["max-childrens"]}
         .node-template=${args["node-template"]}
         .children-node-template=${args["children-node-template"]}
+        .links=${args.links}
+        .nodes=${args.nodes}
       ></f-lineage>`;
     }}
   </Story>

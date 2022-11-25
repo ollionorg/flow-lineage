@@ -35,6 +35,7 @@ export type LineageNodeElement = {
   hasScrollbaleChildren?: boolean;
   parentId?: string;
   offset?: number;
+  isVisible?: boolean;
 } & Omit<LineageNode, "to">;
 
 export type LineageGapElement = {
@@ -110,3 +111,19 @@ export type VerticalLinkPathParams = {
 } & CreateLinkPathParams;
 
 export type LevelPointer = Record<number, { x: number; y: number }>;
+
+export type LineageNodeChildrens = LineageNodeChildren[];
+export type LineageNodes = Record<
+  string,
+  Omit<LineageNode, "to" | "links" | "id"> & {
+    children?: LineageNodeChildrens;
+  }
+>;
+
+export type LineageNodeLinkSchema = {
+  from: string;
+  to: string;
+  state?: "success" | "danger" | "warning" | "primary" | "default";
+  type?: "solid" | "dotted" | "dashed";
+};
+export type LineageNodeLinks = LineageNodeLinkSchema[];

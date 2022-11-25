@@ -16,9 +16,11 @@ export default function removeLinks(
       root.querySelectorAll(`[id$="${`${n.id}~target-dot`}"]`).forEach((el) => {
         el.remove();
       });
-      root.querySelectorAll(`[id^="${`source-dot-${n.id}`}"]`).forEach((el) => {
-        el.remove();
-      });
+      root
+        .querySelectorAll(`[id^="${`source-dot-${n.id}`}->"]`)
+        .forEach((el) => {
+          el.remove();
+        });
     });
   }
 }

@@ -127,11 +127,19 @@
             },
             {
               "kind": "field",
-              "name": "data",
+              "name": "nodes",
               "type": {
-                "text": "LineageData"
+                "text": "LineageNodes"
               },
-              "attribute": "data"
+              "attribute": "nodes"
+            },
+            {
+              "kind": "field",
+              "name": "links",
+              "type": {
+                "text": "LineageNodeLinks"
+              },
+              "attribute": "links"
             },
             {
               "kind": "field",
@@ -195,6 +203,14 @@
                 "text": "string | undefined"
               },
               "attribute": "[\"children-node-template\"]"
+            },
+            {
+              "kind": "field",
+              "name": "data",
+              "type": {
+                "text": "LineageData | undefined"
+              },
+              "privacy": "private"
             }
           ],
           "attributes": [
@@ -207,11 +223,18 @@
               "fieldName": "direction"
             },
             {
-              "name": "data",
+              "name": "nodes",
               "type": {
-                "text": "LineageData"
+                "text": "LineageNodes"
               },
-              "fieldName": "data"
+              "fieldName": "nodes"
+            },
+            {
+              "name": "links",
+              "type": {
+                "text": "LineageNodeLinks"
+              },
+              "fieldName": "links"
             },
             {
               "name": "padding",
@@ -297,6 +320,40 @@
       "path": "src/components/f-lineage/lineage-types.ts",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/create/create-hierarchy.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createHierarchy",
+          "parameters": [
+            {
+              "name": "links",
+              "type": {
+                "text": "LineageNodeLinks"
+              }
+            },
+            {
+              "name": "nodes",
+              "type": {
+                "text": "LineageNodes"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "createHierarchy",
+            "module": "src/components/f-lineage/create/create-hierarchy.ts"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",
@@ -595,6 +652,18 @@
         },
         {
           "kind": "function",
+          "name": "getBackwardLinkPath",
+          "parameters": [
+            {
+              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  d,\n  lineage,\n}",
+              "type": {
+                "text": "HorizontalLinkPathParams"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
           "name": "getVerticalForwardLinkPath",
           "parameters": [
             {
@@ -612,6 +681,14 @@
           "name": "getForwardLinkPath",
           "declaration": {
             "name": "getForwardLinkPath",
+            "module": "src/components/f-lineage/draw/draw-paths.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getBackwardLinkPath",
+          "declaration": {
+            "name": "getBackwardLinkPath",
             "module": "src/components/f-lineage/draw/draw-paths.ts"
           }
         },

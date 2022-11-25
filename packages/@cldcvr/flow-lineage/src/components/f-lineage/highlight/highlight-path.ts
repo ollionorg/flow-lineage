@@ -6,6 +6,8 @@ export default function highlightPath(
   lineage: FLineage
 ) {
   console.time("Lineage : highlight duration");
+  const highlightedToNodeIds: Record<string, boolean> = {};
+  const highlightedFromNodeIds: Record<string, boolean> = {};
   /**
    * shadow root of lineage
    */
@@ -22,61 +24,67 @@ export default function highlightPath(
     });
 
     const highlightFrom = (id: string) => {
-      const nodeInDom = root.querySelector(`#${id}`);
-      if (nodeInDom) {
-        nodeInDom.classList.remove("lowlight");
+      if (!highlightedFromNodeIds[id]) {
+        highlightedFromNodeIds[id] = true;
+        const nodeInDom = root.querySelector(`#${id}`);
+        if (nodeInDom) {
+          nodeInDom.classList.remove("lowlight");
 
-        /**
-         * Highlight child nodes
-         */
-        const childs = root.querySelectorAll(`.child-node-${id}`);
-        if (childs) {
-          childs.forEach((el) => {
+          /**
+           * Highlight child nodes
+           */
+          const childs = root.querySelectorAll(`.child-node-${id}`);
+          if (childs) {
+            childs.forEach((el) => {
+              el.classList.remove("lowlight");
+            });
+          }
+
+          root.querySelectorAll(`[id^="${id}->"]`).forEach((el) => {
+            el.classList.add("highlight");
+            el.classList.remove("lowlight");
+            const fromid = el.getAttribute("id")?.split("->")[1];
+            if (fromid) highlightFrom(fromid);
+          });
+          root.querySelectorAll(`[id^="source-dot-${id}->"]`).forEach((el) => {
+            el.classList.add("highlight");
             el.classList.remove("lowlight");
           });
         }
-
-        root.querySelectorAll(`[id^="${id}->"]`).forEach((el) => {
-          el.classList.add("highlight");
-          el.classList.remove("lowlight");
-          const fromid = el.getAttribute("id")?.split("->")[1];
-          if (fromid) highlightFrom(fromid);
-        });
-        root.querySelectorAll(`[id^="source-dot-${id}->"]`).forEach((el) => {
-          el.classList.add("highlight");
-          el.classList.remove("lowlight");
-        });
       }
     };
     const highlightTo = (id: string) => {
-      const nodeInDom = root.querySelector(`#${id}`);
-      if (nodeInDom) {
-        nodeInDom.classList.remove("lowlight");
+      if (!highlightedToNodeIds[id]) {
+        highlightedToNodeIds[id] = true;
+        const nodeInDom = root.querySelector(`#${id}`);
+        if (nodeInDom) {
+          nodeInDom.classList.remove("lowlight");
 
-        /**
-         * Highlight child nodes
-         */
-        const childs = root.querySelectorAll(`.child-node-${id}`);
-        if (childs) {
-          childs.forEach((el) => {
+          /**
+           * Highlight child nodes
+           */
+          const childs = root.querySelectorAll(`.child-node-${id}`);
+          if (childs) {
+            childs.forEach((el) => {
+              el.classList.remove("lowlight");
+            });
+          }
+
+          root.querySelectorAll(`[id$="->${id}"]`).forEach((el) => {
+            el.classList.add("highlight");
+            el.classList.remove("lowlight");
+            const fromid = el.getAttribute("id")?.split("->")[0];
+            if (fromid) highlightTo(fromid);
+          });
+          root.querySelectorAll(`[id$="->${id}~target-dot"]`).forEach((el) => {
+            el.classList.add("highlight");
+            el.classList.remove("lowlight");
+          });
+          root.querySelectorAll(`[id$="->${id}~arrow"]`).forEach((el) => {
+            el.classList.add("highlight");
             el.classList.remove("lowlight");
           });
         }
-
-        root.querySelectorAll(`[id$="->${id}"]`).forEach((el) => {
-          el.classList.add("highlight");
-          el.classList.remove("lowlight");
-          const fromid = el.getAttribute("id")?.split("->")[0];
-          if (fromid) highlightTo(fromid);
-        });
-        root.querySelectorAll(`[id$="->${id}~target-dot"]`).forEach((el) => {
-          el.classList.add("highlight");
-          el.classList.remove("lowlight");
-        });
-        root.querySelectorAll(`[id$="->${id}~arrow"]`).forEach((el) => {
-          el.classList.add("highlight");
-          el.classList.remove("lowlight");
-        });
       }
     };
     /**

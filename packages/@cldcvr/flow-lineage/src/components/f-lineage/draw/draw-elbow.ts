@@ -5,7 +5,11 @@ import {
   LineageLinkElement,
   LineageNodeSize,
 } from "../lineage-types";
-import { getForwardLinkPath, getVerticalForwardLinkPath } from "./draw-paths";
+import {
+  getBackwardLinkPath,
+  getForwardLinkPath,
+  getVerticalForwardLinkPath,
+} from "./draw-paths";
 
 export default function drawElbow(
   d: LineageLinkElement,
@@ -217,6 +221,22 @@ function horizontalDirectionLink(
 
   if (dx - sx > gap) {
     return getForwardLinkPath({
+      sx,
+      sy,
+      dx,
+      dy,
+      endArcRadius,
+      startArcRadius,
+      getLinkGap,
+      nodeSize,
+      gap,
+      midX,
+      d,
+      lineage,
+    });
+  }
+  if (sx > dx) {
+    return getBackwardLinkPath({
       sx,
       sy,
       dx,

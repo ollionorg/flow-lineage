@@ -82,6 +82,83 @@ export function getForwardLinkPath({
   return line;
 }
 
+export function getBackwardLinkPath({
+  sx,
+  sy,
+  dx,
+  dy,
+  startArcRadius,
+  getLinkGap,
+  nodeSize,
+  gap,
+  d,
+  lineage,
+}: HorizontalLinkPathParams) {
+  const levelGaps = lineage.gaps;
+
+  const startPoint: Point = {
+    x: sx,
+    y: sy,
+  };
+
+  let line = `M ${startPoint.x} ${startPoint.y} `;
+  for (let l = d.source.level; l >= d.target.level; l--) {
+    // calclulating gapDelta (i.e. coordinate between gap)
+    const gapDelta = gap * getLinkGap(l, d.source.id);
+
+    // get gap co-ordinates from where line will pass
+    const gapCoOrdinates = levelGaps[l].find((g) => g.y + gap > startPoint.y);
+
+    // last y co-ordinate where line end at given level
+    let nextY = lineage.levelPointers[l].y;
+
+    // use gap co-ordinates to calclulate y co-ordinate where line end at given level
+    if (gapCoOrdinates) {
+      nextY = gapCoOrdinates.y + gapDelta;
+    }
+    if (l === d.source.level) {
+      line += `h ${
+        gapDelta - startArcRadius
+      } a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius} V ${nextY} `;
+      line += `a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${startArcRadius} `;
+
+      line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
+    } else if (nextY === startPoint.y) {
+      line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
+    } else if (nextY > startPoint.y) {
+      line += `a${startArcRadius},${startArcRadius} 0 0 0 ${-startArcRadius},${startArcRadius} V ${nextY} `;
+      line += `a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${startArcRadius} `;
+      line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
+    } else if (nextY < startPoint.y) {
+      line += `a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${-startArcRadius} V ${nextY} `;
+      line += `a${startArcRadius},${startArcRadius} 0 0 0 ${-startArcRadius},${-startArcRadius} `;
+      line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
+    }
+
+    if (d.source.id === "Tim" && d.target.id === "Tamara") {
+      console.log(startPoint, l);
+    }
+    // destination and source is at same level
+    if (l === d.target.level) {
+      if (dy < startPoint.y) {
+        line += `a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${-startArcRadius} `;
+        line += `V ${dy + startArcRadius} `;
+        line += `a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${-startArcRadius} `;
+        line += `H ${dx} `;
+      } else {
+        line += `a${startArcRadius},${startArcRadius} 0 0 0 ${-startArcRadius},${startArcRadius} `;
+        line += `V ${dy - startArcRadius} `;
+        line += `a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${startArcRadius} `;
+        line += `H ${dx} `;
+      }
+    } else {
+      startPoint.x -= gap + nodeSize.width;
+      startPoint.y = nextY += startArcRadius;
+    }
+  }
+  return line;
+}
+
 export function getVerticalForwardLinkPath({
   sx,
   sy,

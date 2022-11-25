@@ -6,12 +6,15 @@ import createLineage from "./create/create-lineage";
 import {
   LineageData,
   LineageDirection,
+  LineageNodeLinks,
+  LineageNodes,
   LineageNodeSize,
 } from "./lineage-types";
 import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
 import drawLineage from "./draw/draw-lineage";
 import flowCoreCSS from "@cldcvr/flow-core/dist/style.css";
 import lowlightPath from "./highlight/lowlight-path";
+import createHierarchy from "./create/create-hierarchy";
 
 @customElement("f-lineage")
 export class FLineage extends LitElement {
@@ -26,8 +29,11 @@ export class FLineage extends LitElement {
   @property({ reflect: true, type: String })
   direction?: LineageDirection = "horizontal";
 
+  @property({ type: Object })
+  nodes!: LineageNodes;
+
   @property({ type: Array })
-  data!: LineageData;
+  links!: LineageNodeLinks;
 
   @property({ reflect: true, type: Number })
   padding?: number = 16;
@@ -64,6 +70,8 @@ export class FLineage extends LitElement {
     type: Object,
   })
   ["children-node-template"]?: string;
+
+  private data?: LineageData;
 
   render() {
     return html`${unsafeSVG(`<svg xmlns="http://www.w3.org/2000/svg"></svg>`)}`;
@@ -104,6 +112,9 @@ export class FLineage extends LitElement {
       this["children-node-template"] ?? "<f-text ellipsis>${node.id}</f-text>";
     this.svg.innerHTML = ``;
 
+    if (this.links && this.links.length > 0) {
+      this.data = createHierarchy(this.links, this.nodes);
+    }
     if (this.data && this.data.length > 0) {
       const lineage = createLineage({
         data: this.data,

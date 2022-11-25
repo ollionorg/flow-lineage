@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [0.1.2] - 2022-11-25
+
+### Features
+
+- `links` and `node` property support added for flat data structure.
 ## [0.1.1] - 2022-11-18
 
 ### Features
