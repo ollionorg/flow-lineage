@@ -37,6 +37,7 @@ export default function createHierarchy(
           level: 1,
           ref: cNode,
           isChildren: true,
+          isLinked: true,
         };
       });
     }

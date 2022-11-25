@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [0.1.3] - 2022-11-25
+
+### Bug fixes
+
+- Incoming child connection error fixed.
+
 ## [0.1.2] - 2022-11-25
 
 ### Features
