@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [0.1.5] - 2022-11-28
+
+### Bug fixes
+
+- Any node to root coonection bug fixed
+
 ## [0.1.4] - 2022-11-25
 
 ### Features

@@ -51,7 +51,23 @@ export default function createHierarchy(
       const to = hierarchyMeta[link.to].ref;
       const from = hierarchyMeta[link.from].ref;
 
-      if (!hierarchyMeta[link.to].isLinked && data.length > 1) {
+      /**
+       * Rare backward connection check when any grand child connecting to root
+       */
+      const inSameHierarchy =
+        hierarchyMeta[link.to].level === 1
+          ? JSON.stringify(to).includes(JSON.stringify(from))
+          : false;
+
+      /**
+       * if destination connection is not yet linked
+       */
+      if (
+        !hierarchyMeta[link.to].isLinked &&
+        !inSameHierarchy &&
+        data.length > 1 &&
+        !hierarchyMeta[link.from].isChildren
+      ) {
         if (!from.to) {
           from.to = [];
         }
@@ -62,8 +78,15 @@ export default function createHierarchy(
         data.splice(idxToRemove, 1);
 
         hierarchyMeta[link.to].level = hierarchyMeta[link.from].level + 1;
+
+        to.children?.forEach((cNode) => {
+          hierarchyMeta[cNode.id].level = hierarchyMeta[link.to].level;
+        });
         hierarchyMeta[link.to].isLinked = true;
       } else {
+        /**
+         * Add as an additional links if it is not in hierarchy
+         */
         if (!from.links) {
           from.links = [];
         }
