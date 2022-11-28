@@ -169,6 +169,10 @@ f-lineage to display nodes and connections.
           from: "child1",
           to: "Tim",
         },
+        {
+          from: "A",
+          to: "B",
+        },
       ],
       nodes: {
         Calvin: {
@@ -354,6 +358,7 @@ f-lineage to display nodes and connections.
         .children-node-template=${args["children-node-template"]}
         .links=${args.links}
         .nodes=${args.nodes}
+        center-node="Alicen"
       ></f-lineage>`;
     }}
   </Story>

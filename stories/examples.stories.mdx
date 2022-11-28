@@ -57,173 +57,192 @@ f-lineage to display nodes and connections.
     }}
     args={{
       direction: "vertical",
-      data: [
-        {
-          id: "root",
+      nodes: {
+        root: {
           data: {
             fullName: "Carey McLaughlin",
             designation: "Vice President",
             mobile: "+1 123 456 000",
             email: "abc@xyz.com",
           },
-          to: [
+        },
+        hr: {
+          data: {
+            fullName: "Angelena Doyle",
+            designation: "Director Human Resources",
+            mobile: "+1 123 456 000",
+            email: "abc@xyz.com",
+          },
+        },
+        am: {
+          data: {
+            fullName: "Max Oliver",
+            designation: "Director Accounting",
+            mobile: "+1 123 456 000",
+            email: "abc@xyz.com",
+          },
+        },
+        mo: {
+          data: {
+            fullName: "Aubree Matthews",
+            designation: "Director Marketing",
+            mobile: "+1 123 456 000",
+            email: "abc@xyz.com",
+          },
+        },
+        "mo-tl1": {
+          data: {
+            fullName: "Anastasia Day",
+            designation: "Team Lead",
+            mobile: "+1 123 456 000",
+            email: "abc@xyz.com",
+          },
+          children: [
             {
-              id: "hr",
+              id: "mo-tl1-1",
               data: {
-                fullName: "Angelena Doyle",
-                designation: "Director Human Resources",
-                mobile: "+1 123 456 000",
-                email: "abc@xyz.com",
+                fullName: "Whitney Lambert",
               },
             },
             {
-              id: "am",
+              id: "mo-tl1-2",
               data: {
-                fullName: "Max Oliver",
-                designation: "Director Accounting",
-                mobile: "+1 123 456 000",
-                email: "abc@xyz.com",
+                fullName: "Jennifer Pearson",
               },
             },
             {
-              id: "mo",
+              id: "mo-tl1-2",
               data: {
-                fullName: "Aubree Matthews",
-                designation: "Director Marketing",
-                mobile: "+1 123 456 000",
-                email: "abc@xyz.com",
+                fullName: "Lark Motley",
               },
-              to: [
-                {
-                  id: "mo-tl1",
-                  data: {
-                    fullName: "Anastasia Day",
-                    designation: "Team Lead",
-                    mobile: "+1 123 456 000",
-                    email: "abc@xyz.com",
-                  },
-                  children: [
-                    {
-                      id: "mo-tl1-1",
-                      data: {
-                        fullName: "Whitney Lambert",
-                      },
-                    },
-                    {
-                      id: "mo-tl1-2",
-                      data: {
-                        fullName: "Jennifer Pearson",
-                      },
-                    },
-                    {
-                      id: "mo-tl1-2",
-                      data: {
-                        fullName: "Lark Motley",
-                      },
-                    },
-                  ],
-                },
-                {
-                  id: "mo-tl2",
-                  data: {
-                    fullName: "Osmond Wise",
-                    designation: "Team Lead",
-                    mobile: "+1 123 456 000",
-                    email: "abc@xyz.com",
-                  },
-                  children: [
-                    {
-                      id: "mo-tl2-1",
-                      data: {
-                        fullName: "Adele Green",
-                      },
-                    },
-                    {
-                      id: "mo-tl2-2",
-                      data: {
-                        fullName: "Lawrence Potter",
-                      },
-                    },
-                    {
-                      id: "mo-tl2-2",
-                      data: {
-                        fullName: "Darlene Holden",
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              id: "de",
-              data: {
-                fullName: "Ben Stokes",
-                designation: "Director Engineering",
-                mobile: "+1 123 456 000",
-                email: "abc@xyz.com",
-              },
-              to: [
-                {
-                  id: "tl1",
-                  data: {
-                    fullName: "Aaron Verler",
-                    designation: "Team Lead",
-                    mobile: "+1 123 456 000",
-                    email: "abc@xyz.com",
-                  },
-                  children: [
-                    {
-                      id: "tl1-1",
-                      data: {
-                        fullName: "Max Furry",
-                      },
-                    },
-                    {
-                      id: "tl1-2",
-                      data: {
-                        fullName: "Steve Roger",
-                      },
-                    },
-                    {
-                      id: "tl1-2",
-                      data: {
-                        fullName: "Tony Stark",
-                      },
-                    },
-                  ],
-                },
-                {
-                  id: "tl2",
-                  data: {
-                    fullName: "Bruce Banner",
-                    designation: "Team Lead",
-                    mobile: "+1 123 456 000",
-                    email: "abc@xyz.com",
-                  },
-                  children: [
-                    {
-                      id: "tl2-1",
-                      data: {
-                        fullName: "Celeste Waters",
-                      },
-                    },
-                    {
-                      id: "tl2-2",
-                      data: {
-                        fullName: "Jeffrey Bell",
-                      },
-                    },
-                    {
-                      id: "tl2-2",
-                      data: {
-                        fullName: "Mona Hancock",
-                      },
-                    },
-                  ],
-                },
-              ],
             },
           ],
+        },
+        "mo-tl2": {
+          data: {
+            fullName: "Osmond Wise",
+            designation: "Team Lead",
+            mobile: "+1 123 456 000",
+            email: "abc@xyz.com",
+          },
+          children: [
+            {
+              id: "mo-tl2-1",
+              data: {
+                fullName: "Adele Green",
+              },
+            },
+            {
+              id: "mo-tl2-2",
+              data: {
+                fullName: "Lawrence Potter",
+              },
+            },
+            {
+              id: "mo-tl2-2",
+              data: {
+                fullName: "Darlene Holden",
+              },
+            },
+          ],
+        },
+        de: {
+          data: {
+            fullName: "Ben Stokes",
+            designation: "Director Engineering",
+            mobile: "+1 123 456 000",
+            email: "abc@xyz.com",
+          },
+        },
+        tl1: {
+          data: {
+            fullName: "Aaron Verler",
+            designation: "Team Lead",
+            mobile: "+1 123 456 000",
+            email: "abc@xyz.com",
+          },
+          children: [
+            {
+              id: "tl1-1",
+              data: {
+                fullName: "Max Furry",
+              },
+            },
+            {
+              id: "tl1-2",
+              data: {
+                fullName: "Steve Roger",
+              },
+            },
+            {
+              id: "tl1-2",
+              data: {
+                fullName: "Tony Stark",
+              },
+            },
+          ],
+        },
+        tl2: {
+          data: {
+            fullName: "Bruce Banner",
+            designation: "Team Lead",
+            mobile: "+1 123 456 000",
+            email: "abc@xyz.com",
+          },
+          children: [
+            {
+              id: "tl2-1",
+              data: {
+                fullName: "Celeste Waters",
+              },
+            },
+            {
+              id: "tl2-2",
+              data: {
+                fullName: "Jeffrey Bell",
+              },
+            },
+            {
+              id: "tl2-2",
+              data: {
+                fullName: "Mona Hancock",
+              },
+            },
+          ],
+        },
+      },
+      links: [
+        {
+          from: "root",
+          to: "hr",
+        },
+        {
+          from: "root",
+          to: "am",
+        },
+        {
+          from: "root",
+          to: "mo",
+        },
+        {
+          from: "root",
+          to: "de",
+        },
+        {
+          from: "mo",
+          to: "mo-tl1",
+        },
+        {
+          from: "mo",
+          to: "mo-tl2",
+        },
+        {
+          from: "de",
+          to: "tl1",
+        },
+        {
+          from: "de",
+          to: "tl2",
         },
       ],
       padding: 16,
@@ -276,7 +295,8 @@ f-lineage to display nodes and connections.
       //  const data = lineageDataGenerator();
       return html`<f-lineage
         .direction=${args.direction}
-        .data=${args.data}
+        .nodes=${args.nodes}
+        .links=${args.links}
         .padding=${args.padding}
         .gap=${args.gap}
         .node-size=${args["node-size"]}

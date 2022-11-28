@@ -172,6 +172,25 @@
             },
             {
               "kind": "field",
+              "name": "[\"center-node\"]",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "[\"center-node\"]",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "degree",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "attribute": "degree",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "[\"children-node-size\"]",
               "type": {
                 "text": "LineageNodeSize | undefined"
@@ -219,6 +238,41 @@
                 "text": "LineageData | undefined"
               },
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "minLevel",
+              "type": {
+                "text": "number | null"
+              },
+              "default": "null",
+              "description": "min level to display , defined by center-node and degree"
+            },
+            {
+              "kind": "field",
+              "name": "maxLevel",
+              "type": {
+                "text": "number | null"
+              },
+              "default": "null",
+              "description": "max level to display , defined by center-node and degree"
+            },
+            {
+              "kind": "field",
+              "name": "maxAvailableLevels",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "holds maximum available level count"
+            },
+            {
+              "kind": "method",
+              "name": "increaseDegree"
+            },
+            {
+              "kind": "method",
+              "name": "decreaseDegree"
             }
           ],
           "attributes": [
@@ -266,6 +320,21 @@
                 "text": "LineageNodeSize | undefined"
               },
               "fieldName": "[\"node-size\"]"
+            },
+            {
+              "name": "[\"center-node\"]",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "[\"center-node\"]"
+            },
+            {
+              "name": "degree",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "fieldName": "degree"
             },
             {
               "name": "[\"children-node-size\"]",

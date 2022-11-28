@@ -1,5 +1,5 @@
 import { html, unsafeCSS, LitElement } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
 import eleStyle from "./f-lineage.scss";
 import * as d3 from "d3";
 import createLineage from "./create/create-lineage";
@@ -49,6 +49,18 @@ export class FLineage extends LitElement {
 
   @property({
     reflect: true,
+    type: String,
+  })
+  ["center-node"]?: string;
+
+  @property({
+    reflect: true,
+    type: Number,
+  })
+  degree = 1;
+
+  @property({
+    reflect: true,
     type: Object,
   })
   ["children-node-size"]?: LineageNodeSize;
@@ -75,8 +87,68 @@ export class FLineage extends LitElement {
 
   private data?: LineageData;
 
+  /**
+   * min level to display , defined by center-node and degree
+   */
+  @state()
+  minLevel: number | null = null;
+
+  /**
+   * max level to display , defined by center-node and degree
+   */
+  @state()
+  maxLevel: number | null = null;
+
+  /**
+   * holds maximum available level count
+   */
+  maxAvailableLevels = 0;
+
+  increaseDegree() {
+    if (this.minLevel != null && this.maxLevel != null) {
+      this.degree += 1;
+      this.minLevel -= 1;
+      this.maxLevel += 1;
+    }
+  }
+  decreaseDegree() {
+    if (this.minLevel != null && this.maxLevel != null && this.degree != 1) {
+      this.degree -= 1;
+      this.minLevel += 1;
+      this.maxLevel -= 1;
+    }
+  }
+
   render() {
-    return html`${unsafeSVG(`<svg xmlns="http://www.w3.org/2000/svg"></svg>`)}`;
+    return html`
+      ${unsafeSVG(`<svg xmlns="http://www.w3.org/2000/svg"></svg>`)}
+      <f-div
+        align="middle-center"
+        gap="x-small"
+        padding="small"
+        state="tertiary"
+        variant="curved"
+        direction="column"
+      >
+        <f-icon-button
+          icon="i-plus"
+          type="packed"
+          @click=${this.increaseDegree}
+        ></f-icon-button>
+
+        <f-button
+          .label=${`${this.degree}`}
+          variant="round"
+          size="small"
+          state="neutral"
+        ></f-button>
+        <f-icon-button
+          icon="i-minus"
+          type="packed"
+          @click=${this.decreaseDegree}
+        ></f-icon-button>
+      </f-div>
+    `;
   }
   connectedCallback() {
     super.connectedCallback();
@@ -132,6 +204,30 @@ export class FLineage extends LitElement {
         direction,
         maxChildrenHeight,
       });
+
+      if (this["center-node"]) {
+        const centerNode = lineage.nodes.find(
+          (n) => n.id === this["center-node"]
+        );
+
+        this.maxAvailableLevels = lineage.nodes.reduce(
+          (preValue, currentNode) => {
+            if (currentNode.level > preValue) {
+              preValue = currentNode.level;
+            }
+            return preValue;
+          },
+          0
+        );
+
+        if (centerNode && this.minLevel === null && this.maxLevel === null) {
+          this.minLevel = centerNode.level - this.degree;
+          this.maxLevel = centerNode.level + this.degree;
+        } else {
+          console.warn(`center-node ${this["center-node"]} not found!`);
+        }
+      }
+
       /**
        * main svg element: setting height and width
        */

@@ -17,11 +17,17 @@ export default function drawNodes(params: DrawLineageParams) {
   } = params;
   const scrollBarWidth = 8;
   const maxChildrens = maxChildrenHeight / childrenNodeSize.height;
+  const degreeFilter = (n: LineageNodeElement) => {
+    if (element.minLevel && element.maxLevel) {
+      return n.level >= element.minLevel && n.level <= element.maxLevel;
+    }
+    return true;
+  };
   const parentNodes = svg
     .append("g")
     .attr("class", "nodes")
     .selectAll("g.node")
-    .data(lineage.nodes.filter((n) => !n.isChildren))
+    .data(lineage.nodes.filter((n) => !n.isChildren && degreeFilter(n)))
     .enter();
   parentNodes
     .append("g")
@@ -37,6 +43,12 @@ export default function drawNodes(params: DrawLineageParams) {
       highlightPath(d, element);
     })
     .append("foreignObject")
+    .attr("class", (d) => {
+      if (element["center-node"] && d.id === element["center-node"]) {
+        return "center-node";
+      }
+      return "";
+    })
     .attr("width", nodeSize.width)
     .attr("height", nodeSize.height)
     /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -59,7 +71,11 @@ export default function drawNodes(params: DrawLineageParams) {
     .append("g")
     .attr("class", "scrollable-children")
     .selectAll("g")
-    .data(lineage.nodes.filter((n) => n.children && n.children.length > 0))
+    .data(
+      lineage.nodes.filter(
+        (n) => n.children && n.children.length > 0 && degreeFilter(n)
+      )
+    )
     .enter()
     .append("g")
     .attr("class", "children-container")

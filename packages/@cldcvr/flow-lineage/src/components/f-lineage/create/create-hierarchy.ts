@@ -46,57 +46,64 @@ export default function createHierarchy(
     }
   });
 
+  /**
+   * iterate through link and create hierarchy
+   */
   links.forEach((link) => {
     if (addedLinks.findIndex((l) => l === `${link.to}->${link.from}`) === -1) {
-      const to = hierarchyMeta[link.to].ref;
-      const from = hierarchyMeta[link.from].ref;
-
+      const to = hierarchyMeta[link.to]?.ref;
+      const from = hierarchyMeta[link.from]?.ref;
       /**
-       * Rare backward connection check when any grand child connecting to root
+       * check if node reference present
        */
-      const inSameHierarchy =
-        hierarchyMeta[link.to].level === 1
-          ? JSON.stringify(to).includes(JSON.stringify(from))
-          : false;
-
-      /**
-       * if destination connection is not yet linked
-       */
-      if (
-        !hierarchyMeta[link.to].isLinked &&
-        !inSameHierarchy &&
-        data.length > 1 &&
-        !hierarchyMeta[link.from].isChildren
-      ) {
-        if (!from.to) {
-          from.to = [];
-        }
-
-        from.to.push(to);
-        const idxToRemove = data.findIndex((n) => n.id === link.to);
-
-        data.splice(idxToRemove, 1);
-
-        hierarchyMeta[link.to].level = hierarchyMeta[link.from].level + 1;
-
-        to.children?.forEach((cNode) => {
-          hierarchyMeta[cNode.id].level = hierarchyMeta[link.to].level;
-        });
-        hierarchyMeta[link.to].isLinked = true;
-      } else {
+      if (from && to) {
         /**
-         * Add as an additional links if it is not in hierarchy
+         * Rare backward connection check when any grand child connecting to root
          */
-        if (!from.links) {
-          from.links = [];
+        const inSameHierarchy =
+          hierarchyMeta[link.to].level === 1
+            ? JSON.stringify(to).includes(JSON.stringify(from))
+            : false;
+
+        /**
+         * if destination connection is not yet linked
+         */
+        if (
+          !hierarchyMeta[link.to].isLinked &&
+          !inSameHierarchy &&
+          data.length > 1 &&
+          !hierarchyMeta[link.from].isChildren
+        ) {
+          if (!from.to) {
+            from.to = [];
+          }
+
+          from.to.push(to);
+          const idxToRemove = data.findIndex((n) => n.id === link.to);
+
+          data.splice(idxToRemove, 1);
+
+          hierarchyMeta[link.to].level = hierarchyMeta[link.from].level + 1;
+
+          to.children?.forEach((cNode) => {
+            hierarchyMeta[cNode.id].level = hierarchyMeta[link.to].level;
+          });
+          hierarchyMeta[link.to].isLinked = true;
+        } else {
+          /**
+           * Add as an additional links if it is not in hierarchy
+           */
+          if (!from.links) {
+            from.links = [];
+          }
+
+          from.links.push({
+            nodeid: to.id,
+          });
         }
 
-        from.links.push({
-          nodeid: to.id,
-        });
+        addedLinks.push(`${link.from}->${link.to}`);
       }
-
-      addedLinks.push(`${link.from}->${link.to}`);
     } else {
       biDirectionalLinks.push(`${link.to}->${link.from}`);
     }

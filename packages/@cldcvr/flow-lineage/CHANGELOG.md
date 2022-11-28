@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [0.1.6] - 2022-11-28
+
+### Improvements
+
+- `center-node` and `degree` property added to support throttling.
 ## [0.1.5] - 2022-11-28
 
 ### Bug fixes

@@ -38,8 +38,19 @@ export default function drawLinks({
   const links = linksElement
     .selectAll("path.link")
     .data(
-      lineage.links.filter((l) => {
-        return filter ? filter(l) : true;
+      lineage.links.filter((l: LineageLinkElement) => {
+        const degreeFilter = (l: LineageLinkElement) => {
+          if (element.minLevel != null && element.maxLevel != null) {
+            return (
+              l.source.level >= element.minLevel &&
+              l.source.level <= element.maxLevel &&
+              l.target.level >= element.minLevel &&
+              l.target.level <= element.maxLevel
+            );
+          }
+          return true;
+        };
+        return filter ? filter(l) && degreeFilter(l) : degreeFilter(l);
       }),
       (d) => {
         return (d as LineageLinkElement).id;

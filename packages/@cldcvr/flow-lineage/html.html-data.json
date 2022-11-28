@@ -3,7 +3,7 @@
   "tags": [
     {
       "name": "f-lineage",
-      "description": "Attributes:\n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `nodes` - \n\n  * `links` {`LineageNodeLinks`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"children-node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"max-childrens\"]` {`number | undefined`} - \n\n  * `[\"node-template\"]` {`string | undefined`} - \n\n  * `[\"children-node-template\"]` {`string | undefined`} - \n\nProperties:\n\n  * `styles` {`CSSResult[]`} - css loaded from scss file\n\n  * `svg` {`SVGSVGElement`} - \n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `nodes` - \n\n  * `links` {`LineageNodeLinks`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"children-node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"max-childrens\"]` {`number | undefined`} - \n\n  * `[\"node-template\"]` {`string | undefined`} - \n\n  * `[\"children-node-template\"]` {`string | undefined`} - \n\n  * `biDirectionalLinks` {`string[]`} - \n\n  * `data` {`LineageData | undefined`} - ",
+      "description": "Attributes:\n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `nodes` - \n\n  * `links` {`LineageNodeLinks`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"center-node\"]` {`string | undefined`} - \n\n  * `degree` {`number`} - \n\n  * `[\"children-node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"max-childrens\"]` {`number | undefined`} - \n\n  * `[\"node-template\"]` {`string | undefined`} - \n\n  * `[\"children-node-template\"]` {`string | undefined`} - \n\nProperties:\n\n  * `styles` {`CSSResult[]`} - css loaded from scss file\n\n  * `svg` {`SVGSVGElement`} - \n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `nodes` - \n\n  * `links` {`LineageNodeLinks`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"center-node\"]` {`string | undefined`} - \n\n  * `degree` {`number`} - \n\n  * `[\"children-node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"max-childrens\"]` {`number | undefined`} - \n\n  * `[\"node-template\"]` {`string | undefined`} - \n\n  * `[\"children-node-template\"]` {`string | undefined`} - \n\n  * `biDirectionalLinks` {`string[]`} - \n\n  * `data` {`LineageData | undefined`} - \n\n  * `minLevel` {`number | null`} - min level to display , defined by center-node and degree\n\n  * `maxLevel` {`number | null`} - max level to display , defined by center-node and degree\n\n  * `maxAvailableLevels` {`number`} - holds maximum available level count",
       "attributes": [
         {
           "name": "direction",
@@ -39,6 +39,15 @@
           "name": "[\"node-size\"]",
           "description": "`[\"node-size\"]` {`LineageNodeSize | undefined`} - \n\nProperty: [\"node-size\"]",
           "values": []
+        },
+        {
+          "name": "[\"center-node\"]",
+          "description": "`[\"center-node\"]` {`string | undefined`} - \n\nProperty: [\"center-node\"]",
+          "values": []
+        },
+        {
+          "name": "degree",
+          "description": "`degree` {`number`} - \n\nProperty: degree\n\nDefault: 1"
         },
         {
           "name": "[\"children-node-size\"]",

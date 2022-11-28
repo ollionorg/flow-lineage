@@ -3,6 +3,8 @@ f-lineage {
   height: 100%;
   width: 100%;
   overflow: auto;
+  flex-direction: column;
+  align-items: flex-end;
 
   foreignObject {
     overflow: visible;
@@ -29,5 +31,15 @@ f-lineage {
     opacity: 0.3;
     stroke-opacity: 0.3;
     fill-opacity: 0.3;
+  }
+
+  foreignObject.center-node {
+    // outline-offset: 2px;
+    // outline-style: solid;
+    // outline-width: 1px;
+    // outline-color: var(--color-primary-secondary);
+    > * {
+      background-color: var(--color-primary-surface);
+    }
   }
 }
