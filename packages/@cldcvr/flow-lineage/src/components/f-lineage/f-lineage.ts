@@ -1,11 +1,13 @@
 import { html, unsafeCSS, LitElement } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { customElement, property, query } from "lit/decorators.js";
 import eleStyle from "./f-lineage.scss";
 import * as d3 from "d3";
 import createLineage from "./create/create-lineage";
 import {
+  DrawLineageParams,
   LineageData,
   LineageDirection,
+  LineageNodeElement,
   LineageNodeLinks,
   LineageNodes,
   LineageNodeSize,
@@ -15,6 +17,8 @@ import drawLineage from "./draw/draw-lineage";
 import flowCoreCSS from "@cldcvr/flow-core/dist/style.css";
 import lowlightPath from "./highlight/lowlight-path";
 import createHierarchy from "./create/create-hierarchy";
+import { FButton } from "@cldcvr/flow-core";
+// Renders attribute names of parent element to textContent
 
 @customElement("f-lineage")
 export class FLineage extends LitElement {
@@ -83,40 +87,68 @@ export class FLineage extends LitElement {
   })
   ["children-node-template"]?: string;
 
+  @query("#page-number")
+  pageNumberElement!: FButton;
+
+  centerNodeElement?: LineageNodeElement;
+
   biDirectionalLinks: string[] = [];
 
-  private data?: LineageData;
+  private data!: LineageData;
 
   /**
-   * min level to display , defined by center-node and degree
+   * holds which levels to display
    */
-  @state()
-  minLevel: number | null = null;
+  levelsToPlot: number[] = [];
 
-  /**
-   * max level to display , defined by center-node and degree
-   */
-  @state()
-  maxLevel: number | null = null;
+  private lineageDrawParams!: DrawLineageParams;
+
+  page = 1;
 
   /**
    * holds maximum available level count
    */
   maxAvailableLevels = 0;
 
+  getNumbersFromRange(min: number, max: number) {
+    return Array.from({ length: max - min + 1 }, (_, i) => i + min);
+  }
+
   increaseDegree() {
-    if (this.minLevel != null && this.maxLevel != null) {
-      this.degree += 1;
-      this.minLevel -= 1;
-      this.maxLevel += 1;
-    }
+    const minLevel = Math.min(...this.levelsToPlot);
+    const maxLevel = Math.max(...this.levelsToPlot);
+
+    this.levelsToPlot = [
+      ...this.getNumbersFromRange(minLevel - this.degree, minLevel - 1),
+      ...this.getNumbersFromRange(maxLevel + 1, maxLevel + this.degree),
+    ];
+
+    this.page += 1;
+    this.pageNumberElement.label = `${this.page}`;
+    drawLineage(this.lineageDrawParams);
   }
   decreaseDegree() {
-    if (this.minLevel != null && this.maxLevel != null && this.degree != 1) {
-      this.degree -= 1;
-      this.minLevel += 1;
-      this.maxLevel -= 1;
-    }
+    const minLevel = Math.min(...this.levelsToPlot);
+    const maxLevel = Math.max(...this.levelsToPlot);
+
+    this.levelsToPlot = [
+      ...this.getNumbersFromRange(
+        minLevel - this.degree - this.degree,
+        minLevel - this.degree
+      ),
+      ...this.getNumbersFromRange(
+        minLevel - this.degree - this.degree,
+        minLevel - this.degree
+      ),
+    ];
+    this.levelsToPlot = [minLevel + 1, maxLevel - 1];
+    this.shadowRoot
+      ?.querySelectorAll(`[data-page="${this.page}"`)
+      .forEach((element) => {
+        element.remove();
+      });
+    this.page -= 1;
+    this.pageNumberElement.label = `${this.page}`;
   }
 
   render() {
@@ -137,7 +169,8 @@ export class FLineage extends LitElement {
         ></f-icon-button>
 
         <f-button
-          .label=${`${this.degree}`}
+          id="page-number"
+          .label=${`${this.page}`}
           variant="round"
           size="small"
           state="neutral"
@@ -205,27 +238,39 @@ export class FLineage extends LitElement {
         maxChildrenHeight,
       });
 
+      this.centerNodeElement = lineage.nodes.find(
+        (n) => n.id === this.data[0].id
+      );
+
       if (this["center-node"]) {
-        const centerNode = lineage.nodes.find(
+        this.centerNodeElement = lineage.nodes.find(
           (n) => n.id === this["center-node"]
         );
+      }
+      this.maxAvailableLevels = lineage.nodes.reduce(
+        (preValue, currentNode) => {
+          if (currentNode.level > preValue) {
+            preValue = currentNode.level;
+          }
+          return preValue;
+        },
+        0
+      );
 
-        this.maxAvailableLevels = lineage.nodes.reduce(
-          (preValue, currentNode) => {
-            if (currentNode.level > preValue) {
-              preValue = currentNode.level;
-            }
-            return preValue;
-          },
-          0
-        );
-
-        if (centerNode && this.minLevel === null && this.maxLevel === null) {
-          this.minLevel = centerNode.level - this.degree;
-          this.maxLevel = centerNode.level + this.degree;
-        } else {
-          console.warn(`center-node ${this["center-node"]} not found!`);
-        }
+      if (this.centerNodeElement) {
+        this.levelsToPlot = [
+          ...this.getNumbersFromRange(
+            this.centerNodeElement.level - this.degree,
+            this.centerNodeElement.level
+          ),
+          ...this.getNumbersFromRange(
+            this.centerNodeElement.level + 1,
+            this.centerNodeElement.level + this.degree
+          ),
+        ];
+        console.log("levels to plot", this.levelsToPlot);
+      } else {
+        console.warn(`center-node ${this["center-node"]} not found!`);
       }
 
       /**
@@ -241,7 +286,7 @@ export class FLineage extends LitElement {
        */
       const lineageContainer = svgElement.append("g");
 
-      drawLineage({
+      this.lineageDrawParams = {
         lineage,
         svg: lineageContainer,
         nodeSize,
@@ -250,7 +295,8 @@ export class FLineage extends LitElement {
         direction,
         maxChildrenHeight,
         element: this,
-      });
+      };
+      drawLineage(this.lineageDrawParams);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleZoom = (e: any) => {
         lineageContainer.attr("transform", e.transform);

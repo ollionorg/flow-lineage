@@ -18,14 +18,15 @@ export default function drawNodes(params: DrawLineageParams) {
   const scrollBarWidth = 8;
   const maxChildrens = maxChildrenHeight / childrenNodeSize.height;
   const degreeFilter = (n: LineageNodeElement) => {
-    if (element.minLevel && element.maxLevel) {
-      return n.level >= element.minLevel && n.level <= element.maxLevel;
+    if (element.levelsToPlot.length > 0) {
+      return element.levelsToPlot.includes(n.level);
     }
     return true;
   };
   const parentNodes = svg
     .append("g")
     .attr("class", "nodes")
+    .attr("data-page", element.page)
     .selectAll("g.node")
     .data(lineage.nodes.filter((n) => !n.isChildren && degreeFilter(n)))
     .enter();
@@ -44,7 +45,7 @@ export default function drawNodes(params: DrawLineageParams) {
     })
     .append("foreignObject")
     .attr("class", (d) => {
-      if (element["center-node"] && d.id === element["center-node"]) {
+      if (element.centerNodeElement && d.id === element.centerNodeElement.id) {
         return "center-node";
       }
       return "";
@@ -70,6 +71,7 @@ export default function drawNodes(params: DrawLineageParams) {
   svg
     .append("g")
     .attr("class", "scrollable-children")
+    .attr("data-page", element.page)
     .selectAll("g")
     .data(
       lineage.nodes.filter(
@@ -215,6 +217,7 @@ export default function drawNodes(params: DrawLineageParams) {
       .attr("class", (d) => {
         return `child-node lineage-node lineage-element child-node-${d.parentId}`;
       })
+      .attr("data-page", element.page)
       .attr("id", (d) => {
         return d.id;
       })
@@ -282,9 +285,12 @@ export default function drawNodes(params: DrawLineageParams) {
     .append("g")
     .attr("class", "scrollbars lineage-element")
     .selectAll("g")
-    .data(lineage.nodes.filter((n) => n.hasScrollbaleChildren))
+    .data(
+      lineage.nodes.filter((n) => n.hasScrollbaleChildren && degreeFilter(n))
+    )
     .enter()
     .append("rect")
+    .attr("data-page", element.page)
     .attr("id", (d) => {
       return "scrollbar-" + d.id;
     })

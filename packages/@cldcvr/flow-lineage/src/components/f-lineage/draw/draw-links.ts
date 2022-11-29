@@ -1,4 +1,3 @@
-import { Selection } from "d3-selection";
 import {
   DrawLineageParams,
   LevelLinkGap,
@@ -24,29 +23,16 @@ export default function drawLinks({
    */
   const levelLinkGap: LevelLinkGap = {};
 
-  let linksElement = svg.select("g.links") as unknown as Selection<
-    SVGGElement,
-    unknown,
-    null,
-    undefined
-  >;
-  const isEmptyLinks = linksElement.empty();
-  if (isEmptyLinks) {
-    linksElement = svg.append("g").attr("class", "links");
-  }
-
-  const links = linksElement
+  const links = svg
+    .append("g")
+    .attr("class", "links")
+    .attr("data-page", element.page)
     .selectAll("path.link")
     .data(
       lineage.links.filter((l: LineageLinkElement) => {
         const degreeFilter = (l: LineageLinkElement) => {
-          if (element.minLevel != null && element.maxLevel != null) {
-            return (
-              l.source.level >= element.minLevel &&
-              l.source.level <= element.maxLevel &&
-              l.target.level >= element.minLevel &&
-              l.target.level <= element.maxLevel
-            );
+          if (element.levelsToPlot.length > 0) {
+            return element.levelsToPlot.includes(l.target.level);
           }
           return true;
         };

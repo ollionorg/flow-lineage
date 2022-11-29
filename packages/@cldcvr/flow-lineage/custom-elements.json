@@ -225,6 +225,20 @@
             },
             {
               "kind": "field",
+              "name": "pageNumberElement",
+              "type": {
+                "text": "FButton"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "centerNodeElement",
+              "type": {
+                "text": "LineageNodeElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "biDirectionalLinks",
               "type": {
                 "text": "string[]"
@@ -235,27 +249,34 @@
               "kind": "field",
               "name": "data",
               "type": {
-                "text": "LineageData | undefined"
+                "text": "LineageData"
               },
               "privacy": "private"
             },
             {
               "kind": "field",
-              "name": "minLevel",
+              "name": "levelsToPlot",
               "type": {
-                "text": "number | null"
+                "text": "number[]"
               },
-              "default": "null",
-              "description": "min level to display , defined by center-node and degree"
+              "default": "[]",
+              "description": "holds which levels to display"
             },
             {
               "kind": "field",
-              "name": "maxLevel",
+              "name": "lineageDrawParams",
               "type": {
-                "text": "number | null"
+                "text": "DrawLineageParams"
               },
-              "default": "null",
-              "description": "max level to display , defined by center-node and degree"
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "page",
+              "type": {
+                "text": "number"
+              },
+              "default": "1"
             },
             {
               "kind": "field",
@@ -265,6 +286,24 @@
               },
               "default": "0",
               "description": "holds maximum available level count"
+            },
+            {
+              "kind": "method",
+              "name": "getNumbersFromRange",
+              "parameters": [
+                {
+                  "name": "min",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "max",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
