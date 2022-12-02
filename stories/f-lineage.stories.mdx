@@ -1,7 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { html } from "lit-html";
 import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
-import lineageDataGenerator from "./lineage-data-generator.ts";
 
 <Meta
   title="Components/f-lineage"
@@ -168,6 +167,10 @@ f-lineage to display nodes and connections.
         {
           from: "child1",
           to: "Tim",
+        },
+        {
+          from: "Rex",
+          to: "Pat",
         },
         {
           from: "A",
@@ -358,7 +361,7 @@ f-lineage to display nodes and connections.
         .children-node-template=${args["children-node-template"]}
         .links=${args.links}
         .nodes=${args.nodes}
-        center-node="Alicen"
+        degree="1"
       ></f-lineage>`;
     }}
   </Story>

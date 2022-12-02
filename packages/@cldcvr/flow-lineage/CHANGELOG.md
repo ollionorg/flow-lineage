@@ -4,6 +4,13 @@
 
 # Change Log
 
+## [0.1.8] - 2022-12-2
+
+### Improvements
+
+- `Links` generation logic improved.
+- Large data lineage story added for performance testing.
+
 ## [0.1.7] - 2022-11-28
 
 ### Improvements

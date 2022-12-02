@@ -279,15 +279,6 @@
               "default": "1"
             },
             {
-              "kind": "field",
-              "name": "maxAvailableLevels",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "holds maximum available level count"
-            },
-            {
               "kind": "method",
               "name": "getNumbersFromRange",
               "parameters": [
@@ -485,7 +476,7 @@
           },
           "parameters": [
             {
-              "name": "{\n  data,\n  nodeSize,\n  childrenNodeSize,\n  padding,\n  gap,\n  direction,\n  maxChildrenHeight,\n}",
+              "name": "{\n  data,\n  nodeSize,\n  childrenNodeSize,\n  padding,\n  gap,\n  direction,\n  maxChildrenHeight,\n  links,\n  biDirectionalLinks,\n}",
               "type": {
                 "text": "CreateLineageParams"
               }
@@ -513,15 +504,21 @@
           "name": "createLinks",
           "parameters": [
             {
-              "name": "nodes",
+              "name": "links",
               "type": {
-                "text": "LineageNode[]"
+                "text": "LineageNodeLinks"
               }
             },
             {
-              "name": "nodeElements",
+              "name": "nodeElementsMap",
               "type": {
-                "text": "LineageNodeElement[]"
+                "text": "Record<string, LineageNodeElement>"
+              }
+            },
+            {
+              "name": "biDirectionalLinks",
+              "type": {
+                "text": "string[]"
               }
             }
           ]

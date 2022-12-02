@@ -87,6 +87,8 @@ export type CreateLineageParams = {
   gap: number;
   direction: LineageDirection;
   maxChildrenHeight: number;
+  links: LineageNodeLinks;
+  biDirectionalLinks: string[];
 };
 
 export type CreateLinkPathParams = {

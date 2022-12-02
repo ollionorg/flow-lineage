@@ -105,11 +105,6 @@ export class FLineage extends LitElement {
 
   page = 1;
 
-  /**
-   * holds maximum available level count
-   */
-  maxAvailableLevels = 0;
-
   getNumbersFromRange(min: number, max: number) {
     return Array.from({ length: max - min + 1 }, (_, i) => i + min);
   }
@@ -128,27 +123,29 @@ export class FLineage extends LitElement {
     drawLineage(this.lineageDrawParams);
   }
   decreaseDegree() {
-    const minLevel = Math.min(...this.levelsToPlot);
-    const maxLevel = Math.max(...this.levelsToPlot);
+    if (this.page > 1) {
+      const minLevel = Math.min(...this.levelsToPlot);
+      const maxLevel = Math.max(...this.levelsToPlot);
 
-    this.levelsToPlot = [
-      ...this.getNumbersFromRange(
-        minLevel - this.degree - this.degree,
-        minLevel - this.degree
-      ),
-      ...this.getNumbersFromRange(
-        minLevel - this.degree - this.degree,
-        minLevel - this.degree
-      ),
-    ];
-    this.levelsToPlot = [minLevel + 1, maxLevel - 1];
-    this.shadowRoot
-      ?.querySelectorAll(`[data-page="${this.page}"`)
-      .forEach((element) => {
-        element.remove();
-      });
-    this.page -= 1;
-    this.pageNumberElement.label = `${this.page}`;
+      this.levelsToPlot = [
+        ...this.getNumbersFromRange(
+          minLevel - this.degree - this.degree,
+          minLevel - this.degree
+        ),
+        ...this.getNumbersFromRange(
+          minLevel - this.degree - this.degree,
+          minLevel - this.degree
+        ),
+      ];
+      this.levelsToPlot = [minLevel + 1, maxLevel - 1];
+      this.shadowRoot
+        ?.querySelectorAll(`[data-page="${this.page}"`)
+        .forEach((element) => {
+          element.remove();
+        });
+      this.page -= 1;
+      this.pageNumberElement.label = `${this.page}`;
+    }
   }
 
   render() {
@@ -236,6 +233,8 @@ export class FLineage extends LitElement {
         gap,
         direction,
         maxChildrenHeight,
+        links: this.links,
+        biDirectionalLinks: this.biDirectionalLinks,
       });
 
       this.centerNodeElement = lineage.nodes.find(
@@ -247,15 +246,6 @@ export class FLineage extends LitElement {
           (n) => n.id === this["center-node"]
         );
       }
-      this.maxAvailableLevels = lineage.nodes.reduce(
-        (preValue, currentNode) => {
-          if (currentNode.level > preValue) {
-            preValue = currentNode.level;
-          }
-          return preValue;
-        },
-        0
-      );
 
       if (this.centerNodeElement) {
         this.levelsToPlot = [
@@ -268,7 +258,6 @@ export class FLineage extends LitElement {
             this.centerNodeElement.level + this.degree
           ),
         ];
-        console.log("levels to plot", this.levelsToPlot);
       } else {
         console.warn(`center-node ${this["center-node"]} not found!`);
       }

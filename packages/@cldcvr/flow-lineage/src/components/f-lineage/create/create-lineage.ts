@@ -10,23 +10,28 @@ export default function createLineage({
   gap,
   direction,
   maxChildrenHeight,
+  links,
+  biDirectionalLinks,
 }: CreateLineageParams): Lineage {
   /**
    * create node elements with their cordinates
    */
-  const { nodeElements, levelGaps, levelPointers } = createNodeElements(
-    data,
-    nodeSize,
-    childrenNodeSize,
-    padding,
-    gap,
-    direction,
-    maxChildrenHeight
-  );
+  const { nodeElements, levelGaps, levelPointers, nodeElementsMap } =
+    createNodeElements(
+      data,
+      nodeSize,
+      childrenNodeSize,
+      padding,
+      gap,
+      direction,
+      maxChildrenHeight
+    );
   /**
    * create links with their repsepctive co-ordinates
    */
-  const nodeLinks = createLinks(data, nodeElements);
+  console.time("Creating links");
+  const nodeLinks = createLinks(links, nodeElementsMap, biDirectionalLinks);
+  console.timeEnd("Creating links");
   return {
     nodes: nodeElements,
     links: nodeLinks,

@@ -1,12 +1,13 @@
 import {
   LineageLinkElement,
-  LineageNode,
   LineageNodeElement,
+  LineageNodeLinks,
 } from "../lineage-types";
 
 export default function createLinks(
-  nodes: LineageNode[],
-  nodeElements: LineageNodeElement[]
+  links: LineageNodeLinks,
+  nodeElementsMap: Record<string, LineageNodeElement>,
+  biDirectionalLinks: string[]
 ) {
   /**
    * array to hold all links
@@ -16,56 +17,29 @@ export default function createLinks(
   /**
    * Converting array to object for better access of node elements
    */
-  const nodeElementsObj = nodeElements.reduce(
-    (a, v) => ({ ...a, [v.id]: v }),
-    {}
-  ) as Record<string, LineageNodeElement>;
+  const nodeElementsObj = nodeElementsMap;
 
   /**
    * calculate source and target of link for nodes
-   * @param nodeList : node list to traverse
+   *
    */
-  const computeLinks = (nodeList: LineageNode[], level: number) => {
-    nodeList.forEach((node) => {
-      if (node.to && node.to.length > 0) {
-        const sourceNode = nodeElementsObj[node.id];
 
-        if (sourceNode) {
-          node.to.forEach((targetNode) => {
-            linkElements.push({
-              id: sourceNode.id + "->" + targetNode.id,
-              level: level,
-              source: sourceNode,
-              target: nodeElementsObj[targetNode.id],
-            });
-            if (node.to && node.to.length > 0) {
-              computeLinks(node.to, level + 1);
-            }
-          });
-        }
+  links.forEach((link) => {
+    const sourceNode = nodeElementsObj[link.from];
+    const targetNode = nodeElementsObj[link.to];
+    if (sourceNode && targetNode) {
+      if (
+        biDirectionalLinks.indexOf(targetNode.id + "->" + sourceNode.id) === -1
+      ) {
+        linkElements.push({
+          id: sourceNode.id + "->" + targetNode.id,
+          level: sourceNode.level,
+          source: sourceNode,
+          target: nodeElementsObj[targetNode.id],
+        });
       }
+    }
+  });
 
-      if (node.links && node.links.length > 0) {
-        const sourceNode = nodeElementsObj[node.id];
-
-        if (sourceNode) {
-          node.links.forEach((link) => {
-            linkElements.push({
-              id: sourceNode.id + "->" + link.nodeid,
-              level: level,
-              source: sourceNode,
-              target: nodeElementsObj[link.nodeid],
-            });
-          });
-        }
-      }
-
-      if (node.children && node.children.length > 0) {
-        computeLinks(node.children, level);
-      }
-    });
-  };
-
-  computeLinks(nodes, 1);
   return linkElements;
 }

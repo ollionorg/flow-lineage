@@ -4,6 +4,7 @@ import { DrawLineageParams, LineageNodeElement } from "../lineage-types";
 import highlightPath from "../highlight/highlight-path";
 import removeLinks from "./remove-links";
 import drawLinks from "./draw-links";
+// import * as d3 from "d3";
 
 export default function drawNodes(params: DrawLineageParams) {
   console.time("Nodes duration");
@@ -23,12 +24,16 @@ export default function drawNodes(params: DrawLineageParams) {
     }
     return true;
   };
+
+  const parentNodesMeta = lineage.nodes.filter(
+    (n) => !n.isChildren && degreeFilter(n)
+  );
   const parentNodes = svg
     .append("g")
     .attr("class", "nodes")
     .attr("data-page", element.page)
     .selectAll("g.node")
-    .data(lineage.nodes.filter((n) => !n.isChildren && degreeFilter(n)))
+    .data(parentNodesMeta)
     .enter();
   parentNodes
     .append("g")

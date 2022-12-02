@@ -64,6 +64,7 @@ export default function createNodeElements(
   Pointer.levelPointers[1] = new Pointer(padding, padding);
 
   const nodeElements: LineageNodeElement[] = [];
+  const nodeElementsMap: Record<string, LineageNodeElement> = {};
 
   const levelGaps: LineageLevelGaps = {};
 
@@ -219,11 +220,19 @@ export default function createNodeElements(
      */
     nodes.forEach((node) => {
       if (isChildren) {
-        nodeElements.push(
-          getComputedChildrenElement(node, level, levelPointer, parentId)
+        const nodeElement = getComputedChildrenElement(
+          node,
+          level,
+          levelPointer,
+          parentId
         );
+        nodeElements.push(nodeElement);
+
+        nodeElementsMap[nodeElement.id] = nodeElement;
       } else {
-        nodeElements.push(getComputedElement(node, level, levelPointer));
+        const nodeElement = getComputedElement(node, level, levelPointer);
+        nodeElements.push(nodeElement);
+        nodeElementsMap[nodeElement.id] = nodeElement;
       }
 
       const parentNode = node as LineageNode;
@@ -283,5 +292,5 @@ export default function createNodeElements(
 
   console.timeEnd("Co-ordinate Algo duration");
 
-  return { nodeElements, levelGaps, levelPointers };
+  return { nodeElements, levelGaps, levelPointers, nodeElementsMap };
 }

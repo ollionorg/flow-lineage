@@ -38,7 +38,7 @@ f-lineage {
     // outline-style: solid;
     // outline-width: 1px;
     // outline-color: var(--color-primary-secondary);
-    > * {
+    > *:not(f-pictogram) {
       background-color: var(--color-primary-subtle);
     }
   }
