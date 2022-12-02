@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [0.1.9] - 2022-12-2
+
+### Features
+
+- Auto load degree after intial render
+- Show percentage of loaded
 ## [0.1.8] - 2022-12-2
 
 ### Improvements

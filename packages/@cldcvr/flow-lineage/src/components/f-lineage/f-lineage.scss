@@ -12,6 +12,7 @@ f-lineage {
 }
 
 :host {
+  position: relative;
   > svg {
     animation: none !important;
   }
@@ -41,5 +42,11 @@ f-lineage {
     > *:not(f-pictogram) {
       background-color: var(--color-primary-subtle);
     }
+  }
+
+  .degree-selector {
+    position: absolute;
+    top: 0px;
+    left: 0px;
   }
 }

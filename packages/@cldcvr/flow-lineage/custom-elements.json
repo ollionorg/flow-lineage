@@ -185,7 +185,7 @@
               "type": {
                 "text": "number"
               },
-              "default": "1",
+              "default": "10",
               "attribute": "degree",
               "reflects": true
             },
@@ -229,6 +229,22 @@
               "type": {
                 "text": "FButton"
               }
+            },
+            {
+              "kind": "field",
+              "name": "progressElement",
+              "type": {
+                "text": "FDiv"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "maxAvailableLevels",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "holds maximum available level count"
             },
             {
               "kind": "field",
@@ -277,6 +293,13 @@
                 "text": "number"
               },
               "default": "1"
+            },
+            {
+              "kind": "field",
+              "name": "timeout",
+              "type": {
+                "text": "ReturnType<typeof setTimeout>"
+              }
             },
             {
               "kind": "method",
@@ -363,7 +386,7 @@
               "type": {
                 "text": "number"
               },
-              "default": "1",
+              "default": "10",
               "fieldName": "degree"
             },
             {

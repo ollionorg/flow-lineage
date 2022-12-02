@@ -25,7 +25,7 @@ const links: LineageNodeLinks = [];
 
 const levels: Record<number, string[]> = {};
 
-for (let l = 0; l < 60; l++) {
+for (let l = 0; l < 50; l++) {
   for (let n = 0; n < 20; n++) {
     const nodeid = makeid(5);
     nodes[nodeid] = {};
@@ -57,7 +57,7 @@ const Template: Story<unknown> = (args: any) => {
       .children-node-template=${args["children-node-template"]}
       .links=${args.links}
       .nodes=${args.nodes}
-      degree="1"
+      degree="5"
     ></f-lineage>
   `;
 };
@@ -69,7 +69,7 @@ basic.args = {
   padding: 16,
   gap: 75,
   ["node-size"]: { width: 44, height: 44 },
-  ["node-template"]: `<f-pictogram source="\${node.id}" variant="circle"></f-text>`,
+  ["node-template"]: `<f-pictogram source="\${node.id}" variant="circle" clickable></f-text>`,
   links,
   nodes,
 };

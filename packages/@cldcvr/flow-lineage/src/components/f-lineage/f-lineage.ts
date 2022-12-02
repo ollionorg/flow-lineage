@@ -17,7 +17,7 @@ import drawLineage from "./draw/draw-lineage";
 import flowCoreCSS from "@cldcvr/flow-core/dist/style.css";
 import lowlightPath from "./highlight/lowlight-path";
 import createHierarchy from "./create/create-hierarchy";
-import { FButton } from "@cldcvr/flow-core";
+import { FButton, FDiv } from "@cldcvr/flow-core";
 // Renders attribute names of parent element to textContent
 
 @customElement("f-lineage")
@@ -61,7 +61,7 @@ export class FLineage extends LitElement {
     reflect: true,
     type: Number,
   })
-  degree = 1;
+  degree = 10;
 
   @property({
     reflect: true,
@@ -90,6 +90,14 @@ export class FLineage extends LitElement {
   @query("#page-number")
   pageNumberElement!: FButton;
 
+  @query("#progress")
+  progressElement!: FDiv;
+
+  /**
+   * holds maximum available level count
+   */
+  maxAvailableLevels = 0;
+
   centerNodeElement?: LineageNodeElement;
 
   biDirectionalLinks: string[] = [];
@@ -105,6 +113,8 @@ export class FLineage extends LitElement {
 
   page = 1;
 
+  timeout!: ReturnType<typeof setTimeout>;
+
   getNumbersFromRange(min: number, max: number) {
     return Array.from({ length: max - min + 1 }, (_, i) => i + min);
   }
@@ -113,14 +123,27 @@ export class FLineage extends LitElement {
     const minLevel = Math.min(...this.levelsToPlot);
     const maxLevel = Math.max(...this.levelsToPlot);
 
-    this.levelsToPlot = [
-      ...this.getNumbersFromRange(minLevel - this.degree, minLevel - 1),
-      ...this.getNumbersFromRange(maxLevel + 1, maxLevel + this.degree),
-    ];
+    if (this.maxAvailableLevels > maxLevel) {
+      this.levelsToPlot = [
+        ...this.getNumbersFromRange(minLevel - this.degree, minLevel - 1),
+        ...this.getNumbersFromRange(maxLevel + 1, maxLevel + this.degree),
+      ];
 
-    this.page += 1;
-    this.pageNumberElement.label = `${this.page}`;
-    drawLineage(this.lineageDrawParams);
+      this.page += 1;
+
+      this.pageNumberElement.innerText = `${(
+        (maxLevel * 100) /
+        this.maxAvailableLevels
+      ).toFixed(0)}%`;
+      drawLineage(this.lineageDrawParams).then(() => {
+        this.timeout = setTimeout(() => {
+          this.increaseDegree();
+        }, 2000);
+      });
+    } else {
+      this.pageNumberElement.innerText = `100%`;
+      this.progressElement.style.display = "none";
+    }
   }
   decreaseDegree() {
     if (this.page > 1) {
@@ -133,18 +156,19 @@ export class FLineage extends LitElement {
           minLevel - this.degree
         ),
         ...this.getNumbersFromRange(
-          minLevel - this.degree - this.degree,
-          minLevel - this.degree
+          maxLevel - this.degree - this.degree,
+          maxLevel - this.degree
         ),
       ];
-      this.levelsToPlot = [minLevel + 1, maxLevel - 1];
+
+      const pageToDelete = this.page;
+      this.page -= 1;
+      this.pageNumberElement.label = `${this.page}`;
       this.shadowRoot
-        ?.querySelectorAll(`[data-page="${this.page}"`)
+        ?.querySelectorAll(`[data-page="${pageToDelete}"`)
         .forEach((element) => {
           element.remove();
         });
-      this.page -= 1;
-      this.pageNumberElement.label = `${this.page}`;
     }
   }
 
@@ -157,26 +181,12 @@ export class FLineage extends LitElement {
         padding="small"
         state="tertiary"
         variant="curved"
-        direction="column"
+        width="80px"
+        class="degree-selector"
+        id="progress"
       >
-        <f-icon-button
-          icon="i-plus"
-          type="packed"
-          @click=${this.increaseDegree}
-        ></f-icon-button>
-
-        <f-button
-          id="page-number"
-          .label=${`${this.page}`}
-          variant="round"
-          size="small"
-          state="neutral"
-        ></f-button>
-        <f-icon-button
-          icon="i-minus"
-          type="packed"
-          @click=${this.decreaseDegree}
-        ></f-icon-button>
+        <f-icon source="i-tick" loading></f-icon>
+        <f-text id="page-number">${this.page}%</f-text>
       </f-div>
     `;
   }
@@ -262,6 +272,16 @@ export class FLineage extends LitElement {
         console.warn(`center-node ${this["center-node"]} not found!`);
       }
 
+      this.maxAvailableLevels = lineage.nodes.reduce(
+        (preValue, currentNode) => {
+          if (currentNode.level > preValue) {
+            preValue = currentNode.level;
+          }
+          return preValue;
+        },
+        0
+      );
+
       /**
        * main svg element: setting height and width
        */
@@ -306,5 +326,9 @@ export class FLineage extends LitElement {
 
     console.timeEnd("Total duration");
     console.groupEnd();
+
+    this.timeout = setTimeout(() => {
+      this.increaseDegree();
+    }, 1000);
   }
 }
