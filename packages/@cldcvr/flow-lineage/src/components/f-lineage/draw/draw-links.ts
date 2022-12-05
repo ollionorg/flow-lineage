@@ -50,7 +50,11 @@ export default function drawLinks({
 
   links
     .append("path")
-    .attr("class", "link lineage-element")
+    .attr("class", (d) => {
+      return `link lineage-element ${
+        d.source.isChildren || d.target.isChildren ? "child-link" : ""
+      }`;
+    })
     .attr("d", (d) => {
       return drawElbow(
         d,
@@ -134,7 +138,11 @@ export default function drawLinks({
 
   links
     .append("text")
-    .attr("class", "link-arrow lineage-element")
+    .attr("class", (d) => {
+      return `link-arrow lineage-element ${
+        d.source.isChildren || d.target.isChildren ? "child-link" : ""
+      }`;
+    })
     .attr("id", function (d) {
       return `${d.id}~arrow`;
     })

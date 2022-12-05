@@ -34,6 +34,13 @@ f-lineage {
     fill-opacity: 0.3;
   }
 
+  .child-link {
+    opacity: 0;
+    &.highlight {
+      opacity: 1;
+    }
+  }
+
   foreignObject.center-node {
     // outline-offset: 2px;
     // outline-style: solid;

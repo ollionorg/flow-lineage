@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [0.2.1] - 2022-12-5
+
+### Improvements
+
+- show dot only for children links
 ## [0.2.0] - 2022-12-5
 
 ### Features
