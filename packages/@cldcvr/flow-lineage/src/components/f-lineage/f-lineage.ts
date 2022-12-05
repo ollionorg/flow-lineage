@@ -109,6 +109,11 @@ export class FLineage extends LitElement {
    */
   levelsToPlot: number[] = [];
 
+  /**
+   * page to levels map
+   */
+  pageToLevels: Record<number, number[]> = {};
+
   private lineageDrawParams!: DrawLineageParams;
 
   page = 1;
@@ -117,6 +122,10 @@ export class FLineage extends LitElement {
 
   getNumbersFromRange(min: number, max: number) {
     return Array.from({ length: max - min + 1 }, (_, i) => i + min);
+  }
+
+  getDrawParams() {
+    return this.lineageDrawParams;
   }
 
   increaseDegree() {
@@ -130,12 +139,16 @@ export class FLineage extends LitElement {
       ];
 
       this.page += 1;
-
+      this.pageToLevels[this.page] = this.levelsToPlot;
       this.pageNumberElement.innerText = `${(
         (maxLevel * 100) /
         this.maxAvailableLevels
       ).toFixed(0)}%`;
-      drawLineage(this.lineageDrawParams).then(() => {
+      drawLineage({
+        ...this.lineageDrawParams,
+        levelsToPlot: this.levelsToPlot,
+        page: this.page,
+      }).then(() => {
         this.timeout = setTimeout(() => {
           this.increaseDegree();
         }, 2000);
@@ -147,22 +160,9 @@ export class FLineage extends LitElement {
   }
   decreaseDegree() {
     if (this.page > 1) {
-      const minLevel = Math.min(...this.levelsToPlot);
-      const maxLevel = Math.max(...this.levelsToPlot);
-
-      this.levelsToPlot = [
-        ...this.getNumbersFromRange(
-          minLevel - this.degree - this.degree,
-          minLevel - this.degree
-        ),
-        ...this.getNumbersFromRange(
-          maxLevel - this.degree - this.degree,
-          maxLevel - this.degree
-        ),
-      ];
-
       const pageToDelete = this.page;
       this.page -= 1;
+      this.levelsToPlot = this.pageToLevels[this.page];
       this.pageNumberElement.label = `${this.page}`;
       this.shadowRoot
         ?.querySelectorAll(`[data-page="${pageToDelete}"`)
@@ -170,6 +170,20 @@ export class FLineage extends LitElement {
           element.remove();
         });
     }
+  }
+
+  reDrawChunk(page: number) {
+    this.shadowRoot
+      ?.querySelectorAll(`[data-page="${page}"`)
+      .forEach((element) => {
+        element.remove();
+      });
+
+    drawLineage({
+      ...this.lineageDrawParams,
+      levelsToPlot: this.pageToLevels[page],
+      page,
+    });
   }
 
   render() {
@@ -268,6 +282,8 @@ export class FLineage extends LitElement {
             this.centerNodeElement.level + this.degree
           ),
         ];
+
+        this.pageToLevels[1] = this.levelsToPlot;
       } else {
         console.warn(`center-node ${this["center-node"]} not found!`);
       }
@@ -304,6 +320,8 @@ export class FLineage extends LitElement {
         direction,
         maxChildrenHeight,
         element: this,
+        levelsToPlot: this.levelsToPlot,
+        page: this.page,
       };
       drawLineage(this.lineageDrawParams);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [0.2.0] - 2022-12-5
+
+### Features
+
+- Collapssible children in node
 ## [0.1.9] - 2022-12-2
 
 ### Features

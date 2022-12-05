@@ -83,6 +83,10 @@ export default function createNodeElements(
       data: node.data,
       links: node.links,
       children: node.children,
+      isChildrenVisible:
+        node.isChildrenVisible === true || node.isChildrenVisible === undefined
+          ? true
+          : false,
       level,
       x: levelPointer.x,
       y: levelPointer.y,

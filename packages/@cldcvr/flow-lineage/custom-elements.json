@@ -280,6 +280,15 @@
             },
             {
               "kind": "field",
+              "name": "pageToLevels",
+              "type": {
+                "text": "Record<number, number[]>"
+              },
+              "default": "{}",
+              "description": "page to levels map"
+            },
+            {
+              "kind": "field",
               "name": "lineageDrawParams",
               "type": {
                 "text": "DrawLineageParams"
@@ -321,11 +330,27 @@
             },
             {
               "kind": "method",
+              "name": "getDrawParams"
+            },
+            {
+              "kind": "method",
               "name": "increaseDegree"
             },
             {
               "kind": "method",
               "name": "decreaseDegree"
+            },
+            {
+              "kind": "method",
+              "name": "reDrawChunk",
+              "parameters": [
+                {
+                  "name": "page",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
             }
           ],
           "attributes": [
@@ -723,7 +748,7 @@
           "name": "drawLinks",
           "parameters": [
             {
-              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  childrenNodeSize,\n  gap,\n  direction,\n  element,\n  filter,\n}",
+              "name": "{\n  lineage,\n  svg,\n  nodeSize,\n  childrenNodeSize,\n  gap,\n  direction,\n  element,\n  levelsToPlot,\n  page,\n  filter,\n}",
               "type": {
                 "text": "DrawLineageParams"
               }

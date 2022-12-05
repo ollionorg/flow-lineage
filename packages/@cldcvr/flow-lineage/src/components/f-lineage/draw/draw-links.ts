@@ -14,6 +14,8 @@ export default function drawLinks({
   gap,
   direction,
   element,
+  levelsToPlot,
+  page,
   filter,
 }: DrawLineageParams) {
   console.time("Links duration");
@@ -22,26 +24,28 @@ export default function drawLinks({
    * holds levels links gaps and pointers
    */
   const levelLinkGap: LevelLinkGap = {};
+  const degreeFilter = (l: LineageLinkElement) => {
+    if (levelsToPlot.length > 0) {
+      if (l.target.isChildren) {
+        return levelsToPlot.includes(l.target.level) && l.target.isVisible;
+      }
+      return levelsToPlot.includes(l.target.level);
+    }
+    return true;
+  };
+
+  const filteredlinks = lineage.links.filter((l: LineageLinkElement) => {
+    return filter ? filter(l) : degreeFilter(l);
+  });
 
   const links = svg
     .append("g")
     .attr("class", "links")
-    .attr("data-page", element.page)
+    .attr("data-page", page)
     .selectAll("path.link")
-    .data(
-      lineage.links.filter((l: LineageLinkElement) => {
-        const degreeFilter = (l: LineageLinkElement) => {
-          if (element.levelsToPlot.length > 0) {
-            return element.levelsToPlot.includes(l.target.level);
-          }
-          return true;
-        };
-        return filter ? filter(l) && degreeFilter(l) : degreeFilter(l);
-      }),
-      (d) => {
-        return (d as LineageLinkElement).id;
-      }
-    )
+    .data(filteredlinks, (d) => {
+      return (d as LineageLinkElement).id;
+    })
     .enter();
 
   links

@@ -12,6 +12,7 @@ export type LineageNodeChildren = LineageBaseNode;
 // Lineage node type
 export type LineageNode = {
   to?: LineageNode[];
+  isChildrenVisible?: boolean;
   children?: LineageNodeChildren[];
 } & LineageBaseNode;
 
@@ -36,6 +37,8 @@ export type LineageNodeElement = {
   parentId?: string;
   offset?: number;
   isVisible?: boolean;
+  childrenToggle?: string;
+  isChildrenVisible?: boolean;
 } & Omit<LineageNode, "to">;
 
 export type LineageGapElement = {
@@ -76,6 +79,8 @@ export type DrawLineageParams = {
   direction: LineageDirection;
   maxChildrenHeight: number;
   element: FLineage;
+  levelsToPlot: number[];
+  page: number;
   filter?: (link: LineageLinkElement) => boolean;
 };
 

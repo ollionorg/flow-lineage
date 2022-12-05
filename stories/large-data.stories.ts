@@ -4,6 +4,11 @@ import { LineageNodeLinks, LineageNodes } from "@cldcvr/flow-lineage/src";
 
 export default {
   title: "Examples/Large Data",
+  argTypes: {
+    ["node-template"]: {
+      control: false,
+    },
+  },
 } as Meta;
 
 const makeid = (length: number) => {
@@ -47,16 +52,16 @@ console.log(Object.keys(nodes).length);
 const Template: Story<unknown> = (args: any) => {
   return html`
     <f-lineage
-      .direction=${args.direction}
-      .padding=${args.padding}
-      .gap=${args.gap}
-      .node-size=${args["node-size"]}
+      direction="vertical"
+      padding="16"
+      gap="75"
+      .node-size=${{ width: 44, height: 44 }}
       .children-node-size=${args["children-node-size"]}
       .max-childrens=${args["max-childrens"]}
       .node-template=${args["node-template"]}
       .children-node-template=${args["children-node-template"]}
-      .links=${args.links}
-      .nodes=${args.nodes}
+      .links=${links}
+      .nodes=${nodes}
       degree="5"
     ></f-lineage>
   `;
@@ -65,11 +70,5 @@ const Template: Story<unknown> = (args: any) => {
 export const basic = Template.bind({});
 
 basic.args = {
-  direction: "horizontal",
-  padding: 16,
-  gap: 75,
-  ["node-size"]: { width: 44, height: 44 },
   ["node-template"]: `<f-pictogram source="\${node.id}" variant="circle" clickable></f-text>`,
-  links,
-  nodes,
 };

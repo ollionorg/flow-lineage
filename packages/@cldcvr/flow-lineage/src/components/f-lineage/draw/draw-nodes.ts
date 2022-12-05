@@ -15,12 +15,14 @@ export default function drawNodes(params: DrawLineageParams) {
     childrenNodeSize,
     maxChildrenHeight,
     element,
+    levelsToPlot,
+    page,
   } = params;
   const scrollBarWidth = 8;
   const maxChildrens = maxChildrenHeight / childrenNodeSize.height;
   const degreeFilter = (n: LineageNodeElement) => {
-    if (element.levelsToPlot.length > 0) {
-      return element.levelsToPlot.includes(n.level);
+    if (levelsToPlot.length > 0) {
+      return levelsToPlot.includes(n.level);
     }
     return true;
   };
@@ -31,7 +33,7 @@ export default function drawNodes(params: DrawLineageParams) {
   const parentNodes = svg
     .append("g")
     .attr("class", "nodes")
-    .attr("data-page", element.page)
+    .attr("data-page", page)
     .selectAll("g.node")
     .data(parentNodesMeta)
     .enter();
@@ -57,10 +59,37 @@ export default function drawNodes(params: DrawLineageParams) {
     })
     .attr("width", nodeSize.width)
     .attr("height", nodeSize.height)
+    .on("click", function (event: MouseEvent, d) {
+      const toggleElement = event
+        .composedPath()
+        .find((el) =>
+          (el as HTMLElement).classList?.contains("children-toggle")
+        );
+
+      if (toggleElement) {
+        event.stopPropagation();
+        d.isChildrenVisible = !d.isChildrenVisible;
+
+        const allChildNodes = lineage.nodes.filter((n) => n.parentId === d.id);
+        allChildNodes.forEach((cn) => {
+          cn.isVisible = false;
+        });
+
+        removeLinks(allChildNodes, element);
+        const pageNo = this.parentElement?.parentElement?.dataset.page ?? 0;
+        element.reDrawChunk(+pageNo);
+      }
+    })
     /* eslint-disable @typescript-eslint/no-unused-vars */
     /* eslint-disable @typescript-eslint/ban-ts-comment */
     // @ts-ignore
     .html((node) => {
+      if (node.children) {
+        const iconDirection = node.isChildrenVisible ? "up" : "down";
+        node.childrenToggle = `<f-icon-button type="transparent" state="neutral" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
+      } else {
+        node.childrenToggle = "";
+      }
       if (node.template) {
         return getComputedHTML(html`${eval("`" + node.template + "`")}`);
       } else {
@@ -76,11 +105,15 @@ export default function drawNodes(params: DrawLineageParams) {
   svg
     .append("g")
     .attr("class", "scrollable-children")
-    .attr("data-page", element.page)
+    .attr("data-page", page)
     .selectAll("g")
     .data(
       lineage.nodes.filter(
-        (n) => n.children && n.children.length > 0 && degreeFilter(n)
+        (n) =>
+          n.children &&
+          n.isChildrenVisible &&
+          n.children.length > 0 &&
+          degreeFilter(n)
       )
     )
     .enter()
@@ -209,6 +242,7 @@ export default function drawNodes(params: DrawLineageParams) {
     childNodes.forEach((cn) => {
       cn.isVisible = true;
     });
+
     svg.select(`.children-container[data-parent-id="${nData.id}"]`).html("");
     removeLinks(allChildNodes, element);
     const startX = nData.x;
@@ -222,7 +256,7 @@ export default function drawNodes(params: DrawLineageParams) {
       .attr("class", (d) => {
         return `child-node lineage-node lineage-element child-node-${d.parentId}`;
       })
-      .attr("data-page", element.page)
+      .attr("data-page", page)
       .attr("id", (d) => {
         return d.id;
       })
@@ -258,21 +292,23 @@ export default function drawNodes(params: DrawLineageParams) {
       ...params,
       filter: (link) => {
         const sourceLink = childNodes.find((c) => {
-          const isTargetNodeAvailable =
-            !link.target.isChildren ||
-            (link.target.isChildren && link.target.isVisible);
-          return c.id === link.source.id && isTargetNodeAvailable;
+          const targetElement = element.shadowRoot?.querySelector(
+            `#${link.target.id}`
+          );
+
+          return c.id === link.source.id && targetElement;
         });
 
         const targetLink = childNodes.find((c) => {
-          const isSourceNodeAvailable =
-            !link.source.isChildren ||
-            (link.source.isChildren && link.source.isVisible);
-          return c.id === link.target.id && isSourceNodeAvailable;
+          const sourceElement = element.shadowRoot?.querySelector(
+            `#${link.source.id}`
+          );
+          return c.id === link.target.id && sourceElement;
         });
 
         return sourceLink !== undefined || targetLink !== undefined;
       },
+      levelsToPlot: [nData.level],
     });
   };
   /**
@@ -289,13 +325,15 @@ export default function drawNodes(params: DrawLineageParams) {
   svg
     .append("g")
     .attr("class", "scrollbars lineage-element")
+    .attr("data-page", page)
     .selectAll("g")
     .data(
-      lineage.nodes.filter((n) => n.hasScrollbaleChildren && degreeFilter(n))
+      lineage.nodes.filter(
+        (n) => n.hasScrollbaleChildren && n.isChildrenVisible && degreeFilter(n)
+      )
     )
     .enter()
     .append("rect")
-    .attr("data-page", element.page)
     .attr("id", (d) => {
       return "scrollbar-" + d.id;
     })

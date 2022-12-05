@@ -78,6 +78,7 @@ f-lineage to display nodes and connections.
             >x: \${node.x}, y: \${node.y}</f-text
           >
         </f-div>
+		\${node.childrenToggle}
       </f-div>`,
       ["children-node-template"]: `<f-div
           state="secondary"
@@ -175,6 +176,14 @@ f-lineage to display nodes and connections.
         {
           from: "A",
           to: "B",
+        },
+        {
+          from: "Brooke",
+          to: "child1",
+        },
+        {
+          from: "mchild1",
+          to: "child2",
         },
       ],
       nodes: {
@@ -295,6 +304,57 @@ f-lineage to display nodes and connections.
             mobile: "+91-12345 67890",
             name: "Max",
           },
+          isChildrenVisible: false,
+          children: [
+            {
+              id: "mchild1",
+            },
+            {
+              id: "mchild2",
+            },
+            {
+              id: "mchild3",
+            },
+            {
+              id: "mchild4",
+            },
+            {
+              id: "mchild5",
+            },
+            {
+              id: "mchild6",
+            },
+            {
+              id: "mchild7",
+            },
+            {
+              id: "mchild8",
+            },
+            {
+              id: "mchild9",
+            },
+            {
+              id: "mchild10",
+            },
+            {
+              id: "mchild11",
+            },
+            {
+              id: "mchild12",
+            },
+            {
+              id: "mchild13",
+            },
+            {
+              id: "mchild14",
+            },
+            {
+              id: "mchild15",
+            },
+            {
+              id: "mchild16",
+            },
+          ],
         },
         Tony: {
           data: {
@@ -361,6 +421,7 @@ f-lineage to display nodes and connections.
         .children-node-template=${args["children-node-template"]}
         .links=${args.links}
         .nodes=${args.nodes}
+        degree="1"
       ></f-lineage>`;
     }}
   </Story>
