@@ -71,13 +71,35 @@ export default function drawNodes(params: DrawLineageParams) {
         d.isChildrenVisible = !d.isChildrenVisible;
 
         const allChildNodes = lineage.nodes.filter((n) => n.parentId === d.id);
+        const childIds = allChildNodes.map((c) => c.id);
+        if (d.childrenYMax) {
+          let childHeight = d.childrenYMax - (d.y + nodeSize.height);
+
+          const nodesToUpdate = lineage.nodes.filter(
+            (n) => n.level === d.level && n.y > d.y && !childIds.includes(n.id)
+          );
+
+          if (childHeight > maxChildrenHeight) {
+            childHeight = maxChildrenHeight;
+          }
+          nodesToUpdate.forEach((n) => {
+            if (d.isChildrenVisible) {
+              n.y += childHeight;
+            } else {
+              n.y -= childHeight;
+            }
+          });
+
+          removeLinks(nodesToUpdate, element);
+        }
+
         allChildNodes.forEach((cn) => {
           cn.isVisible = false;
         });
 
         removeLinks(allChildNodes, element);
         const pageNo = this.parentElement?.parentElement?.dataset.page ?? 0;
-        element.reDrawChunk(+pageNo);
+        element.reDrawChunk(+pageNo, d.level);
       }
     })
     /* eslint-disable @typescript-eslint/no-unused-vars */

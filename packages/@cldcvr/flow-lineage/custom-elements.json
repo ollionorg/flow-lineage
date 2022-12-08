@@ -349,6 +349,12 @@
                   "type": {
                     "text": "number"
                   }
+                },
+                {
+                  "name": "level",
+                  "type": {
+                    "text": "number"
+                  }
                 }
               ]
             }
@@ -475,177 +481,6 @@
       "path": "src/components/f-lineage/lineage-types.ts",
       "declarations": [],
       "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/f-lineage/create/create-hierarchy.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "createHierarchy",
-          "parameters": [
-            {
-              "name": "links",
-              "type": {
-                "text": "LineageNodeLinks"
-              }
-            },
-            {
-              "name": "nodes",
-              "type": {
-                "text": "LineageNodes"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "createHierarchy",
-            "module": "src/components/f-lineage/create/create-hierarchy.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/f-lineage/create/create-lineage.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "createLineage",
-          "return": {
-            "type": {
-              "text": "Lineage"
-            }
-          },
-          "parameters": [
-            {
-              "name": "{\n  data,\n  nodeSize,\n  childrenNodeSize,\n  padding,\n  gap,\n  direction,\n  maxChildrenHeight,\n  links,\n  biDirectionalLinks,\n}",
-              "type": {
-                "text": "CreateLineageParams"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "createLineage",
-            "module": "src/components/f-lineage/create/create-lineage.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/f-lineage/create/create-links.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "createLinks",
-          "parameters": [
-            {
-              "name": "links",
-              "type": {
-                "text": "LineageNodeLinks"
-              }
-            },
-            {
-              "name": "nodeElementsMap",
-              "type": {
-                "text": "Record<string, LineageNodeElement>"
-              }
-            },
-            {
-              "name": "biDirectionalLinks",
-              "type": {
-                "text": "string[]"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "createLinks",
-            "module": "src/components/f-lineage/create/create-links.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/f-lineage/create/create-node-elements.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "createNodeElements",
-          "parameters": [
-            {
-              "name": "data",
-              "type": {
-                "text": "LineageNode[]"
-              }
-            },
-            {
-              "name": "nodeSize",
-              "type": {
-                "text": "LineageNodeSize"
-              }
-            },
-            {
-              "name": "childrenNodeSize",
-              "type": {
-                "text": "LineageNodeSize"
-              }
-            },
-            {
-              "name": "padding",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "gap",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "direction",
-              "type": {
-                "text": "LineageDirection"
-              }
-            },
-            {
-              "name": "maxChildrenHeight",
-              "type": {
-                "text": "number"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "createNodeElements",
-            "module": "src/components/f-lineage/create/create-node-elements.ts"
-          }
-        }
-      ]
     },
     {
       "kind": "javascript-module",
@@ -893,6 +728,177 @@
           "declaration": {
             "name": "removeLinks",
             "module": "src/components/f-lineage/draw/remove-links.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/create/create-hierarchy.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createHierarchy",
+          "parameters": [
+            {
+              "name": "links",
+              "type": {
+                "text": "LineageNodeLinks"
+              }
+            },
+            {
+              "name": "nodes",
+              "type": {
+                "text": "LineageNodes"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "createHierarchy",
+            "module": "src/components/f-lineage/create/create-hierarchy.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/create/create-lineage.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createLineage",
+          "return": {
+            "type": {
+              "text": "Lineage"
+            }
+          },
+          "parameters": [
+            {
+              "name": "{\n  data,\n  nodeSize,\n  childrenNodeSize,\n  padding,\n  gap,\n  direction,\n  maxChildrenHeight,\n  links,\n  biDirectionalLinks,\n}",
+              "type": {
+                "text": "CreateLineageParams"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "createLineage",
+            "module": "src/components/f-lineage/create/create-lineage.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/create/create-links.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createLinks",
+          "parameters": [
+            {
+              "name": "links",
+              "type": {
+                "text": "LineageNodeLinks"
+              }
+            },
+            {
+              "name": "nodeElementsMap",
+              "type": {
+                "text": "Record<string, LineageNodeElement>"
+              }
+            },
+            {
+              "name": "biDirectionalLinks",
+              "type": {
+                "text": "string[]"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "createLinks",
+            "module": "src/components/f-lineage/create/create-links.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/create/create-node-elements.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createNodeElements",
+          "parameters": [
+            {
+              "name": "data",
+              "type": {
+                "text": "LineageNode[]"
+              }
+            },
+            {
+              "name": "nodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            },
+            {
+              "name": "childrenNodeSize",
+              "type": {
+                "text": "LineageNodeSize"
+              }
+            },
+            {
+              "name": "padding",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "LineageDirection"
+              }
+            },
+            {
+              "name": "maxChildrenHeight",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "createNodeElements",
+            "module": "src/components/f-lineage/create/create-node-elements.ts"
           }
         }
       ]

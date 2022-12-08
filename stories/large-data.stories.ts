@@ -52,7 +52,7 @@ console.log(Object.keys(nodes).length);
 const Template: Story<unknown> = (args: any) => {
   return html`
     <f-lineage
-      direction="vertical"
+      direction="horizontal"
       padding="16"
       gap="75"
       .node-size=${{ width: 44, height: 44 }}

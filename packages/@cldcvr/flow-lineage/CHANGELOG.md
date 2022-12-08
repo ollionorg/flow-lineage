@@ -4,6 +4,14 @@
 
 # Change Log
 
+## [0.2.2] - 2022-12-8
+
+### Improvements
+
+- reposition nodes when children collpased.
+- update flow-core and add `f-tag`.
+- add node specific template.
+
 ## [0.2.1] - 2022-12-5
 
 ### Improvements

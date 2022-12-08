@@ -151,7 +151,7 @@ export class FLineage extends LitElement {
       }).then(() => {
         this.timeout = setTimeout(() => {
           this.increaseDegree();
-        }, 2000);
+        }, 500);
       });
     } else {
       this.pageNumberElement.innerText = `100%`;
@@ -172,7 +172,7 @@ export class FLineage extends LitElement {
     }
   }
 
-  reDrawChunk(page: number) {
+  reDrawChunk(page: number, level: number) {
     this.shadowRoot
       ?.querySelectorAll(`[data-page="${page}"`)
       .forEach((element) => {
@@ -183,6 +183,15 @@ export class FLineage extends LitElement {
       ...this.lineageDrawParams,
       levelsToPlot: this.pageToLevels[page],
       page,
+      filter: (link) => {
+        if (link.source.isChildren && !link.source.isVisible) {
+          return false;
+        }
+        if (link.target.isChildren && !link.target.isVisible) {
+          return false;
+        }
+        return link.source.level === level || link.target.level === level;
+      },
     });
   }
 
@@ -209,6 +218,9 @@ export class FLineage extends LitElement {
     window.addEventListener("resize", () => this.requestUpdate());
   }
   disconnectedCallback() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
     window.removeEventListener("resize", () => this.requestUpdate());
     super.disconnectedCallback();
   }

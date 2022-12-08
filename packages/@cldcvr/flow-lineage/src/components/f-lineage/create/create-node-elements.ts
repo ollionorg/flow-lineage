@@ -139,6 +139,10 @@ export default function createNodeElements(
           levelPointer.y = nodeElement.y + maxChildrenHeight;
         }
       }
+
+      if (nodeElement.childrenYMax && !nodeElement.isChildrenVisible) {
+        levelPointer.y = nodeElement.y;
+      }
     }
 
     /**

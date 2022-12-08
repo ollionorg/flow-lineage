@@ -19,6 +19,7 @@ f-lineage {
 
   foreignObject {
     cursor: pointer;
+    overflow: visible;
     > * {
       position: fixed;
     }
