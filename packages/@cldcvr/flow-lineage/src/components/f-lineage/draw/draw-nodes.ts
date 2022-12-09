@@ -49,6 +49,9 @@ export default function drawNodes(params: DrawLineageParams) {
     .on("click", (event: MouseEvent, d) => {
       event.stopPropagation();
       highlightPath(d, element);
+      if (d.click) {
+        d.click(event, d);
+      }
     })
     .append("foreignObject")
     .attr("class", (d) => {
@@ -108,7 +111,7 @@ export default function drawNodes(params: DrawLineageParams) {
     .html((node) => {
       if (node.children) {
         const iconDirection = node.isChildrenVisible ? "up" : "down";
-        node.childrenToggle = `<f-icon-button type="transparent" state="neutral" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
+        node.childrenToggle = `<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
       } else {
         node.childrenToggle = "";
       }
@@ -298,6 +301,9 @@ export default function drawNodes(params: DrawLineageParams) {
       .on("click", (event: MouseEvent, d) => {
         event.stopPropagation();
         highlightPath(d, element);
+        if (d.click) {
+          d.click(event, d);
+        }
       })
       //@ts-ignore
       .html((node) => {

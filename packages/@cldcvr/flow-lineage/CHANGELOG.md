@@ -4,6 +4,13 @@
 
 # Change Log
 
+## [0.2.3] - 2022-12-9
+
+### Features
+
+- `click` event support added in node schema.
+- template updated to support multiple tags.
+
 ## [0.2.2] - 2022-12-8
 
 ### Improvements

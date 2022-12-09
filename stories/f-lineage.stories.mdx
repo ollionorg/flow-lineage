@@ -62,7 +62,10 @@ f-lineage to display nodes and connections.
       ["children-node-size"]: { width: 200, height: 32 },
       ["max-childrens"]: 8,
       ["node-template"]: `
-	   <f-tag label="test" style="position:absolute;top:-28px;z-index:1;"></f-tag>
+	  <f-div style="position:absolute;top:-20px;z-index:1;" gap="x-small">
+	   <f-tag label="Construction" state="primary" size="small" ></f-tag>
+	   <f-tag label="Cat" size="small" counter="35"></f-tag>
+	 </f-div>
 	  <f-div
         state="secondary"
         width="100%"
@@ -73,7 +76,7 @@ f-lineage to display nodes and connections.
         gap="small"
         \${node.children ? 'border="small solid default bottom"' : ""}
       >
-        <f-icon source="i-user" size="medium"></f-icon>
+	  	<f-icon-button icon="i-table" state="neutral"></f-icon-button>
         <f-div direction="column" height="hug-content" align="middle-left">
           <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
           <f-text variant="code" size="small" ellipsis
@@ -198,6 +201,9 @@ f-lineage to display nodes and connections.
           children: [
             {
               id: "child1",
+              click: function (event, node) {
+                console.log("Child Node Clicked", event, node);
+              },
             },
             {
               id: "child2",
@@ -245,6 +251,9 @@ f-lineage to display nodes and connections.
               id: "child16",
             },
           ],
+          click: function (event, node) {
+            console.log("Node Clicked", event, node);
+          },
         },
         Hansen: {
           data: {
@@ -375,7 +384,7 @@ f-lineage to display nodes and connections.
 		style="border-radius:100px;"
         \${node.children ? 'border="small solid default bottom"' : ""}
       >
-        <f-icon source="i-user" size="medium"></f-icon>
+        <f-icon-button icon="i-user"></f-icon-button>
         <f-div direction="column" height="hug-content" align="middle-left">
           <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
           <f-text variant="code" size="small" ellipsis

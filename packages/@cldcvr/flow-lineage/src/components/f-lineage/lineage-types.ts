@@ -7,6 +7,7 @@ export type LineageBaseNode = {
   links?: LineageNodeLink[];
   data?: Record<string, any>;
   template?: string;
+  click?: (event: Event, node: LineageNodeElement) => void;
 };
 export type LineageNodeChildren = LineageBaseNode;
 // Lineage node type
@@ -39,6 +40,7 @@ export type LineageNodeElement = {
   isVisible?: boolean;
   childrenToggle?: string;
   isChildrenVisible?: boolean;
+  click?: (event: Event, node: LineageNodeElement) => void;
 } & Omit<LineageNode, "to">;
 
 export type LineageGapElement = {
@@ -120,12 +122,11 @@ export type VerticalLinkPathParams = {
 export type LevelPointer = Record<number, { x: number; y: number }>;
 
 export type LineageNodeChildrens = LineageNodeChildren[];
-export type LineageNodes = Record<
-  string,
-  Omit<LineageNode, "to" | "links" | "id"> & {
-    children?: LineageNodeChildrens;
-  }
->;
+export type LineageNodePartial = Omit<LineageNode, "to" | "links" | "id"> & {
+  children?: LineageNodeChildrens;
+  click?: (event: Event, node: LineageNodeElement) => void;
+};
+export type LineageNodes = Record<string, LineageNodePartial>;
 
 export type LineageNodeLinkSchema = {
   from: string;

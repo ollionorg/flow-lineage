@@ -92,6 +92,7 @@ export default function createNodeElements(
       y: levelPointer.y,
       offset: 0,
       template: node.template,
+      click: node.click,
     };
 
     /**
@@ -201,6 +202,7 @@ export default function createNodeElements(
       isChildren: true,
       parentId,
       template: node.template,
+      click: node.click,
     };
     /**
      * Increment child node pointer
