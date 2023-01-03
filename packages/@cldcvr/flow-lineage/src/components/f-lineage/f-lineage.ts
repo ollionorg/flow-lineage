@@ -71,19 +71,19 @@ export class FLineage extends LitElement {
 
   @property({
     reflect: true,
-    type: Object,
+    type: Number,
   })
   ["max-childrens"]?: number;
 
   @property({
     reflect: false,
-    type: Object,
+    type: String,
   })
   ["node-template"]?: string;
 
   @property({
     reflect: false,
-    type: Object,
+    type: String,
   })
   ["children-node-template"]?: string;
 
@@ -154,9 +154,19 @@ export class FLineage extends LitElement {
         }, 500);
       });
     } else {
+      this.dispatchReadyEvent();
       this.pageNumberElement.innerText = `100%`;
       this.progressElement.style.display = "none";
     }
+  }
+
+  dispatchReadyEvent() {
+    const ready = new CustomEvent("ready", {
+      detail: { ...this.data },
+      bubbles: true,
+      composed: true,
+    });
+    this.dispatchEvent(ready);
   }
   decreaseDegree() {
     if (this.page > 1) {
@@ -253,14 +263,21 @@ export class FLineage extends LitElement {
     this.svg.innerHTML = ``;
 
     if (this.links && this.links.length > 0) {
+      /**
+       * Creates hierarchy based on nodes and links provided by user
+       */
       const { data, biDirectionalLinks } = createHierarchy(
         this.links,
         this.nodes
       );
       this.data = data;
+      // holds birectional links
       this.biDirectionalLinks = biDirectionalLinks;
     }
     if (this.data && this.data.length > 0) {
+      /**
+       * Lineage with nodes , links and gap parameters
+       */
       const lineage = createLineage({
         data: this.data,
         nodeSize,

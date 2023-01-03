@@ -3,6 +3,8 @@ import drawLinks from "./draw-links";
 import drawNodes from "./draw-nodes";
 
 export default async function drawLineage(params: DrawLineageParams) {
-  drawLinks(params);
-  drawNodes(params);
+  if (params.lineage) {
+    drawLinks(params);
+    drawNodes(params);
+  }
 }

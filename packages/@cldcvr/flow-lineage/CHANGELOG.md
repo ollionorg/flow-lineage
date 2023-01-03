@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.0.0] - 2023-01-3
+
+### Features
+
+- Emitting `ready` event when plotting finishes.
 ## [0.2.3] - 2022-12-9
 
 ### Features

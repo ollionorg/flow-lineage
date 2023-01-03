@@ -440,6 +440,9 @@ f-lineage to display nodes and connections.
     }}
   >
     {(args) => {
+      const handleReady = (e) => {
+        console.log("Got ready event", e);
+      };
       //  const data = lineageDataGenerator();
       return html`<f-lineage
         .direction=${args.direction}
@@ -453,6 +456,7 @@ f-lineage to display nodes and connections.
         .links=${args.links}
         .nodes=${args.nodes}
         degree="1"
+        @ready=${handleReady}
       ></f-lineage>`;
     }}
   </Story>

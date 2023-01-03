@@ -338,6 +338,10 @@
             },
             {
               "kind": "method",
+              "name": "dispatchReadyEvent"
+            },
+            {
+              "kind": "method",
               "name": "decreaseDegree"
             },
             {

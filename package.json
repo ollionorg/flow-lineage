@@ -14,7 +14,8 @@
     "build-storybook": "build-storybook",
     "build-packages": "cd packages/@cldcvr/flow-lineage && yarn compile",
     "release": "cp README.md packages/@cldcvr/flow-lineage && yarn build-packages && yarn changeset publish",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "yarn workspace @cldcvr/flow-lineage test"
   },
   "keywords": [
     "web-components",
