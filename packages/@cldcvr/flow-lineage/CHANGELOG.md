@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [1.0.1] - 2023-01-4
+
+### Improvements
+
+- `README.md` updated with usage
+
 ## [1.0.0] - 2023-01-3
 
 ### Features

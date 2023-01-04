@@ -369,13 +369,16 @@ export class FLineage extends LitElement {
         event.stopPropagation();
         lowlightPath(this);
       });
+      this.timeout = setTimeout(() => {
+        this.increaseDegree();
+      }, 1000);
+    } else {
+      //this.pageNumberElement.innerText = `No data to display`;
+      this.progressElement.setAttribute("width", "500px");
+      this.progressElement.innerHTML = "No data to display";
     }
 
     console.timeEnd("Total duration");
     console.groupEnd();
-
-    this.timeout = setTimeout(() => {
-      this.increaseDegree();
-    }, 1000);
   }
 }

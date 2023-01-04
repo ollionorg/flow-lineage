@@ -1,6 +1,6 @@
 {
   "name": "flow-lineage-storybook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Storybook project for flow-lineage component development",
   "private": true,
   "sideEffects": false,
