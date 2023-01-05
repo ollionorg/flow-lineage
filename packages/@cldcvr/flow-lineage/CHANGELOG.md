@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.0.2] - 2023-01-4
+
+### Improvements
+
+- version added in console to debug
 ## [1.0.1] - 2023-01-4
 
 ### Improvements

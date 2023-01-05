@@ -382,3 +382,12 @@ export class FLineage extends LitElement {
     console.groupEnd();
   }
 }
+
+/**
+ * Required for typescript
+ */
+declare global {
+  interface HTMLElementTagNameMap {
+    "f-lineage": FLineage;
+  }
+}
