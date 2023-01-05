@@ -9,10 +9,10 @@ const {
   transformSchema,
 } = require("@cldcvr/custom-elements-manifest-to-types");
 
-const vue2Types = transformSchema(customElementsJSON, "vue2", "./index");
-const vue3Types = transformSchema(customElementsJSON, "vue3", "./index");
+const vue2Types = transformSchema(customElementsJSON, "vue2", "./src/index");
+const vue3Types = transformSchema(customElementsJSON, "vue3", "./src/index");
 
-const reactTypes = transformSchema(customElementsJSON, "react", "./index");
+const reactTypes = transformSchema(customElementsJSON, "react", "./src/index");
 
 try {
   fs.writeFileSync(vue2TypesFileName, vue2Types);
