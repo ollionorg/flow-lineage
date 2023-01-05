@@ -1,6 +1,6 @@
 {
   "name": "@cldcvr/flow-lineage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lineage dependency for flow design system",
   "module": "dist/flow-lineage.es.js",
   "main": "dist/flow-lineage.cjs.js",
@@ -31,7 +31,7 @@
     "lit": "^2.2.4"
   },
   "devDependencies": {
-    "@cldcvr/custom-elements-manifest-to-types": "latest",
+    "@cldcvr/custom-elements-manifest-to-types": "1.0.4",
     "@custom-elements-manifest/analyzer": "^0.5.7",
     "@open-wc/testing": "^3.1.5",
     "@types/d3": "^7.4.0",

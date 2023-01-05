@@ -1303,10 +1303,10 @@
     human-id "^1.0.2"
     prettier "^2.7.1"
 
-"@cldcvr/custom-elements-manifest-to-types@latest":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@cldcvr/custom-elements-manifest-to-types/-/custom-elements-manifest-to-types-1.0.2.tgz#950572259413b44815674b2f8d500c4fb99fc9db"
-  integrity sha512-7s6rKrr66W2Fty8b9GquJmebGXco4ABmgoDjirTLdgHFi8ruX4ukKCZQbQ7tSij/BX8ojYLBLl7qBmevWsQarA==
+"@cldcvr/custom-elements-manifest-to-types@1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@cldcvr/custom-elements-manifest-to-types/-/custom-elements-manifest-to-types-1.0.4.tgz#f017df0e151d78b13b604ce6a9b28066b08fbbe7"
+  integrity sha512-gj1UP3O/I1PRq3iZ3+/fi73YEVc9H6tni8pIQp1UbKx3l8ppYR257aVKXMjd3CzUYWqPJheo2HOP4auIxAi2Og==
 
 "@cldcvr/flow-core@*", "@cldcvr/flow-core@1.1.4":
   version "1.1.4"
