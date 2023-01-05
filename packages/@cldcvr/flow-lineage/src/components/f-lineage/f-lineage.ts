@@ -1,4 +1,4 @@
-import { html, unsafeCSS, LitElement } from "lit";
+import { html, unsafeCSS } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import eleStyle from "./f-lineage.scss";
 import * as d3 from "d3";
@@ -18,10 +18,12 @@ import flowCoreCSS from "@cldcvr/flow-core/dist/style.css";
 import lowlightPath from "./highlight/lowlight-path";
 import createHierarchy from "./create/create-hierarchy";
 import { FButton, FDiv } from "@cldcvr/flow-core";
+import { FRoot } from "@cldcvr/flow-core/src/mixins/components/f-root/f-root";
+
 // Renders attribute names of parent element to textContent
 
 @customElement("f-lineage")
-export class FLineage extends LitElement {
+export class FLineage extends FRoot {
   /**
    * css loaded from scss file
    */
