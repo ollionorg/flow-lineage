@@ -148,14 +148,14 @@ Below is a sample of the schema architecture. You can jump to the [properties](#
 		<tr>
 			<td style="vertical-align: top;">node-template</td>
 			<td style="vertical-align: top;">String</td>
-			<td style="vertical-align: top;"><a href="#node-template">template</a></td>
+			<td style="vertical-align: top;"><a href="#parent-node-template">template</a></td>
 			<td style="vertical-align: top;">Nodes are visually represented through templates. You can write custom markup for your templates if required.<br>You can find more Flow lineage templates here (coming soon).
 </td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">children-node-template</td>
 			<td style="vertical-align: top;">String</td>
-			<td style="vertical-align: top;"><a href="#node-template">template</a></td>
+			<td style="vertical-align: top;"><a href="#child-node-template">template</a></td>
 			<td style="vertical-align: top;">Just like node templates, child nodes are represented through templates.</td>
 		</tr>
 	</tbody>
@@ -240,10 +240,10 @@ Links are the connections drawn between nodes.
 	</tbody>
 </table>
 
+### parent-node-template
 
 
-
-
+### child-node-template
 
 ### Examples
 Checkout examples from [here](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page)
