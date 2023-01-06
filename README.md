@@ -241,9 +241,41 @@ Links are the connections drawn between nodes.
 </table>
 
 ### parent-node-template
+The template below is written in flow, visit [flow-core](https://github.com/cldcvr/flow-core) to learn more.
+
+```
+<f-div state="secondary" width="100%" height="100%" padding="medium" align="top-left" variant="curved" gap="x-small" direction="column" \${node.children ? 'border="small solid default bottom"' : ""}>
+	<f-div height="hug-content"> //tags
+	  <f-text variant="heading" size="medium">\${node.data.designation}</f-text>
+	</f-div>
+	<f-div height="hug-content" gap="small"> //main-node
+		<f-pictogram source="i-user" state="success" size="large" variant="circle"></f-pictogram>
+		<f-div direction="column" height="hug-content" align="middle-left">
+			<f-text  ellipsis>\${node.data.fullName}</f-text>
+			<f-div padding="x-small none none none">
+				<f-text size="small" ellipsis>Mobile No : \${node.data.mobile}</f-text>
+			</f-div>
+			<f-div padding="x-small none none none">
+				<f-text size="small" ellipsis>Email : \${node.data.email}</f-text>
+			</f-div>
+		</f-div>
+	</f-div>
+</f-div>
+```
+
+@pragyan add mockup here 
 
 
 ### child-node-template
+
+```
+<f-div state="secondary" width="100%" height="100%" padding="none medium" align="middle-left" gap="small" border="small solid default bottom">
+  <f-icon source="i-user" size="small"></f-icon>
+  <f-text variant="code" size="medium" ellipsis>\${node.data.fullName}</f-text>
+</f-div>
+```
+
+@pragyan add mockup here 
 
 ### Examples
 Checkout examples from [here](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page)
