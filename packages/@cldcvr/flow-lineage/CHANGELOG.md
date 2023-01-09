@@ -12,7 +12,8 @@
 - `rightClick` event support added in node schema.
 
 ### Improvements
-- `isChildrenVisible` changed to `hideChildren` with default value `true.`
+- `isChildrenVisible` property changed to `hideChildren` with default value `true.`
+- `degree` property changed to `stager-load`.
 
 ## [1.0.2] - 2023-01-4
 

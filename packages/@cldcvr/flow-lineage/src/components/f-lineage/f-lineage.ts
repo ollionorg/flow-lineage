@@ -63,7 +63,7 @@ export class FLineage extends FRoot {
     reflect: true,
     type: Number,
   })
-  degree = 10;
+  ["stager-load"] = 10;
 
   @property({
     reflect: true,
@@ -136,8 +136,14 @@ export class FLineage extends FRoot {
 
     if (this.maxAvailableLevels > maxLevel) {
       this.levelsToPlot = [
-        ...this.getNumbersFromRange(minLevel - this.degree, minLevel - 1),
-        ...this.getNumbersFromRange(maxLevel + 1, maxLevel + this.degree),
+        ...this.getNumbersFromRange(
+          minLevel - this["stager-load"],
+          minLevel - 1
+        ),
+        ...this.getNumbersFromRange(
+          maxLevel + 1,
+          maxLevel + this["stager-load"]
+        ),
       ];
 
       this.page += 1;
@@ -305,12 +311,12 @@ export class FLineage extends FRoot {
       if (this.centerNodeElement) {
         this.levelsToPlot = [
           ...this.getNumbersFromRange(
-            this.centerNodeElement.level - this.degree,
+            this.centerNodeElement.level - this["stager-load"],
             this.centerNodeElement.level
           ),
           ...this.getNumbersFromRange(
             this.centerNodeElement.level + 1,
-            this.centerNodeElement.level + this.degree
+            this.centerNodeElement.level + this["stager-load"]
           ),
         ];
 
