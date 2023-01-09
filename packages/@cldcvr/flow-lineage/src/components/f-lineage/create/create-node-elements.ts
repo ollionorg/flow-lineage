@@ -93,6 +93,7 @@ export default function createNodeElements(
       offset: 0,
       template: node.template,
       click: node.click,
+      rightClick: node.rightClick,
     };
 
     /**
@@ -203,6 +204,7 @@ export default function createNodeElements(
       parentId,
       template: node.template,
       click: node.click,
+      rightClick: node.rightClick,
     };
     /**
      * Increment child node pointer

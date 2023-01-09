@@ -53,6 +53,13 @@ export default function drawNodes(params: DrawLineageParams) {
         d.click(event, d);
       }
     })
+    .on("contextmenu", (event: MouseEvent, d) => {
+      event.stopPropagation();
+      event.preventDefault();
+      if (d.rightClick) {
+        d.rightClick(event, d);
+      }
+    })
     .append("foreignObject")
     .attr("class", (d) => {
       if (element.centerNodeElement && d.id === element.centerNodeElement.id) {
@@ -303,6 +310,14 @@ export default function drawNodes(params: DrawLineageParams) {
         highlightPath(d, element);
         if (d.click) {
           d.click(event, d);
+        }
+      })
+      .on("contextmenu", (event: MouseEvent, d) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (d.rightClick) {
+          d.rightClick(event, d);
         }
       })
       //@ts-ignore

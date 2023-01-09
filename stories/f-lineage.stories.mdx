@@ -204,6 +204,9 @@ f-lineage to display nodes and connections.
               click: function (event, node) {
                 console.log("Child Node Clicked", event, node);
               },
+              rightClick: function (event, node) {
+                console.log("Child Node Right Clicked", event, node);
+              },
             },
             {
               id: "child2",
@@ -253,6 +256,9 @@ f-lineage to display nodes and connections.
           ],
           click: function (event, node) {
             console.log("Node Clicked", event, node);
+          },
+          rightClick: function (event, node) {
+            console.log("Node Right Clicked", event, node);
           },
         },
         Hansen: {

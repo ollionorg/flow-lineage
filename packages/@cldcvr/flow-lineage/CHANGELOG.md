@@ -4,6 +4,13 @@
 
 # Change Log
 
+
+## [1.0.5] - 2023-01-4
+
+### Features
+
+- `rightClick` event support added in node schema.
+
 ## [1.0.2] - 2023-01-4
 
 ### Improvements
