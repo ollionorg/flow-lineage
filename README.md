@@ -58,28 +58,192 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 @pragayan we need an image that shows what a node, link, etc is. It should just the right about of detail for a developer to understand the properties below.
 
 ### Schema
-Below is a sample of the schema architecture. You can jump to the [properties](#Properties) to learn more. 
+
+<details><summary>Click to see sample VueJS component with `f-lineage`.</summary>
+<p>
+- Create new file with name `SampleLineage.vue` in your vue.js project and import in your desired component where you want to render. 
 
 ```html
-  <f-lineage
-      direction="horizontal"
-      :padding="28"
-      :gap="100"
-      :node-size.prop="{ width: 200, height: 52 }"
-      :children-node-size.prop="{ width: 200, height: 32 }"
-      :max-children="8"
-      :links.prop="[{ from: 'A', to: 'B' }]"
-      :nodes.prop="{
-        A: {
-          children: [{ id: 'child-1' }, { id: 'child-2' }],
-          hideChildren: false,
-        },
-        B: {},
-      }"
-    ></f-lineage>
+	<template>
+		<f-lineage
+			direction="horizontal"
+			:padding="28"
+			:gap="100"
+			:node-size.prop="{ width: 250, height: 115 }"
+			:children-node-size.prop="{ width: 250, height: 32 }"
+			:max-childrens="8"
+			:links.prop="links"
+			:nodes.prop="nodes"
+			:node-template="nodeTemplate"
+			:children-node-template="childNodeTemplate"
+		></f-lineage>
+	</template>
+
+	<script lang="ts">
+		import { defineComponent } from "vue";
+
+		export default defineComponent({
+		name: "SampleLineage",
+		data() {
+			return {
+			nodes: {
+				cldcvr: {
+				data: {
+					fullName: "CloudCover",
+				},
+				nodeTemplate: `<f-div
+				state="secondary"
+				width="100%"
+				height="100%"
+				padding="medium"
+				align="middle-center"
+				variant="curved"
+				gap="x-small"
+				direction="column"
+				>
+				<f-div height="hug-content" width="hug-content">
+				<f-text variant="heading" size="x-large">\${node.data.fullName}</f-text> 
+				</f-div>
+				</f-div>`,
+				},
+				cto: {
+				data: {
+					fullName: "Vishal Parpia",
+					designation: "Global CTO",
+					mobile: "+1 123 456 000",
+					email: "abc@xyz.com",
+				},
+				},
+				md: {
+				data: {
+					fullName: "Dhruv Parpia",
+					designation: "Global MD, Cloud Solutions",
+					mobile: "+1 123 456 000",
+					email: "abc@xyz.com",
+				},
+				children: [
+					{
+					id: "azure",
+					data: {
+						icon: "p-azure",
+						title: "Azure",
+					},
+					},
+					{
+					id: "gcp",
+					data: {
+						icon: "p-gcp",
+						title: "GCP",
+					},
+					},
+					{
+					id: "aws",
+					data: {
+						icon: "p-aws",
+						title: "AWS",
+					},
+					},
+				],
+				hideChildren: false,
+				},
+				percy: {
+				data: {
+					fullName: "Percy Shadrach",
+					designation: "Head - Design",
+					mobile: "+1 123 456 000",
+					email: "abc@xyz.com",
+				},
+				children: [
+					{
+					id: "surfing",
+					data: {
+						icon: "🏄🏾‍♂️",
+						title: "Surfing",
+					},
+					},
+					{
+					id: "party",
+					data: {
+						icon: "🍻",
+						title: "Party",
+					},
+					},
+					{
+					id: "games",
+					data: {
+						icon: "🎮",
+						title: "Video Games",
+					},
+					},
+				],
+				hideChildren: false,
+				},
+			},
+			links: [
+				{
+				from: "cto",
+				to: "percy",
+				},
+				{
+				from: "cldcvr",
+				to: "cto",
+				},
+				{
+				from: "cldcvr",
+				to: "md",
+				},
+			],
+			nodeTemplate: `<f-div
+				state="secondary"
+				width="100%"
+				height="100%"
+				padding="medium"
+				align="top-left"
+				variant="curved"
+				gap="x-small"
+				direction="column"
+				\${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+				>
+					<f-div height="hug-content">
+						<f-text variant="heading" size="medium" ellipsis>\${node.data.designation}</f-text>
+					\${node.childrenToggle}
+				</f-div>
+				<f-div height="hug-content" gap="small">
+					<f-pictogram source="i-user" state="success" size="large" variant="circle"></f-pictogram>
+					<f-div direction="column" height="hug-content" align="middle-left">
+						<f-text  ellipsis>\${node.data.fullName}</f-text>
+						<f-div padding="x-small none none none">
+							<f-text size="small" ellipsis>Mobile No : \${node.data.mobile}</f-text>
+						</f-div>
+						<f-div padding="x-small none none none">
+							<f-text size="small" ellipsis>Email : \${node.data.email}</f-text>
+						</f-div>
+					</f-div>
+				</f-div>
+				</f-div>`,
+			childNodeTemplate: `<f-div
+					state="secondary"
+					width="100%"
+					height="100%"
+					padding="none medium"
+					align="middle-left"
+					gap="small"
+					border="small solid default bottom"
+				>
+					<f-icon source="\${node.data.icon}" size="small"></f-icon>
+					<f-text variant="code" size="medium" ellipsis>\${node.data.title}</f-text>
+				</f-div>`,
+			};
+		},
+		});
+	</script>
 
 ```
-Above VUEJS snippet will generate following output
+
+</p>
+</details>
+
+Above VUEJS sample component will generate following output
 
 ![Screenshot 2023-01-09 at 5 34 24 PM](https://user-images.githubusercontent.com/67629551/211304561-f2e3e6fe-3bea-4d56-8a2f-130c2a739d41.png)
 

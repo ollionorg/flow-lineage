@@ -242,22 +242,35 @@ export class FLineage extends FRoot {
     window.removeEventListener("resize", () => this.requestUpdate());
     super.disconnectedCallback();
   }
+  /**
+   * get width based on what parent is used
+   */
   getWidth() {
     let width = 1000;
     if (this.parentElement && this.parentElement.tagName === "F-DIV") {
-      width = this.offsetWidth;
-    }
-    if (this.parentElement) {
+      if (this.parentElement.getAttribute("direction") === "row") {
+        width = this.offsetWidth;
+      } else {
+        width = this.parentElement.offsetWidth;
+      }
+    } else if (this.parentElement) {
       width = this.parentElement.offsetWidth;
     }
     return width;
   }
+  /**
+   *  get height based on what parent is used
+   */
   getHeight() {
     let height = 1000;
     if (this.parentElement && this.parentElement.tagName === "F-DIV") {
       height = this.offsetHeight;
-    }
-    if (this.parentElement) {
+      if (this.parentElement.getAttribute("direction") === "column") {
+        height = this.offsetHeight;
+      } else {
+        height = this.parentElement.offsetHeight;
+      }
+    } else if (this.parentElement) {
       height = this.parentElement.offsetHeight;
     }
     return height;

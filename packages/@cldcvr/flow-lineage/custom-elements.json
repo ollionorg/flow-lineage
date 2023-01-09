@@ -364,11 +364,13 @@
             },
             {
               "kind": "method",
-              "name": "getWidth"
+              "name": "getWidth",
+              "description": "get width based on what parent is used"
             },
             {
               "kind": "method",
-              "name": "getHeight"
+              "name": "getHeight",
+              "description": "get height based on what parent is used"
             }
           ],
           "attributes": [
