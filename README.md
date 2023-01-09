@@ -14,38 +14,41 @@ If you do not have an existing front-end project, you can easily create one from
 
 #### Step 2 : Import styles/CSS 
 **Vue JS:** Paste the below snippet *after the closing `<template>` tag in your `App.vue` file
-```
+```html
 <style>
 @import "@cldcvr/flow-lineage/dist/style.css";
 </style> 
 ```
 
 **React:** Paste the below snippet in `src/index.tsx` or `index.jsx` file
-```
+```Javascript
 import "@cldcvr/flow-lineage/dist/style.css";
 ```
 **Angular:** Add css file path in `angular.json` in `styles` property array.
 
-```
+```json
 "styles": ["@cldcvr/flow-lineage/dist/style.css"],
 ```
 #### Step 3: Import flow-lineage into your project
-Copy and the below snippet into your startup file. In **VueJS:** (src/main.ts or main.js), **Angular:** (src/main.ts), **React:** (src/index.tsx or index.jsx)
-```
-import '@cldcvr/flow-lineage';
+import lineage after `@cldcvr/flow-core` like below. In **VueJS:** (src/main.ts or main.js), **Angular:** (src/main.ts), **React:** (src/index.tsx or index.jsx)
+```javascript
+import("@cldcvr/flow-core").then(async () => {
+	await import('@cldcvr/flow-lineage');
+  //your application startup code
+});
 ```
 
 #### Step 4 : If your project is typescript enabled then you will need to include import types
 **Vue JS 2 or 3:** Copy paste below line in your `main.ts` file.
-```
+```Javascript
 import "@cldcvr/flow-lineage/dist/types/vue2";
 ```
-```
+```Javascript
 import "@cldcvr/flow-lineage/dist/types/vue3";
 ```
 
 **React**: Include react type in `tsconfig.json` file like below.
-```
+```json
 "include": ["src", "./node_modules/@cldcvr/flow-lineage/dist/types/react.ts"]
 ```
 
@@ -240,7 +243,7 @@ Links are the connections drawn between nodes.
 ### node-template
 The template below is written in flow, visit [flow-core](https://github.com/cldcvr/flow-core) to learn more.
 
-```
+```html
 <f-div state="secondary" width="100%" height="100%" padding="medium" align="top-left" variant="curved" gap="x-small" direction="column" \${node.children ? 'border="small solid default bottom"' : ""}>
 	<f-div height="hug-content"> //tags
 	  <f-text variant="heading" size="medium">\${node.data.designation}</f-text>
@@ -265,7 +268,7 @@ The template below is written in flow, visit [flow-core](https://github.com/cldc
 
 ### child-node-template
 
-```
+```html
 <f-div state="secondary" width="100%" height="100%" padding="none medium" align="middle-left" gap="small" border="small solid default bottom">
   <f-icon source="i-user" size="small"></f-icon>
   <f-text variant="code" size="medium" ellipsis>\${node.data.fullName}</f-text>
