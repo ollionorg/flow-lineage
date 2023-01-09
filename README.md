@@ -59,7 +59,7 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 
 ### Schema
 
-<details><summary>Click to see sample VueJS component with `f-lineage`.</summary>
+<details><summary>Click to see sample VueJS component with `f-lineage`, which will generate following output.</summary>
 <p>
 
 - Create new file with name `SampleLineage.vue` in your vue.js project and import in your desired component where you want to render. 
@@ -244,7 +244,6 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 </p>
 </details>
 
-Above VUEJS sample component will generate following output
 
 ![Screenshot 2023-01-09 at 8 56 33 PM](https://user-images.githubusercontent.com/67629551/211345084-e074b71a-071e-4493-b9ff-d9700df56f14.png)
 
