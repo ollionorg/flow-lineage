@@ -48,7 +48,6 @@ for (let l = 0; l < 50; l++) {
   }
 }
 
-console.log(Object.keys(nodes).length);
 const Template: Story<unknown> = (args: any) => {
   return html`
     <f-lineage

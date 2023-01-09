@@ -329,3 +329,14 @@ code {
 .language-plaintext {
   color: var(--color-text-default);
 }
+
+.sbdocs-table tr th {
+  color: var(--color-text-default) !important;
+}
+
+.sbdocs-table tr td {
+  color: var(--color-text-default) !important;
+}
+.sbdocs-table tr:nth-of-type(2n) {
+  background-color: var(--color-surface-default) !important;
+}

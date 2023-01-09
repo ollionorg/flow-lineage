@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { html } from "lit-html";
 import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
+import Properties from "./properties.md";
 
 <Meta
   title="Components/f-lineage"
@@ -16,7 +17,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
 
 ## Overview
 
-f-lineage to display nodes and connections.
+A lineage chart is a graphical representation of a node's ancestors, showing the relationships among nodes. It is often used in analytics to show the relations and to trace their ancestry. Lineage charts can be in the form of a hierarchy data, showing the relationships between parents and children, or they can be more complex and show the relationships between more distant nodes. Lineage charts can be useful for investigating the hierarchy of a data.
 
 <br />
 
@@ -465,4 +466,4 @@ f-lineage to display nodes and connections.
 
 <br />
 
-<ArgsTable of={"f-lineage"} />
+<Properties />
