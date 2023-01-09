@@ -67,7 +67,7 @@ Below is a sample of the schema architecture. You can jump to the [properties](#
       :gap="100"
       :node-size.prop="{ width: 200, height: 52 }"
       :children-node-size.prop="{ width: 200, height: 32 }"
-      :max-childrens="8"
+      :max-children="8"
       :links.prop="[{ from: 'A', to: 'B' }]"
       :nodes.prop="{
         A: {

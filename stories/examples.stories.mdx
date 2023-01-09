@@ -50,7 +50,7 @@ f-lineage to display nodes and connections.
       ["children-node-size"]: {
         control: "object",
       },
-      ["max-childrens"]: {
+      ["max-children"]: {
         control: "number",
       },
     }}
@@ -116,6 +116,7 @@ f-lineage to display nodes and connections.
               },
             },
           ],
+          hideChildren: false,
         },
         "mo-tl2": {
           data: {
@@ -144,6 +145,7 @@ f-lineage to display nodes and connections.
               },
             },
           ],
+          hideChildren: false,
         },
         de: {
           data: {
@@ -180,6 +182,7 @@ f-lineage to display nodes and connections.
               },
             },
           ],
+          hideChildren: false,
         },
         tl2: {
           data: {
@@ -208,6 +211,7 @@ f-lineage to display nodes and connections.
               },
             },
           ],
+          hideChildren: false,
         },
       },
       links: [
@@ -248,7 +252,7 @@ f-lineage to display nodes and connections.
       gap: 100,
       ["node-size"]: { width: 250, height: 115 },
       ["children-node-size"]: { width: 250, height: 32 },
-      ["max-childrens"]: 8,
+      ["max-children"]: 8,
       ["node-template"]: /*html*/ `<f-div
         state="secondary"
         width="100%"
@@ -258,10 +262,11 @@ f-lineage to display nodes and connections.
         variant="curved"
 		gap="x-small"
 		direction="column"
-        \${node.children ? 'border="small solid default bottom"' : ""}
+        \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
       >
 	  	<f-div height="hug-content">
 	  		<f-text variant="heading" size="medium">\${node.data.designation}</f-text>
+			\${node.childrenToggle}
 		</f-div>
 		<f-div height="hug-content" gap="small">
 			<f-pictogram source="i-user" state="success" size="large" variant="circle"></f-pictogram>
@@ -300,7 +305,7 @@ f-lineage to display nodes and connections.
         .gap=${args.gap}
         .node-size=${args["node-size"]}
         .children-node-size=${args["children-node-size"]}
-        .max-childrens=${args["max-childrens"]}
+        .max-children=${args["max-children"]}
         .node-template=${args["node-template"]}
         .children-node-template=${args["children-node-template"]}
       ></f-lineage>`;

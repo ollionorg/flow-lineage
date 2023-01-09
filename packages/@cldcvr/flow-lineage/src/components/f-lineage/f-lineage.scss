@@ -1,13 +1,25 @@
 f-lineage {
   display: flex;
-  height: 100%;
-  width: 100%;
+  height: auto;
   overflow: auto;
   flex-direction: column;
   align-items: flex-end;
 
   foreignObject {
     overflow: visible;
+  }
+}
+
+f-div[direction="column"] {
+  > f-lineage {
+    width: 100%;
+  }
+}
+
+f-div[direction="row"] {
+  > f-lineage {
+    flex: 1 1;
+    max-width: 100%;
   }
 }
 

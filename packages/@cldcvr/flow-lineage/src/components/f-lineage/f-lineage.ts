@@ -75,7 +75,7 @@ export class FLineage extends FRoot {
     reflect: true,
     type: Number,
   })
-  ["max-childrens"]?: number;
+  ["max-children"]?: number;
 
   @property({
     reflect: false,
@@ -261,7 +261,7 @@ export class FLineage extends FRoot {
     const padding = this.padding ?? 16;
     const gap = this.gap ?? 100;
     const direction = this.direction ?? "horizontal";
-    const maxChildrens = this["max-childrens"] ?? 8;
+    const maxChildrens = this["max-children"] ?? 8;
     const maxChildrenHeight = maxChildrens * childrenNodeSize.height;
 
     this["node-template"] =
@@ -364,8 +364,16 @@ export class FLineage extends FRoot {
       const svgElement = d3
         .select(this.svg)
         .attr("class", "lineage-svg")
-        .attr("width", this.offsetWidth)
-        .attr("height", this.offsetHeight);
+        .attr(
+          "width",
+          this.parentElement ? this.parentElement.offsetWidth : this.offsetWidth
+        )
+        .attr(
+          "height",
+          this.parentElement
+            ? this.parentElement.offsetHeight
+            : this.offsetHeight
+        );
       /**
        * Inner `g` to hold chart to handel zoom in/ zoom out
        */

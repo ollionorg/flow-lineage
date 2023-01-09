@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [1.0.7] - 2023-01-9
+
+### Improvements
+
+- `max-childrens` renamed to `max-children`.
+- `width` and `height` isssue solved when rendred in `f-div`.
 ## [1.0.6] - 2023-01-9
 
 ### Features

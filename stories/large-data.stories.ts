@@ -57,7 +57,7 @@ const Template: Story<unknown> = (args: any) => {
       gap="75"
       .node-size=${{ width: 44, height: 44 }}
       .children-node-size=${args["children-node-size"]}
-      .max-childrens=${args["max-childrens"]}
+      .max-children=${args["max-children"]}
       .node-template=${args["node-template"]}
       .children-node-template=${args["children-node-template"]}
       .links=${links}

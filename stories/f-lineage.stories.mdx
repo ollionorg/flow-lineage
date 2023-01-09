@@ -50,7 +50,7 @@ f-lineage to display nodes and connections.
       ["children-node-size"]: {
         control: "object",
       },
-      ["max-childrens"]: {
+      ["max-children"]: {
         control: "number",
       },
     }}
@@ -60,7 +60,7 @@ f-lineage to display nodes and connections.
       gap: 100,
       ["node-size"]: { width: 200, height: 52 },
       ["children-node-size"]: { width: 200, height: 32 },
-      ["max-childrens"]: 8,
+      ["max-children"]: 8,
       ["node-template"]: `
 	  <f-div style="position:absolute;top:-20px;z-index:1;" gap="x-small">
 	   <f-tag label="Construction" state="primary" size="small" ></f-tag>
@@ -456,7 +456,7 @@ f-lineage to display nodes and connections.
         .gap=${args.gap}
         .node-size=${args["node-size"]}
         .children-node-size=${args["children-node-size"]}
-        .max-childrens=${args["max-childrens"]}
+        .max-children=${args["max-children"]}
         .node-template=${args["node-template"]}
         .children-node-template=${args["children-node-template"]}
         .links=${args.links}
