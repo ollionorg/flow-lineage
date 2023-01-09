@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.0.6] - 2023-01-9
+
+### Features
+
+- Default node templates updated.
 
 ## [1.0.5] - 2023-01-4
 
