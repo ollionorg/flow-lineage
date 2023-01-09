@@ -265,9 +265,32 @@ export class FLineage extends FRoot {
     const maxChildrenHeight = maxChildrens * childrenNodeSize.height;
 
     this["node-template"] =
-      this["node-template"] ?? "<f-text ellipsis>${node.id}</f-text>";
+      this["node-template"] ??
+      `<f-div
+	  state="secondary"
+	  width="100%"
+	  height="100%"
+	  padding="none medium"
+	  align="middle-left"
+	  variant="curved"
+	  gap="small"
+	  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+	> <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
+	  \${node.childrenToggle}
+	</f-div>`;
     this["children-node-template"] =
-      this["children-node-template"] ?? "<f-text ellipsis>${node.id}</f-text>";
+      this["children-node-template"] ??
+      `<f-div
+	  state="secondary"
+	  width="100%"
+	  height="100%"
+	  padding="none medium"
+	  align="middle-left"
+	  variant="curved"
+	  gap="small"
+	  border="small solid default bottom"
+	> <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
+	</f-div>`;
     this.svg.innerHTML = ``;
 
     if (this.links && this.links.length > 0) {

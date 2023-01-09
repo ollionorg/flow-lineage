@@ -57,29 +57,17 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 ### Schema
 Below is a sample of the schema architecture. You can jump to the [properties](#Properties) to learn more. 
 
-```
-@vikas add example of node schema here, add comments
-
-"node-id": {
-  data: {
-  	fullName: "Anastasia Day",
-    designation: "Team Lead",
-    mobile: "+1 123 456 000",
-    email: "abc@xyz.com",
-  },
-  children: [{
-	id: "node-child-id-1",
-    data: {
-      reportee: "Whitney Lambert",
-			email: "abc@xyz.com",
-    },
-	id: "node-child-id-2",
-    data: {
-      reportee: "Whitney Lambert",
-			email: "abc@xyz.com",
-    }
-  }],
-}
+```html
+<f-lineage
+    direction="horizontal"
+    :padding="28"
+    :gap="100"
+    :node-size.prop="{ width: 200, height: 52 }"
+    :children-node-size.prop="{ width: 200, height: 32 }"
+    :max-childrens="8"
+    :links.prop="[{from:'A',to:'B'}]"
+    :nodes.prop="{A:{children:[{id:"child-1"},{id:"child-2"}]},B:{}}"
+  ></f-lineage>
 
 ```
 
@@ -101,49 +89,49 @@ Below is a sample of the schema architecture. You can jump to the [properties](#
 			<td style="vertical-align: top;">String</td>
 			<td style="vertical-align: top;">"horizontal"</td>
 			<td style="vertical-align: top;"> Defines the orientation of the lineage. Options are<br>
-			<code>horizontal</code>: nodes will be plotted from left to right.<br/><code>vertical</code> nodes will be plotted from top to bottom. <br>eg: <code>direction: horizontal</code></td>
+			<code>horizontal</code>: nodes will be plotted from left to right.<br/><code>vertical</code> nodes will be plotted from top to bottom. <br>eg: <code>&lt;f-lineage direction=&quot;horizontal&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">padding</td>
 			<td style="vertical-align: top;">Number</td>
 			<td style="vertical-align: top;">16</td>
-			<td style="vertical-align: top;">Define the padding of the lineage component in pixels (px)  <br>eg: <code> padding: 16</code></td>
+			<td style="vertical-align: top;">Define the padding of the lineage component in pixels (px)  <br>eg: <code> &lt;f-lineage padding=&quot;16&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">gap</td>
 			<td style="vertical-align: top;">Number</td>
 			<td style="vertical-align: top;">100</td>
-			<td style="vertical-align: top;">Define the gap between nodes in pixels (px) <br>eg: <code>gap: 100</code></td>
+			<td style="vertical-align: top;">Define the gap between nodes in pixels (px) <br>eg: <code>&lt;f-lineage gap=&quot;100&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">node-size</td>
 			<td style="vertical-align: top;">Object</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">The dimensions of the node template. This is required to render the node correctly. <br>eg: <code>node-size: { width: 200, height: 52 }</code><br>
+			<td style="vertical-align: top;">The dimensions of the node template. This is required to render the node correctly. <br>eg: <code>&lt;f-lineage :node-size.prop=&quot;{ width: 200, height: 52 }&quot;&gt;&lt;/f-lineage&gt;</code><br>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">children-node-size</td>
 			<td style="vertical-align: top;">Object</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">The dimensions of the node children template. <br>eg: <code>node-children-size: { width: 200, height: 32 }</code><br>
+			<td style="vertical-align: top;">The dimensions of the node children template. <br>eg: <code>&lt;f-lineage :node-children-size.prop=&quot;{ width: 200, height: 32 }&quot;&gt;&lt;/f-lineage&gt;</code><br>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">center-node</td>
 			<td style="vertical-align: top;">String</td>
 			<td style="vertical-align: top;">root node</td>
-			<td style="vertical-align: top;">Set which node ID is the main/center node of the entire lineage. <br>eg: <code>center-node: node-id</code></td>
+			<td style="vertical-align: top;">Set which node ID is the main/center node of the entire lineage. <br>eg: <code>&lt;f-lineage center-node=&quot;your-node-id&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
-			<td style="vertical-align: top;">degree</td>
+			<td style="vertical-align: top;">stager-load</td>
 			<td style="vertical-align: top;">Number</td>
 			<td style="vertical-align: top;">10</td>
-			<td style="vertical-align: top;">Flow linage has a staggered load aproach for better preformance. A degree defines how many levels of connections will be plotted in a single render.<br>eg: <code>degree: 10</code></td>
+			<td style="vertical-align: top;">Flow linage has a staggered load aproach for better preformance. A stager-load defines how many levels of connections will be plotted in a single render.<br>eg: <code>&lt;f-lineage stager-load=&quot;10&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">max-children</td>
 			<td style="vertical-align: top;">Number</td>
 			<td style="vertical-align: top;">8</td>
-			<td style="vertical-align: top;">When a node is expanded, you can determine how many children are visible before a scrollbar apprears.<br>eg: <code>max-children: 10</code></td>
+			<td style="vertical-align: top;">When a node is expanded, you can determine how many children are visible before a scrollbar apprears.<br>eg: <code>&lt;f-lineage max-children=&quot;8&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">node-template</td>
@@ -161,6 +149,7 @@ Below is a sample of the schema architecture. You can jump to the [properties](#
 	</tbody>
 </table>
 
+Note: Above examples are written in VUEJS syntax when passing object to components.Refer for [Angular](https://angular.io/guide/property-binding-best-practices) and [React](https://beta.reactjs.org/learn/passing-props-to-a-component)
 
 ### Node properties
 Nodes are broken into two parts, a parent node `node` and child nodes `children`.
@@ -193,6 +182,14 @@ Nodes are broken into two parts, a parent node `node` and child nodes `children`
 			<td style="vertical-align: top;">-</td>
 			<td style="vertical-align: top;">A callback function for when a node is clicked <br/>For Example : <br/><code>   click: function (event, node) {
 		console.log("Node Clicked", event, node);
+	},              </code></td>
+		</tr>
+		<tr>
+			<td style="vertical-align: top;">rightClick</td>
+			<td style="vertical-align: top;">function</td>
+			<td style="vertical-align: top;">-</td>
+			<td style="vertical-align: top;">A callback function for when a node is right clicked <br/>For Example : <br/><code>   rightClick: function (event, node) {
+		console.log("Node Right Clicked", event, node);
 	},              </code></td>
 		</tr>
 		<tr>
@@ -240,7 +237,7 @@ Links are the connections drawn between nodes.
 	</tbody>
 </table>
 
-### parent-node-template
+### node-template
 The template below is written in flow, visit [flow-core](https://github.com/cldcvr/flow-core) to learn more.
 
 ```
