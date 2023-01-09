@@ -242,6 +242,26 @@ export class FLineage extends FRoot {
     window.removeEventListener("resize", () => this.requestUpdate());
     super.disconnectedCallback();
   }
+  getWidth() {
+    let width = 1000;
+    if (this.parentElement && this.parentElement.tagName === "F-DIV") {
+      width = this.offsetWidth;
+    }
+    if (this.parentElement) {
+      width = this.parentElement.offsetWidth;
+    }
+    return width;
+  }
+  getHeight() {
+    let height = 1000;
+    if (this.parentElement && this.parentElement.tagName === "F-DIV") {
+      height = this.offsetHeight;
+    }
+    if (this.parentElement) {
+      height = this.parentElement.offsetHeight;
+    }
+    return height;
+  }
   updated() {
     console.group("Lineage");
     console.time("Total duration");
@@ -364,16 +384,8 @@ export class FLineage extends FRoot {
       const svgElement = d3
         .select(this.svg)
         .attr("class", "lineage-svg")
-        .attr(
-          "width",
-          this.parentElement ? this.parentElement.offsetWidth : this.offsetWidth
-        )
-        .attr(
-          "height",
-          this.parentElement
-            ? this.parentElement.offsetHeight
-            : this.offsetHeight
-        );
+        .attr("width", this.getWidth())
+        .attr("height", this.getHeight());
       /**
        * Inner `g` to hold chart to handel zoom in/ zoom out
        */
