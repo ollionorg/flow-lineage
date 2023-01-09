@@ -184,7 +184,7 @@ Nodes are broken into two parts, a parent node `node` and child nodes `children`
 			<td>Data contains the metadata that will be consumed by the node-templates to display information on the lineage.<br/> For Example : To display name and email address on a node, the data would be <br/> <code>data: { name: "Harry Potter", email: "abc@xyz.com"}</code><br><br>You can use data for both node and child nodes. <a href="#schema">View schema example</a></td>
 		</tr>
 		<tr>
-			<td>template</td>
+			<td>nodeTemplate</td>
 			<td>String</td>
 			<td>-</td>
 			<td>You can give nodes unique indiviual templates as well, by default all parent nodes inherit the <a href="#parent-node">parent node template</a></td>
