@@ -61,16 +61,22 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 Below is a sample of the schema architecture. You can jump to the [properties](#Properties) to learn more. 
 
 ```html
-<f-lineage
-    direction="horizontal"
-    :padding="28"
-    :gap="100"
-    :node-size.prop="{ width: 200, height: 52 }"
-    :children-node-size.prop="{ width: 200, height: 32 }"
-    :max-childrens="8"
-    :links.prop="[{from:'A',to:'B'}]"
-    :nodes.prop="{A:{children:[{id:"child-1"},{id:"child-2"}]},B:{}}"
-  ></f-lineage>
+  <f-lineage
+      direction="horizontal"
+      :padding="28"
+      :gap="100"
+      :node-size.prop="{ width: 200, height: 52 }"
+      :children-node-size.prop="{ width: 200, height: 32 }"
+      :max-childrens="8"
+      :links.prop="[{ from: 'A', to: 'B' }]"
+      :nodes.prop="{
+        A: {
+          children: [{ id: 'child-1' }, { id: 'child-2' }],
+          hideChildren: false,
+        },
+        B: {},
+      }"
+    ></f-lineage>
 
 ```
 
