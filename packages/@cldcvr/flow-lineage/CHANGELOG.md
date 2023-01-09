@@ -14,6 +14,7 @@
 ### Improvements
 - `isChildrenVisible` property changed to `hideChildren` with default value `true.`
 - `degree` property changed to `stager-load`.
+- `template` field changed to `nodeTemplate` in node schema.
 
 ## [1.0.2] - 2023-01-4
 

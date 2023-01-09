@@ -6,7 +6,7 @@ export type LineageBaseNode = {
   id: string;
   links?: LineageNodeLink[];
   data?: Record<string, any>;
-  template?: string;
+  nodeTemplate?: string;
   click?: (event: Event, node: LineageNodeElement) => void;
   rightClick?: (event: Event, node: LineageNodeElement) => void;
 };

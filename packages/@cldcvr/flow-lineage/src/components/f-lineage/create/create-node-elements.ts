@@ -91,7 +91,7 @@ export default function createNodeElements(
       x: levelPointer.x,
       y: levelPointer.y,
       offset: 0,
-      template: node.template,
+      nodeTemplate: node.nodeTemplate,
       click: node.click,
       rightClick: node.rightClick,
     };
@@ -202,7 +202,7 @@ export default function createNodeElements(
       y: levelPointer.y,
       isChildren: true,
       parentId,
-      template: node.template,
+      nodeTemplate: node.nodeTemplate,
       click: node.click,
       rightClick: node.rightClick,
     };

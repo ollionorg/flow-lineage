@@ -122,8 +122,8 @@ export default function drawNodes(params: DrawLineageParams) {
       } else {
         node.childrenToggle = "";
       }
-      if (node.template) {
-        return getComputedHTML(html`${eval("`" + node.template + "`")}`);
+      if (node.nodeTemplate) {
+        return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
       } else {
         return getComputedHTML(
           html`${eval("`" + element["node-template"] + "`")}`
@@ -321,8 +321,8 @@ export default function drawNodes(params: DrawLineageParams) {
       })
       //@ts-ignore
       .html((node) => {
-        if (node.template) {
-          return getComputedHTML(html`${eval("`" + node.template + "`")}`);
+        if (node.nodeTemplate) {
+          return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
         } else {
           return getComputedHTML(
             html`${eval("`" + element["children-node-template"] + "`")}`
