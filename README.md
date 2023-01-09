@@ -79,6 +79,10 @@ Below is a sample of the schema architecture. You can jump to the [properties](#
     ></f-lineage>
 
 ```
+Above VUEJS snippet will generate following output
+
+![Screenshot 2023-01-09 at 5 34 24 PM](https://user-images.githubusercontent.com/67629551/211304561-f2e3e6fe-3bea-4d56-8a2f-130c2a739d41.png)
+
 
 ### Properties
 ####  Lineage  properties
