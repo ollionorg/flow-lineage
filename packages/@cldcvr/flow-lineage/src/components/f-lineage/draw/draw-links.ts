@@ -29,6 +29,9 @@ export default function drawLinks({
       if (l.target.isChildren) {
         return levelsToPlot.includes(l.target.level) && l.target.isVisible;
       }
+      if (l.source.isChildren) {
+        return l.source.isVisible;
+      }
       return levelsToPlot.includes(l.target.level);
     }
     return true;

@@ -118,10 +118,10 @@ Include react type in `tsconfig.json` like below
 							<td style="vertical-align: top;">children</td>
 							<td style="vertical-align: top;">Array</td>
 							<td style="vertical-align: top;">undefined</td>
-							<td style="vertical-align: top;">array of objects, where object is same as value from key-value of `nodes` property. The difference is :  <br/> 1. we can't specify `children` and `isChildrenVisible`. <br/> 2. String based `id` mandatory property required here.  </td>
+							<td style="vertical-align: top;">array of objects, where object is same as value from key-value of `nodes` property. The difference is :  <br/> 1. we can't specify `children` and `hideChildren`. <br/> 2. String based `id` mandatory property required here.  </td>
 						</tr>
 						<tr>
-							<td style="vertical-align: top;">isChildrenVisible</td>
+							<td style="vertical-align: top;">hideChildren</td>
 							<td style="vertical-align: top;">Boolean</td>
 							<td style="vertical-align: top;">true</td>
 							<td style="vertical-align: top;">used to display children when rendered on UI</td>

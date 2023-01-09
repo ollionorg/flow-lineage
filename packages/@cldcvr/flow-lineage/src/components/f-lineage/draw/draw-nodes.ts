@@ -54,9 +54,9 @@ export default function drawNodes(params: DrawLineageParams) {
       }
     })
     .on("contextmenu", (event: MouseEvent, d) => {
-      event.stopPropagation();
-      event.preventDefault();
       if (d.rightClick) {
+        event.stopPropagation();
+        event.preventDefault();
         d.rightClick(event, d);
       }
     })
@@ -78,7 +78,7 @@ export default function drawNodes(params: DrawLineageParams) {
 
       if (toggleElement) {
         event.stopPropagation();
-        d.isChildrenVisible = !d.isChildrenVisible;
+        d.hideChildren = !d.hideChildren;
 
         const allChildNodes = lineage.nodes.filter((n) => n.parentId === d.id);
         const childIds = allChildNodes.map((c) => c.id);
@@ -93,7 +93,7 @@ export default function drawNodes(params: DrawLineageParams) {
             childHeight = maxChildrenHeight;
           }
           nodesToUpdate.forEach((n) => {
-            if (d.isChildrenVisible) {
+            if (!d.hideChildren) {
               n.y += childHeight;
             } else {
               n.y -= childHeight;
@@ -117,7 +117,7 @@ export default function drawNodes(params: DrawLineageParams) {
     // @ts-ignore
     .html((node) => {
       if (node.children) {
-        const iconDirection = node.isChildrenVisible ? "up" : "down";
+        const iconDirection = node.hideChildren ? "down" : "up";
         node.childrenToggle = `<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
       } else {
         node.childrenToggle = "";
@@ -143,7 +143,7 @@ export default function drawNodes(params: DrawLineageParams) {
       lineage.nodes.filter(
         (n) =>
           n.children &&
-          n.isChildrenVisible &&
+          !n.hideChildren &&
           n.children.length > 0 &&
           degreeFilter(n)
       )
@@ -313,10 +313,9 @@ export default function drawNodes(params: DrawLineageParams) {
         }
       })
       .on("contextmenu", (event: MouseEvent, d) => {
-        event.stopPropagation();
-        event.preventDefault();
-
         if (d.rightClick) {
+          event.stopPropagation();
+          event.preventDefault();
           d.rightClick(event, d);
         }
       })
@@ -372,7 +371,7 @@ export default function drawNodes(params: DrawLineageParams) {
     .selectAll("g")
     .data(
       lineage.nodes.filter(
-        (n) => n.hasScrollbaleChildren && n.isChildrenVisible && degreeFilter(n)
+        (n) => n.hasScrollbaleChildren && !n.hideChildren && degreeFilter(n)
       )
     )
     .enter()

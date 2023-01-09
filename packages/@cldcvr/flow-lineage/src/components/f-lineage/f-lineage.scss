@@ -42,16 +42,6 @@ f-lineage {
     }
   }
 
-  foreignObject.center-node {
-    // outline-offset: 2px;
-    // outline-style: solid;
-    // outline-width: 1px;
-    // outline-color: var(--color-primary-secondary);
-    > *:not(f-pictogram) {
-      background-color: var(--color-primary-subtle);
-    }
-  }
-
   .degree-selector {
     position: absolute;
     top: 0px;

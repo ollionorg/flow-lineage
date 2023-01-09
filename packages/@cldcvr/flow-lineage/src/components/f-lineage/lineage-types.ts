@@ -14,7 +14,7 @@ export type LineageNodeChildren = LineageBaseNode;
 // Lineage node type
 export type LineageNode = {
   to?: LineageNode[];
-  isChildrenVisible?: boolean;
+  hideChildren?: boolean;
   children?: LineageNodeChildren[];
 } & LineageBaseNode;
 
@@ -40,7 +40,7 @@ export type LineageNodeElement = {
   offset?: number;
   isVisible?: boolean;
   childrenToggle?: string;
-  isChildrenVisible?: boolean;
+  hideChildren?: boolean;
   click?: (event: Event, node: LineageNodeElement) => void;
 } & Omit<LineageNode, "to">;
 

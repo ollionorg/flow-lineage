@@ -83,8 +83,8 @@ export default function createNodeElements(
       data: node.data,
       links: node.links,
       children: node.children,
-      isChildrenVisible:
-        node.isChildrenVisible === true || node.isChildrenVisible === undefined
+      hideChildren:
+        node.hideChildren === true || node.hideChildren === undefined
           ? true
           : false,
       level,
@@ -142,7 +142,7 @@ export default function createNodeElements(
         }
       }
 
-      if (nodeElement.childrenYMax && !nodeElement.isChildrenVisible) {
+      if (nodeElement.childrenYMax && nodeElement.hideChildren) {
         levelPointer.y = nodeElement.y;
       }
     }

@@ -67,14 +67,14 @@ f-lineage to display nodes and connections.
 	   <f-tag label="Cat" size="small" counter="35"></f-tag>
 	 </f-div>
 	  <f-div
-        state="secondary"
+        state=\${node.id==="Max"?'custom,#006ecc':'secondary'}
         width="100%"
         height="100%"
         padding="none medium"
         align="middle-left"
         variant="curved"
         gap="small"
-        \${node.children ? 'border="small solid default bottom"' : ""}
+        \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
       >
 	  	<f-icon-button icon="i-table" state="neutral"></f-icon-button>
         <f-div direction="column" height="hug-content" align="middle-left">
@@ -321,7 +321,7 @@ f-lineage to display nodes and connections.
             mobile: "+91-12345 67890",
             name: "Max",
           },
-          isChildrenVisible: false,
+          hideChildren: false,
           children: [
             {
               id: "mchild1",
