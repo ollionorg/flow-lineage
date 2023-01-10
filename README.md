@@ -464,6 +464,8 @@ Nodes are broken into two parts, a parent node `node` and child nodes `children`
 ## node-template
 The template below is written in flow, visit [flow-core](https://github.com/cldcvr/flow-core) to learn more.
 
+<img width="240" alt="f-div (parent node)" src="https://user-images.githubusercontent.com/2121451/211515800-6f63a758-a528-42f9-b452-e8bf1fd6dfeb.png">
+
 ```html
 <f-div state="secondary" width="100%" height="100%" padding="medium" align="top-left" variant="curved" gap="x-small" direction="column" \${node.children ? 'border="small solid default bottom"' : ""}>
 	<f-div height="hug-content"> //tags
@@ -488,6 +490,8 @@ The template below is written in flow, visit [flow-core](https://github.com/cldc
 
 
 ## child-node-template
+
+<img width="240" alt="f-div (child node)" src="https://user-images.githubusercontent.com/2121451/211515842-43ae327e-6b78-42bd-9031-8087f664c10e.png">
 
 ```html
 <f-div state="secondary" width="100%" height="100%" padding="none medium" align="middle-left" gap="small" border="small solid default bottom">
