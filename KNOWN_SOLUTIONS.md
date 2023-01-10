@@ -2,8 +2,9 @@
 ### Typescript error when you import Flow lineage in an existing project `@cldcvr/flow-lineage` 
 ![Screenshot 2023-01-09 at 9 25 04 PM](https://user-images.githubusercontent.com/67629551/211354086-3c10adb4-cd67-4cf5-8c69-cd79ac5fa095.png)
 
-	Solution : copy following snippet in any shims.d.ts file, if you don't have then create new one.
-	```javascript
+Solution : copy following snippet in any shims.d.ts file, if you don't have then create new one.
+	
+```javascript
 	declare module "*.scss" {
 	const content: Record<string, string>;
 	export default content;
@@ -13,7 +14,7 @@
 	const content: Record<string, string>;
 	export default content;
 	}
-	```
+```
 
 ### Missing icons
 
