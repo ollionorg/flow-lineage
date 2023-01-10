@@ -87,7 +87,8 @@ Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html
 <br>
 
 ## Anatomy 
-@pragayan we need an image that shows what a node, link, etc is. It should just the right about of detail for a developer to understand the properties below.
+
+![Group 21473](https://user-images.githubusercontent.com/67629551/211527311-01bcdbb0-e36e-4afe-a766-6f5c00359da0.png)
 
 <br>
 
@@ -274,8 +275,8 @@ export default defineComponent({
 </p>
 </details>
 
+![Screenshot 2023-01-10 at 3 54 08 PM](https://user-images.githubusercontent.com/67629551/211527027-b13d2342-3a1b-44aa-9897-d54b76931fc2.png)
 
-![Screenshot 2023-01-09 at 8 56 33 PM](https://user-images.githubusercontent.com/67629551/211345084-e074b71a-071e-4493-b9ff-d9700df56f14.png)
 
 <br>
 
