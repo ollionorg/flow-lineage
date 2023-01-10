@@ -88,7 +88,7 @@ Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html
 
 ## Anatomy 
 
-![Group 21473](https://user-images.githubusercontent.com/67629551/211527311-01bcdbb0-e36e-4afe-a766-6f5c00359da0.png)
+![Group 21475](https://user-images.githubusercontent.com/67629551/211532966-f066dec7-ebd1-4a33-ac61-e30bf5889d5e.png)
 
 <br>
 
