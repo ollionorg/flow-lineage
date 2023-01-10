@@ -49,6 +49,9 @@ import "@cldcvr/flow-lineage/dist/style.css";
 Paste the below snippet in your project, for **VueJS:** (src/main.ts or main.js), **Angular:** (src/main.ts), **React:** (src/index.tsx or index.jsx)
 
 ```javascript
+/* To register Flow elements error-free, we need to import all flow packages asynchronously, once all elements are registered successfully only then start the app.
+You can add your application startup code after successful import, please refer following code.
+*/
 import("@cldcvr/flow-core").then(async () => {
 	await import('@cldcvr/flow-lineage');
 	//add your application startup code here
@@ -348,7 +351,7 @@ export default defineComponent({
 		<tr>
 			<td style="vertical-align: top;">node-template</td>
 			<td style="vertical-align: top;">String</td>
-			<td style="vertical-align: top;"><a href="#parent-node-template">template</a></td>
+			<td style="vertical-align: top;"><a href="#node-template">template</a></td>
 			<td style="vertical-align: top;">Nodes are visually represented through templates. You can write custom markup for your templates if required.<br>You can find more Flow lineage templates here (coming soon).
 			</td>
 		</tr>
@@ -361,13 +364,13 @@ export default defineComponent({
 		<tr>
 			<td style="vertical-align: top;">nodes</td>
 			<td style="vertical-align: top;">{}</td>
-			<td style="vertical-align: top;"><a href="#node properties">Properties</a></td>
+			<td style="vertical-align: top;"><a href="#node-properties">Properties</a></td>
 			<td style="vertical-align: top;">Node properties</td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">links</td>
 			<td style="vertical-align: top;">[]</td>
-			<td style="vertical-align: top;"><a href="#link properties">Properties</a></td>
+			<td style="vertical-align: top;"><a href="#link-properties">Properties</a></td>
 			<td style="vertical-align: top;">Link properties</td>
 		</tr>
 	</tbody>
@@ -378,7 +381,7 @@ Note: Above examples are written in VueJS syntax. Refer for [Angular](https://an
 <br>
 
 ### Node properties
-Nodes are broken into two parts, a parent node `node` and child nodes `children`.
+Nodes are broken into two parts, a node `node` and child nodes `children`.
 
 <table style="width:100%">
 	<thead>
@@ -394,13 +397,13 @@ Nodes are broken into two parts, a parent node `node` and child nodes `children`
 			<td>data</td>
 			<td>Object</td>
 			<td>-</td>
-			<td>Data contains the metadata that will be consumed by the node-templates to display information on the lineage.<br/> For Example : To display name and email address on a node, the data would be <br/> <code>data: { name: "Harry Potter", email: "abc@xyz.com"}</code><br><br>You can use data for both node and child nodes. <a href="#schema">View schema example</a></td>
+			<td>Data contains the metadata that will be consumed by the node-templates to display information on the lineage.<br/> For Example : To display name and email address on a node, the data would be <br/> <code>data: { name: "Harry Potter", email: "abc@xyz.com"}</code><br><br>You can use data for both node and child nodes. <a href="#sample-schema">View schema example</a></td>
 		</tr>
 		<tr>
 			<td>nodeTemplate</td>
 			<td>String</td>
 			<td>-</td>
-			<td>You can give nodes unique indiviual templates as well, by default all parent nodes inherit the <a href="#parent-node">parent node template</a></td>
+			<td>You can give nodes unique indiviual templates as well, by default all  nodes inherit the <a href="#node-template"> node template</a></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">click</td>
@@ -422,7 +425,7 @@ Nodes are broken into two parts, a parent node `node` and child nodes `children`
 			<td style="vertical-align: top;">children</td>
 			<td style="vertical-align: top;">array</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">children contain the metadata that will be consumed by the node-child-templates to display information on the lineage.<br> <a href="#schema">View schema example</a></td>
+			<td style="vertical-align: top;">children contain the metadata that will be consumed by the node-child-templates to display information on the lineage.<br> <a href="#sample-schema">View schema example</a></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">hideChildren</td>
@@ -448,14 +451,14 @@ Nodes are broken into two parts, a parent node `node` and child nodes `children`
 		<td  style="vertical-align: top;">from</td>
 		<td style="vertical-align: top;">String</td>
 		<td style="vertical-align: top;">-</td>
-		<td style="vertical-align: top;">Unique identifier of the node from where connection line will start<br/> For Example : <code>[{ from: "A", to :"B"}]</code> 
+		<td style="vertical-align: top;">Unique identifier of the node from where connection line will start from right edge of node<br/> For Example : <code>[{ from: "A", to :"B"}]</code> 
 		</td>
 	</tr>
 	<tr>
 		<td  style="vertical-align: top;">to</td>
 		<td style="vertical-align: top;">String</td>
 		<td style="vertical-align: top;">-</td>
-		<td style="vertical-align: top;">Unique identifier of node that the above connection will end on <br/> For Example : <code>[{ from: "A", to: "B"}]</code></td>
+		<td style="vertical-align: top;">Unique identifier of node that the above connection will end on left edge of node <br/> For Example : <code>[{ from: "A", to: "B"}]</code></td>
 	</tr>
 	</tbody>
 </table>
@@ -465,7 +468,7 @@ Nodes are broken into two parts, a parent node `node` and child nodes `children`
 ## node-template
 The template below is written in flow, visit [flow-core](https://github.com/cldcvr/flow-core) to learn more.
 
-<img width="240" alt="f-div (parent node)" src="https://user-images.githubusercontent.com/2121451/211515800-6f63a758-a528-42f9-b452-e8bf1fd6dfeb.png">
+<img width="240" alt="f-div ( node)" src="https://user-images.githubusercontent.com/2121451/211515800-6f63a758-a528-42f9-b452-e8bf1fd6dfeb.png">
 
 ```html
 <f-div
