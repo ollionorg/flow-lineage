@@ -57,10 +57,13 @@ import("@cldcvr/flow-core").then(async () => {
 <br>
 
 ### Step 4 : If you have a typescript enabled project, include the import types
-**Vue JS 2 or 3:** Copy paste below line in your `main.ts` file.
+Copy paste below line in your `main.ts` file.
+
+**Vue 2:**
 ```Javascript
 import "@cldcvr/flow-lineage/dist/types/vue2";
 ```
+**Vue 3:**
 ```Javascript
 import "@cldcvr/flow-lineage/dist/types/vue3";
 ```
@@ -88,7 +91,7 @@ Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html
 
 ## Anatomy 
 
-![Group 21475](https://user-images.githubusercontent.com/67629551/211532966-f066dec7-ebd1-4a33-ac61-e30bf5889d5e.png)
+![Group 21473](https://user-images.githubusercontent.com/67629551/211527311-01bcdbb0-e36e-4afe-a766-6f5c00359da0.png)
 
 <br>
 
@@ -118,7 +121,7 @@ Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "SampleLineage",
+  name: "FlowLineage",
   data() {
     return {
       nodes: {
@@ -143,7 +146,7 @@ export default defineComponent({
             {
               id: "iman1",
               data: {
-                icon: "i-big-number",
+                icon: "i-hashtag",
                 title: "Iron man 1",
               },
             },
@@ -171,7 +174,7 @@ export default defineComponent({
             {
               id: "av2",
               data: {
-                icon: "i-big-number",
+                icon: "i-hashtag",
                 title: "Avengers 2",
               },
             },
@@ -187,7 +190,7 @@ export default defineComponent({
             {
               id: "child1",
               data: {
-                icon: "i-big-number",
+                icon: "i-hashtag",
                 title: "Node child 1",
               },
             },
@@ -215,7 +218,7 @@ export default defineComponent({
             {
               id: "child5",
               data: {
-                icon: "i-big-number",
+                icon: "i-hashtag",
                 title: "Node child 5",
               },
             },
@@ -238,7 +241,7 @@ export default defineComponent({
         },
       ],
       nodeTemplate: `<f-div
-		  state="secondary"
+		  state=\${node.id==="rdj"?'custom,#006ecc':'secondary'}
 		  width="100%"
 		  height="100%"
 		  padding="small"
@@ -252,6 +255,7 @@ export default defineComponent({
 				<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
 				<f-text size="x-small" ellipsis>\${node.data.description}</f-text>
 			</f-div>
+			\${node.childrenToggle}
 		</f-div>`,
       childNodeTemplate: `<f-div
 			state="secondary"
@@ -480,6 +484,7 @@ The template below is written in flow, visit [flow-core](https://github.com/cldc
 			<f-text size="small" ellipsis>Node name</f-text>
 			<f-text size="x-small" ellipsis>Description</f-text>
 		</f-div>
+		\${node.childrenToggle}
 </f-div>
 ```
 
