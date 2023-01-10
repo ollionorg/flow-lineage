@@ -1,44 +1,62 @@
 
-## Flow Lineage
+# Flow Lineage
 A lineage chart is a graphical representation of a node's ancestors, showing the relationships among nodes. It is often used in analytics to show the relations and to trace their ancestry. Lineage charts can be in the form of a hierarchy data, showing the relationships between parents and children, or they can be more complex and show the relationships between more distant nodes. Lineage charts can be useful for investigating the hierarchy of a data.
 
-### Prerequisites
+# Prerequisites
 
-If you have an existing front-end project, you need to install [Flow core](https://github.com/cldcvr/flow-core) into that project before continuing with Flow lineage.
-If you do not have an existing front-end project, you can easily create one from a [flow starter kit](https://github.com/cldcvr/flow-core#starter-kits). 
+For an existing front-end project, you need to install [Flow core](https://github.com/cldcvr/flow-core) before continuing with Flow lineage. If you run into an issue, head over to our [known issues + solutions document](https://github.com/cldcvr/flow-lineage/blob/main/KNOWN_SOLUTIONS.md) to see if we a solution already exists.
 
-### Getting started
-#### Step 1: Install flow lineage
-```yarn add @cldcvr/flow-lineage```
+
+If you do not have an existing front-end project, you can quickly create one from a [flow starter kit](https://github.com/cldcvr/flow-core#starter-kits). 
+
+## Getting started
+### Step 1: Install flow lineage dependency
+```
+yarn add @cldcvr/flow-lineage
+```
 *Note:* after installation, re-start your application.
 
-#### Step 2 : Import styles/CSS 
-**Vue JS:** Paste the below snippet *after the closing `<template>` tag in your `App.vue` file
+<br>
+
+### Step 2 : Import styles/CSS 
+**Vue JS:** Paste the below snippet after the closing `<template>` tag in your `App.vue` file
 ```html
 <style>
 @import "@cldcvr/flow-lineage/dist/style.css";
 </style> 
 ```
+<details>
+<summary>React</summary>
 
 **React:** Paste the below snippet in `src/index.tsx` or `index.jsx` file
 ```Javascript
 import "@cldcvr/flow-lineage/dist/style.css";
 ```
+</details>
+
+<details><summary>Angular</summary>
+
 **Angular:** Add css file path in `angular.json` in `styles` property array.
 
 ```json
 "styles": ["@cldcvr/flow-lineage/dist/style.css"],
 ```
-#### Step 3: Import flow-lineage into your project
-import lineage after `@cldcvr/flow-core` like below. In **VueJS:** (src/main.ts or main.js), **Angular:** (src/main.ts), **React:** (src/index.tsx or index.jsx)
+</details>
+<br>
+
+
+### Step 3: Import flow-lineage into your project
+Paste the below snippet in your project, for **VueJS:** (src/main.ts or main.js), **Angular:** (src/main.ts), **React:** (src/index.tsx or index.jsx)
+
 ```javascript
 import("@cldcvr/flow-core").then(async () => {
 	await import('@cldcvr/flow-lineage');
-  //your application startup code
+	//add your application startup code here
 });
 ```
+<br>
 
-#### Step 4 : If your project is typescript enabled then you will need to include import types
+### Step 4 : If you have a typescript enabled project, include the import types
 **Vue JS 2 or 3:** Copy paste below line in your `main.ts` file.
 ```Javascript
 import "@cldcvr/flow-lineage/dist/types/vue2";
@@ -47,22 +65,37 @@ import "@cldcvr/flow-lineage/dist/types/vue2";
 import "@cldcvr/flow-lineage/dist/types/vue3";
 ```
 
+<details>
+<summary>React</summary>
+
 **React**: Include react type in `tsconfig.json` file like below.
 ```json
 "include": ["src", "./node_modules/@cldcvr/flow-lineage/dist/types/react.ts"]
 ```
+</details>
+<br>
 
 **Note:** after adding the snippets, re-start your application.
 
-### Anatomy 
+
+<br>
+
+## Demo
+
+Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page) for a demo. 
+
+<br>
+
+## Anatomy 
 @pragayan we need an image that shows what a node, link, etc is. It should just the right about of detail for a developer to understand the properties below.
 
-### Schema
+<br>
 
+## Sample Schema
 <details><summary>Click to see sample VueJS component with `f-lineage`, which will generate following output.</summary>
 <p>
 
-- Create new file with name `SampleLineage.vue` in your vue.js project and import in your desired component where you want to render. 
+*How to use:* Create new file `flow-lineage.vue` in your vue.js project and import the lineage component.
 
 ```html
 	<template>
@@ -247,9 +280,10 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 
 ![Screenshot 2023-01-09 at 8 56 33 PM](https://user-images.githubusercontent.com/67629551/211345084-e074b71a-071e-4493-b9ff-d9700df56f14.png)
 
+<br>
 
-### Properties
-####  Lineage  properties
+## Properties
+###  Lineage  properties
 
 <table style="width:100%">
 	<thead>
@@ -315,7 +349,7 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 			<td style="vertical-align: top;">String</td>
 			<td style="vertical-align: top;"><a href="#parent-node-template">template</a></td>
 			<td style="vertical-align: top;">Nodes are visually represented through templates. You can write custom markup for your templates if required.<br>You can find more Flow lineage templates here (coming soon).
-</td>
+			</td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">children-node-template</td>
@@ -323,10 +357,24 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 			<td style="vertical-align: top;"><a href="#child-node-template">template</a></td>
 			<td style="vertical-align: top;">Just like node templates, child nodes are represented through templates.</td>
 		</tr>
+		<tr>
+			<td style="vertical-align: top;">node</td>
+			<td style="vertical-align: top;">{}</td>
+			<td style="vertical-align: top;"><a href="#node properties">Properties</a></td>
+			<td style="vertical-align: top;">Node properties</td>
+		</tr>
+		<tr>
+			<td style="vertical-align: top;">link</td>
+			<td style="vertical-align: top;">{}</td>
+			<td style="vertical-align: top;"><a href="#link properties">Properties</a></td>
+			<td style="vertical-align: top;">Link properties</td>
+		</tr>
 	</tbody>
 </table>
 
-Note: Above examples are written in VUEJS syntax when passing object to components.Refer for [Angular](https://angular.io/guide/property-binding-best-practices) and [React](https://beta.reactjs.org/learn/passing-props-to-a-component)
+Note: Above examples are written in VueJS syntax. Refer for [Angular](https://angular.io/guide/property-binding-best-practices) and [React](https://beta.reactjs.org/learn/passing-props-to-a-component)
+
+<br>
 
 ### Node properties
 Nodes are broken into two parts, a parent node `node` and child nodes `children`.
@@ -384,10 +432,7 @@ Nodes are broken into two parts, a parent node `node` and child nodes `children`
 	</tbody>
 </table>
 
-### Links 
-Links are the connections drawn between nodes.
-
-####  Link  properties
+###  Link  properties
 <table style="width:100%">
 	<thead>
 		<tr>
@@ -414,8 +459,12 @@ Links are the connections drawn between nodes.
 	</tbody>
 </table>
 
-### node-template
+<br>
+
+## node-template
 The template below is written in flow, visit [flow-core](https://github.com/cldcvr/flow-core) to learn more.
+
+<img width="240" alt="f-div (parent node)" src="https://user-images.githubusercontent.com/2121451/211515800-6f63a758-a528-42f9-b452-e8bf1fd6dfeb.png">
 
 ```html
 <f-div state="secondary" width="100%" height="100%" padding="medium" align="top-left" variant="curved" gap="x-small" direction="column" \${node.children ? 'border="small solid default bottom"' : ""}>
@@ -437,10 +486,12 @@ The template below is written in flow, visit [flow-core](https://github.com/cldc
 </f-div>
 ```
 
-@pragyan add mockup here 
 
 
-### child-node-template
+
+## child-node-template
+
+<img width="240" alt="f-div (child node)" src="https://user-images.githubusercontent.com/2121451/211515842-43ae327e-6b78-42bd-9031-8087f664c10e.png">
 
 ```html
 <f-div state="secondary" width="100%" height="100%" padding="none medium" align="middle-left" gap="small" border="small solid default bottom">
@@ -449,7 +500,5 @@ The template below is written in flow, visit [flow-core](https://github.com/cldc
 </f-div>
 ```
 
-@pragyan add mockup here 
 
-### Examples
-Checkout examples from [here](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page)
+
