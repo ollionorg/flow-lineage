@@ -356,14 +356,14 @@ export default defineComponent({
 			<td style="vertical-align: top;">Just like node templates, child nodes are represented through templates.</td>
 		</tr>
 		<tr>
-			<td style="vertical-align: top;">node</td>
+			<td style="vertical-align: top;">nodes</td>
 			<td style="vertical-align: top;">{}</td>
 			<td style="vertical-align: top;"><a href="#node properties">Properties</a></td>
 			<td style="vertical-align: top;">Node properties</td>
 		</tr>
 		<tr>
-			<td style="vertical-align: top;">link</td>
-			<td style="vertical-align: top;">{}</td>
+			<td style="vertical-align: top;">links</td>
+			<td style="vertical-align: top;">[]</td>
 			<td style="vertical-align: top;"><a href="#link properties">Properties</a></td>
 			<td style="vertical-align: top;">Link properties</td>
 		</tr>
