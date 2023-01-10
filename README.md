@@ -98,179 +98,176 @@ Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html
 *How to use:* Create new file `flow-lineage.vue` in your vue.js project and import the lineage component.
 
 ```html
-	<template>
-		<f-lineage
-			direction="horizontal"
-			:padding="28"
-			:gap="100"
-			:node-size.prop="{ width: 250, height: 115 }"
-			:children-node-size.prop="{ width: 250, height: 32 }"
-			:max-childrens="8"
-			:links.prop="links"
-			:nodes.prop="nodes"
-			:node-template="nodeTemplate"
-			:children-node-template="childNodeTemplate"
-		></f-lineage>
-	</template>
+<template>
+  <f-lineage
+    direction="horizontal"
+    :padding="28"
+    :gap="100"
+    :node-size.prop="{ width: 240, height: 53 }"
+    :children-node-size.prop="{ width: 240, height: 32 }"
+    :max-childrens="8"
+    :links.prop="links"
+    :nodes.prop="nodes"
+    :node-template="nodeTemplate"
+    :children-node-template="childNodeTemplate"
+  ></f-lineage>
+</template>
 
-	<script lang="ts">
-		import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent } from "vue";
 
-		export default defineComponent({
-		name: "SampleLineage",
-		data() {
-			return {
-			nodes: {
-				cldcvr: {
-				data: {
-					fullName: "CloudCover",
-				},
-				nodeTemplate: `<f-div
-				state="secondary"
-				width="100%"
-				height="100%"
-				padding="medium"
-				align="middle-center"
-				variant="curved"
-				gap="x-small"
-				direction="column"
-				>
-				<f-div height="hug-content" width="hug-content">
-				<f-text variant="heading" size="x-large">\${node.data.fullName}</f-text> 
-				</f-div>
-				</f-div>`,
-				},
-				cto: {
-				data: {
-					fullName: "Vishal Parpia",
-					designation: "Global CTO",
-					mobile: "+1 123 456 000",
-					email: "abc@xyz.com",
-				},
-				},
-				md: {
-				data: {
-					fullName: "Dhruv Parpia",
-					designation: "Global MD, Cloud Solutions",
-					mobile: "+1 123 456 000",
-					email: "abc@xyz.com",
-				},
-				children: [
-					{
-					id: "azure",
-					data: {
-						icon: "p-azure",
-						title: "Azure",
-					},
-					},
-					{
-					id: "gcp",
-					data: {
-						icon: "p-gcp",
-						title: "GCP",
-					},
-					},
-					{
-					id: "aws",
-					data: {
-						icon: "p-aws",
-						title: "AWS",
-					},
-					},
-				],
-				hideChildren: false,
-				},
-				percy: {
-				data: {
-					fullName: "Percy Shadrach",
-					designation: "Head - Design",
-					mobile: "+1 123 456 000",
-					email: "abc@xyz.com",
-				},
-				children: [
-					{
-					id: "surfing",
-					data: {
-						icon: "🏄🏾‍♂️",
-						title: "Surfing",
-					},
-					},
-					{
-					id: "party",
-					data: {
-						icon: "🍻",
-						title: "Party",
-					},
-					},
-					{
-					id: "games",
-					data: {
-						icon: "🎮",
-						title: "Video Games",
-					},
-					},
-				],
-				hideChildren: false,
-				},
-			},
-			links: [
-				{
-				from: "cto",
-				to: "percy",
-				},
-				{
-				from: "cldcvr",
-				to: "cto",
-				},
-				{
-				from: "cldcvr",
-				to: "md",
-				},
-			],
-			nodeTemplate: `<f-div
-				state="secondary"
-				width="100%"
-				height="100%"
-				padding="medium"
-				align="top-left"
-				variant="curved"
-				gap="x-small"
-				direction="column"
-				\${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
-				>
-					<f-div height="hug-content">
-						<f-text variant="heading" size="medium" ellipsis>\${node.data.designation}</f-text>
-					\${node.childrenToggle}
-				</f-div>
-				<f-div height="hug-content" gap="small">
-					<f-pictogram source="i-user" state="success" size="large" variant="circle"></f-pictogram>
-					<f-div direction="column" height="hug-content" align="middle-left">
-						<f-text  ellipsis>\${node.data.fullName}</f-text>
-						<f-div padding="x-small none none none">
-							<f-text size="small" ellipsis>Mobile No : \${node.data.mobile}</f-text>
-						</f-div>
-						<f-div padding="x-small none none none">
-							<f-text size="small" ellipsis>Email : \${node.data.email}</f-text>
-						</f-div>
-					</f-div>
-				</f-div>
-				</f-div>`,
-			childNodeTemplate: `<f-div
-					state="secondary"
-					width="100%"
-					height="100%"
-					padding="none medium"
-					align="middle-left"
-					gap="small"
-					border="small solid default bottom"
-				>
-					<f-icon source="\${node.data.icon}" size="small"></f-icon>
-					<f-text variant="code" size="medium" ellipsis>\${node.data.title}</f-text>
-				</f-div>`,
-			};
-		},
-		});
-	</script>
+export default defineComponent({
+  name: "SampleLineage",
+  data() {
+    return {
+      nodes: {
+        rdj: {
+          data: {
+            fullName: "Robert Downey Jr.",
+            description: "Movies",
+          },
+        },
+        judge: {
+          data: {
+            fullName: "The Judge",
+            description: "Hank Palmer",
+          },
+        },
+        ironman: {
+          data: {
+            fullName: "Iron Man",
+            description: "Tony stark",
+          },
+          children: [
+            {
+              id: "iman1",
+              data: {
+                icon: "i-big-number",
+                title: "Iron man 1",
+              },
+            },
+            {
+              id: "iman2",
+              data: {
+                icon: "i-paragraph",
+                title: "Iron man 2",
+              },
+            },
+            {
+              id: "iman3",
+              data: {
+                icon: "i-letter",
+                title: "Iron man 3",
+              },
+            },
+            {
+              id: "av1",
+              data: {
+                icon: "i-paragraph",
+                title: "Avengers 1",
+              },
+            },
+            {
+              id: "av2",
+              data: {
+                icon: "i-big-number",
+                title: "Avengers 2",
+              },
+            },
+          ],
+          hideChildren: false,
+        },
+        hank: {
+          data: {
+            fullName: "Hank Palmer",
+            description: "Actor",
+          },
+          children: [
+            {
+              id: "child1",
+              data: {
+                icon: "i-big-number",
+                title: "Node child 1",
+              },
+            },
+            {
+              id: "child2",
+              data: {
+                icon: "i-paragraph",
+                title: "Node child 2",
+              },
+            },
+            {
+              id: "child3",
+              data: {
+                icon: "i-letter",
+                title: "Node child 3",
+              },
+            },
+            {
+              id: "child4",
+              data: {
+                icon: "i-paragraph",
+                title: "Node child 4",
+              },
+            },
+            {
+              id: "child5",
+              data: {
+                icon: "i-big-number",
+                title: "Node child 5",
+              },
+            },
+          ],
+          hideChildren: false,
+        },
+      },
+      links: [
+        {
+          from: "rdj",
+          to: "judge",
+        },
+        {
+          from: "rdj",
+          to: "ironman",
+        },
+        {
+          from: "judge",
+          to: "hank",
+        },
+      ],
+      nodeTemplate: `<f-div
+		  state="secondary"
+		  width="100%"
+		  height="100%"
+		  padding="small"
+		  align="top-left"
+		  variant="curved"
+		  gap="small"
+		  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+		>
+			<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
+			<f-div direction="column">
+				<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
+				<f-text size="x-small" ellipsis>\${node.data.description}</f-text>
+			</f-div>
+		</f-div>`,
+      childNodeTemplate: `<f-div
+			state="secondary"
+			width="100%"
+			height="100%"
+			padding="none medium"
+			align="middle-left"
+			gap="small"
+			border="small solid default bottom"
+		  >
+			<f-icon source="\${node.data.icon}" size="small"></f-icon>
+			<f-text  size="small" ellipsis>\${node.data.title}</f-text>
+		  </f-div>`,
+    };
+  },
+});
+</script>
 
 ```
 
@@ -467,23 +464,22 @@ The template below is written in flow, visit [flow-core](https://github.com/cldc
 <img width="240" alt="f-div (parent node)" src="https://user-images.githubusercontent.com/2121451/211515800-6f63a758-a528-42f9-b452-e8bf1fd6dfeb.png">
 
 ```html
-<f-div state="secondary" width="100%" height="100%" padding="medium" align="top-left" variant="curved" gap="x-small" direction="column" \${node.children ? 'border="small solid default bottom"' : ""}>
-	<f-div height="hug-content"> //tags
-	  <f-text variant="heading" size="medium">\${node.data.designation}</f-text>
-	</f-div>
-	<f-div height="hug-content" gap="small"> //main-node
-		<f-pictogram source="i-user" state="success" size="large" variant="circle"></f-pictogram>
-		<f-div direction="column" height="hug-content" align="middle-left">
-			<f-text  ellipsis>\${node.data.fullName}</f-text>
-			<f-div padding="x-small none none none">
-				<f-text size="small" ellipsis>Mobile No : \${node.data.mobile}</f-text>
-			</f-div>
-			<f-div padding="x-small none none none">
-				<f-text size="small" ellipsis>Email : \${node.data.email}</f-text>
+		<f-div
+		  state="secondary"
+		  width="100%"
+		  height="100%"
+		  padding="small"
+		  align="top-left"
+		  variant="curved"
+		  gap="small"
+		  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+		>
+			<f-pictogram variant="circle" source="A1"></f-pictogram>
+			<f-div direction="column">
+				<f-text size="small" ellipsis>Node name</f-text>
+				<f-text size="x-small" ellipsis>Description</f-text>
 			</f-div>
 		</f-div>
-	</f-div>
-</f-div>
 ```
 
 
@@ -494,10 +490,18 @@ The template below is written in flow, visit [flow-core](https://github.com/cldc
 <img width="240" alt="f-div (child node)" src="https://user-images.githubusercontent.com/2121451/211515842-43ae327e-6b78-42bd-9031-8087f664c10e.png">
 
 ```html
-<f-div state="secondary" width="100%" height="100%" padding="none medium" align="middle-left" gap="small" border="small solid default bottom">
-  <f-icon source="i-user" size="small"></f-icon>
-  <f-text variant="code" size="medium" ellipsis>\${node.data.fullName}</f-text>
-</f-div>
+		<f-div
+			state="secondary"
+			width="100%"
+			height="100%"
+			padding="none medium"
+			align="middle-left"
+			gap="small"
+			border="small solid default bottom"
+		  >
+			<f-icon source="i-user" size="small"></f-icon>
+			<f-text  size="small" ellipsis>Child node name</f-text>
+		  </f-div>
 ```
 
 
