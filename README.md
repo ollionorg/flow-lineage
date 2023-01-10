@@ -279,8 +279,7 @@ export default defineComponent({
 </p>
 </details>
 
-![Screenshot 2023-01-10 at 3 54 08 PM](https://user-images.githubusercontent.com/67629551/211527027-b13d2342-3a1b-44aa-9897-d54b76931fc2.png)
-
+![Screenshot 2023-01-10 at 7 09 42 PM](https://user-images.githubusercontent.com/67629551/211567588-bab9ff44-ad72-4fe4-853e-29c7d94a859b.png)
 
 <br>
 
