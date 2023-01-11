@@ -306,7 +306,7 @@ export default defineComponent({
 
 Once it's running, you will see a lineage component like the image below.
 
-![Screenshot 2023-01-10 at 7 09 42 PM](https://user-images.githubusercontent.com/67629551/211567588-bab9ff44-ad72-4fe4-853e-29c7d94a859b.png)
+![image (10)](https://user-images.githubusercontent.com/2121451/211773535-3fbc3b2b-b962-4cb3-9713-d50906b88243.png)
 
 
 </details>
