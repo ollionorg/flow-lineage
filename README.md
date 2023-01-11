@@ -482,6 +482,7 @@ node-id: {
 	data: {
 		fullName: "Robert Downey Jr.",
 		description: "Movies",
+		state: "danger",
 	},
 }
 ```
@@ -493,6 +494,7 @@ node-id: {
 	data: {
 		fullName: "Robert Downey Jr.",
 		description: "Movies",
+		state: "secondary",
 	},
 	children: [
 	{
