@@ -114,7 +114,7 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 
 # Anatomy 
 
-![Group 21473](https://user-images.githubusercontent.com/67629551/211527311-01bcdbb0-e36e-4afe-a766-6f5c00359da0.png)
+<img width="977" alt="Group 21473" src="https://user-images.githubusercontent.com/2121451/211774144-0ddf8cf9-3214-4cf7-a1e7-91ebb05f280a.png">
 
 <br>
 
