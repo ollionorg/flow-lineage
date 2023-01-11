@@ -68,13 +68,16 @@ import("@cldcvr/flow-core").then(async () => {
 ```
 <details><summary>Example</summary>
 
-**VueJS:**
+**VueJS:** In the following example, I imported `@cldcvr/flow-core` and then imported the rest of the flow packages including `@cldcvr/flow-lineage` and after that startup code was added for VueJs `createApp(App).use(router).mount(“#app”);`.
 
 ```javascript
 import("@cldcvr/flow-core").then(async () => {
-	await import('@cldcvr/flow-lineage');
-	//add your application startup/runtime code here **
+  await import("@cldcvr/flow-system-icon");
+  await import("@cldcvr/flow-product-icon");
+  await import("@cldcvr/flow-lineage");
+  createApp(App).use(router).mount("#app");
 });
+
 ```
 </details>
 
