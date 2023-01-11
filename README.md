@@ -124,7 +124,7 @@ We have created a sample lineage component along with it's schema to get you goi
 <details><summary><strong>Click to view the sample lineage component.</strong></summary>
 <p>
 
-**How to use:** Create new file `flow-lineage.vue` in your vue.js project and import the lineage component.
+**How to use:** Create new file `FlowLineage.vue` in your vue.js project and import the lineage component.
 
 ```html
 <template>
@@ -154,18 +154,30 @@ export default defineComponent({
           data: {
             fullName: "Robert Downey Jr.",
             description: "Movies",
+            state: "secondary",
           },
+          children: [
+            {
+              id: "child1",
+              data: {
+                icon: "i-hashtag",
+                title: "Iron man 1",
+              },
+            },
+          ],
         },
         judge: {
           data: {
             fullName: "The Judge",
             description: "Hank Palmer",
+            state: "custom,#006ecc",
           },
         },
         ironman: {
           data: {
             fullName: "Iron Man",
             description: "Tony stark",
+            state: "secondary",
           },
           children: [
             {
@@ -182,27 +194,6 @@ export default defineComponent({
                 title: "Iron man 2",
               },
             },
-            {
-              id: "iman3",
-              data: {
-                icon: "i-letter",
-                title: "Iron man 3",
-              },
-            },
-            {
-              id: "av1",
-              data: {
-                icon: "i-paragraph",
-                title: "Avengers 1",
-              },
-            },
-            {
-              id: "av2",
-              data: {
-                icon: "i-hashtag",
-                title: "Avengers 2",
-              },
-            },
           ],
           hideChildren: false,
         },
@@ -210,6 +201,7 @@ export default defineComponent({
           data: {
             fullName: "Hank Palmer",
             description: "Actor",
+            state: "secondary",
           },
           children: [
             {
@@ -224,27 +216,6 @@ export default defineComponent({
               data: {
                 icon: "i-paragraph",
                 title: "Node child 2",
-              },
-            },
-            {
-              id: "child3",
-              data: {
-                icon: "i-letter",
-                title: "Node child 3",
-              },
-            },
-            {
-              id: "child4",
-              data: {
-                icon: "i-paragraph",
-                title: "Node child 4",
-              },
-            },
-            {
-              id: "child5",
-              data: {
-                icon: "i-hashtag",
-                title: "Node child 5",
               },
             },
           ],
@@ -264,40 +235,45 @@ export default defineComponent({
           from: "judge",
           to: "hank",
         },
+        {
+          from: "iman1",
+          to: "child1",
+        },
       ],
       nodeTemplate: `<f-div
-		  state=\${node.id==="rdj"?'custom,#006ecc':'secondary'}
-		  width="100%"
-		  height="100%"
-		  padding="small"
-		  align="top-left"
-		  variant="curved"
-		  gap="small"
-		  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
-		>
-			<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
-			<f-div direction="column">
-				<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
-				<f-text size="x-small" ellipsis>\${node.data.description}</f-text>
-			</f-div>
-			\${node.childrenToggle}
-		</f-div>`,
-      childNodeTemplate: `<f-div
-			state="secondary"
+			state=\${node.data.state}
 			width="100%"
 			height="100%"
-			padding="none medium"
-			align="middle-left"
+			padding="small"
+			align="top-left"
+			variant="curved"
 			gap="small"
-			border="small solid default bottom"
+			\${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
 		  >
-			<f-icon source="\${node.data.icon}" size="small"></f-icon>
-			<f-text  size="small" ellipsis>\${node.data.title}</f-text>
+			  <f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
+			  <f-div direction="column">
+				  <f-text size="small" ellipsis>\${node.data.fullName}</f-text>
+				  <f-text size="x-small" ellipsis>\${node.data.description}</f-text>
+			  </f-div>
+			  \${node.childrenToggle}
 		  </f-div>`,
+      childNodeTemplate: `<f-div
+			  state="secondary"
+			  width="100%"
+			  height="100%"
+			  padding="none medium"
+			  align="middle-left"
+			  gap="small"
+			  border="small solid default bottom"
+			>
+			  <f-icon source="\${node.data.icon}" size="small"></f-icon>
+			  <f-text  size="small" ellipsis>\${node.data.title}</f-text>
+			</f-div>`,
     };
   },
 });
 </script>
+
 
 ```
 
