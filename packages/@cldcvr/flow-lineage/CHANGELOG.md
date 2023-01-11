@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.1.2] - 2023-01-12
+
+### Bug Fixes
+
+- Storybook control update not updating lineage component.
 ## [1.1.1] - 2023-01-11
 
 ### Bug Fixes

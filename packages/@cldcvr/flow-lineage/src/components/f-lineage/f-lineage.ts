@@ -166,6 +166,7 @@ export class FLineage extends FRoot {
   page = 1;
 
   timeout!: ReturnType<typeof setTimeout>;
+  renderCount = 0;
 
   getNumbersFromRange(min: number, max: number) {
     return Array.from({ length: max - min + 1 }, (_, i) => i + min);
@@ -264,21 +265,39 @@ export class FLineage extends FRoot {
   }
 
   render() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.renderCount += 1;
     return html`
       ${unsafeSVG(`<svg xmlns="http://www.w3.org/2000/svg"></svg>`)}
-      <f-div
-        align="middle-center"
-        gap="x-small"
-        padding="small"
-        state="tertiary"
-        variant="curved"
-        width="80px"
-        class="degree-selector"
-        id="progress"
-      >
-        <f-icon source="i-tick" loading></f-icon>
-        <f-text id="page-number">${this.page}%</f-text>
-      </f-div>
+      ${this.renderCount % 2
+        ? html`<f-div
+            align="middle-center"
+            gap="x-small"
+            padding="small"
+            state="tertiary"
+            variant="curved"
+            width="80px"
+            class="degree-selector"
+            id="progress"
+          >
+            <f-icon source="i-tick" loading></f-icon>
+            <f-text id="page-number">${this.page}%</f-text>
+          </f-div>`
+        : html`<f-div
+            align="middle-center"
+            gap="x-small"
+            padding="small"
+            state="tertiary"
+            variant="curved"
+            width="80px"
+            class="degree-selector"
+            id="progress"
+          >
+            <f-icon source="i-tick" loading></f-icon>
+            <f-text id="page-number">${this.page}%</f-text>
+          </f-div>`}
     `;
   }
   connectedCallback() {
