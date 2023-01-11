@@ -9,12 +9,12 @@ Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html
 # Prerequisites
 
 ### Existing project
-For an existing front-end project, you need to install [Flow core](https://github.com/cldcvr/flow-core) before continuing with Flow lineage. If you run into an issue, head over to our [known issues + solutions document](https://github.com/cldcvr/flow-lineage/blob/main/KNOWN_SOLUTIONS.md) to see if we a solution already exists.
+For an existing front-end project, you need to install [Flow core](https://github.com/cldcvr/flow-core) before continuing with Flow lineage. If you run into an issue, head over to our [known issues + solutions document](https://github.com/cldcvr/flow-lineage/blob/main/KNOWN_SOLUTIONS.md) to see if a solution already exists.
 
 ### New project
 If you do not have an existing front-end project, you can quickly create one from a [flow starter kit](https://github.com/cldcvr/flow-core#starter-kits). 
 
-**Note:** If you already have Flow properties installed, please update to the latest versions
+**Note:** If you already have Flow packages installed, please update to the latest versions
 
 <br>
 
@@ -533,6 +533,7 @@ node-id: {
 }
 ```
 
+To access the data in your node template, you need to pass it through ```vikas add the "syntax here"```
 
 <br>
 
