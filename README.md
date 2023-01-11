@@ -427,7 +427,7 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 			<td>data</td>
 			<td>Object</td>
 			<td>-</td>
-			<td>The data objects contains the metadata that will be consumed by the node-templates to display information on the lineage. You can use data for both node and child nodes. <br> <br><a href="#node-example ">View node data example</a>
+			<td>The data objects contains the metadata that will be consumed by the node-templates to display information on the lineage. You can use data for both node and child nodes. <br> <br><a href="#node-example">View node data example</a>
 			</td>
 		</tr>
 		<tr>
@@ -457,7 +457,7 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 			<td style="vertical-align: top;">children</td>
 			<td style="vertical-align: top;">array</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">The children array will contain the metadata that will be consumed by the node-child-templates to display information on the lineage. <br> <br><a href="#node-+-children-example ">View node data example</a></td>
+			<td style="vertical-align: top;">The children array will contain the metadata that will be consumed by the node-child-templates to display information on the lineage. <br> <br><a href="#node-children-example">View node data example</a></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">hideChildren</td>
@@ -508,7 +508,7 @@ node-id: {
 ```
 
 
-### Node + children example 
+### Node children example 
 ```
 node-id: {
 	data: {
