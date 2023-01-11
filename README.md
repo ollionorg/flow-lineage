@@ -2,12 +2,21 @@
 # Flow Lineage
 A lineage chart is a graphical representation of a node's ancestors, showing the relationships among nodes. It is often used in analytics to show the relations and to trace their ancestry. Lineage charts can be in the form of a hierarchy data, showing the relationships between parents and children, or they can be more complex and show the relationships between more distant nodes. Lineage charts can be useful for investigating the hierarchy of a data.
 
+Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page) for a demo. 
+
+<br>
+
 # Prerequisites
 
-For an existing front-end project, you need to install [Flow core](https://github.com/cldcvr/flow-core) before continuing with Flow lineage. If you run into an issue, head over to our [known issues + solutions document](https://github.com/cldcvr/flow-lineage/blob/main/KNOWN_SOLUTIONS.md) to see if we a solution already exists.
+### Existing project
+For an existing front-end project, you need to install [Flow core](https://github.com/cldcvr/flow-core) before continuing with Flow lineage. If you run into an issue, head over to our [known issues + solutions document](https://github.com/cldcvr/flow-lineage/blob/main/KNOWN_SOLUTIONS.md) to see if a solution already exists.
 
-
+### New project
 If you do not have an existing front-end project, you can quickly create one from a [flow starter kit](https://github.com/cldcvr/flow-core#starter-kits). 
+
+**Note:** If you already have Flow packages installed, please update to the latest versions
+
+<br>
 
 ## Getting started
 ### Step 1: Install flow lineage dependency
@@ -57,7 +66,23 @@ import("@cldcvr/flow-core").then(async () => {
 	//add your application startup/runtime code here **
 });
 ```
+<details><summary>Example</summary>
+
+**VueJS:**
+
+```javascript
+import("@cldcvr/flow-core").then(async () => {
+	await import('@cldcvr/flow-lineage');
+	//add your application startup/runtime code here **
+});
+```
+</details>
+
+<br>
+
 ** This is required to register Flow elements error-free. We achieve this by importing all flow packages asynchronously and then starting up your application.
+
+
 
 <br>
 
@@ -85,25 +110,18 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 
 **Note:** after adding, re-start your application.
 
+<br>
+
+# Anatomy 
+
+<img width="977" alt="Group 21473" src="https://user-images.githubusercontent.com/2121451/211774144-0ddf8cf9-3214-4cf7-a1e7-91ebb05f280a.png">
 
 <br>
 
-## Demo
+# 🚨🚨 Sample code
+We have created a sample lineage component along with it's schema to get you going, simply copy paste the below language code block in your FE project.
 
-Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page) for a demo. 
-
-<br>
-
-## Anatomy 
-
-![Group 21473](https://user-images.githubusercontent.com/67629551/211527311-01bcdbb0-e36e-4afe-a766-6f5c00359da0.png)
-
-<br>
-
-## Get started
-We have created a sample lineage component along with it's schema to get you going, simply copy paste the below language specific code block in your FE project.
-
-<details><summary><strong>Vue JS: Click to view the sample lineage component.</strong></summary>
+<details><summary><strong>Click to view the sample lineage component.</strong></summary>
 <p>
 
 **How to use:** Create new file `flow-lineage.vue` in your vue.js project and import the lineage component.
@@ -284,18 +302,22 @@ export default defineComponent({
 ```
 
 </p>
+
+
+Once it's running, you will see a lineage component like the image below.
+
+![image (10)](https://user-images.githubusercontent.com/2121451/211773535-3fbc3b2b-b962-4cb3-9713-d50906b88243.png)
+
+
 </details>
 
 <br>
 
-Once it's running, you will see a lineage component like the image below.
-
-![Screenshot 2023-01-10 at 7 09 42 PM](https://user-images.githubusercontent.com/67629551/211567588-bab9ff44-ad72-4fe4-853e-29c7d94a859b.png)
 
 <br>
 
-## Properties
-### Lineage properties
+# Properties
+## Lineage properties ```<f-lineage>```
 
 <table style="width:100%">
 	<thead>
@@ -388,7 +410,7 @@ Note: Above examples are written in VueJS syntax. Refer for [Angular](https://an
 
 <br>
 
-### Node properties
+## Node properties
 Nodes are broken into two parts, a node `node` and child nodes `children`.
 
 <table style="width:100%">
@@ -405,7 +427,8 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 			<td>data</td>
 			<td>Object</td>
 			<td>-</td>
-			<td>The data objects contains the metadata that will be consumed by the node-templates to display information on the lineage.<br/> For Example : To display name and email address on a node, the data would be <br/> <code>data: { name: "Harry Potter", email: "abc@xyz.com"}</code><br><br>You can use data for both node and child nodes. <a href="#get-started">View lineage example</a></td>
+			<td>The data objects contains the metadata that will be consumed by the node-templates to display information on the lineage. You can use data for both node and child nodes. <br> <br><a href="#node-example">View node data example</a>
+			</td>
 		</tr>
 		<tr>
 			<td>nodeTemplate</td>
@@ -434,7 +457,7 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 			<td style="vertical-align: top;">children</td>
 			<td style="vertical-align: top;">array</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">The children array will contain the metadata that will be consumed by the node-child-templates to display information on the lineage.</td>
+			<td style="vertical-align: top;">The children array will contain the metadata that will be consumed by the node-child-templates to display information on the lineage. <br> <br><a href="#node-children-example">View node data example</a></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">hideChildren</td>
@@ -445,7 +468,9 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 	</tbody>
 </table>
 
-###  Link  properties
+<br>
+
+##  Link  properties
 <table style="width:100%">
 	<thead>
 		<tr>
@@ -472,9 +497,47 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 	</tbody>
 </table>
 
+### Node example 
+```
+node-id: {
+	data: {
+		fullName: "Robert Downey Jr.",
+		description: "Movies",
+	},
+}
+```
+
+
+### Node children example 
+```
+node-id: {
+	data: {
+		fullName: "Robert Downey Jr.",
+		description: "Movies",
+	},
+	children: [
+	{
+		id: "child1",
+			data: {
+				icon: "i-hashtag",
+				title: "Node child 1",
+			},
+		},
+	{
+		id: "child2",
+		data: {
+			icon: "i-paragraph",
+			title: "Node child 2",
+		},
+	},
+}
+```
+
+To access the data in your node template, you need to pass it through ```vikas add the "syntax here"```
+
 <br>
 
-## Flow lineage templates
+# Flow lineage templates
 All templates provided are a composition of Flow components. Using Flow components, allows you to access indiviual component properties to further enchance the templates. 
 
 For example, the [f-div component](https://flow.cldcvr.com/v2/index.html?path=/docs/components-f-div--playground) has multiple states to communicate purpose and its connotation. For example, a red color connotes danger, whereas a green color connotes success and so on. 
