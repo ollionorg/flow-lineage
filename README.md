@@ -442,14 +442,6 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 			<td style="vertical-align: top;">true</td>
 			<td style="vertical-align: top;">On load, all node children are collpased/hidden. Clicking on a node wil reveal its children</td>
 		</tr>
-		<tr>
-			<td style="vertical-align: top;">state</td>
-			<td style="vertical-align: top;">string</td>
-			<td style="vertical-align: top;">default</td>
-			<td style="vertical-align: top;">States are used through Flow to communicate purpose and its connotation. For example, a red color connotes danger, whereas a green color connotes success and so on. <br><br> Available options are 
-			<br><code>default</code>, <code>subtle</code>, <code>secondary</code>, <code>tertiary</code>, <code>primary</code>, <code>success</code>, <code>warning</code>, <code>danger</code>
-			</td>
-		</tr>
 	</tbody>
 </table>
 
@@ -482,8 +474,15 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 
 <br>
 
+## Flow lineage templates
+All templates provided are a composition of Flow components. Using Flow components, allows you to access indiviual component properties to further enchance the templates. 
+
+For example, the [f-div component](https://flow.cldcvr.com/v2/index.html?path=/docs/components-f-div--playground) has multiple states to communicate purpose and its connotation. For example, a red color connotes danger, whereas a green color connotes success and so on. 
+<br><br> Available options are: <code>default</code>, <code>subtle</code>, <code>secondary</code>, <code>tertiary</code>, <code>primary</code>, <code>success</code>, <code>warning</code>, <code>danger</code>
+
+Visit [flow-core](https://github.com/cldcvr/flow-core) to learn more. 
+
 ## node-template
-The template below is written in flow, visit [flow-core](https://github.com/cldcvr/flow-core) to learn more. You could also write your own template. 
 
 <img width="240" alt="f-div ( node)" src="https://user-images.githubusercontent.com/2121451/211515800-6f63a758-a528-42f9-b452-e8bf1fd6dfeb.png">
 
@@ -506,9 +505,6 @@ The template below is written in flow, visit [flow-core](https://github.com/cldc
 		\${node.childrenToggle}
 </f-div>
 ```
-
-
-
 
 ## child-node-template
 
