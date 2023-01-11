@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.1.1] - 2023-01-11
+
+### Bug Fixes
+
+- Vue 2 : property name with hyphen support added.
 ## [1.1.0] - 2023-01-11
 
 ### Bug Fixes

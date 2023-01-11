@@ -137,7 +137,7 @@ We have created a sample lineage component along with it's schema to get you goi
     :gap="100"
     :node-size.prop="{ width: 240, height: 53 }"
     :children-node-size.prop="{ width: 240, height: 32 }"
-    :max-childrens="8"
+    :max-children="8"
     :links.prop="links"
     :nodes.prop="nodes"
     :node-template="nodeTemplate"

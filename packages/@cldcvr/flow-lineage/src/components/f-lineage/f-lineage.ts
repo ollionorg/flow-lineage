@@ -53,11 +53,25 @@ export class FLineage extends FRoot {
   })
   ["node-size"]?: LineageNodeSize;
 
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set nodeSize(value: LineageNodeSize | undefined) {
+    this["node-size"] = value;
+  }
+
   @property({
     reflect: true,
     type: String,
   })
   ["center-node"]?: string;
+
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set centerNode(value: string | undefined) {
+    this["center-node"] = value;
+  }
 
   @property({
     reflect: true,
@@ -65,29 +79,60 @@ export class FLineage extends FRoot {
   })
   ["stager-load"] = 10;
 
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set stagerLoad(value: number) {
+    this["stager-load"] = value;
+  }
+
   @property({
     reflect: true,
     type: Object,
   })
   ["children-node-size"]?: LineageNodeSize;
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set childrenNodeSize(value: LineageNodeSize | undefined) {
+    this["children-node-size"] = value;
+  }
 
   @property({
     reflect: true,
     type: Number,
   })
   ["max-children"]?: number;
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set maxChildren(value: number | undefined) {
+    this["max-children"] = value;
+  }
 
   @property({
     reflect: false,
     type: String,
   })
   ["node-template"]?: string;
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set nodeTemplate(value: string | undefined) {
+    this["node-template"] = value;
+  }
 
   @property({
     reflect: false,
     type: String,
   })
   ["children-node-template"]?: string;
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set childrenNodeTemplate(value: string | undefined) {
+    this["children-node-template"] = value;
+  }
 
   @query("#page-number")
   pageNumberElement!: FButton;
@@ -288,9 +333,7 @@ export class FLineage extends FRoot {
      * cleaning up svg if it has any exisitng content
      */
 
-    const nodeSize = this["node-size"]
-      ? this["node-size"]
-      : { width: 200, height: 52 };
+    const nodeSize = this["node-size"] || { width: 200, height: 52 };
 
     const childrenNodeSize = this["children-node-size"]
       ? this["children-node-size"]

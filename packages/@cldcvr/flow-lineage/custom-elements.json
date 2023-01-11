@@ -58,49 +58,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/utils/get-computed-html.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "getComputedHTML",
-          "parameters": [
-            {
-              "name": "data",
-              "type": {
-                "text": "TemplateResult"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "getComputedHTML",
-            "module": "src/utils/get-computed-html.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/utils/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "getComputedHTML",
-          "declaration": {
-            "name": "getComputedHTML",
-            "module": "src/utils/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/f-lineage/f-lineage.ts",
       "declarations": [
         {
@@ -172,12 +129,22 @@
             },
             {
               "kind": "field",
+              "name": "nodeSize",
+              "description": "Workaround for vue 2 for property name with hyphen"
+            },
+            {
+              "kind": "field",
               "name": "[\"center-node\"]",
               "type": {
                 "text": "string | undefined"
               },
               "attribute": "[\"center-node\"]",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "centerNode",
+              "description": "Workaround for vue 2 for property name with hyphen"
             },
             {
               "kind": "field",
@@ -191,12 +158,22 @@
             },
             {
               "kind": "field",
+              "name": "stagerLoad",
+              "description": "Workaround for vue 2 for property name with hyphen"
+            },
+            {
+              "kind": "field",
               "name": "[\"children-node-size\"]",
               "type": {
                 "text": "LineageNodeSize | undefined"
               },
               "attribute": "[\"children-node-size\"]",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "childrenNodeSize",
+              "description": "Workaround for vue 2 for property name with hyphen"
             },
             {
               "kind": "field",
@@ -209,6 +186,11 @@
             },
             {
               "kind": "field",
+              "name": "maxChildren",
+              "description": "Workaround for vue 2 for property name with hyphen"
+            },
+            {
+              "kind": "field",
               "name": "[\"node-template\"]",
               "type": {
                 "text": "string | undefined"
@@ -217,11 +199,21 @@
             },
             {
               "kind": "field",
+              "name": "nodeTemplate",
+              "description": "Workaround for vue 2 for property name with hyphen"
+            },
+            {
+              "kind": "field",
               "name": "[\"children-node-template\"]",
               "type": {
                 "text": "string | undefined"
               },
               "attribute": "[\"children-node-template\"]"
+            },
+            {
+              "kind": "field",
+              "name": "childrenNodeTemplate",
+              "description": "Workaround for vue 2 for property name with hyphen"
             },
             {
               "kind": "field",
@@ -495,6 +487,111 @@
       "path": "src/components/f-lineage/lineage-types.ts",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/get-computed-html.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getComputedHTML",
+          "parameters": [
+            {
+              "name": "data",
+              "type": {
+                "text": "TemplateResult"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "getComputedHTML",
+            "module": "src/utils/get-computed-html.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getComputedHTML",
+          "declaration": {
+            "name": "getComputedHTML",
+            "module": "src/utils/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/highlight/highlight-path.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "highlightPath",
+          "parameters": [
+            {
+              "name": "node",
+              "type": {
+                "text": "LineageNodeElement"
+              }
+            },
+            {
+              "name": "lineage",
+              "type": {
+                "text": "FLineage"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "highlightPath",
+            "module": "src/components/f-lineage/highlight/highlight-path.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/f-lineage/highlight/lowlight-path.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "lowlightPath",
+          "parameters": [
+            {
+              "name": "lineage",
+              "type": {
+                "text": "FLineage"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "lowlightPath",
+            "module": "src/components/f-lineage/highlight/lowlight-path.ts"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",
@@ -913,68 +1010,6 @@
           "declaration": {
             "name": "removeLinks",
             "module": "src/components/f-lineage/draw/remove-links.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/f-lineage/highlight/highlight-path.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "highlightPath",
-          "parameters": [
-            {
-              "name": "node",
-              "type": {
-                "text": "LineageNodeElement"
-              }
-            },
-            {
-              "name": "lineage",
-              "type": {
-                "text": "FLineage"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "highlightPath",
-            "module": "src/components/f-lineage/highlight/highlight-path.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/f-lineage/highlight/lowlight-path.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "lowlightPath",
-          "parameters": [
-            {
-              "name": "lineage",
-              "type": {
-                "text": "FLineage"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "lowlightPath",
-            "module": "src/components/f-lineage/highlight/lowlight-path.ts"
           }
         }
       ]
