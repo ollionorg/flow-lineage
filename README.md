@@ -14,7 +14,7 @@ If you do not have an existing front-end project, you can quickly create one fro
 ```
 yarn add @cldcvr/flow-lineage
 ```
-*Note:* after installation, re-start your application.
+**Note:** after installation, re-start your application.
 
 <br>
 
@@ -46,17 +46,19 @@ import "@cldcvr/flow-lineage/dist/style.css";
 
 
 ### Step 3: Import flow-lineage into your project
-Paste the below snippet in your project, for **VueJS:** (src/main.ts or main.js), **Angular:** (src/main.ts), **React:** (src/index.tsx or index.jsx)
+Paste the below snippet in your project, for 
+* **VueJS:** (src/main.ts or main.js)
+* **Angular:** (src/main.ts)
+* **React:** (src/index.tsx or index.jsx)
 
 ```javascript
-/* To register Flow elements error-free, we need to import all flow packages asynchronously, once all elements are registered successfully only then start the app.
-You can add your application startup code after successful import, please refer following code.
-*/
 import("@cldcvr/flow-core").then(async () => {
 	await import('@cldcvr/flow-lineage');
-	//add your application startup code here
+	//add your application startup/runtime code here **
 });
 ```
+** This is required to register Flow elements error-free. We achieve this by importing all flow packages asynchronously and then starting up your application.
+
 <br>
 
 ### Step 4 : If you have a typescript enabled project, include the import types
@@ -81,7 +83,7 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 </details>
 <br>
 
-**Note:** after adding the snippets, re-start your application.
+**Note:** after adding, re-start your application.
 
 
 <br>
@@ -98,11 +100,13 @@ Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html
 
 <br>
 
-## Sample Schema
-<details><summary>Click to see sample VueJS component with `f-lineage`, which will generate following output.</summary>
+## Get started
+We have created a sample lineage component along with it's schema to get you going, simply copy paste the below language specific code block in your FE project.
+
+<details><summary><strong>Vue JS: Click to view the sample lineage component.</strong></summary>
 <p>
 
-*How to use:* Create new file `flow-lineage.vue` in your vue.js project and import the lineage component.
+**How to use:** Create new file `flow-lineage.vue` in your vue.js project and import the lineage component.
 
 ```html
 <template>
@@ -282,12 +286,16 @@ export default defineComponent({
 </p>
 </details>
 
+<br>
+
+Once it's running, you will see a lineage component like the image below.
+
 ![Screenshot 2023-01-10 at 7 09 42 PM](https://user-images.githubusercontent.com/67629551/211567588-bab9ff44-ad72-4fe4-853e-29c7d94a859b.png)
 
 <br>
 
 ## Properties
-###  Lineage  properties
+### Lineage properties
 
 <table style="width:100%">
 	<thead>
@@ -359,18 +367,18 @@ export default defineComponent({
 			<td style="vertical-align: top;">children-node-template</td>
 			<td style="vertical-align: top;">String</td>
 			<td style="vertical-align: top;"><a href="#child-node-template">template</a></td>
-			<td style="vertical-align: top;">Just like node templates, child nodes are represented through templates.</td>
+			<td style="vertical-align: top;">Each node can have children and just like node templates, child nodes are represented through templates as well.</td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">nodes</td>
-			<td style="vertical-align: top;">{}</td>
-			<td style="vertical-align: top;"><a href="#node-properties">Properties</a></td>
+			<td style="vertical-align: top;">{ }</td>
+			<td style="vertical-align: top;"><a href="#node-properties">properties</a></td>
 			<td style="vertical-align: top;">Node properties</td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">links</td>
-			<td style="vertical-align: top;">[]</td>
-			<td style="vertical-align: top;"><a href="#link-properties">Properties</a></td>
+			<td style="vertical-align: top;">[ ]</td>
+			<td style="vertical-align: top;"><a href="#link-properties">properties</a></td>
 			<td style="vertical-align: top;">Link properties</td>
 		</tr>
 	</tbody>
@@ -397,19 +405,20 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 			<td>data</td>
 			<td>Object</td>
 			<td>-</td>
-			<td>Data contains the metadata that will be consumed by the node-templates to display information on the lineage.<br/> For Example : To display name and email address on a node, the data would be <br/> <code>data: { name: "Harry Potter", email: "abc@xyz.com"}</code><br><br>You can use data for both node and child nodes. <a href="#sample-schema">View schema example</a></td>
+			<td>The data objects contains the metadata that will be consumed by the node-templates to display information on the lineage.<br/> For Example : To display name and email address on a node, the data would be <br/> <code>data: { name: "Harry Potter", email: "abc@xyz.com"}</code><br><br>You can use data for both node and child nodes. <a href="#get-started">View lineage example</a></td>
 		</tr>
 		<tr>
 			<td>nodeTemplate</td>
 			<td>String</td>
 			<td>-</td>
-			<td>You can give nodes unique indiviual templates as well, by default all  nodes inherit the <a href="#node-template"> node template</a></td>
+			<td>Node are represented through templates, by default all nodes inherit the node template set at the lineage level. Refer to <a href="#lineage-properties">Lineage properties</a>.<br><br>
+			You can choose to give a node a unique/different templates as well by adding a template and the node level. </td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">click</td>
 			<td style="vertical-align: top;">function</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">A callback function for when a node is clicked <br/>For Example : <br/><code>   click: function (event, node) {
+			<td style="vertical-align: top;">A callback function for when a node is clicked <br/>Eg: <br/><code>   click: function (event, node) {
 		console.log("Node Clicked", event, node);
 	},              </code></td>
 		</tr>
@@ -417,7 +426,7 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 			<td style="vertical-align: top;">rightClick</td>
 			<td style="vertical-align: top;">function</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">A callback function for when a node is right clicked <br/>For Example : <br/><code>   rightClick: function (event, node) {
+			<td style="vertical-align: top;">A callback function for when a node is right clicked <br/>Eg: <br/><code>   rightClick: function (event, node) {
 		console.log("Node Right Clicked", event, node);
 	},              </code></td>
 		</tr>
@@ -425,13 +434,21 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 			<td style="vertical-align: top;">children</td>
 			<td style="vertical-align: top;">array</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">children contain the metadata that will be consumed by the node-child-templates to display information on the lineage.<br> <a href="#sample-schema">View schema example</a></td>
+			<td style="vertical-align: top;">The children array will contain the metadata that will be consumed by the node-child-templates to display information on the lineage.</td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">hideChildren</td>
 			<td style="vertical-align: top;">Boolean</td>
 			<td style="vertical-align: top;">true</td>
 			<td style="vertical-align: top;">On load, all node children are collpased/hidden. Clicking on a node wil reveal its children</td>
+		</tr>
+		<tr>
+			<td style="vertical-align: top;">state</td>
+			<td style="vertical-align: top;">string</td>
+			<td style="vertical-align: top;">default</td>
+			<td style="vertical-align: top;">States are used through Flow to communicate purpose and its connotation. For example, a red color connotes danger, whereas a green color connotes success and so on. <br><br> Available options are 
+			<br><code>default</code>, <code>subtle</code>, <code>secondary</code>, <code>tertiary</code>, <code>primary</code>, <code>success</code>, <code>warning</code>, <code>danger</code>
+			</td>
 		</tr>
 	</tbody>
 </table>
@@ -451,14 +468,14 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 		<td  style="vertical-align: top;">from</td>
 		<td style="vertical-align: top;">String</td>
 		<td style="vertical-align: top;">-</td>
-		<td style="vertical-align: top;">Unique identifier of the node from where connection line will start from right edge of node<br/> For Example : <code>[{ from: "A", to :"B"}]</code> 
+		<td style="vertical-align: top;">Define the <strong>from</strong> connection of a node through a unique identifier.<br/> For Example : <code>[{ from: "A", to :"B"}]</code> <br><br>Note: All from connections will always begin from the right side of a node or child node.
 		</td>
 	</tr>
 	<tr>
 		<td  style="vertical-align: top;">to</td>
 		<td style="vertical-align: top;">String</td>
 		<td style="vertical-align: top;">-</td>
-		<td style="vertical-align: top;">Unique identifier of node that the above connection will end on left edge of node <br/> For Example : <code>[{ from: "A", to: "B"}]</code></td>
+		<td style="vertical-align: top;">Define the <strong>to</strong> connection of a node through a unique identifier.<br/> For Example : <code>[{ from: "A", to :"B"}]</code> <br><br>Note: All to connections will always begin from the left side of a node or child node.</td>
 	</tr>
 	</tbody>
 </table>
@@ -466,7 +483,7 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 <br>
 
 ## node-template
-The template below is written in flow, visit [flow-core](https://github.com/cldcvr/flow-core) to learn more.
+The template below is written in flow, visit [flow-core](https://github.com/cldcvr/flow-core) to learn more. You could also write your own template. 
 
 <img width="240" alt="f-div ( node)" src="https://user-images.githubusercontent.com/2121451/211515800-6f63a758-a528-42f9-b452-e8bf1fd6dfeb.png">
 
