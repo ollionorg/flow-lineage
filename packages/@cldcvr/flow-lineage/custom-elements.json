@@ -355,7 +355,7 @@
                   }
                 },
                 {
-                  "name": "level",
+                  "name": "_level",
                   "type": {
                     "text": "number"
                   }

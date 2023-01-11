@@ -190,16 +190,18 @@ export class FLineage extends FRoot {
     }
   }
 
-  reDrawChunk(page: number, level: number) {
+  reDrawChunk(page: number, _level: number) {
     this.shadowRoot
       ?.querySelectorAll(`[data-page="${page}"`)
       .forEach((element) => {
         element.remove();
       });
 
+    const levelsToPlot = this.pageToLevels[page];
+
     drawLineage({
       ...this.lineageDrawParams,
-      levelsToPlot: this.pageToLevels[page],
+      levelsToPlot,
       page,
       filter: (link) => {
         if (link.source.isChildren && !link.source.isVisible) {
@@ -208,7 +210,10 @@ export class FLineage extends FRoot {
         if (link.target.isChildren && !link.target.isVisible) {
           return false;
         }
-        return link.source.level === level || link.target.level === level;
+        return (
+          levelsToPlot.includes(link.source.level) ||
+          levelsToPlot.includes(link.target.level)
+        );
       },
     });
   }

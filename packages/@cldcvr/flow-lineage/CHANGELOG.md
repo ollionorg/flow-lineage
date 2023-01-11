@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [1.1.0] - 2023-01-11
+
+### Bug Fixes
+
+- `links` vanishing bug resolved.
+
 ## [1.0.9] - 2023-01-10
 
 ### Bug Fixes
