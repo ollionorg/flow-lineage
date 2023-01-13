@@ -514,7 +514,9 @@ node-id: {
 }
 ```
 
-To access the data in your node template, you need to pass it through ```vikas add the "syntax here"```
+To access the data in your node template, you need to pass it through ```\${node.data.<your-field-name>} ```
+<br/>
+Example : If you want to use `title` from above schema then use ```\${node.data.title}``` in your respective template
 
 <br>
 
@@ -549,7 +551,7 @@ Visit [flow-core](https://github.com/cldcvr/flow-core) to learn more.
 		\${node.childrenToggle}
 </f-div>
 ```
-
+**Note:** : ```\${node.childrenToggle}``` is used to display chevron icon to hide or show children.
 ## child-node-template
 
 <img width="240" alt="f-div (child node)" src="https://user-images.githubusercontent.com/2121451/211515842-43ae327e-6b78-42bd-9031-8087f664c10e.png">
@@ -568,6 +570,7 @@ Visit [flow-core](https://github.com/cldcvr/flow-core) to learn more.
 		<f-text  size="small" ellipsis>Child node name</f-text>
  </f-div>
 ```
+
 
 
 
