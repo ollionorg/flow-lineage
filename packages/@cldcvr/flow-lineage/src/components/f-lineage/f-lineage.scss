@@ -24,16 +24,21 @@ f-div[direction="row"] {
 }
 
 :host {
+  background-color: var(--color-surface-default);
   position: relative;
   > svg {
     animation: none !important;
+    background-color: var(--color-surface-default);
   }
 
   foreignObject {
     cursor: pointer;
     overflow: visible;
     > * {
-      position: fixed;
+      position: fixed !important;
+    }
+    * {
+      transform-origin: 0% 0%;
     }
   }
   .highlight {

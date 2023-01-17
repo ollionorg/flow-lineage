@@ -480,6 +480,10 @@
               "kind": "method",
               "name": "getHeight",
               "description": "get height based on what parent is used"
+            },
+            {
+              "kind": "method",
+              "name": "isSafari"
             }
           ],
           "attributes": [

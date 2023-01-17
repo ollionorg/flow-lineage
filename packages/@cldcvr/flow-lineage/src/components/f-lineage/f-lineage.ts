@@ -487,6 +487,17 @@ export class FLineage extends FRoot {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleZoom = (e: any) => {
         lineageContainer.attr("transform", e.transform);
+        if (this.isSafari()) {
+          const scale = e.transform.k;
+          this.shadowRoot
+            ?.querySelectorAll("foreignObject")
+            .forEach((obj: SVGForeignObjectElement) => {
+              for (let i = 0; i < obj.children.length; i++) {
+                const element = obj.children[i];
+                (element as HTMLElement).style.transform = `scale(${scale}) `;
+              }
+            });
+        }
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const zoom = d3
@@ -511,6 +522,9 @@ export class FLineage extends FRoot {
 
     console.timeEnd("Total duration");
     console.groupEnd();
+  }
+  isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   }
 }
 

@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.1.6] - 2023-01-17
+
+### Bug Fixes
+
+- Safari: zoom in/zoom out fixed
 ## [1.1.5] - 2023-01-17
 
 ### Bug Fixes
