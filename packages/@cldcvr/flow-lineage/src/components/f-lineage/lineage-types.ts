@@ -3,7 +3,7 @@
 import { FLineage } from "./f-lineage";
 
 export type LineageBaseNode = {
-  id: string;
+  id?: string;
   links?: LineageNodeLink[];
   data?: Record<string, any>;
   nodeTemplate?: string;
@@ -122,10 +122,7 @@ export type VerticalLinkPathParams = {
 
 export type LevelPointer = Record<number, { x: number; y: number }>;
 
-export type LineageNodeChildrens = Record<
-  string,
-  Omit<LineageNodeChildren, "id">
->;
+export type LineageNodeChildrens = Record<string, LineageNodeChildren>;
 export type LineageNodePartial = Omit<LineageNode, "to" | "links" | "id"> & {
   children?: LineageNodeChildrens;
   click?: (event: Event, node: LineageNodeElement) => void;

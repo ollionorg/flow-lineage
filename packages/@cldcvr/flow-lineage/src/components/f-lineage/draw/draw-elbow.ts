@@ -85,7 +85,7 @@ function verticalDirectionLink(
   const sx = sourceX;
   const sy = sourceY;
 
-  const midY = sy + gap * getLinkGap(d.level, d.source.id);
+  const midY = sy + gap * getLinkGap(d.level, d.source.id as string);
   let endArcRadius = dy - midY;
   let startArcRadius = midY - sy;
 
@@ -204,7 +204,7 @@ function horizontalDirectionLink(
   const sx = d.source.x + (d.source.isChildren ? childXoffset : xoffset);
   const sy = d.source.y + (d.source.isChildren ? childYoffset : yoffset);
 
-  const midX = sx + gap * getLinkGap(d.level, d.source.id);
+  const midX = sx + gap * getLinkGap(d.level, d.source.id as string);
   let endArcRadius = dx - midX;
   let startArcRadius = midX - sx;
 

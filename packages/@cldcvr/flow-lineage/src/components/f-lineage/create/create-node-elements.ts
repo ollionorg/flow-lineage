@@ -242,11 +242,11 @@ export default function createNodeElements(
         );
         nodeElements.push(nodeElement);
 
-        nodeElementsMap[nodeElement.id] = nodeElement;
+        nodeElementsMap[nodeElement.id as string] = nodeElement;
       } else {
         const nodeElement = getComputedElement(node, level, levelPointer);
         nodeElements.push(nodeElement);
-        nodeElementsMap[nodeElement.id] = nodeElement;
+        nodeElementsMap[nodeElement.id as string] = nodeElement;
       }
 
       const parentNode = node as LineageNode;

@@ -43,7 +43,7 @@ export default function drawNodes(params: DrawLineageParams) {
       return `translate(${d.x},${d.y})`;
     })
     .attr("id", (d) => {
-      return d.id;
+      return d.id as string;
     })
     .attr("class", "lineage-node lineage-element")
     .on("click", (event: MouseEvent, d) => {
@@ -152,12 +152,12 @@ export default function drawNodes(params: DrawLineageParams) {
     .append("g")
     .attr("class", "children-container")
     .attr("data-parent-id", (d) => {
-      return d.id;
+      return d.id as string;
     })
     .attr("data-offset", 0)
     .attr("data-max", maxChildrens)
     .attr("data-parent-id", (d) => {
-      return d.id;
+      return d.id as string;
     })
     .attr("id", (d) => {
       return "scrollable-" + d.id;
@@ -290,7 +290,7 @@ export default function drawNodes(params: DrawLineageParams) {
       })
       .attr("data-page", page)
       .attr("id", (d) => {
-        return d.id;
+        return d.id as string;
       })
       .attr("transform", (d) => {
         d.x = startX;

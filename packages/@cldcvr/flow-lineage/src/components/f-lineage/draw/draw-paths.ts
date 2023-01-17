@@ -29,7 +29,7 @@ export function getForwardLinkPath({
   let line = `M ${startPoint.x} ${startPoint.y} `;
   for (let l = d.source.level; l < d.target.level; l++) {
     // calclulating gapDelta (i.e. coordinate between gap)
-    const gapDelta = gap * getLinkGap(l, d.source.id);
+    const gapDelta = gap * getLinkGap(l, d.source.id as string);
 
     // calculating arc radius
     let endArcRadius = 30;
@@ -104,7 +104,7 @@ export function getBackwardLinkPath({
   let line = `M ${startPoint.x} ${startPoint.y} `;
   for (let l = d.source.level; l >= d.target.level; l--) {
     // calclulating gapDelta (i.e. coordinate between gap)
-    const gapDelta = gap * getLinkGap(l, d.source.id);
+    const gapDelta = gap * getLinkGap(l, d.source.id as string);
 
     // get gap co-ordinates from where line will pass
     const gapCoOrdinates = levelGaps[l].find((g) => g.y + gap > startPoint.y);
@@ -190,7 +190,7 @@ export function getVerticalForwardLinkPath({
     }
 
     // calclulating gapDelta (i.e. coordinate between gap)
-    const gapDelta = gap * getLinkGap(l, d.source.id);
+    const gapDelta = gap * getLinkGap(l, d.source.id as string);
 
     // calculating arc radius
     let endArcRadius = 30;

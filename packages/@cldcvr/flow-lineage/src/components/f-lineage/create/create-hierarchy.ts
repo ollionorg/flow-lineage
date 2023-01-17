@@ -99,7 +99,7 @@ export default function createHierarchy(
           }
 
           from.links.push({
-            nodeid: to.id,
+            nodeid: to.id as string,
           });
         }
 

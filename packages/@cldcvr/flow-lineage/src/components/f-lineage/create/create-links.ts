@@ -35,7 +35,7 @@ export default function createLinks(
           id: sourceNode.id + "->" + targetNode.id,
           level: sourceNode.level,
           source: sourceNode,
-          target: nodeElementsObj[targetNode.id],
+          target: nodeElementsObj[targetNode.id as string],
         });
       }
     }

@@ -97,8 +97,8 @@ export default function highlightPath(
      * Highlight node based on name
      */
 
-    highlightFrom(node.id);
-    highlightTo(node.id);
+    highlightFrom(node.id as string);
+    highlightTo(node.id as string);
     console.timeEnd("Lineage : highlight duration");
   }
 }
