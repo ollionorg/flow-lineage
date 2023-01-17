@@ -87,13 +87,79 @@
     {
       "kind": "javascript-module",
       "path": "src/utils/index.ts",
-      "declarations": [],
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "isEmpty",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "text": "Object"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getChildrenArray",
+          "return": {
+            "type": {
+              "text": "LineageNodeChildren[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "children",
+              "type": {
+                "text": "Record<string, LineageNodeChildren> | undefined"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getChildCount",
+          "parameters": [
+            {
+              "name": "children",
+              "type": {
+                "text": "Record<string, LineageNodeChildren> | undefined"
+              }
+            }
+          ]
+        }
+      ],
       "exports": [
         {
           "kind": "js",
           "name": "getComputedHTML",
           "declaration": {
             "name": "getComputedHTML",
+            "module": "src/utils/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isEmpty",
+          "declaration": {
+            "name": "isEmpty",
+            "module": "src/utils/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getChildrenArray",
+          "declaration": {
+            "name": "getChildrenArray",
+            "module": "src/utils/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getChildCount",
+          "declaration": {
+            "name": "getChildCount",
             "module": "src/utils/index.ts"
           }
         }

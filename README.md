@@ -159,15 +159,14 @@ export default defineComponent({
             description: "Movies",
             state: "secondary",
           },
-          children: [
-            {
-              id: "child1",
+          children: {
+            rdj_child: {
               data: {
                 icon: "i-hashtag",
                 title: "Iron man 1",
               },
             },
-          ],
+          },
         },
         judge: {
           data: {
@@ -182,22 +181,20 @@ export default defineComponent({
             description: "Tony stark",
             state: "secondary",
           },
-          children: [
-            {
-              id: "iman1",
+          children: {
+            irchild1: {
               data: {
                 icon: "i-hashtag",
                 title: "Iron man 1",
               },
             },
-            {
-              id: "iman2",
+            irchild2: {
               data: {
                 icon: "i-paragraph",
                 title: "Iron man 2",
               },
             },
-          ],
+          },
           hideChildren: false,
         },
         hank: {
@@ -206,22 +203,20 @@ export default defineComponent({
             description: "Actor",
             state: "secondary",
           },
-          children: [
-            {
-              id: "child1",
+          children: {
+            child1: {
               data: {
                 icon: "i-hashtag",
                 title: "Node child 1",
               },
             },
-            {
-              id: "child2",
+            child2: {
               data: {
                 icon: "i-paragraph",
                 title: "Node child 2",
               },
             },
-          ],
+          },
           hideChildren: false,
         },
       },
@@ -244,34 +239,34 @@ export default defineComponent({
         },
       ],
       nodeTemplate: `<f-div
-			state=\${node.data.state}
+		  state=\${node.data.state}
+		  width="100%"
+		  height="100%"
+		  padding="small"
+		  align="top-left"
+		  variant="curved"
+		  gap="small"
+		  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+		>
+			<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
+			<f-div direction="column">
+				<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
+				<f-text size="x-small" ellipsis>\${node.data.description}</f-text>
+			</f-div>
+			\${node.childrenToggle}
+		</f-div>`,
+      childNodeTemplate: `<f-div
+			state="secondary"
 			width="100%"
 			height="100%"
-			padding="small"
-			align="top-left"
-			variant="curved"
+			padding="none medium"
+			align="middle-left"
 			gap="small"
-			\${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+			border="small solid default bottom"
 		  >
-			  <f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
-			  <f-div direction="column">
-				  <f-text size="small" ellipsis>\${node.data.fullName}</f-text>
-				  <f-text size="x-small" ellipsis>\${node.data.description}</f-text>
-			  </f-div>
-			  \${node.childrenToggle}
+			<f-icon source="\${node.data.icon}" size="small"></f-icon>
+			<f-text  size="small" ellipsis>\${node.data.title}</f-text>
 		  </f-div>`,
-      childNodeTemplate: `<f-div
-			  state="secondary"
-			  width="100%"
-			  height="100%"
-			  padding="none medium"
-			  align="middle-left"
-			  gap="small"
-			  border="small solid default bottom"
-			>
-			  <f-icon source="\${node.data.icon}" size="small"></f-icon>
-			  <f-text  size="small" ellipsis>\${node.data.title}</f-text>
-			</f-div>`,
     };
   },
 });
@@ -434,9 +429,9 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">children</td>
-			<td style="vertical-align: top;">array</td>
+			<td style="vertical-align: top;">Object</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">The children array will contain the metadata that will be consumed by the node-child-templates to display information on the lineage. <br> <br><a href="#node-children-example">View node data example</a></td>
+			<td style="vertical-align: top;">The children object will contain the metadata that will be consumed by the node-child-templates to display information on the lineage. <br> <br><a href="#node-children-example">View node data example</a></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">hideChildren</td>
@@ -477,41 +472,40 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 </table>
 
 ### Node example 
-```
-node-id: {
+```Javascript
+node_id: {
 	data: {
 		fullName: "Robert Downey Jr.",
 		description: "Movies",
 		state: "danger",
 	},
-}
+},
 ```
 
 
 ### Node children example 
-```
-node-id: {
-	data: {
-		fullName: "Robert Downey Jr.",
-		description: "Movies",
-		state: "secondary",
-	},
-	children: [
-	{
-		id: "child1",
-			data: {
-				icon: "i-hashtag",
-				title: "Node child 1",
-			},
-		},
-	{
-		id: "child2",
-		data: {
-			icon: "i-paragraph",
-			title: "Node child 2",
-		},
-	},
-}
+```Javascript
+ node_id: {
+          data: {
+            fullName: "Robert Downey Jr.",
+            description: "Movies",
+            state: "secondary",
+          },
+          children: {
+            child1: {
+              data: {
+                icon: "i-hashtag",
+                title: "Node child 1",
+              },
+            },
+            child2: {
+              data: {
+                icon: "i-paragraph",
+                title: "Node child 2",
+              },
+            },
+          },
+        },
 ```
 
 To access the data in your node template, you need to pass it through ```\${node.data.<your-field-name>} ```

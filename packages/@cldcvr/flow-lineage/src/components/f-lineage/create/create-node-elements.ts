@@ -9,6 +9,8 @@ import {
   LevelPointer,
 } from "./../lineage-types";
 
+import { getChildrenArray, isEmpty } from "./../../../utils";
+
 export default function createNodeElements(
   data: LineageNode[],
   nodeSize: LineageNodeSize,
@@ -99,18 +101,18 @@ export default function createNodeElements(
     /**
      * Check if node has childrens
      */
-    if (node.children && node.children.length > 0) {
+    if (node.children && !isEmpty(node.children)) {
       levelPointer.y += nodeSize.height;
+      const children = getChildrenArray(node.children);
+      const totalChildNodeHeight = childrenNodeSize.height * children.length;
 
-      const totalChildNodeHeight =
-        childrenNodeSize.height * node.children.length;
       if (totalChildNodeHeight > maxChildrenHeight) {
         nodeElement.hasScrollbaleChildren = true;
       }
       /**
        * compute child node elements
        */
-      computeElements(node.children, levelPointer, level, true, node.id);
+      computeElements(children, levelPointer, level, true, node.id);
 
       /**
        * storing last child co-ordinates

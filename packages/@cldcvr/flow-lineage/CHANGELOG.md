@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.1.3] - 2023-01-17
+
+### Improvements
+
+- `children` data type `Array` converted to `Object`.
 ## [1.1.2] - 2023-01-12
 
 ### Bug Fixes

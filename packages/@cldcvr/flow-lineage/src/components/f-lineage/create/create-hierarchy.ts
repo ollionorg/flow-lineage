@@ -1,3 +1,4 @@
+import { getChildrenArray, isEmpty } from "./../../../utils";
 import {
   LineageData,
   LineageNode,
@@ -34,8 +35,8 @@ export default function createHierarchy(
       ref: node,
     };
     data.push(node);
-    if (node.children && node.children.length > 0) {
-      node.children.forEach((cNode) => {
+    if (node.children && !isEmpty(node.children)) {
+      getChildrenArray(node.children).forEach((cNode) => {
         hierarchyMeta[cNode.id] = {
           level: 1,
           ref: cNode,
@@ -85,7 +86,7 @@ export default function createHierarchy(
 
           hierarchyMeta[link.to].level = hierarchyMeta[link.from].level + 1;
 
-          to.children?.forEach((cNode) => {
+          getChildrenArray(to.children)?.forEach((cNode) => {
             hierarchyMeta[cNode.id].level = hierarchyMeta[link.to].level;
           });
           hierarchyMeta[link.to].isLinked = true;

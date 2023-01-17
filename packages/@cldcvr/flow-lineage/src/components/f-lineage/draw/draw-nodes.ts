@@ -1,5 +1,5 @@
 import { html } from "lit";
-import { getComputedHTML } from "../../../utils";
+import { getChildCount, getComputedHTML, isEmpty } from "../../../utils";
 import { DrawLineageParams, LineageNodeElement } from "../lineage-types";
 import highlightPath from "../highlight/highlight-path";
 import removeLinks from "./remove-links";
@@ -144,7 +144,7 @@ export default function drawNodes(params: DrawLineageParams) {
         (n) =>
           n.children &&
           !n.hideChildren &&
-          n.children.length > 0 &&
+          !isEmpty(n.children) &&
           degreeFilter(n)
       )
     )
@@ -195,7 +195,7 @@ export default function drawNodes(params: DrawLineageParams) {
         /**
          * calculate currentY of scrollbar after addiong delta
          */
-        const noOdChildren = d.children?.length ?? 0;
+        const noOdChildren = getChildCount(d.children);
         const childHeight = noOdChildren * childrenNodeSize.height;
         let scrollbarOffset =
           (childrenNodeSize.height * maxChildrenHeight) / childHeight;
@@ -235,7 +235,7 @@ export default function drawNodes(params: DrawLineageParams) {
           let start = d.offset;
           let end = d.offset + maxChildrens;
 
-          if (d.children && end > d.children?.length) {
+          if (d.children && end > noOdChildren) {
             start -= -1;
             end -= -1;
           }
@@ -251,7 +251,7 @@ export default function drawNodes(params: DrawLineageParams) {
       return `translate(${d.x},${d.y + nodeSize.height})`;
     })
     .attr("height", (d) => {
-      const noOdChildren = d.children?.length ?? 0;
+      const noOdChildren = getChildCount(d.children);
       const childHeight = noOdChildren * childrenNodeSize.height;
       if (childHeight > maxChildrenHeight) {
         return maxChildrenHeight;
@@ -381,7 +381,7 @@ export default function drawNodes(params: DrawLineageParams) {
     })
     .attr("width", scrollBarWidth)
     .attr("height", (d) => {
-      const noOdChildren = d.children?.length ?? 0;
+      const noOdChildren = getChildCount(d.children);
       const childHeight = noOdChildren * childrenNodeSize.height;
       return (maxChildrenHeight / childHeight) * maxChildrenHeight;
     })
