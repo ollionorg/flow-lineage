@@ -122,7 +122,10 @@ export type VerticalLinkPathParams = {
 
 export type LevelPointer = Record<number, { x: number; y: number }>;
 
-export type LineageNodeChildrens = Record<string, LineageNodeChildren>;
+export type LineageNodeChildrens = Record<
+  string,
+  Omit<LineageNodeChildren, "id">
+>;
 export type LineageNodePartial = Omit<LineageNode, "to" | "links" | "id"> & {
   children?: LineageNodeChildrens;
   click?: (event: Event, node: LineageNodeElement) => void;

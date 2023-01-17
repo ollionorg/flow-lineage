@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [1.1.4] - 2023-01-17
+
+### Bug Fixes
+
+- `children` typescript type updated.
+
 ## [1.1.3] - 2023-01-17
 
 ### Improvements
