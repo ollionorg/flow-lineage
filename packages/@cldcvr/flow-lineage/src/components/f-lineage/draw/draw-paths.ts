@@ -43,7 +43,10 @@ export function getForwardLinkPath({
 
     // last y co-ordinate where line end at given level
     let nextY = lineage.levelPointers[l + 1].y;
-
+    if (lineage.levelPointers[l].y === lineage.levelPointers[l + 1].y) {
+      nextY = startPoint.y;
+      // console.log("Assigning same y");
+    }
     // use gap co-ordinates to calclulate y co-ordinate where line end at given level
     if (gapCoOrdinates) {
       nextY = gapCoOrdinates.y + gapDelta - endArcRadius;
@@ -54,11 +57,23 @@ export function getForwardLinkPath({
       nextY = d.target.y + nodeSize.height / 2 - endArcRadius;
     }
 
+    const diff = nextY - startPoint.y;
+    if (diff < -30) {
+      nextY = startPoint.y - 30;
+    } else if (diff > 0 && diff < 30) {
+      nextY = startPoint.y + 30;
+    }
+
+    // if (d.source.id === "rdj" && d.target.id === "judge") {
+    //   console.log(startPoint.y, nextY, lineage.levelPointers[l + 1].y);
+    // }
     if (nextY > startPoint.y) {
       line += `h ${
         gapDelta - startArcRadius
       } a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius} V ${nextY} `;
       line += `a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius} `;
+    } else if (nextY === startPoint.y) {
+      line += `H ${startPoint.x + gap}`;
     } else {
       if (l === d.target.level - 1) {
         nextY = d.target.y + nodeSize.height / 2 + endArcRadius;
@@ -77,7 +92,7 @@ export function getForwardLinkPath({
     }
 
     startPoint.x += gap + nodeSize.width;
-    startPoint.y = nextY += endArcRadius;
+    startPoint.y = nextY + endArcRadius;
   }
   return line;
 }
@@ -93,6 +108,7 @@ export function getBackwardLinkPath({
   gap,
   d,
   lineage,
+  element,
 }: HorizontalLinkPathParams) {
   const levelGaps = lineage.gaps;
 
@@ -121,27 +137,33 @@ export function getBackwardLinkPath({
     if (yDiff < 0) {
       yDiff *= -1;
     }
+
+    const nextX = startPoint.x - nodeSize.width - gapDelta;
     if (l === d.source.level) {
       line += `h ${
         gapDelta - startArcRadius
       } a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius} V ${nextY} `;
       line += `a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${startArcRadius} `;
 
-      line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
+      line += `H ${nextX}`;
     } else if (nextY === startPoint.y || yDiff < 2 * startArcRadius) {
-      line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
+      line += `H ${nextX}`;
     } else if (nextY > startPoint.y) {
       line += `a${startArcRadius},${startArcRadius} 0 0 0 ${-startArcRadius},${startArcRadius} V ${nextY} `;
       line += `a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${startArcRadius} `;
-      line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
+      line += `H ${nextX}`;
     } else if (nextY < startPoint.y) {
       line += `a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${-startArcRadius} V ${nextY} `;
       line += `a${startArcRadius},${startArcRadius} 0 0 0 ${-startArcRadius},${-startArcRadius} `;
-      line += `H ${startPoint.x - nodeSize.width - gapDelta}`;
+      line += `H ${nextX}`;
     }
 
-    if (d.source.id === "Tim" && d.target.id === "Tamara") {
-      console.log(startPoint, l);
+    if (nextX < 0 && element) {
+      if (element.getDrawParams().svg.attr("transform") == null) {
+        element
+          .getDrawParams()
+          .svg.attr("transform", `translate(${nextX + gap},0) scale(1)`);
+      }
     }
     // destination and source is at same level
     if (l === d.target.level) {

@@ -66,7 +66,8 @@ export default function drawLinks({
         childrenNodeSize,
         gap,
         direction,
-        lineage
+        lineage,
+        element
       );
     })
     .attr("stroke", "var(--color-border-default)")

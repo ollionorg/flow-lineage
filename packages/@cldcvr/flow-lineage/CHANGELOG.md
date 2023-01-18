@@ -4,6 +4,13 @@
 
 # Change Log
 
+## [1.1.7] - 2023-01-18
+
+### Bug Fixes
+
+- Retain zoom and drag levels if nodes or links updated.
+- Extra gap issue fixed while plotting distant links.
+- Chart is dragged if root has backward connection.
 ## [1.1.6] - 2023-01-17
 
 ### Bug Fixes

@@ -85,10 +85,12 @@ export default function drawNodes(params: DrawLineageParams) {
         if (d.childrenYMax) {
           let childHeight = d.childrenYMax - (d.y + nodeSize.height);
 
+          // finding all nodes below children
           const nodesToUpdate = lineage.nodes.filter(
             (n) => n.level === d.level && n.y > d.y && !childIds.includes(n.id)
           );
 
+          // compare height and apply max height with  scroll bar if required
           if (childHeight > maxChildrenHeight) {
             childHeight = maxChildrenHeight;
           }

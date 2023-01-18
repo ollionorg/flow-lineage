@@ -111,6 +111,7 @@ export type CreateLinkPathParams = {
   gap: number;
   d: LineageLinkElement;
   lineage: Lineage;
+  element?: FLineage;
 };
 
 export type HorizontalLinkPathParams = {

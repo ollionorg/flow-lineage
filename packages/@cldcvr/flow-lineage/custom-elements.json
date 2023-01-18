@@ -420,6 +420,14 @@
               "default": "0"
             },
             {
+              "kind": "field",
+              "name": "currentTransform",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
               "kind": "method",
               "name": "getNumbersFromRange",
               "parameters": [
@@ -829,6 +837,12 @@
               "type": {
                 "text": "Lineage"
               }
+            },
+            {
+              "name": "element",
+              "type": {
+                "text": "FLineage"
+              }
             }
           ]
         }
@@ -949,7 +963,7 @@
           "name": "getBackwardLinkPath",
           "parameters": [
             {
-              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  d,\n  lineage,\n}",
+              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  d,\n  lineage,\n  element,\n}",
               "type": {
                 "text": "HorizontalLinkPathParams"
               }

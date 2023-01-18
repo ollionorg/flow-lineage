@@ -1,3 +1,4 @@
+import { FLineage } from "../f-lineage";
 import {
   LevelLinkGap,
   Lineage,
@@ -18,9 +19,9 @@ export default function drawElbow(
   childrenNodeSize: LineageNodeSize,
   gap: number,
   direction: LineageDirection,
-  lineage: Lineage
+  lineage: Lineage,
+  element: FLineage
 ) {
-  //console.log(levelGaps);
   if (direction === "horizontal") {
     return horizontalDirectionLink(
       d,
@@ -28,7 +29,8 @@ export default function drawElbow(
       nodeSize,
       childrenNodeSize,
       gap,
-      lineage
+      lineage,
+      element
     );
   } else {
     return verticalDirectionLink(
@@ -172,7 +174,8 @@ function horizontalDirectionLink(
   nodeSize: LineageNodeSize,
   childrenNodeSize: LineageNodeSize,
   gap: number,
-  lineage: Lineage
+  lineage: Lineage,
+  element: FLineage
 ) {
   const getLinkGap = (level: number, nodeid: string) => {
     const levelGaps = levelLinkGap[level];
@@ -249,6 +252,7 @@ function horizontalDirectionLink(
       midX,
       d,
       lineage,
+      element,
     });
   } else {
     if (dy > sy && dy - sy > dist) {

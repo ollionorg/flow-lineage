@@ -167,6 +167,7 @@ export class FLineage extends FRoot {
 
   timeout!: ReturnType<typeof setTimeout>;
   renderCount = 0;
+  currentTransform = null;
 
   getNumbersFromRange(min: number, max: number) {
     return Array.from({ length: max - min + 1 }, (_, i) => i + min);
@@ -345,7 +346,7 @@ export class FLineage extends FRoot {
     return height;
   }
   updated() {
-    console.groupCollapsed("Lineage");
+    console.group("Lineage");
     console.time("Total duration");
 
     /**
@@ -471,6 +472,13 @@ export class FLineage extends FRoot {
        */
       const lineageContainer = svgElement.append("g");
 
+      /**
+       * Apply transform if it is exists.
+       */
+      if (this.currentTransform) {
+        lineageContainer.attr("transform", this.currentTransform);
+      }
+
       this.lineageDrawParams = {
         lineage,
         svg: lineageContainer,
@@ -486,6 +494,10 @@ export class FLineage extends FRoot {
       drawLineage(this.lineageDrawParams);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleZoom = (e: any) => {
+        /**
+         * store transform and it is used to apply on update
+         */
+        this.currentTransform = e.transform;
         lineageContainer.attr("transform", e.transform);
         if (this.isSafari()) {
           const scale = e.transform.k;
