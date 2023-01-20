@@ -257,6 +257,12 @@ export class FLineage extends FRoot {
         if (link.target.isChildren && !link.target.isVisible) {
           return false;
         }
+        if (
+          link.source.level - link.target.level > 1 ||
+          link.target.level - link.source.level > 1
+        ) {
+          return true;
+        }
         return (
           levelsToPlot.includes(link.source.level) ||
           levelsToPlot.includes(link.target.level)

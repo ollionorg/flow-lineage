@@ -28,6 +28,12 @@ const nodes: LineageNodes = {
           title: "Iron man 1",
         },
       },
+      child2: {
+        data: {
+          icon: "i-hashtag",
+          title: "Iron man 2",
+        },
+      },
     },
   },
   judge: {
@@ -86,6 +92,20 @@ const nodes: LineageNodes = {
       description: "Roota Voota",
       state: "primary",
     },
+    children: {
+      hchild1: {
+        data: {
+          icon: "i-hashtag",
+          title: "H Node child 1",
+        },
+      },
+      hchild2: {
+        data: {
+          icon: "i-paragraph",
+          title: "H Node child 2",
+        },
+      },
+    },
   },
 };
 const links: LineageNodeLinks = [
@@ -117,6 +137,10 @@ const links: LineageNodeLinks = [
     from: "hank",
     to: "rdj",
   },
+  //   {
+  //     from: "hank",
+  //     to: "prop1",
+  //   },
 ];
 
 const Template: Story<unknown> = (args: any) => {
@@ -132,7 +156,7 @@ const Template: Story<unknown> = (args: any) => {
       .children-node-template=${args["children-node-template"]}
       .links=${links}
       .nodes=${nodes}
-      stager-load="5"
+      stager-load="1"
     ></f-lineage>
   `;
 };

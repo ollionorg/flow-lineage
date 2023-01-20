@@ -4,7 +4,7 @@ import {
   LineageLinkElement,
 } from "../lineage-types";
 
-import drawElbow from "./draw-elbow";
+import drawElbow from "./draw-elbow-updated";
 
 export default function drawLinks({
   lineage,
@@ -32,7 +32,11 @@ export default function drawLinks({
       if (l.source.isChildren) {
         return l.source.isVisible;
       }
-      return levelsToPlot.includes(l.target.level);
+      if (l.source.level > l.target.level) {
+        return levelsToPlot.includes(l.source.level);
+      } else {
+        return levelsToPlot.includes(l.target.level);
+      }
     }
     return true;
   };
@@ -54,12 +58,26 @@ export default function drawLinks({
   links
     .append("path")
     .attr("class", (d) => {
+      const isDistantLink =
+        d.source.level - d.target.level > 1 ||
+        d.target.level - d.source.level > 1;
       return `link lineage-element ${
         d.source.isChildren || d.target.isChildren ? "child-link" : ""
-      }`;
+      } ${isDistantLink ? "distant-link" : ""}`;
     })
     .attr("d", (d) => {
-      return drawElbow(
+      //   return drawElbow(
+      //     d,
+      //     levelLinkGap,
+      //     nodeSize,
+      //     childrenNodeSize,
+      //     gap,
+      //     direction,
+      //     lineage,
+      //     element
+      //   );
+
+      return drawElbow({
         d,
         levelLinkGap,
         nodeSize,
@@ -67,8 +85,8 @@ export default function drawLinks({
         gap,
         direction,
         lineage,
-        element
-      );
+        element,
+      });
     })
     .attr("stroke", "var(--color-border-default)")
     .attr("stroke-width", 2)

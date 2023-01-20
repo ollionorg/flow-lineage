@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [1.1.8] - 2023-01-20
+
+### Improvements
+
+- links plotting algorithm updated
+
 ## [1.1.7] - 2023-01-18
 
 ### Bug Fixes

@@ -790,6 +790,34 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/f-lineage/draw/draw-elbow-updated.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "drawElbow",
+          "parameters": [
+            {
+              "name": "{\n  d,\n  nodeSize,\n  gap,\n  childrenNodeSize,\n  levelLinkGap,\n  lineage,\n}",
+              "type": {
+                "text": "DrawElbowParams"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "drawElbow",
+            "module": "src/components/f-lineage/draw/draw-elbow-updated.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/f-lineage/draw/draw-elbow.ts",
       "declarations": [
         {
@@ -1031,6 +1059,18 @@
               }
             }
           ]
+        },
+        {
+          "kind": "function",
+          "name": "removeDistantLinks",
+          "parameters": [
+            {
+              "name": "lineage",
+              "type": {
+                "text": "FLineage"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -1039,6 +1079,14 @@
           "name": "default",
           "declaration": {
             "name": "removeLinks",
+            "module": "src/components/f-lineage/draw/remove-links.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "removeDistantLinks",
+          "declaration": {
+            "name": "removeDistantLinks",
             "module": "src/components/f-lineage/draw/remove-links.ts"
           }
         }

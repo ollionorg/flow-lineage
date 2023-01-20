@@ -29,7 +29,7 @@ export function getForwardLinkPath({
   let line = `M ${startPoint.x} ${startPoint.y} `;
   for (let l = d.source.level; l < d.target.level; l++) {
     // calclulating gapDelta (i.e. coordinate between gap)
-    const gapDelta = gap * getLinkGap(l, d.source.id as string);
+    const gapDelta = gap * getLinkGap(l, d.target.id as string);
 
     // calculating arc radius
     let endArcRadius = 30;
@@ -39,12 +39,22 @@ export function getForwardLinkPath({
     }
 
     // get gap co-ordinates from where line will pass
-    const gapCoOrdinates = levelGaps[l + 1].find((g) => g.y > startPoint.y);
+    const gapCoOrdinates = levelGaps[l + 1].find((g) => {
+      let yToCompare = startPoint.y;
+
+      if (l === d.source.level) {
+        yToCompare += nodeSize.height / 2;
+      }
+      return g.y > yToCompare;
+    });
 
     // last y co-ordinate where line end at given level
     let nextY = lineage.levelPointers[l + 1].y;
     if (lineage.levelPointers[l].y === lineage.levelPointers[l + 1].y) {
       nextY = startPoint.y;
+      if (l === d.source.level) {
+        nextY = lineage.levelPointers[l].y;
+      }
       // console.log("Assigning same y");
     }
     // use gap co-ordinates to calclulate y co-ordinate where line end at given level
@@ -65,12 +75,19 @@ export function getForwardLinkPath({
     }
 
     // if (d.source.id === "rdj" && d.target.id === "judge") {
-    //   console.log(startPoint.y, nextY, lineage.levelPointers[l + 1].y);
+    //   console.log(
+    //     gapCoOrdinates,
+    //     startPoint.y,
+    //     nextY,
+    //     lineage.levelPointers[l + 1].y
+    //   );
     // }
     if (nextY > startPoint.y) {
       line += `h ${
         gapDelta - startArcRadius
-      } a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius} V ${nextY} `;
+      } a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius} V ${
+        nextY - endArcRadius
+      } `;
       line += `a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius} `;
     } else if (nextY === startPoint.y) {
       line += `H ${startPoint.x + gap}`;
@@ -158,7 +175,9 @@ export function getBackwardLinkPath({
       line += `H ${nextX}`;
     }
 
-    if (nextX < 0 && element) {
+    const leftX = element?.padding ?? 0;
+    if (nextX < leftX && element) {
+      console.log("got negative x");
       if (element.getDrawParams().svg.attr("transform") == null) {
         element
           .getDrawParams()

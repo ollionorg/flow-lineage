@@ -2,7 +2,7 @@ import { html } from "lit";
 import { getChildCount, getComputedHTML, isEmpty } from "../../../utils";
 import { DrawLineageParams, LineageNodeElement } from "../lineage-types";
 import highlightPath from "../highlight/highlight-path";
-import removeLinks from "./remove-links";
+import removeLinks, { removeDistantLinks } from "./remove-links";
 import drawLinks from "./draw-links";
 // import * as d3 from "d3";
 
@@ -101,14 +101,28 @@ export default function drawNodes(params: DrawLineageParams) {
               n.y -= childHeight;
             }
           });
+          if (!d.hideChildren) {
+            lineage.levelPointers[d.level].y += childHeight;
+          } else {
+            lineage.levelPointers[d.level].y -= childHeight;
+          }
 
+          const gapsToUpdate = lineage.gaps[d.level].filter((n) => n.y > d.y);
+
+          gapsToUpdate.forEach((n) => {
+            if (!d.hideChildren) {
+              n.y += childHeight;
+            } else {
+              n.y -= childHeight;
+            }
+          });
           removeLinks(nodesToUpdate, element);
         }
 
         allChildNodes.forEach((cn) => {
           cn.isVisible = false;
         });
-
+        removeDistantLinks(element);
         removeLinks(allChildNodes, element);
         const pageNo = this.parentElement?.parentElement?.dataset.page ?? 0;
         element.reDrawChunk(+pageNo, d.level);

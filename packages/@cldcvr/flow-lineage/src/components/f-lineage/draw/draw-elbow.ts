@@ -22,6 +22,7 @@ export default function drawElbow(
   lineage: Lineage,
   element: FLineage
 ) {
+  console.log(lineage.gaps);
   if (direction === "horizontal") {
     return horizontalDirectionLink(
       d,
@@ -184,7 +185,7 @@ function horizontalDirectionLink(
     }
     if (!levelGaps) {
       levelLinkGap[level] = {
-        linkgap: 0.2,
+        linkgap: 0.15,
         nodeLinkGap: {},
       };
     }
