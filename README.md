@@ -62,7 +62,7 @@ Paste the below snippet in your project, for
 
 ```javascript
 import("@cldcvr/flow-core").then(async () => {
-	await import('@cldcvr/flow-lineage');
+	await import("@cldcvr/flow-lineage");
 	//add your application startup/runtime code here **
 });
 ```

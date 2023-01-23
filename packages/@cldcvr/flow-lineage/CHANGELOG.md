@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.2.0] - 2023-01-23
+
+### Improvements
+
+- Outgoing backward connection's gap delta logic updated.
 ## [1.1.9] - 2023-01-23
 
 ### Improvements

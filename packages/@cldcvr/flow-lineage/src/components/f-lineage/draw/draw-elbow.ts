@@ -138,7 +138,7 @@ export default function drawElbow({
     for (let l = d.source.level; l >= d.target.level - 1; l--) {
       let gapDelta = gap * getLinkGap(d.source.level, d.source.id as string);
 
-      if (d.target.level === l && d.target.level - d.source.level !== 1) {
+      if (d.target.level === l && d.target.level - d.source.level > 1) {
         gapDelta = gap * getLinkGap(d.target.level, d.target.id as string);
       }
 

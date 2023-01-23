@@ -159,6 +159,10 @@ const links: LineageNodeLinks = [
     to: "node5child2",
   },
   {
+    from: "node1child1",
+    to: "node4child2",
+  },
+  {
     from: "node6",
     to: "node6",
   },
