@@ -790,34 +790,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/f-lineage/draw/draw-elbow-updated.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "drawElbow",
-          "parameters": [
-            {
-              "name": "{\n  d,\n  nodeSize,\n  gap,\n  childrenNodeSize,\n  levelLinkGap,\n  lineage,\n}",
-              "type": {
-                "text": "DrawElbowParams"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "drawElbow",
-            "module": "src/components/f-lineage/draw/draw-elbow-updated.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/f-lineage/draw/draw-elbow.ts",
       "declarations": [
         {
@@ -825,51 +797,9 @@
           "name": "drawElbow",
           "parameters": [
             {
-              "name": "d",
+              "name": "{\n  d,\n  nodeSize,\n  gap,\n  element,\n  childrenNodeSize,\n  levelLinkGap,\n  lineage,\n}",
               "type": {
-                "text": "LineageLinkElement"
-              }
-            },
-            {
-              "name": "levelLinkGap",
-              "type": {
-                "text": "LevelLinkGap"
-              }
-            },
-            {
-              "name": "nodeSize",
-              "type": {
-                "text": "LineageNodeSize"
-              }
-            },
-            {
-              "name": "childrenNodeSize",
-              "type": {
-                "text": "LineageNodeSize"
-              }
-            },
-            {
-              "name": "gap",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "direction",
-              "type": {
-                "text": "LineageDirection"
-              }
-            },
-            {
-              "name": "lineage",
-              "type": {
-                "text": "Lineage"
-              }
-            },
-            {
-              "name": "element",
-              "type": {
-                "text": "FLineage"
+                "text": "DrawElbowParams"
               }
             }
           ]
@@ -966,74 +896,6 @@
           "declaration": {
             "name": "drawNodes",
             "module": "src/components/f-lineage/draw/draw-nodes.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/f-lineage/draw/draw-paths.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "getForwardLinkPath",
-          "parameters": [
-            {
-              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  d,\n  lineage,\n}",
-              "type": {
-                "text": "HorizontalLinkPathParams"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "getBackwardLinkPath",
-          "parameters": [
-            {
-              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  d,\n  lineage,\n  element,\n}",
-              "type": {
-                "text": "HorizontalLinkPathParams"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "getVerticalForwardLinkPath",
-          "parameters": [
-            {
-              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  lineage,\n  d,\n}",
-              "type": {
-                "text": "VerticalLinkPathParams"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "getForwardLinkPath",
-          "declaration": {
-            "name": "getForwardLinkPath",
-            "module": "src/components/f-lineage/draw/draw-paths.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getBackwardLinkPath",
-          "declaration": {
-            "name": "getBackwardLinkPath",
-            "module": "src/components/f-lineage/draw/draw-paths.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getVerticalForwardLinkPath",
-          "declaration": {
-            "name": "getVerticalForwardLinkPath",
-            "module": "src/components/f-lineage/draw/draw-paths.ts"
           }
         }
       ]

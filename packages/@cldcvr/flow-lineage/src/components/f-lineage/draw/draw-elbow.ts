@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FLineage } from "../f-lineage";
 import {
   LevelLinkGap,
@@ -5,53 +6,35 @@ import {
   LineageDirection,
   LineageLinkElement,
   LineageNodeSize,
+  LineageGapElement,
 } from "../lineage-types";
-import {
-  getBackwardLinkPath,
-  getForwardLinkPath,
-  getVerticalForwardLinkPath,
-} from "./draw-paths";
+import * as d3 from "d3";
 
-export default function drawElbow(
-  d: LineageLinkElement,
-  levelLinkGap: LevelLinkGap,
-  nodeSize: LineageNodeSize,
-  childrenNodeSize: LineageNodeSize,
-  gap: number,
-  direction: LineageDirection,
-  lineage: Lineage,
-  element: FLineage
-) {
-  console.log(lineage.gaps);
-  if (direction === "horizontal") {
-    return horizontalDirectionLink(
-      d,
-      levelLinkGap,
-      nodeSize,
-      childrenNodeSize,
-      gap,
-      lineage,
-      element
-    );
-  } else {
-    return verticalDirectionLink(
-      d,
-      levelLinkGap,
-      nodeSize,
-      childrenNodeSize,
-      gap,
-      lineage
-    );
-  }
-}
-function verticalDirectionLink(
-  d: LineageLinkElement,
-  levelLinkGap: LevelLinkGap,
-  nodeSize: LineageNodeSize,
-  childrenNodeSize: LineageNodeSize,
-  gap: number,
-  lineage: Lineage
-) {
+export type DrawElbowParams = {
+  d: LineageLinkElement;
+  levelLinkGap: LevelLinkGap;
+  nodeSize: LineageNodeSize;
+  childrenNodeSize: LineageNodeSize;
+  gap: number;
+  direction: LineageDirection;
+  lineage: Lineage;
+  element: FLineage;
+};
+import curveStep from "./curve-steps";
+
+type Point = { x: number; y: number };
+
+export default function drawElbow({
+  d,
+  nodeSize,
+  gap,
+  element,
+  childrenNodeSize,
+  levelLinkGap,
+  lineage,
+}: DrawElbowParams) {
+  const curveAngle = 12;
+  // random delta for node used to pass link in gap
   const getLinkGap = (level: number, nodeid: string) => {
     const levelGaps = levelLinkGap[level];
     if (levelGaps && levelGaps.nodeLinkGap && levelGaps.nodeLinkGap[nodeid]) {
@@ -59,250 +42,177 @@ function verticalDirectionLink(
     }
     if (!levelGaps) {
       levelLinkGap[level] = {
-        linkgap: 0.2,
+        linkgap: 0.3,
         nodeLinkGap: {},
       };
     }
     levelLinkGap[level].nodeLinkGap[nodeid] = levelLinkGap[level].linkgap;
-    levelLinkGap[level].linkgap += 0.2;
-    if (levelLinkGap[level].linkgap === 1) {
-      levelLinkGap[level].linkgap = 0.2;
+    levelLinkGap[level].linkgap += 0.1;
+    if (levelLinkGap[level].linkgap >= 0.7) {
+      levelLinkGap[level].linkgap = 0.3;
     }
     return levelLinkGap[level].nodeLinkGap[nodeid];
   };
 
-  const xoffset = nodeSize.width / 2;
-  const yoffset = nodeSize.height + 4;
-  const childXoffset = childrenNodeSize.width / 2;
-  const childYoffset = childrenNodeSize.height + 4;
-  const dy = d.target.y - 4;
-  const dx = d.target.x + (d.target.isChildren ? childXoffset : xoffset);
+  // line plotting function on given points
+  const line = d3
+    .line()
+    .x((p) => (p as unknown as Point).x)
+    .y((p) => (p as unknown as Point).y)
+    .curve(curveStep.angle(curveAngle));
 
-  let sourceX = d.source.x + (d.source.isChildren ? childXoffset : xoffset);
-  let sourceY = d.source.y + (d.source.isChildren ? childYoffset : yoffset);
-  if (d.source.childrenXMax && d.source.childrenYMax) {
-    sourceX = d.source.childrenXMax;
-    sourceY = d.source.childrenYMax;
-  }
+  // add point on node for connection
+  let startPoint: Point = {
+    x:
+      d.source.x +
+      (d.source.isChildren ? childrenNodeSize.width : nodeSize.width),
+    y:
+      d.source.y +
+      (d.source.isChildren ? childrenNodeSize.height / 2 : nodeSize.height / 2),
+  };
+  const points: Point[] = [];
 
-  const sx = sourceX;
-  const sy = sourceY;
+  points.push(startPoint);
+  // checking if link is forward
+  if (d.target.level > d.source.level) {
+    for (let l = d.source.level; l < d.target.level; l++) {
+      let gapDelta = gap * getLinkGap(d.source.level, d.source.id as string);
 
-  const midY = sy + gap * getLinkGap(d.level, d.source.id as string);
-  let endArcRadius = dy - midY;
-  let startArcRadius = midY - sy;
+      if (d.target.level === l + 1 && d.target.level - d.source.level !== 1) {
+        gapDelta = gap * getLinkGap(d.target.level, d.target.id as string);
+      }
 
-  const maxCurveRadius = 30;
-  if (startArcRadius > maxCurveRadius || startArcRadius < 0) {
-    startArcRadius = maxCurveRadius;
-  }
+      let closestGapPoint: LineageGapElement;
+      if (d.target.level === l + 1) {
+        closestGapPoint = {
+          x: d.target.x,
+          y:
+            d.target.y +
+            (d.target.isChildren
+              ? childrenNodeSize.height / 2
+              : nodeSize.height / 2),
+        };
+      } else {
+        closestGapPoint = lineage.gaps[l + 1].reduce(
+          (previous, current) => {
+            if (previous.x === -1) {
+              return current;
+            }
+            return Math.abs(current.y - startPoint.y) <
+              Math.abs(previous.y - startPoint.y)
+              ? current
+              : previous;
+          },
+          { x: -1, y: -1 }
+        );
 
-  if (endArcRadius > maxCurveRadius || endArcRadius < 0) {
-    endArcRadius = maxCurveRadius;
-  }
+        closestGapPoint = {
+          x: closestGapPoint.x + nodeSize.width,
+          y: closestGapPoint.y + gap / 2,
+        };
+      }
 
-  const dist = startArcRadius + endArcRadius;
-  if (dy - sy > gap && d.target.level - d.source.level > 1) {
-    return getVerticalForwardLinkPath({
-      sx,
-      sy,
-      dx,
-      dy,
-      endArcRadius,
-      startArcRadius,
-      getLinkGap,
-      nodeSize,
-      gap,
-      midY,
-      d,
-      lineage,
-    });
-  } else {
-    if (dx > sx && dx - sx > dist) {
-      /**
-       * if connection moves in downward direction
-       */
-
-      return `M ${sx} ${sy}
-       L ${sx} ${
-        midY - startArcRadius
-      } a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${startArcRadius} L ${
-        dx - endArcRadius
-      } ${midY} a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${endArcRadius} L ${dx} ${dy}`;
-    }
-    if (dx === sx) {
-      /**
-       * if connection goes straight
-       */
-      return `M ${sx} ${sy} L ${dx} ${dy}`;
-    } else if (sx > dx && sx - dx > dist) {
-      /**
-       * if connection moves in upward direction
-       */
-
-      return `M ${sx} ${sy}
-   L ${sx} ${
-        midY - startArcRadius
-      } a${startArcRadius},${startArcRadius} 0 0 1 ${-startArcRadius},${startArcRadius} L ${
-        dx + endArcRadius
-      } ${midY} a${endArcRadius},${endArcRadius} 0 0 0 ${-endArcRadius},${endArcRadius} L ${dx} ${dy}`;
-    } else {
-      /**
-       * distance is too small to create elbow
-       */
-      const xoffset = nodeSize.width / 2;
-      const yoffset = nodeSize.height + 4;
-
-      const sx = d.source.x + xoffset;
-      const sy = d.source.y + yoffset;
-
-      const dy = d.target.y - 4;
-      const dx = d.target.x + xoffset;
-
-      const path = `M ${sx} ${sy}
-				      C ${(sx + dx) / 2} ${sy},
-				        ${(sx + dx) / 2} ${dy},
-				        ${dx} ${dy}`;
-
-      return path;
-    }
-  }
-}
-
-function horizontalDirectionLink(
-  d: LineageLinkElement,
-  levelLinkGap: LevelLinkGap,
-  nodeSize: LineageNodeSize,
-  childrenNodeSize: LineageNodeSize,
-  gap: number,
-  lineage: Lineage,
-  element: FLineage
-) {
-  const getLinkGap = (level: number, nodeid: string) => {
-    const levelGaps = levelLinkGap[level];
-    if (levelGaps && levelGaps.nodeLinkGap && levelGaps.nodeLinkGap[nodeid]) {
-      return levelGaps.nodeLinkGap[nodeid];
-    }
-    if (!levelGaps) {
-      levelLinkGap[level] = {
-        linkgap: 0.15,
-        nodeLinkGap: {},
+      const secondPoint = {
+        x: startPoint.x + gapDelta,
+        y: startPoint.y,
       };
+      points.push(secondPoint);
+
+      // check if curve is feasible
+      const isCurveFeasible =
+        Math.abs(closestGapPoint.y - startPoint.y) >= curveAngle;
+
+      const thirdPoint = {
+        x: startPoint.x + gapDelta,
+        y: isCurveFeasible ? closestGapPoint.y : startPoint.y,
+      };
+
+      points.push(thirdPoint);
+
+      points.push(closestGapPoint);
+
+      startPoint = { ...closestGapPoint };
     }
-    levelLinkGap[level].nodeLinkGap[nodeid] = levelLinkGap[level].linkgap;
-    levelLinkGap[level].linkgap += 0.2;
-    if (levelLinkGap[level].linkgap === 1) {
-      levelLinkGap[level].linkgap = 0.2;
-    }
-    return levelLinkGap[level].nodeLinkGap[nodeid];
-  };
+  } else if (d.target.level <= d.source.level) {
+    // for backward connection
+    for (let l = d.source.level; l >= d.target.level - 1; l--) {
+      let gapDelta = gap * getLinkGap(d.source.level, d.source.id as string);
 
-  const xoffset = nodeSize.width + 4;
-  const yoffset = nodeSize.height / 2;
-  const childXoffset = childrenNodeSize.width + 4;
-  const childYoffset = childrenNodeSize.height / 2;
+      if (d.target.level === l && d.target.level - d.source.level !== 1) {
+        gapDelta = gap * getLinkGap(d.target.level, d.target.id as string);
+      }
 
-  const dy = d.target.y + (d.target.isChildren ? childYoffset : yoffset);
-  const dx = d.target.x - 4;
+      let closestGapPoint: LineageGapElement;
+      if (d.target.level - 1 === l) {
+        closestGapPoint = {
+          x: d.target.x,
+          y:
+            d.target.y +
+            (d.target.isChildren
+              ? childrenNodeSize.height / 2
+              : nodeSize.height / 2),
+        };
+      } else {
+        closestGapPoint = lineage.gaps[l].reduce(
+          (previous, current) => {
+            if (previous.x === -1) {
+              return current;
+            }
+            return Math.abs(current.y - startPoint.y) <
+              Math.abs(previous.y - startPoint.y)
+              ? current
+              : previous;
+          },
+          { x: -1, y: -1 }
+        );
 
-  const sx = d.source.x + (d.source.isChildren ? childXoffset : xoffset);
-  const sy = d.source.y + (d.source.isChildren ? childYoffset : yoffset);
+        closestGapPoint = {
+          x: closestGapPoint.x - gapDelta,
+          y: closestGapPoint.y + gap / 2,
+        };
+      }
 
-  const midX = sx + gap * getLinkGap(d.level, d.source.id as string);
-  let endArcRadius = dx - midX;
-  let startArcRadius = midX - sx;
+      const secondPoint = {
+        x: startPoint.x - gapDelta * (d.source.level == l ? -1 : 1),
+        y: startPoint.y,
+      };
+      points.push(secondPoint);
 
-  const maxCurveRadius = 30;
-  if (startArcRadius > maxCurveRadius || startArcRadius < 0) {
-    startArcRadius = maxCurveRadius;
-  }
+      // check if curve is feasible
+      const isCurveFeasible =
+        Math.abs(closestGapPoint.y - startPoint.y) >= curveAngle;
 
-  if (endArcRadius > maxCurveRadius || endArcRadius < 0) {
-    endArcRadius = maxCurveRadius;
-  }
+      const thirdPoint = {
+        x: startPoint.x - gapDelta * (d.source.level == l ? -1 : 1),
+        y: isCurveFeasible ? closestGapPoint.y : startPoint.y,
+      };
 
-  const dist = startArcRadius + endArcRadius;
+      points.push(thirdPoint);
 
-  if (dx - sx > gap) {
-    return getForwardLinkPath({
-      sx,
-      sy,
-      dx,
-      dy,
-      endArcRadius,
-      startArcRadius,
-      getLinkGap,
-      nodeSize,
-      gap,
-      midX,
-      d,
-      lineage,
-    });
-  }
-  if (sx > dx) {
-    return getBackwardLinkPath({
-      sx,
-      sy,
-      dx,
-      dy,
-      endArcRadius,
-      startArcRadius,
-      getLinkGap,
-      nodeSize,
-      gap,
-      midX,
-      d,
-      lineage,
-      element,
-    });
-  } else {
-    if (dy > sy && dy - sy > dist) {
-      /**
-       * if connection moves in downward direction
-       */
+      points.push(closestGapPoint);
 
-      return `M ${sx} ${sy}
-   L ${
-     midX - startArcRadius
-   } ${sy} a${startArcRadius},${startArcRadius} 0 0 1 ${startArcRadius},${startArcRadius} L ${midX} ${
-        dy - endArcRadius
-      } a${endArcRadius},${endArcRadius} 0 0 0 ${endArcRadius},${endArcRadius} L ${dx} ${dy}`;
-    }
-    if (dy === sy) {
-      /**
-       * if connection goes straight
-       */
-      return `M ${sx} ${sy} L ${dx} ${dy}`;
-    } else if (sy > dy && sy - dy > dist) {
-      /**
-       * if connection moves in upward direction
-       */
-
-      return `M ${sx} ${sy}
-   L ${
-     midX - startArcRadius
-   } ${sy} a${startArcRadius},${startArcRadius} 0 0 0 ${startArcRadius},${-startArcRadius} L ${midX} ${
-        dy + endArcRadius
-      } a${endArcRadius},${endArcRadius} 0 0 1 ${endArcRadius},${-endArcRadius} L ${dx} ${dy}`;
-    } else {
-      /**
-       * distance is too small to create elbow
-       */
-      const xoffset = nodeSize.width + 4;
-      const yoffset = nodeSize.height / 2;
-
-      const sx = d.source.x + xoffset;
-      const sy = d.source.y + yoffset;
-
-      const dy = d.target.y + yoffset;
-      const dx = d.target.x - 4;
-
-      const path = `M ${sx} ${sy}
-				      C ${(sx + dx) / 2} ${sy},
-				        ${(sx + dx) / 2} ${dy},
-				        ${dx} ${dy}`;
-
-      return path;
+      startPoint = { ...closestGapPoint };
     }
   }
+
+  if (element) {
+    if (element.getDrawParams().svg.attr("transform") == null) {
+      const leftX = element?.padding ?? 0;
+
+      const leftMostPoint = points.find((p) => {
+        return p.x < leftX;
+      });
+
+      if (leftMostPoint) {
+        d3.select(element.svg).attr(
+          "viewBox",
+          `${
+            leftMostPoint.x - gap
+          } 0 ${element.getWidth()} ${element.getHeight()}`
+        );
+      }
+    }
+  }
+  const path = line(points as unknown as [number, number][]);
+  return path;
 }

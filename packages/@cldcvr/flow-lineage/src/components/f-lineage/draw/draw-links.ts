@@ -4,7 +4,7 @@ import {
   LineageLinkElement,
 } from "../lineage-types";
 
-import drawElbow from "./draw-elbow-updated";
+import drawElbow from "./draw-elbow";
 
 export default function drawLinks({
   lineage,
@@ -66,17 +66,6 @@ export default function drawLinks({
       } ${isDistantLink ? "distant-link" : ""}`;
     })
     .attr("d", (d) => {
-      //   return drawElbow(
-      //     d,
-      //     levelLinkGap,
-      //     nodeSize,
-      //     childrenNodeSize,
-      //     gap,
-      //     direction,
-      //     lineage,
-      //     element
-      //   );
-
       return drawElbow({
         d,
         levelLinkGap,

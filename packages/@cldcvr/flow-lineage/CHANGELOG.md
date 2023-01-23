@@ -4,6 +4,18 @@
 
 # Change Log
 
+## [1.1.9] - 2023-01-23
+
+### Improvements
+
+- Same-level link logic implemented.
+
+### Bug fixes
+- Backward connection going though node
+- Curve angle glitch fixed.
+- When we exapnd collapse nodes were overlapping.
+- Chart is dragged if root has backward connection. (Logic updated)
+
 ## [1.1.8] - 2023-01-20
 
 ### Improvements

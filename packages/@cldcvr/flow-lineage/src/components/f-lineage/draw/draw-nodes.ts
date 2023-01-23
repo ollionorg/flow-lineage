@@ -97,8 +97,14 @@ export default function drawNodes(params: DrawLineageParams) {
           nodesToUpdate.forEach((n) => {
             if (!d.hideChildren) {
               n.y += childHeight;
+              if (n.childrenYMax) {
+                n.childrenYMax += childHeight;
+              }
             } else {
               n.y -= childHeight;
+              if (n.childrenYMax) {
+                n.childrenYMax -= childHeight;
+              }
             }
           });
           if (!d.hideChildren) {
