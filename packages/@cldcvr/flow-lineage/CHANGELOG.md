@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.2.1] - 2023-01-24
+
+### Bug Fix
+
+- Background link not shifting when we toggle children.
 ## [1.2.0] - 2023-01-23
 
 ### Improvements

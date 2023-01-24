@@ -263,6 +263,9 @@ export class FLineage extends FRoot {
         ) {
           return true;
         }
+        if (link.target.level <= link.source.level) {
+          return true;
+        }
         return (
           levelsToPlot.includes(link.source.level) ||
           levelsToPlot.includes(link.target.level)

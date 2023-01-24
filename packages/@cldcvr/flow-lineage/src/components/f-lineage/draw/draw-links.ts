@@ -61,9 +61,13 @@ export default function drawLinks({
       const isDistantLink =
         d.source.level - d.target.level > 1 ||
         d.target.level - d.source.level > 1;
+
+      const isBackwardLink = d.target.level <= d.source.level;
       return `link lineage-element ${
         d.source.isChildren || d.target.isChildren ? "child-link" : ""
-      } ${isDistantLink ? "distant-link" : ""}`;
+      } ${isDistantLink ? "distant-link" : ""} ${
+        isBackwardLink ? "backward-link" : "forward-link"
+      }`;
     })
     .attr("d", (d) => {
       return drawElbow({

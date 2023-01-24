@@ -30,5 +30,8 @@ export function removeDistantLinks(lineage: FLineage) {
     root.querySelectorAll(`.distant-link`).forEach((el) => {
       el.remove();
     });
+    root.querySelectorAll(`.backward-link`).forEach((el) => {
+      el.remove();
+    });
   }
 }
