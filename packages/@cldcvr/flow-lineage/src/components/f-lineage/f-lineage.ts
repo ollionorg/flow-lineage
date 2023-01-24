@@ -251,11 +251,8 @@ export class FLineage extends FRoot {
       levelsToPlot,
       page,
       filter: (link) => {
-        if (link.source.isChildren && !link.source.isVisible) {
-          return false;
-        }
-        if (link.target.isChildren && !link.target.isVisible) {
-          return false;
+        if (link.source.isChildren || link.target.isChildren) {
+          return true;
         }
         if (
           link.source.level - link.target.level > 1 ||

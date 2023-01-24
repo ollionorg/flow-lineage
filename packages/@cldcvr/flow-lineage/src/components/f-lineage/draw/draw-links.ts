@@ -4,7 +4,11 @@ import {
   LineageLinkElement,
 } from "../lineage-types";
 
-import drawElbow from "./draw-elbow";
+import drawElbow, {
+  getHiddenChildLinkId,
+  getParentLinkForHiddenChild,
+  isDashedLink,
+} from "./draw-elbow";
 
 export default function drawLinks({
   lineage,
@@ -26,12 +30,6 @@ export default function drawLinks({
   const levelLinkGap: LevelLinkGap = {};
   const degreeFilter = (l: LineageLinkElement) => {
     if (levelsToPlot.length > 0) {
-      if (l.target.isChildren) {
-        return levelsToPlot.includes(l.target.level) && l.target.isVisible;
-      }
-      if (l.source.isChildren) {
-        return l.source.isVisible;
-      }
       if (l.source.level > l.target.level) {
         return levelsToPlot.includes(l.source.level);
       } else {
@@ -64,7 +62,9 @@ export default function drawLinks({
 
       const isBackwardLink = d.target.level <= d.source.level;
       return `link lineage-element ${
-        d.source.isChildren || d.target.isChildren ? "child-link" : ""
+        d.source.isChildren || d.target.isChildren || isDashedLink(d)
+          ? "child-link"
+          : ""
       } ${isDistantLink ? "distant-link" : ""} ${
         isBackwardLink ? "backward-link" : "forward-link"
       }`;
@@ -83,9 +83,17 @@ export default function drawLinks({
     })
     .attr("stroke", "var(--color-border-default)")
     .attr("stroke-width", 2)
-    .attr("stroke-dasharray", 0)
+    .attr("stroke-dasharray", function (d) {
+      return isDashedLink(d) ? "8 4" : 0;
+    })
     .attr("id", function (d) {
       return d.id;
+    })
+    .attr("data-parent-id", function (d) {
+      if (isDashedLink(d)) {
+        return getHiddenChildLinkId(d);
+      }
+      return null;
     })
     .attr("fill", "none");
 
@@ -95,24 +103,32 @@ export default function drawLinks({
     .attr("id", (d) => {
       return `source-dot-${d.id}`;
     })
+    .attr("data-parent-id", function (d) {
+      if (isDashedLink(d)) {
+        return getHiddenChildLinkId(d);
+      }
+      return null;
+    })
     .attr("r", 6)
     .attr("cx", (d) => {
-      const nodeWidth = d.source.isChildren
+      const link = getParentLinkForHiddenChild(d);
+      const nodeWidth = link.source.isChildren
         ? childrenNodeSize.width
         : nodeSize.width;
       if (direction === "vertical") {
-        return d.source.x + nodeWidth / 2;
+        return link.source.x + nodeWidth / 2;
       }
-      return d.source.x + nodeWidth;
+      return link.source.x + nodeWidth;
     })
     .attr("cy", (d) => {
-      const nodeHeight = d.source.isChildren
+      const link = getParentLinkForHiddenChild(d);
+      const nodeHeight = link.source.isChildren
         ? childrenNodeSize.height
         : nodeSize.height;
       if (direction === "vertical") {
-        return d.source.y + nodeHeight;
+        return link.source.y + nodeHeight;
       }
-      return d.source.y + nodeHeight / 2;
+      return link.source.y + nodeHeight / 2;
     })
     .attr("fill", "var(--color-border-default)")
     .attr("stroke", "var(--color-surface-default)")
@@ -124,25 +140,33 @@ export default function drawLinks({
     .attr("id", (d) => {
       return `${d.id}~target-dot`;
     })
+    .attr("data-parent-id", function (d) {
+      if (isDashedLink(d)) {
+        return getHiddenChildLinkId(d);
+      }
+      return null;
+    })
     .attr("r", 6)
     .attr("cx", (d) => {
+      const link = getParentLinkForHiddenChild(d);
       if (direction === "vertical") {
         return (
-          d.target.x +
-          (d.target.isChildren
+          link.target.x +
+          (link.target.isChildren
             ? childrenNodeSize.width / 2
             : nodeSize.width / 2)
         );
       }
-      return d.target.x;
+      return link.target.x;
     })
     .attr("cy", (d) => {
+      const link = getParentLinkForHiddenChild(d);
       if (direction === "vertical") {
-        return d.target.y;
+        return link.target.y;
       }
       return (
-        d.target.y +
-        (d.target.isChildren
+        link.target.y +
+        (link.target.isChildren
           ? childrenNodeSize.height / 2
           : nodeSize.height / 2)
       );
@@ -160,6 +184,12 @@ export default function drawLinks({
     })
     .attr("id", function (d) {
       return `${d.id}~arrow`;
+    })
+    .attr("data-parent-id", function (d) {
+      if (isDashedLink(d)) {
+        return getHiddenChildLinkId(d);
+      }
+      return null;
     })
     .attr("stroke", "var(--color-surface-default)")
     .attr("stroke-width", "1px")

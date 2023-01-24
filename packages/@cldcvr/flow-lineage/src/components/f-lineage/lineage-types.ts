@@ -37,6 +37,7 @@ export type LineageNodeElement = {
   childrenXMax?: number;
   hasScrollbaleChildren?: boolean;
   parentId?: string;
+  parent?: LineageNodeElement;
   offset?: number;
   isVisible?: boolean;
   childrenToggle?: string;

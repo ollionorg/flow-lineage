@@ -3,7 +3,7 @@ import { html } from "lit-html";
 import { LineageNodeLinks, LineageNodes } from "@cldcvr/flow-lineage/src";
 
 export default {
-  title: "Debug/node-overlap",
+  title: "Debug/dashed-hidden-children-link",
   argTypes: {
     ["node-template"]: {
       control: false,
@@ -138,16 +138,9 @@ const nodes: LineageNodes = {
 const links: LineageNodeLinks = [
   {
     from: "node1",
-    to: "node5",
-  },
-  {
-    from: "node1",
     to: "node2",
   },
-  {
-    from: "node1",
-    to: "node4",
-  },
+
   {
     from: "node2",
     to: "node5",
@@ -175,12 +168,28 @@ const links: LineageNodeLinks = [
   },
   {
     from: "node1child1",
-    to: "node5child2",
+    to: "node5child6",
   },
 ];
 
 const Template: Story<unknown> = (args: any) => {
   return html`
+    <f-icon>
+      <svg
+        width="24"
+        height="22"
+        viewBox="0 0 24 22"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M23.589 12.3372C24.137 11.3881 24.137 10.2186 23.589 9.26944L19.123 1.5339C18.575 0.584722 17.5622 0 16.4661 0H7.53392C6.4379 0 5.42514 0.584722 4.87713 1.5339L0.411008 9.26944C-0.137003 10.2186 -0.137003 11.3881 0.411008 12.3372L4.87713 20.0729C5.42514 21.022 6.4379 21.6068 7.53392 21.6068H16.4661C17.5622 21.6068 18.575 21.022 19.123 20.0729L23.589 12.3372ZM5.52307 15.9325L7.15439 18.7581C7.23268 18.8936 7.37735 18.9772 7.53392 18.9772H16.4661C16.6227 18.9772 16.7674 18.8936 16.8457 18.7581L18.477 15.9325C16.7654 14.3794 14.4932 13.4331 12 13.4331C9.50681 13.4331 7.23462 14.3794 5.52307 15.9325ZM12 11.6801C13.9364 11.6801 15.5061 10.1104 15.5061 8.17401C15.5061 6.23766 13.9364 4.66794 12 4.66794C10.0637 4.66794 8.49397 6.23766 8.49397 8.17401C8.49397 10.1104 10.0637 11.6801 12 11.6801Z"
+          fill="white"
+        />
+      </svg>
+    </f-icon>
     <f-lineage
       direction="horizontal"
       padding="16"

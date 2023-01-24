@@ -355,19 +355,12 @@ export default function drawNodes(params: DrawLineageParams) {
     drawLinks({
       ...params,
       filter: (link) => {
-        const sourceLink = childNodes.find((c) => {
-          const targetElement = element.shadowRoot?.querySelector(
-            `#${link.target.id}`
-          );
-
-          return c.id === link.source.id && targetElement;
+        const sourceLink = allChildNodes.find((c) => {
+          return c.id === link.source.id;
         });
 
-        const targetLink = childNodes.find((c) => {
-          const sourceElement = element.shadowRoot?.querySelector(
-            `#${link.source.id}`
-          );
-          return c.id === link.target.id && sourceElement;
+        const targetLink = allChildNodes.find((c) => {
+          return c.id === link.target.id;
         });
 
         return sourceLink !== undefined || targetLink !== undefined;

@@ -112,7 +112,7 @@ export default function createNodeElements(
       /**
        * compute child node elements
        */
-      computeElements(children, levelPointer, level, true, node.id);
+      computeElements(children, levelPointer, level, true, nodeElement);
 
       /**
        * storing last child co-ordinates
@@ -190,7 +190,7 @@ export default function createNodeElements(
     node: LineageNodeChildren,
     level: number,
     levelPointer: Pointer,
-    parentId: string | undefined
+    parent: LineageNodeElement | undefined
   ): LineageNodeElement => {
     /**
      * add child node co-ordinates based on current pointer
@@ -203,7 +203,8 @@ export default function createNodeElements(
       x: levelPointer.x,
       y: levelPointer.y,
       isChildren: true,
-      parentId,
+      parentId: parent?.id,
+      parent,
       nodeTemplate: node.nodeTemplate,
       click: node.click,
       rightClick: node.rightClick,
@@ -227,7 +228,7 @@ export default function createNodeElements(
     levelPointer: Pointer,
     level: number,
     isChildren?: boolean,
-    parentId?: string
+    parent?: LineageNodeElement
   ) => {
     /**
      * Interate through nodes and calculate co-ordinates
@@ -238,7 +239,7 @@ export default function createNodeElements(
           node,
           level,
           levelPointer,
-          parentId
+          parent
         );
         nodeElements.push(nodeElement);
 

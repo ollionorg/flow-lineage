@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.2.2] - 2023-01-24
+
+### Improvements
+
+- Show dashed hidden children links when node is focused.
 ## [1.2.1] - 2023-01-24
 
 ### Bug Fix

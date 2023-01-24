@@ -7,6 +7,7 @@ import {
   LineageLinkElement,
   LineageNodeSize,
   LineageGapElement,
+  LineageNodeElement,
 } from "../lineage-types";
 import * as d3 from "d3";
 
@@ -34,6 +35,7 @@ export default function drawElbow({
   lineage,
 }: DrawElbowParams) {
   const curveAngle = 12;
+  const link = getParentLinkForHiddenChild(d);
   // random delta for node used to pass link in gap
   const getLinkGap = (level: number, nodeid: string) => {
     const levelGaps = levelLinkGap[level];
@@ -64,31 +66,38 @@ export default function drawElbow({
   // add point on node for connection
   let startPoint: Point = {
     x:
-      d.source.x +
-      (d.source.isChildren ? childrenNodeSize.width : nodeSize.width),
+      link.source.x +
+      (link.source.isChildren ? childrenNodeSize.width : nodeSize.width),
     y:
-      d.source.y +
-      (d.source.isChildren ? childrenNodeSize.height / 2 : nodeSize.height / 2),
+      link.source.y +
+      (link.source.isChildren
+        ? childrenNodeSize.height / 2
+        : nodeSize.height / 2),
   };
   const points: Point[] = [];
 
   points.push(startPoint);
   // checking if link is forward
-  if (d.target.level > d.source.level) {
-    for (let l = d.source.level; l < d.target.level; l++) {
-      let gapDelta = gap * getLinkGap(d.source.level, d.source.id as string);
+  if (link.target.level > link.source.level) {
+    for (let l = link.source.level; l < link.target.level; l++) {
+      let gapDelta =
+        gap * getLinkGap(link.source.level, link.source.id as string);
 
-      if (d.target.level === l + 1 && d.target.level - d.source.level !== 1) {
-        gapDelta = gap * getLinkGap(d.target.level, d.target.id as string);
+      if (
+        link.target.level === l + 1 &&
+        link.target.level - link.source.level !== 1
+      ) {
+        gapDelta =
+          gap * getLinkGap(link.target.level, link.target.id as string);
       }
 
       let closestGapPoint: LineageGapElement;
-      if (d.target.level === l + 1) {
+      if (link.target.level === l + 1) {
         closestGapPoint = {
-          x: d.target.x,
+          x: link.target.x,
           y:
-            d.target.y +
-            (d.target.isChildren
+            link.target.y +
+            (link.target.isChildren
               ? childrenNodeSize.height / 2
               : nodeSize.height / 2),
         };
@@ -133,22 +142,27 @@ export default function drawElbow({
 
       startPoint = { ...closestGapPoint };
     }
-  } else if (d.target.level <= d.source.level) {
+  } else if (link.target.level <= link.source.level) {
     // for backward connection
-    for (let l = d.source.level; l >= d.target.level - 1; l--) {
-      let gapDelta = gap * getLinkGap(d.source.level, d.source.id as string);
+    for (let l = link.source.level; l >= link.target.level - 1; l--) {
+      let gapDelta =
+        gap * getLinkGap(link.source.level, link.source.id as string);
 
-      if (d.target.level === l && d.target.level - d.source.level > 1) {
-        gapDelta = gap * getLinkGap(d.target.level, d.target.id as string);
+      if (
+        link.target.level === l &&
+        link.target.level - link.source.level > 1
+      ) {
+        gapDelta =
+          gap * getLinkGap(link.target.level, link.target.id as string);
       }
 
       let closestGapPoint: LineageGapElement;
-      if (d.target.level - 1 === l) {
+      if (link.target.level - 1 === l) {
         closestGapPoint = {
-          x: d.target.x,
+          x: link.target.x,
           y:
-            d.target.y +
-            (d.target.isChildren
+            link.target.y +
+            (link.target.isChildren
               ? childrenNodeSize.height / 2
               : nodeSize.height / 2),
         };
@@ -173,7 +187,7 @@ export default function drawElbow({
       }
 
       const secondPoint = {
-        x: startPoint.x - gapDelta * (d.source.level == l ? -1 : 1),
+        x: startPoint.x - gapDelta * (link.source.level == l ? -1 : 1),
         y: startPoint.y,
       };
       points.push(secondPoint);
@@ -183,7 +197,7 @@ export default function drawElbow({
         Math.abs(closestGapPoint.y - startPoint.y) >= curveAngle;
 
       const thirdPoint = {
-        x: startPoint.x - gapDelta * (d.source.level == l ? -1 : 1),
+        x: startPoint.x - gapDelta * (link.source.level == l ? -1 : 1),
         y: isCurveFeasible ? closestGapPoint.y : startPoint.y,
       };
 
@@ -215,4 +229,45 @@ export default function drawElbow({
   }
   const path = line(points as unknown as [number, number][]);
   return path;
+}
+
+export function getParentLinkForHiddenChild(d: LineageLinkElement) {
+  const link = JSON.parse(JSON.stringify(d)) as LineageLinkElement;
+
+  if (link.source.isChildren && !link.source.isVisible) {
+    link.source.x = (link.source.parent as LineageNodeElement).x;
+    link.source.y = (link.source.parent as LineageNodeElement).y;
+    link.source.isChildren = false;
+  }
+  if (link.target.isChildren && !link.target.isVisible) {
+    link.target.x = (link.target.parent as LineageNodeElement).x;
+    link.target.y = (link.target.parent as LineageNodeElement).y;
+    link.target.isChildren = false;
+  }
+
+  return link;
+}
+
+export function isDashedLink(d: LineageLinkElement) {
+  const link = d;
+  if (link.source.isChildren && !link.source.isVisible) {
+    return true;
+  }
+  if (link.target.isChildren && !link.target.isVisible) {
+    return true;
+  }
+  return false;
+}
+
+export function getHiddenChildLinkId(d: LineageLinkElement) {
+  const link = JSON.parse(JSON.stringify(d)) as LineageLinkElement;
+
+  if (link.source.isChildren && !link.source.isVisible) {
+    link.source.id = (link.source.parent as LineageNodeElement).id;
+  }
+  if (link.target.isChildren && !link.target.isVisible) {
+    link.target.id = (link.target.parent as LineageNodeElement).id;
+  }
+
+  return link.source.id + "->" + link.target.id;
 }

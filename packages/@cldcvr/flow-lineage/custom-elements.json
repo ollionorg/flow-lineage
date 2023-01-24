@@ -803,6 +803,42 @@
               }
             }
           ]
+        },
+        {
+          "kind": "function",
+          "name": "getParentLinkForHiddenChild",
+          "parameters": [
+            {
+              "name": "d",
+              "type": {
+                "text": "LineageLinkElement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isDashedLink",
+          "parameters": [
+            {
+              "name": "d",
+              "type": {
+                "text": "LineageLinkElement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getHiddenChildLinkId",
+          "parameters": [
+            {
+              "name": "d",
+              "type": {
+                "text": "LineageLinkElement"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -811,6 +847,30 @@
           "name": "default",
           "declaration": {
             "name": "drawElbow",
+            "module": "src/components/f-lineage/draw/draw-elbow.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getParentLinkForHiddenChild",
+          "declaration": {
+            "name": "getParentLinkForHiddenChild",
+            "module": "src/components/f-lineage/draw/draw-elbow.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isDashedLink",
+          "declaration": {
+            "name": "isDashedLink",
+            "module": "src/components/f-lineage/draw/draw-elbow.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getHiddenChildLinkId",
+          "declaration": {
+            "name": "getHiddenChildLinkId",
             "module": "src/components/f-lineage/draw/draw-elbow.ts"
           }
         }

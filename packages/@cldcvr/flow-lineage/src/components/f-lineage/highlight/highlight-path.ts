@@ -50,6 +50,10 @@ export default function highlightPath(
             el.classList.add("highlight");
             el.classList.remove("lowlight");
           });
+          root.querySelectorAll(`[data-parent-id^="${id}->"]`).forEach((el) => {
+            el.classList.add("highlight");
+            el.classList.remove("lowlight");
+          });
         }
       }
     };
@@ -81,6 +85,10 @@ export default function highlightPath(
             el.classList.remove("lowlight");
           });
           root.querySelectorAll(`[id$="->${id}~arrow"]`).forEach((el) => {
+            el.classList.add("highlight");
+            el.classList.remove("lowlight");
+          });
+          root.querySelectorAll(`[data-parent-id$="->${id}"]`).forEach((el) => {
             el.classList.add("highlight");
             el.classList.remove("lowlight");
           });

@@ -55,8 +55,10 @@ f-div[direction="row"] {
 
   .child-link {
     opacity: 0;
+    stroke-opacity: 0;
     &.highlight {
       opacity: 1;
+      stroke-opacity: 1;
     }
   }
 
