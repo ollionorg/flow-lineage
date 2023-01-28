@@ -24,7 +24,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
         control: "select",
         options: ["horizontal", "vertical"],
       },
-      data: {
+      templateData: {
         control: "object",
       },
       padding: {
@@ -47,7 +47,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
       direction: "horizontal",
       nodes: {
         root: {
-          data: {
+          templateData: {
             fullName: "Carey McLaughlin",
             designation: "Vice President",
             mobile: "+1 123 456 000",
@@ -55,7 +55,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           },
         },
         hr: {
-          data: {
+          templateData: {
             fullName: "Angelena Doyle",
             designation: "Director Human Resources",
             mobile: "+1 123 456 000",
@@ -63,7 +63,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           },
         },
         am: {
-          data: {
+          templateData: {
             fullName: "Max Oliver",
             designation: "Director Accounting",
             mobile: "+1 123 456 000",
@@ -71,7 +71,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           },
         },
         mo: {
-          data: {
+          templateData: {
             fullName: "Aubree Matthews",
             designation: "Director Marketing",
             mobile: "+1 123 456 000",
@@ -79,7 +79,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           },
         },
         "mo-tl1": {
-          data: {
+          templateData: {
             fullName: "Anastasia Day",
             designation: "Team Lead",
             mobile: "+1 123 456 000",
@@ -87,17 +87,17 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           },
           children: {
             ["mo-tl1-1"]: {
-              data: {
+              templateData: {
                 fullName: "Whitney Lambert",
               },
             },
             ["mo-tl1-2"]: {
-              data: {
+              templateData: {
                 fullName: "Jennifer Pearson",
               },
             },
             ["mo-tl1-3"]: {
-              data: {
+              templateData: {
                 fullName: "Lark Motley",
               },
             },
@@ -105,7 +105,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           hideChildren: false,
         },
         "mo-tl2": {
-          data: {
+          templateData: {
             fullName: "Osmond Wise",
             designation: "Team Lead",
             mobile: "+1 123 456 000",
@@ -113,17 +113,17 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           },
           children: {
             ["mo-tl2-1"]: {
-              data: {
+              templateData: {
                 fullName: "Adele Green",
               },
             },
             ["mo-tl2-2"]: {
-              data: {
+              templateData: {
                 fullName: "Lawrence Potter",
               },
             },
             ["mo-tl2-3"]: {
-              data: {
+              templateData: {
                 fullName: "Darlene Holden",
               },
             },
@@ -131,7 +131,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           hideChildren: false,
         },
         de: {
-          data: {
+          templateData: {
             fullName: "Ben Stokes",
             designation: "Director Engineering",
             mobile: "+1 123 456 000",
@@ -139,7 +139,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           },
         },
         tl1: {
-          data: {
+          templateData: {
             fullName: "Aaron Verler",
             designation: "Team Lead",
             mobile: "+1 123 456 000",
@@ -147,17 +147,17 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           },
           children: {
             ["tl1-1"]: {
-              data: {
+              templateData: {
                 fullName: "Max Furry",
               },
             },
             ["tl1-2"]: {
-              data: {
+              templateData: {
                 fullName: "Steve Roger",
               },
             },
             ["tl1-3"]: {
-              data: {
+              templateData: {
                 fullName: "Tony Stark",
               },
             },
@@ -165,7 +165,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           hideChildren: false,
         },
         tl2: {
-          data: {
+          templateData: {
             fullName: "Bruce Banner",
             designation: "Team Lead",
             mobile: "+1 123 456 000",
@@ -173,17 +173,17 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           },
           children: {
             ["tl2-1"]: {
-              data: {
+              templateData: {
                 fullName: "Celeste Waters",
               },
             },
             ["tl2-2"]: {
-              data: {
+              templateData: {
                 fullName: "Jeffrey Bell",
               },
             },
             ["tl2-3"]: {
-              data: {
+              templateData: {
                 fullName: "Mona Hancock",
               },
             },
@@ -242,18 +242,18 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
         \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
       >
 	  	<f-div height="hug-content">
-	  		<f-text variant="heading" size="medium">\${node.data.designation}</f-text>
+	  		<f-text variant="heading" size="medium">\${node.templateData.designation}</f-text>
 			\${node.childrenToggle}
 		</f-div>
 		<f-div height="hug-content" gap="small">
 			<f-pictogram source="i-user" state="success" size="large" variant="circle"></f-pictogram>
 			<f-div direction="column" height="hug-content" align="middle-left">
-				<f-text  ellipsis>\${node.data.fullName}</f-text>
+				<f-text  ellipsis>\${node.templateData.fullName}</f-text>
 				<f-div padding="x-small none none none">
-					<f-text size="small" ellipsis>Mobile No : \${node.data.mobile}</f-text>
+					<f-text size="small" ellipsis>Mobile No : \${node.templateData.mobile}</f-text>
 				</f-div>
 				<f-div padding="x-small none none none">
-					<f-text size="small" ellipsis>Email : \${node.data.email}</f-text>
+					<f-text size="small" ellipsis>Email : \${node.templateData.email}</f-text>
 				</f-div>
 			</f-div>
 		</f-div>
@@ -268,12 +268,12 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
           border="small solid default bottom"
         >
           <f-icon source="i-user" size="small"></f-icon>
-          <f-text variant="code" size="medium" ellipsis>\${node.data.fullName}</f-text>
+          <f-text variant="code" size="medium" ellipsis>\${node.templateData.fullName}</f-text>
         </f-div>`,
     }}
   >
     {(args) => {
-      //  const data = lineageDataGenerator();
+      //  const templateData = lineageDataGenerator();
       return html`<f-lineage
         .direction=${args.direction}
         .nodes=${args.nodes}

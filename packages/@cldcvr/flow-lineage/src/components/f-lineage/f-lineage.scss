@@ -25,11 +25,9 @@ f-div[direction="row"] {
 }
 
 :host {
-  background-color: var(--color-surface-default);
   position: relative;
   > svg {
     animation: none !important;
-    background-color: var(--color-surface-default);
   }
 
   foreignObject {
@@ -66,5 +64,12 @@ f-div[direction="row"] {
     position: absolute;
     top: 0px;
     left: 0px;
+  }
+
+  .selected {
+    filter: drop-shadow(1px 0 0 var(--color-primary-default))
+      drop-shadow(-1px 0 0 var(--color-primary-default))
+      drop-shadow(0 -1px 0 var(--color-primary-default))
+      drop-shadow(0 1px 0 var(--color-primary-default));
   }
 }

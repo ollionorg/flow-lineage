@@ -5,7 +5,7 @@ import { FLineage } from "./f-lineage";
 export type LineageBaseNode = {
   id?: string;
   links?: LineageNodeLink[];
-  data?: Record<string, any>;
+  templateData?: Record<string, any>;
   nodeTemplate?: string;
   click?: (event: Event, node: LineageNodeElement) => void;
   rightClick?: (event: Event, node: LineageNodeElement) => void;

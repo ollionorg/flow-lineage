@@ -193,6 +193,16 @@
             },
             {
               "kind": "field",
+              "name": "background",
+              "type": {
+                "text": "string | undefined"
+              },
+              "default": "\"var(--color-surface-default)\"",
+              "attribute": "background",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "nodes",
               "type": {
                 "text": "LineageNodes"
@@ -257,12 +267,12 @@
             },
             {
               "kind": "field",
-              "name": "[\"stager-load\"]",
+              "name": "[\"stagger-load\"]",
               "type": {
                 "text": "number"
               },
               "default": "10",
-              "attribute": "[\"stager-load\"]",
+              "attribute": "[\"stagger-load\"]",
               "reflects": true
             },
             {
@@ -429,6 +439,10 @@
             },
             {
               "kind": "method",
+              "name": "applyBackground"
+            },
+            {
+              "kind": "method",
               "name": "getNumbersFromRange",
               "parameters": [
                 {
@@ -504,6 +518,14 @@
               "fieldName": "direction"
             },
             {
+              "name": "background",
+              "type": {
+                "text": "string | undefined"
+              },
+              "default": "\"var(--color-surface-default)\"",
+              "fieldName": "background"
+            },
+            {
               "name": "nodes",
               "type": {
                 "text": "LineageNodes"
@@ -548,12 +570,12 @@
               "fieldName": "[\"center-node\"]"
             },
             {
-              "name": "[\"stager-load\"]",
+              "name": "[\"stagger-load\"]",
               "type": {
                 "text": "number"
               },
               "default": "10",
-              "fieldName": "[\"stager-load\"]"
+              "fieldName": "[\"stagger-load\"]"
             },
             {
               "name": "[\"children-node-size\"]",

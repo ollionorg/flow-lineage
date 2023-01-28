@@ -16,6 +16,10 @@ export default function highlightPath(
     root.querySelectorAll(".highlight").forEach((el) => {
       el.classList.remove("highlight");
     });
+    root.querySelectorAll(".selected").forEach((el) => {
+      el.classList.remove("selected");
+    });
+    root.querySelector(`#${node.id}`)?.classList.add("selected");
     /**
      * Add lowlight class to all eligible elements
      */

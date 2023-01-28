@@ -16,20 +16,20 @@ export default {
 
 const nodes: LineageNodes = {
   rdj: {
-    data: {
+    templateData: {
       fullName: "Robert Downey Jr.",
       description: "Movies",
       state: "secondary",
     },
     children: {
       child1: {
-        data: {
+        templateData: {
           icon: "i-hashtag",
           title: "Iron man 1",
         },
       },
       child2: {
-        data: {
+        templateData: {
           icon: "i-hashtag",
           title: "Iron man 2",
         },
@@ -37,27 +37,27 @@ const nodes: LineageNodes = {
     },
   },
   judge: {
-    data: {
+    templateData: {
       fullName: "The Judge",
       description: "Hank Palmer",
       state: "custom,#006ecc",
     },
   },
   ironman: {
-    data: {
+    templateData: {
       fullName: "Iron Man",
       description: "Tony stark",
       state: "secondary",
     },
     children: {
       iman1: {
-        data: {
+        templateData: {
           icon: "i-hashtag",
           title: "Iron man 1",
         },
       },
       iman2: {
-        data: {
+        templateData: {
           icon: "i-paragraph",
           title: "Iron man 2",
         },
@@ -65,20 +65,20 @@ const nodes: LineageNodes = {
     },
   },
   hank: {
-    data: {
+    templateData: {
       fullName: "Hank Palmer",
       description: "Actor",
       state: "secondary",
     },
     children: {
       child1: {
-        data: {
+        templateData: {
           icon: "i-hashtag",
           title: "Node child 1",
         },
       },
       child2: {
-        data: {
+        templateData: {
           icon: "i-paragraph",
           title: "Node child 2",
         },
@@ -87,20 +87,20 @@ const nodes: LineageNodes = {
     hideChildren: false,
   },
   prop1: {
-    data: {
+    templateData: {
       fullName: "Bugs",
       description: "Roota Voota",
       state: "primary",
     },
     children: {
       hchild1: {
-        data: {
+        templateData: {
           icon: "i-hashtag",
           title: "H Node child 1",
         },
       },
       hchild2: {
-        data: {
+        templateData: {
           icon: "i-paragraph",
           title: "H Node child 2",
         },
@@ -156,7 +156,7 @@ const Template: Story<unknown> = (args: any) => {
       .children-node-template=${args["children-node-template"]}
       .links=${links}
       .nodes=${nodes}
-      stager-load="1"
+      stagger-load="1"
     ></f-lineage>
   `;
 };
@@ -165,7 +165,7 @@ export const basic = Template.bind({});
 
 basic.args = {
   ["node-template"]: `<f-div
-  state=\${node.data.state}
+  state=\${node.templateData.state}
   width="100%"
   height="100%"
   padding="small"
@@ -174,9 +174,9 @@ basic.args = {
   gap="small"
   \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
 >
-	<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
+	<f-pictogram variant="circle" source="\${node.templateData.fullName}"></f-pictogram>
 	<f-div direction="column">
-		<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
+		<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
 		<f-text size="small" ellipsis> x : \${node.x} , y : \${node.y}</f-text>
 	</f-div>
 	\${node.childrenToggle}
@@ -190,7 +190,7 @@ align="middle-left"
 gap="small"
 border="small solid default bottom"
 >
-<f-icon source="\${node.data.icon}" size="small"></f-icon>
-<f-text  size="small" ellipsis>\${node.data.title}</f-text>
+<f-icon source="\${node.templateData.icon}" size="small"></f-icon>
+<f-text  size="small" ellipsis>\${node.templateData.title}</f-text>
 </f-div>`,
 };

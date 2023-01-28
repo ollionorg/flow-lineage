@@ -31,7 +31,7 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
         control: "select",
         options: ["horizontal", "vertical"],
       },
-      data: {
+      templateData: {
         control: "object",
       },
       padding: {
@@ -189,7 +189,7 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
       ],
       nodes: {
         Calvin: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Calvin",
@@ -227,7 +227,7 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
           },
         },
         Hansen: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Hansen",
@@ -235,49 +235,49 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
           children: { hchild1: {} },
         },
         Alicen: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Alicen",
           },
         },
         Jennifer: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Jennifer",
           },
         },
         Brooke: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Brooke",
           },
         },
         Tamara: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Tamara",
           },
         },
         Bradley: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Bradley",
           },
         },
         Roger: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Roger",
           },
         },
         Max: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Max",
@@ -303,7 +303,7 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
           },
         },
         Tony: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Tony",
@@ -330,42 +330,42 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
       </f-div>`,
         },
         Charlie: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Roger",
           },
         },
         John: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "John",
           },
         },
         Tim: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Tim",
           },
         },
         Sam: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Sam",
           },
         },
         Rex: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Rex",
           },
         },
         Pat: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Pat",
@@ -390,7 +390,7 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
         .children-node-template=${args["children-node-template"]}
         .links=${args.links}
         .nodes=${args.nodes}
-        stager-load="1"
+        stagger-load="1"
         @ready=${handleReady}
       ></f-lineage>`;
     }}

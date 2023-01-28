@@ -16,14 +16,14 @@ export default {
 
 const nodes: LineageNodes = {
   node1: {
-    data: {
+    templateData: {
       fullName: "Node 1",
       description: "Movies",
       state: "secondary",
     },
     children: {
       noede1_child: {
-        data: {
+        templateData: {
           icon: "i-hashtag",
           title: "Iron man 1",
         },
@@ -31,34 +31,34 @@ const nodes: LineageNodes = {
     },
   },
   node2: {
-    data: {
+    templateData: {
       fullName: "Node 2",
       description: "Hank Palmer",
       state: "custom,#006ecc",
     },
   },
   node3: {
-    data: {
+    templateData: {
       fullName: "Node 3",
       description: "Hank Palmer",
       state: "custom,#006ecc",
     },
   },
   node4: {
-    data: {
+    templateData: {
       fullName: "Node 4",
       description: "Tony stark",
       state: "secondary",
     },
     children: {
       node4child1: {
-        data: {
+        templateData: {
           icon: "i-hashtag",
           title: "node 4 child 1",
         },
       },
       node4child2: {
-        data: {
+        templateData: {
           icon: "i-paragraph",
           title: "node 4 child 2",
         },
@@ -67,20 +67,20 @@ const nodes: LineageNodes = {
     hideChildren: false,
   },
   node5: {
-    data: {
+    templateData: {
       fullName: "Node 5",
       description: "Actor",
       state: "secondary",
     },
     children: {
       node5child1: {
-        data: {
+        templateData: {
           icon: "i-hashtag",
           title: "Node 5 child 1",
         },
       },
       node5child2: {
-        data: {
+        templateData: {
           icon: "i-paragraph",
           title: "Node 5 child 2",
         },
@@ -89,7 +89,7 @@ const nodes: LineageNodes = {
     hideChildren: false,
   },
   node6: {
-    data: {
+    templateData: {
       fullName: "Node 6",
       description: "Hank Palmer",
       state: "custom,#006ecc",
@@ -152,7 +152,7 @@ const Template: Story<unknown> = (args: any) => {
       .children-node-template=${args["children-node-template"]}
       .links=${links}
       .nodes=${nodes}
-      stager-load="1"
+      stagger-load="1"
     ></f-lineage>
   `;
 };
@@ -161,7 +161,7 @@ export const basic = Template.bind({});
 
 basic.args = {
   ["node-template"]: `<f-div
-  state=\${node.data.state}
+  state=\${node.templateData.state}
   width="100%"
   height="100%"
   padding="small"
@@ -170,13 +170,13 @@ basic.args = {
   gap="small"
   \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
 >
-	<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
+	<f-pictogram variant="circle" source="\${node.templateData.fullName}"></f-pictogram>
 	<f-div direction="column">
-		<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
+		<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
 		<f-text size="x-small" ellipsis>\${node.x} \${node.y}</f-text>
 	</f-div>
 	<f-div direction="column">
-		<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
+		<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
 	</f-div>
 	\${node.childrenToggle}
 </f-div>`,
@@ -189,7 +189,7 @@ basic.args = {
   gap="small"
   border="small solid default bottom"
 >
-  <f-icon source="\${node.data.icon}" size="small"></f-icon>
-  <f-text  size="small" ellipsis>\${node.data.title}</f-text>
+  <f-icon source="\${node.templateData.icon}" size="small"></f-icon>
+  <f-text  size="small" ellipsis>\${node.templateData.title}</f-text>
 </f-div>`,
 };

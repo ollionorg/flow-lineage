@@ -10,6 +10,9 @@ export default function lowlightPath(lineage: FLineage) {
     root.querySelectorAll(".highlight").forEach((el) => {
       el.classList.remove("highlight");
     });
+    root.querySelectorAll(".selected").forEach((el) => {
+      el.classList.remove("selected");
+    });
     root.querySelectorAll(".lowlight").forEach((el) => {
       el.classList.remove("lowlight");
     });

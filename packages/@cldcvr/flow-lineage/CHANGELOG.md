@@ -4,6 +4,13 @@
 
 # Change Log
 
+## [1.2.3] - 2023-01-28
+
+### Improvements
+
+- Primary outline added when node is highlighted.
+- `data` from node schema is renamed to `templateData`.
+- `background` propetry added to customize background of `f-lineage`.
 ## [1.2.2] - 2023-01-24
 
 ### Improvements
@@ -111,7 +118,7 @@
 
 ### Improvements
 - `isChildrenVisible` property changed to `hideChildren` with default value `true.`
-- `degree` property changed to `stager-load`.
+- `degree` property changed to `stagger-load`.
 - `template` field changed to `nodeTemplate` in node schema.
 
 ## [1.0.2] - 2023-01-4

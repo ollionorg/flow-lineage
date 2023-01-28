@@ -35,6 +35,9 @@ export class FLineage extends FRoot {
   @property({ reflect: true, type: String })
   direction?: LineageDirection = "horizontal";
 
+  @property({ reflect: true, type: String })
+  background?: string = "var(--color-surface-default)";
+
   @property({ type: Object })
   nodes!: LineageNodes;
 
@@ -77,13 +80,13 @@ export class FLineage extends FRoot {
     reflect: true,
     type: Number,
   })
-  ["stager-load"] = 10;
+  ["stagger-load"] = 10;
 
   /**
    * Workaround for vue 2 for property name with hyphen
    */
   set stagerLoad(value: number) {
-    this["stager-load"] = value;
+    this["stagger-load"] = value;
   }
 
   @property({
@@ -169,6 +172,11 @@ export class FLineage extends FRoot {
   renderCount = 0;
   currentTransform = null;
 
+  applyBackground() {
+    this.style.backgroundColor = this.background as string;
+    this.svg.style.backgroundColor = this.background as string;
+  }
+
   getNumbersFromRange(min: number, max: number) {
     return Array.from({ length: max - min + 1 }, (_, i) => i + min);
   }
@@ -184,12 +192,12 @@ export class FLineage extends FRoot {
     if (this.maxAvailableLevels > maxLevel) {
       this.levelsToPlot = [
         ...this.getNumbersFromRange(
-          minLevel - this["stager-load"],
+          minLevel - this["stagger-load"],
           minLevel - 1
         ),
         ...this.getNumbersFromRange(
           maxLevel + 1,
-          maxLevel + this["stager-load"]
+          maxLevel + this["stagger-load"]
         ),
       ];
 
@@ -354,7 +362,7 @@ export class FLineage extends FRoot {
   updated() {
     console.group("Lineage");
     console.time("Total duration");
-
+    this.applyBackground();
     /**
      * cleaning up svg if it has any exisitng content
      */
@@ -441,12 +449,12 @@ export class FLineage extends FRoot {
       if (this.centerNodeElement) {
         this.levelsToPlot = [
           ...this.getNumbersFromRange(
-            this.centerNodeElement.level - this["stager-load"],
+            this.centerNodeElement.level - this["stagger-load"],
             this.centerNodeElement.level
           ),
           ...this.getNumbersFromRange(
             this.centerNodeElement.level + 1,
-            this.centerNodeElement.level + this["stager-load"]
+            this.centerNodeElement.level + this["stagger-load"]
           ),
         ];
 

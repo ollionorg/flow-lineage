@@ -61,7 +61,7 @@ const Template: Story<unknown> = (args: any) => {
       .children-node-template=${args["children-node-template"]}
       .links=${links}
       .nodes=${nodes}
-      stager-load="5"
+      stagger-load="5"
     ></f-lineage>
   `;
 };

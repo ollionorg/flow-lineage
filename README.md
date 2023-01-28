@@ -154,14 +154,14 @@ export default defineComponent({
     return {
       nodes: {
         rdj: {
-          data: {
+          templateData: {
             fullName: "Robert Downey Jr.",
             description: "Movies",
             state: "secondary",
           },
           children: {
             rdj_child: {
-              data: {
+              templateData: {
                 icon: "i-hashtag",
                 title: "Iron man 1",
               },
@@ -169,27 +169,27 @@ export default defineComponent({
           },
         },
         judge: {
-          data: {
+          templateData: {
             fullName: "The Judge",
             description: "Hank Palmer",
             state: "custom,#006ecc",
           },
         },
         ironman: {
-          data: {
+          templateData: {
             fullName: "Iron Man",
             description: "Tony stark",
             state: "secondary",
           },
           children: {
             irchild1: {
-              data: {
+              templateData: {
                 icon: "i-hashtag",
                 title: "Iron man 1",
               },
             },
             irchild2: {
-              data: {
+              templateData: {
                 icon: "i-paragraph",
                 title: "Iron man 2",
               },
@@ -198,20 +198,20 @@ export default defineComponent({
           hideChildren: false,
         },
         hank: {
-          data: {
+          templateData: {
             fullName: "Hank Palmer",
             description: "Actor",
             state: "secondary",
           },
           children: {
             child1: {
-              data: {
+              templateData: {
                 icon: "i-hashtag",
                 title: "Node child 1",
               },
             },
             child2: {
-              data: {
+              templateData: {
                 icon: "i-paragraph",
                 title: "Node child 2",
               },
@@ -239,7 +239,7 @@ export default defineComponent({
         },
       ],
       nodeTemplate: `<f-div
-		  state=\${node.data.state}
+		  state=\${node.templateData.state}
 		  width="100%"
 		  height="100%"
 		  padding="small"
@@ -248,10 +248,10 @@ export default defineComponent({
 		  gap="small"
 		  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
 		>
-			<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
+			<f-pictogram variant="circle" source="\${node.templateData.fullName}"></f-pictogram>
 			<f-div direction="column">
-				<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
-				<f-text size="x-small" ellipsis>\${node.data.description}</f-text>
+				<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
+				<f-text size="x-small" ellipsis>\${node.templateData.description}</f-text>
 			</f-div>
 			\${node.childrenToggle}
 		</f-div>`,
@@ -264,8 +264,8 @@ export default defineComponent({
 			gap="small"
 			border="small solid default bottom"
 		  >
-			<f-icon source="\${node.data.icon}" size="small"></f-icon>
-			<f-text  size="small" ellipsis>\${node.data.title}</f-text>
+			<f-icon source="\${node.templateData.icon}" size="small"></f-icon>
+			<f-text  size="small" ellipsis>\${node.templateData.title}</f-text>
 		  </f-div>`,
     };
   },
@@ -341,10 +341,10 @@ Once it's running, you will see a lineage component like the image below.
 			<td style="vertical-align: top;">Set which node ID is the main/center node of the entire lineage. <br>eg: <code>&lt;f-lineage center-node=&quot;your-node-id&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
-			<td style="vertical-align: top;">stager-load</td>
+			<td style="vertical-align: top;">stagger-load</td>
 			<td style="vertical-align: top;">Number</td>
 			<td style="vertical-align: top;">10</td>
-			<td style="vertical-align: top;">Flow linage has a staggered load aproach for better preformance. A stager-load defines how many levels of connections will be plotted in a single render.<br>eg: <code>&lt;f-lineage stager-load=&quot;10&quot;&gt;&lt;/f-lineage&gt;</code></td>
+			<td style="vertical-align: top;">Flow linage has a staggered load aproach for better preformance. A stagger-load defines how many levels of connections will be plotted in a single render.<br>eg: <code>&lt;f-lineage stagger-load=&quot;10&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">max-children</td>
@@ -398,10 +398,10 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 	</thead>
 	<tbody>
 		<tr>
-			<td>data</td>
+			<td>templateData</td>
 			<td>Object</td>
 			<td>-</td>
-			<td>The data objects contains the metadata that will be consumed by the node-templates to display information on the lineage. You can use data for both node and child nodes. <br> <br><a href="#node-example">View node data example</a>
+			<td>The templateData objects contains the metadata that will be consumed by the node-templates to display information on the lineage. You can use templateData for both node and child nodes. <br> <br><a href="#node-example">View node templateData example</a>
 			</td>
 		</tr>
 		<tr>
@@ -431,7 +431,7 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 			<td style="vertical-align: top;">children</td>
 			<td style="vertical-align: top;">Object</td>
 			<td style="vertical-align: top;">-</td>
-			<td style="vertical-align: top;">The children object will contain the metadata that will be consumed by the node-child-templates to display information on the lineage. <br> <br><a href="#node-children-example">View node data example</a></td>
+			<td style="vertical-align: top;">The children object will contain the metadata that will be consumed by the node-child-templates to display information on the lineage. <br> <br><a href="#node-children-example">View node templateData example</a></td>
 		</tr>
 		<tr>
 			<td style="vertical-align: top;">hideChildren</td>
@@ -474,7 +474,7 @@ Nodes are broken into two parts, a node `node` and child nodes `children`.
 ### Node example 
 ```Javascript
 node_id: {
-	data: {
+	templateData: {
 		fullName: "Robert Downey Jr.",
 		description: "Movies",
 		state: "danger",
@@ -486,20 +486,20 @@ node_id: {
 ### Node children example 
 ```Javascript
  node_id: {
-          data: {
+          templateData: {
             fullName: "Robert Downey Jr.",
             description: "Movies",
             state: "secondary",
           },
           children: {
             child1: {
-              data: {
+              templateData: {
                 icon: "i-hashtag",
                 title: "Node child 1",
               },
             },
             child2: {
-              data: {
+              templateData: {
                 icon: "i-paragraph",
                 title: "Node child 2",
               },
@@ -508,9 +508,9 @@ node_id: {
         },
 ```
 
-To access the data in your node template, you need to pass it through ```\${node.data.<your-field-name>} ```
+To access the templateData in your node template, you need to pass it through ```\${node.templateData.<your-field-name>} ```
 <br/>
-Example : If you want to use `title` from above schema then use ```\${node.data.title}``` in your respective template
+Example : If you want to use `title` from above schema then use ```\${node.templateData.title}``` in your respective template
 
 <br>
 

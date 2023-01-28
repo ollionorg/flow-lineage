@@ -82,7 +82,7 @@ export default function createNodeElements(
   ): LineageNodeElement => {
     const nodeElement: LineageNodeElement = {
       id: node.id,
-      data: node.data,
+      templateData: node.templateData,
       links: node.links,
       children: node.children,
       hideChildren:
@@ -197,7 +197,7 @@ export default function createNodeElements(
      */
     const nodeElement: LineageNodeElement = {
       id: node.id,
-      data: node.data,
+      templateData: node.templateData,
       links: node.links,
       level,
       x: levelPointer.x,
