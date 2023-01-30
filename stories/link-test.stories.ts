@@ -203,12 +203,23 @@ border="small solid default bottom"
 //   updateCounter += 1;
 
 //   if (nodes.rdj?.templateData) {
-//     nodes.rdj.templateData.fullName = `Vikas ${updateCounter}`;
+//     nodes.rdj.templateData.fullName = `PropertyUpdate ${updateCounter}`;
 //   }
 //   if (nodes.ironman?.templateData) {
-//     nodes.ironman.templateData.fullName = `Flow ${updateCounter}`;
+//     nodes.ironman.templateData = {
+//       fullName: `New Object ${updateCounter}`,
+//       description: "Tony stark",
+//       state: "secondary",
+//     };
 //   }
 //   if (nodes.rdj.children && nodes.rdj.children.child1.templateData) {
-//     nodes.rdj.children.child1.templateData.title = `Child Node ${updateCounter}`;
+//     nodes.rdj.children.child1.templateData.title = `Child Property Update ${updateCounter}`;
 //   }
+//   if (nodes.rdj.children && nodes.rdj.children.child2.templateData) {
+//     nodes.rdj.children.child2.templateData = {
+//       icon: "i-hashtag",
+//       title: `New Child Object ${updateCounter}`,
+//     };
+//   }
+//   if (nodes.prop1.templateData) nodes.prop1.templateData.state = "danger";
 // }, 5000);

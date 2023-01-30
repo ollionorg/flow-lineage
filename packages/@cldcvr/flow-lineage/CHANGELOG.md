@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [1.3.1] - 2023-01-30
+
+### Improvements
+
+- Hot update feature improved and new object assignment support added.
+
 ## [1.3.0] - 2023-01-30
 
 ### Features

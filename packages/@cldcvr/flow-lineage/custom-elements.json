@@ -685,7 +685,7 @@
             {
               "name": "templateHandler",
               "type": {
-                "text": "{\n    templateDataProxy: ProxyHandler<Record<string, any>>;\n    childTemplateDataProxy: ProxyHandler<Record<string, any>>;\n  }"
+                "text": "{\n    templateDataProxy: ProxyHandler<Record<string, any>>;\n    nodeDataProxy: ProxyHandler<Record<string, any>>;\n  }"
               }
             }
           ]
