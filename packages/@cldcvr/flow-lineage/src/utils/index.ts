@@ -10,7 +10,7 @@ function isEmpty(obj: Object) {
 
 function getChildrenArray(
   children: Record<string, LineageNodeChildren> | undefined
-): LineageNodeChildren & { id: string }[] {
+): (LineageNodeChildren & { id: string })[] {
   if (children) {
     return Object.entries(children).map(([nodeid, CNode]) => {
       return {

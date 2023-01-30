@@ -1,5 +1,4 @@
-import { html } from "lit";
-import { getChildCount, getComputedHTML, isEmpty } from "../../../utils";
+import { getChildCount, isEmpty } from "../../../utils";
 import { DrawLineageParams, LineageNodeElement } from "../lineage-types";
 import highlightPath from "../highlight/highlight-path";
 import removeLinks, { removeDistantLinks } from "./remove-links";
@@ -30,14 +29,13 @@ export default function drawNodes(params: DrawLineageParams) {
   const parentNodesMeta = lineage.nodes.filter(
     (n) => !n.isChildren && degreeFilter(n)
   );
-  const parentNodes = svg
+  element.foreignObjects = svg
     .append("g")
     .attr("class", "nodes")
     .attr("data-page", page)
     .selectAll("g.node")
     .data(parentNodesMeta)
-    .enter();
-  parentNodes
+    .enter()
     .append("g")
     .attr("transform", (d) => {
       return `translate(${d.x},${d.y})`;
@@ -61,6 +59,9 @@ export default function drawNodes(params: DrawLineageParams) {
       }
     })
     .append("foreignObject")
+    .attr("id", (d) => {
+      return d.id + "-foreign-object";
+    })
     .attr("class", (d) => {
       if (element.centerNodeElement && d.id === element.centerNodeElement.id) {
         return "center-node";
@@ -134,23 +135,8 @@ export default function drawNodes(params: DrawLineageParams) {
         element.reDrawChunk(+pageNo, d.level);
       }
     })
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    /* eslint-disable @typescript-eslint/ban-ts-comment */
-    // @ts-ignore
     .html((node) => {
-      if (node.children) {
-        const iconDirection = node.hideChildren ? "down" : "up";
-        node.childrenToggle = `<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
-      } else {
-        node.childrenToggle = "";
-      }
-      if (node.nodeTemplate) {
-        return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
-      } else {
-        return getComputedHTML(
-          html`${eval("`" + element["node-template"] + "`")}`
-        );
-      }
+      return element.doTemplateHotUpdate(node);
     });
 
   /**
@@ -325,6 +311,9 @@ export default function drawNodes(params: DrawLineageParams) {
         return d.parentId ?? "";
       })
       .append("foreignObject")
+      .attr("id", (d) => {
+        return d.id + "-foreign-object";
+      })
       .attr("width", childrenNodeSize.width)
       .attr("height", childrenNodeSize.height)
       .on("click", (event: MouseEvent, d) => {
@@ -341,15 +330,10 @@ export default function drawNodes(params: DrawLineageParams) {
           d.rightClick(event, d);
         }
       })
+      /* eslint-disable @typescript-eslint/ban-ts-comment */
       //@ts-ignore
       .html((node) => {
-        if (node.nodeTemplate) {
-          return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
-        } else {
-          return getComputedHTML(
-            html`${eval("`" + element["children-node-template"] + "`")}`
-          );
-        }
+        return element.doTemplateHotUpdate(node, true);
       });
 
     drawLinks({

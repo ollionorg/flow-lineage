@@ -8,7 +8,11 @@ import {
 
 export default function createHierarchy(
   links: LineageNodeLinks,
-  nodes: LineageNodes
+  nodes: LineageNodes,
+  templateHandler: {
+    templateDataProxy: ProxyHandler<Record<string, any>>;
+    childTemplateDataProxy: ProxyHandler<Record<string, any>>;
+  }
 ) {
   const hierarchyMeta: Record<
     string,
@@ -26,6 +30,12 @@ export default function createHierarchy(
   const data: LineageData = [];
 
   Object.entries(nodes).forEach(([id, n]) => {
+    if (n.templateData) {
+      n.templateData = new Proxy(
+        n.templateData,
+        templateHandler.templateDataProxy
+      );
+    }
     const node = {
       id,
       ...n,
@@ -36,10 +46,16 @@ export default function createHierarchy(
     };
     data.push(node);
     if (node.children && !isEmpty(node.children)) {
-      getChildrenArray(node.children).forEach((cNode) => {
-        hierarchyMeta[cNode.id] = {
+      Object.entries(node.children).forEach(([id, cNode]) => {
+        if (cNode.templateData) {
+          cNode.templateData = new Proxy(
+            cNode.templateData,
+            templateHandler.childTemplateDataProxy
+          );
+        }
+        hierarchyMeta[id] = {
           level: 1,
-          ref: cNode,
+          ref: { id, ...cNode },
           isChildren: true,
           isLinked: true,
         };

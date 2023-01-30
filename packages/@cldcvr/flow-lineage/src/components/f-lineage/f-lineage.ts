@@ -19,6 +19,8 @@ import lowlightPath from "./highlight/lowlight-path";
 import createHierarchy from "./create/create-hierarchy";
 import { FButton, FDiv } from "@cldcvr/flow-core";
 import { FRoot } from "@cldcvr/flow-core/src/mixins/components/f-root/f-root";
+import { getComputedHTML } from "../../utils";
+import getProxies from "./draw/hot-reload-proxies";
 
 // Renders attribute names of parent element to textContent
 
@@ -153,6 +155,13 @@ export class FLineage extends FRoot {
   biDirectionalLinks: string[] = [];
 
   private data!: LineageData;
+
+  foreignObjects!: d3.Selection<
+    SVGForeignObjectElement,
+    LineageNodeElement,
+    SVGGElement,
+    unknown
+  >;
 
   /**
    * holds which levels to display
@@ -412,9 +421,16 @@ export class FLineage extends FRoot {
       /**
        * Creates hierarchy based on nodes and links provided by user
        */
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+
+      /**
+       * template data proxy for hot reload
+       */
+      const templateDataProxy = getProxies(this);
       const { data, biDirectionalLinks } = createHierarchy(
         this.links,
-        this.nodes
+        this.nodes,
+        templateDataProxy
       );
       this.data = data;
       // holds birectional links
@@ -551,6 +567,35 @@ export class FLineage extends FRoot {
   }
   isSafari() {
     return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  }
+
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  /* eslint-disable @typescript-eslint/ban-ts-comment */
+  // @ts-ignore
+  doTemplateHotUpdate(node: LineageNodeElement, isChildNode = false) {
+    if (isChildNode) {
+      if (node.nodeTemplate) {
+        return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
+      } else {
+        return getComputedHTML(
+          html`${eval("`" + this["children-node-template"] + "`")}`
+        );
+      }
+    } else {
+      if (node.children) {
+        const iconDirection = node.hideChildren ? "down" : "up";
+        node.childrenToggle = `<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
+      } else {
+        node.childrenToggle = "";
+      }
+      if (node.nodeTemplate) {
+        return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
+      } else {
+        return getComputedHTML(
+          html`${eval("`" + this["node-template"] + "`")}`
+        );
+      }
+    }
   }
 }
 

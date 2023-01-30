@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [1.3.0] - 2023-01-30
+
+### Features
+
+- 🔥 Hot update when user changes `templateData`.
+
 ## [1.2.3] - 2023-01-28
 
 ### Improvements

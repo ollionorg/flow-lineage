@@ -1,6 +1,7 @@
 import { Story, Meta } from "@storybook/web-components";
 import { html } from "lit-html";
 import { LineageNodeLinks, LineageNodes } from "@cldcvr/flow-lineage/src";
+import * as d3 from "d3";
 
 export default {
   title: "Debug/Links",
@@ -35,6 +36,7 @@ const nodes: LineageNodes = {
         },
       },
     },
+    hideChildren: false,
   },
   judge: {
     templateData: {
@@ -194,3 +196,19 @@ border="small solid default bottom"
 <f-text  size="small" ellipsis>\${node.templateData.title}</f-text>
 </f-div>`,
 };
+
+// let updateCounter = 0;
+
+// setInterval(() => {
+//   updateCounter += 1;
+
+//   if (nodes.rdj?.templateData) {
+//     nodes.rdj.templateData.fullName = `Vikas ${updateCounter}`;
+//   }
+//   if (nodes.ironman?.templateData) {
+//     nodes.ironman.templateData.fullName = `Flow ${updateCounter}`;
+//   }
+//   if (nodes.rdj.children && nodes.rdj.children.child1.templateData) {
+//     nodes.rdj.children.child1.templateData.title = `Child Node ${updateCounter}`;
+//   }
+// }, 5000);
