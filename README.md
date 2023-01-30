@@ -1,24 +1,34 @@
 
 # Flow Lineage
-A lineage chart is a graphical representation of a node's ancestors, showing the relationships among nodes. It is often used in analytics to show the relations and to trace their ancestry. Lineage charts can be in the form of a hierarchy data, showing the relationships between parents and children, or they can be more complex and show the relationships between more distant nodes. Lineage charts can be useful for investigating the hierarchy of a data.
-
-Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page) for a demo. 
+A lineage chart is a graphical representation of a node's ancestors, showing the relationships among nodes. It is often used in analytics to show the relations and to trace their ancestry. Lineage charts can be in the form of a hierarchy data, showing the relationships between parents and children, or they can be more complex and show the relationships between more distant nodes.
 
 <br>
 
-# Prerequisites
+# Demo
+Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page) for a demo. 
 
-### Existing project
-For an existing front-end project, you need to install [Flow core](https://github.com/cldcvr/flow-core) before continuing with Flow lineage. If you run into an issue, head over to our [known issues + solutions document](https://github.com/cldcvr/flow-lineage/blob/main/KNOWN_SOLUTIONS.md) to see if a solution already exists.
+or
 
-### New project
-If you do not have an existing front-end project, you can quickly create one from a [flow starter kit](https://github.com/cldcvr/flow-core#starter-kits). 
+Clone and install the Vue JS [Flow Lineage demo](https://github.com/cldcvr/flow-core#starter-kits) repo.
+
+<br>
+
+# Getting started
+
+Flow Lineage is been built on [Flow](https://flow.cldcvr.com/), an open source design framework. To run lineage, please make sure that you have [Flow core](https://github.com/cldcvr/flow-core) as part of your project.
+
+While installation if you run into any issues, head over to our [known issues + solutions document](https://github.com/cldcvr/flow-lineage/blob/main/KNOWN_SOLUTIONS.md) to see if a solution already exists.
 
 **Note:** If you already have Flow packages installed, please update to the latest versions
 
+**Note:** If you do not have an existing front-end project, you can quickly create one from a [flow starter kit](https://github.com/cldcvr/flow-core#starter-kits). 
+
 <br>
 
-## Getting started
+## Install
+
+<br>
+
 ### Step 1: Install flow lineage dependency
 ```
 yarn add @cldcvr/flow-lineage
@@ -86,7 +96,7 @@ import("@cldcvr/flow-core").then(async () => {
 
 <br>
 
-### Step 4 : If you have a typescript enabled project, include the import types
+### Step 4 (optional) : For a typescript enabled project, include the import types
 Copy paste below line in your `main.ts` file.
 
 **Vue 2:**
@@ -109,6 +119,7 @@ import "@cldcvr/flow-lineage/dist/types/vue3";
 <br>
 
 **Note:** after adding, re-start your application.
+
 
 <br>
 
