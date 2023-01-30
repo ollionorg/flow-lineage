@@ -25,9 +25,9 @@ While installation if you run into any issues, head over to our [known issues + 
 
 <br>
 
-## Install
+## Installation
 
-### Step 1️⃣: Install flow lineage dependency
+### Step 1️⃣ Install flow lineage dependency
 ```
 yarn add @cldcvr/flow-lineage
 ```
@@ -35,7 +35,7 @@ yarn add @cldcvr/flow-lineage
 
 <br>
 
-### Step 2 : Import styles/CSS 
+### Step 2️⃣ Import styles/CSS 
 For **Vue JS:** 
 Paste the below snippet after the closing `<template>` tag in your `App.vue` file
 ```html
@@ -63,7 +63,7 @@ import "@cldcvr/flow-lineage/dist/style.css";
 <br>
 
 
-### Step 3: Import flow-lineage into your project
+### Step 3️⃣ Import flow-lineage into your project
 
 Paste the below snippet in your project and add your application startup/runtime code to it. 
 
@@ -116,7 +116,7 @@ import("@cldcvr/flow-core").then(async () => {
 
 <br>
 
-### Step 4 (optional) : For a typescript enabled project
+### Step 4️⃣ For a typescript enabled project (optional)
 Copy paste below import types in your `main.ts` file.
 
 **Note:** after adding, re-start your application.
