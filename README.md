@@ -186,42 +186,18 @@ export default defineComponent({
           templateData: {
             fullName: "Robert Downey Jr.",
             description: "Movies",
-            state: "secondary",
-          },
-        },
-        judge: {
-          data: {
-            fullName: "The Judge",
-            description: "Hank Palmer",
-          },
-        },
-        ironman: {
-          data: {
-            fullName: "Iron Man",
-            description: "Tony stark",
-          },
-          children: [
-            {
-              id: "iman1",
-              data: {
-                icon: "i-paragraph",
-                title: "Iron man 1",
-              },
-            },
           },
         },
         judge: {
           templateData: {
             fullName: "The Judge",
             description: "Hank Palmer",
-            state: "custom,#006ecc",
           },
         },
         ironman: {
           templateData: {
             fullName: "Iron Man",
             description: "Tony stark",
-            state: "secondary",
           },
           children: {
             irchild1: {
@@ -236,7 +212,7 @@ export default defineComponent({
                 title: "Iron man 2",
               },
             }
-          ],
+					},
           hideChildren: false,
         },
       },
@@ -251,15 +227,15 @@ export default defineComponent({
         },
       ],
       nodeTemplate: `
-		<f-div width="100%" state="primary" height="100%" padding="small" align="top-left" variant="curved" gap="small">
-			<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
-			<f-div direction="column">
-				<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
-				<f-text size="x-small" ellipsis>\${node.templateData.description}</f-text>
+			<f-div width="100%" state="primary" height="100%" padding="small" align="top-left" variant="curved" gap="small">
+				<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
+				<f-div direction="column">
+					<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
+					<f-text size="x-small" ellipsis>\${node.templateData.description}</f-text>
+				</f-div>
+				\${node.childrenToggle}
 			</f-div>
-			\${node.childrenToggle}
-		</f-div>
-		`,
+			`,
       childNodeTemplate: `
 			<f-div state="secondary" width="100%" height="100%"padding="none medium" align="middle-left" gap="small" border="small solid default bottom" >
 				<f-icon source="\${node.data.icon}" size="small"></f-icon>
