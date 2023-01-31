@@ -9,7 +9,7 @@ Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html
 
 or
 
-Clone and install the Vue JS [Flow Lineage demo](https://github.com/cldcvr/flow-core#starter-kits) repo.
+Clone and install the [Flow Lineage demo](https://github.com/cldcvr/flow-core#starter-kits) (Vue JS).
 
 <br>
 
@@ -27,7 +27,7 @@ While installation if you run into any issues, head over to our [known issues + 
 
 ## Installation
 
-### Step 1️⃣ Install flow lineage dependency
+### 1️⃣ Install flow lineage dependency
 ```
 yarn add @cldcvr/flow-lineage
 ```
@@ -35,12 +35,12 @@ yarn add @cldcvr/flow-lineage
 
 <br>
 
-### Step 2️⃣ Import styles/CSS 
+### 2️⃣ Import styles/CSS 
 For **Vue JS:** 
 Paste the below snippet after the closing `<template>` tag in your `App.vue` file
 ```html
 <style>
-	@import "@cldcvr/flow-lineage/dist/style.css";
+ @import "@cldcvr/flow-lineage/dist/style.css";
 </style> 
 ```
 <details>
@@ -63,7 +63,7 @@ import "@cldcvr/flow-lineage/dist/style.css";
 <br>
 
 
-### Step 3️⃣ Import flow-lineage into your project
+### 3️⃣ Import flow-lineage into your project
 
 Paste the below snippet in your project and add your application startup/runtime code to it. 
 
@@ -116,17 +116,19 @@ import("@cldcvr/flow-core").then(async () => {
 
 <br>
 
-### Step 4️⃣ For a typescript enabled project (optional)
-Copy paste below import types in your `main.ts` file.
+### 4️⃣ For a typescript enabled project (optional)
 
 **Note:** after adding, re-start your application.
 
 **For Vue 3:**
+Copy paste below import types in your `main.ts` file.
 ```Javascript
 import "@cldcvr/flow-lineage/dist/types/vue3";
 ```
 <details>
 <summary>For Vue 2</summary>
+
+Copy paste below import types in your `main.ts` file.
 
 ```Javascript
 import "@cldcvr/flow-lineage/dist/types/vue2";
@@ -147,10 +149,10 @@ import "@cldcvr/flow-lineage/dist/types/vue2";
 
 
 
-# Sample code
+# Sample code (Vue JS)
 We have created a sample lineage component along with it's schema to get you going, simply copy paste the below language code block in your FE project.
 
-## Component
+## Template
 ```html
 <template>
   <f-lineage
@@ -160,7 +162,7 @@ We have created a sample lineage component along with it's schema to get you goi
     :node-size.prop="{ width: 240, height: 53 }"
     :children-node-size.prop="{ width: 240, height: 32 }"
     :max-childrens="8"
-    :links.prop="links"
+    :links.prop="links" 
     :nodes.prop="nodes"
     :node-template="nodeTemplate"
     :children-node-template="childNodeTemplate"
@@ -199,7 +201,7 @@ export default defineComponent({
             {
               id: "iman1",
               data: {
-                icon: "i-hashtag",
+                icon: "i-paragraph",
                 title: "Iron man 1",
               },
             },
@@ -209,72 +211,7 @@ export default defineComponent({
                 icon: "i-paragraph",
                 title: "Iron man 2",
               },
-            },
-            {
-              id: "iman3",
-              data: {
-                icon: "i-letter",
-                title: "Iron man 3",
-              },
-            },
-            {
-              id: "av1",
-              data: {
-                icon: "i-paragraph",
-                title: "Avengers 1",
-              },
-            },
-            {
-              id: "av2",
-              data: {
-                icon: "i-hashtag",
-                title: "Avengers 2",
-              },
-            },
-          ],
-          hideChildren: false,
-        },
-        hank: {
-          data: {
-            fullName: "Hank Palmer",
-            description: "Actor",
-          },
-          children: [
-            {
-              id: "child1",
-              data: {
-                icon: "i-hashtag",
-                title: "Node child 1",
-              },
-            },
-            {
-              id: "child2",
-              data: {
-                icon: "i-paragraph",
-                title: "Node child 2",
-              },
-            },
-            {
-              id: "child3",
-              data: {
-                icon: "i-letter",
-                title: "Node child 3",
-              },
-            },
-            {
-              id: "child4",
-              data: {
-                icon: "i-paragraph",
-                title: "Node child 4",
-              },
-            },
-            {
-              id: "child5",
-              data: {
-                icon: "i-hashtag",
-                title: "Node child 5",
-              },
-            },
+            }
           ],
           hideChildren: false,
         },
@@ -288,40 +225,23 @@ export default defineComponent({
           from: "rdj",
           to: "ironman",
         },
-        {
-          from: "judge",
-          to: "hank",
-        },
       ],
-      nodeTemplate: `<f-div
-		  state=\${node.id==="rdj"?'custom,#006ecc':'secondary'}
-		  width="100%"
-		  height="100%"
-		  padding="small"
-		  align="top-left"
-		  variant="curved"
-		  gap="small"
-		  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
-		>
+      nodeTemplate: `
+		<f-div width="100%" state="primary" height="100%" padding="small" align="top-left" variant="curved" gap="small">
 			<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
 			<f-div direction="column">
 				<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
 				<f-text size="x-small" ellipsis>\${node.data.description}</f-text>
 			</f-div>
 			\${node.childrenToggle}
-		</f-div>`,
-      childNodeTemplate: `<f-div
-			state="secondary"
-			width="100%"
-			height="100%"
-			padding="none medium"
-			align="middle-left"
-			gap="small"
-			border="small solid default bottom"
-		  >
-			<f-icon source="\${node.data.icon}" size="small"></f-icon>
-			<f-text  size="small" ellipsis>\${node.data.title}</f-text>
-		  </f-div>`,
+		</f-div>
+		`,
+      childNodeTemplate: `
+			<f-div state="secondary" width="100%" height="100%"padding="none medium" align="middle-left" gap="small" border="small solid default bottom" >
+				<f-icon source="\${node.data.icon}" size="small"></f-icon>
+				<f-text  size="small" ellipsis>\${node.data.title}</f-text>
+		  </f-div>
+			`,
     };
   },
 });
@@ -342,7 +262,6 @@ Once it's running, you will see a lineage component like the image below.
 <br>
 
 
-<br>
 
 # Properties
 
