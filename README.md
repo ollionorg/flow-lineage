@@ -259,9 +259,6 @@ Once it's running, you will see a lineage component like the image below.
 
 </details>
 
-<br>
-
-
 
 # Properties
 
