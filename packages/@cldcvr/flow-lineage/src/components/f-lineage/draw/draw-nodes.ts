@@ -1,8 +1,7 @@
-import { html } from "lit";
-import { getComputedHTML } from "../../../utils";
+import { getChildCount, isEmpty } from "../../../utils";
 import { DrawLineageParams, LineageNodeElement } from "../lineage-types";
 import highlightPath from "../highlight/highlight-path";
-import removeLinks from "./remove-links";
+import removeLinks, { removeDistantLinks } from "./remove-links";
 import drawLinks from "./draw-links";
 // import * as d3 from "d3";
 
@@ -30,20 +29,19 @@ export default function drawNodes(params: DrawLineageParams) {
   const parentNodesMeta = lineage.nodes.filter(
     (n) => !n.isChildren && degreeFilter(n)
   );
-  const parentNodes = svg
+  element.foreignObjects = svg
     .append("g")
     .attr("class", "nodes")
     .attr("data-page", page)
     .selectAll("g.node")
     .data(parentNodesMeta)
-    .enter();
-  parentNodes
+    .enter()
     .append("g")
     .attr("transform", (d) => {
       return `translate(${d.x},${d.y})`;
     })
     .attr("id", (d) => {
-      return d.id;
+      return d.id as string;
     })
     .attr("class", "lineage-node lineage-element")
     .on("click", (event: MouseEvent, d) => {
@@ -61,6 +59,9 @@ export default function drawNodes(params: DrawLineageParams) {
       }
     })
     .append("foreignObject")
+    .attr("id", (d) => {
+      return d.id + "-foreign-object";
+    })
     .attr("class", (d) => {
       if (element.centerNodeElement && d.id === element.centerNodeElement.id) {
         return "center-node";
@@ -85,50 +86,57 @@ export default function drawNodes(params: DrawLineageParams) {
         if (d.childrenYMax) {
           let childHeight = d.childrenYMax - (d.y + nodeSize.height);
 
+          // finding all nodes below children
           const nodesToUpdate = lineage.nodes.filter(
             (n) => n.level === d.level && n.y > d.y && !childIds.includes(n.id)
           );
 
+          // compare height and apply max height with  scroll bar if required
           if (childHeight > maxChildrenHeight) {
             childHeight = maxChildrenHeight;
           }
           nodesToUpdate.forEach((n) => {
             if (!d.hideChildren) {
               n.y += childHeight;
+              if (n.childrenYMax) {
+                n.childrenYMax += childHeight;
+              }
+            } else {
+              n.y -= childHeight;
+              if (n.childrenYMax) {
+                n.childrenYMax -= childHeight;
+              }
+            }
+          });
+          if (!d.hideChildren) {
+            lineage.levelPointers[d.level].y += childHeight;
+          } else {
+            lineage.levelPointers[d.level].y -= childHeight;
+          }
+
+          const gapsToUpdate = lineage.gaps[d.level].filter((n) => n.y > d.y);
+
+          gapsToUpdate.forEach((n) => {
+            if (!d.hideChildren) {
+              n.y += childHeight;
             } else {
               n.y -= childHeight;
             }
           });
-
           removeLinks(nodesToUpdate, element);
         }
 
         allChildNodes.forEach((cn) => {
           cn.isVisible = false;
         });
-
+        removeDistantLinks(element);
         removeLinks(allChildNodes, element);
         const pageNo = this.parentElement?.parentElement?.dataset.page ?? 0;
         element.reDrawChunk(+pageNo, d.level);
       }
     })
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    /* eslint-disable @typescript-eslint/ban-ts-comment */
-    // @ts-ignore
     .html((node) => {
-      if (node.children) {
-        const iconDirection = node.hideChildren ? "down" : "up";
-        node.childrenToggle = `<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
-      } else {
-        node.childrenToggle = "";
-      }
-      if (node.nodeTemplate) {
-        return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
-      } else {
-        return getComputedHTML(
-          html`${eval("`" + element["node-template"] + "`")}`
-        );
-      }
+      return element.doTemplateHotUpdate(node);
     });
 
   /**
@@ -144,7 +152,7 @@ export default function drawNodes(params: DrawLineageParams) {
         (n) =>
           n.children &&
           !n.hideChildren &&
-          n.children.length > 0 &&
+          !isEmpty(n.children) &&
           degreeFilter(n)
       )
     )
@@ -152,12 +160,12 @@ export default function drawNodes(params: DrawLineageParams) {
     .append("g")
     .attr("class", "children-container")
     .attr("data-parent-id", (d) => {
-      return d.id;
+      return d.id as string;
     })
     .attr("data-offset", 0)
     .attr("data-max", maxChildrens)
     .attr("data-parent-id", (d) => {
-      return d.id;
+      return d.id as string;
     })
     .attr("id", (d) => {
       return "scrollable-" + d.id;
@@ -195,7 +203,7 @@ export default function drawNodes(params: DrawLineageParams) {
         /**
          * calculate currentY of scrollbar after addiong delta
          */
-        const noOdChildren = d.children?.length ?? 0;
+        const noOdChildren = getChildCount(d.children);
         const childHeight = noOdChildren * childrenNodeSize.height;
         let scrollbarOffset =
           (childrenNodeSize.height * maxChildrenHeight) / childHeight;
@@ -235,7 +243,7 @@ export default function drawNodes(params: DrawLineageParams) {
           let start = d.offset;
           let end = d.offset + maxChildrens;
 
-          if (d.children && end > d.children?.length) {
+          if (d.children && end > noOdChildren) {
             start -= -1;
             end -= -1;
           }
@@ -251,7 +259,7 @@ export default function drawNodes(params: DrawLineageParams) {
       return `translate(${d.x},${d.y + nodeSize.height})`;
     })
     .attr("height", (d) => {
-      const noOdChildren = d.children?.length ?? 0;
+      const noOdChildren = getChildCount(d.children);
       const childHeight = noOdChildren * childrenNodeSize.height;
       if (childHeight > maxChildrenHeight) {
         return maxChildrenHeight;
@@ -290,7 +298,7 @@ export default function drawNodes(params: DrawLineageParams) {
       })
       .attr("data-page", page)
       .attr("id", (d) => {
-        return d.id;
+        return d.id as string;
       })
       .attr("transform", (d) => {
         d.x = startX;
@@ -303,6 +311,9 @@ export default function drawNodes(params: DrawLineageParams) {
         return d.parentId ?? "";
       })
       .append("foreignObject")
+      .attr("id", (d) => {
+        return d.id + "-foreign-object";
+      })
       .attr("width", childrenNodeSize.width)
       .attr("height", childrenNodeSize.height)
       .on("click", (event: MouseEvent, d) => {
@@ -319,33 +330,21 @@ export default function drawNodes(params: DrawLineageParams) {
           d.rightClick(event, d);
         }
       })
+      /* eslint-disable @typescript-eslint/ban-ts-comment */
       //@ts-ignore
       .html((node) => {
-        if (node.nodeTemplate) {
-          return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
-        } else {
-          return getComputedHTML(
-            html`${eval("`" + element["children-node-template"] + "`")}`
-          );
-        }
+        return element.doTemplateHotUpdate(node, true);
       });
 
     drawLinks({
       ...params,
       filter: (link) => {
-        const sourceLink = childNodes.find((c) => {
-          const targetElement = element.shadowRoot?.querySelector(
-            `#${link.target.id}`
-          );
-
-          return c.id === link.source.id && targetElement;
+        const sourceLink = allChildNodes.find((c) => {
+          return c.id === link.source.id;
         });
 
-        const targetLink = childNodes.find((c) => {
-          const sourceElement = element.shadowRoot?.querySelector(
-            `#${link.source.id}`
-          );
-          return c.id === link.target.id && sourceElement;
+        const targetLink = allChildNodes.find((c) => {
+          return c.id === link.target.id;
         });
 
         return sourceLink !== undefined || targetLink !== undefined;
@@ -381,7 +380,7 @@ export default function drawNodes(params: DrawLineageParams) {
     })
     .attr("width", scrollBarWidth)
     .attr("height", (d) => {
-      const noOdChildren = d.children?.length ?? 0;
+      const noOdChildren = getChildCount(d.children);
       const childHeight = noOdChildren * childrenNodeSize.height;
       return (maxChildrenHeight / childHeight) * maxChildrenHeight;
     })

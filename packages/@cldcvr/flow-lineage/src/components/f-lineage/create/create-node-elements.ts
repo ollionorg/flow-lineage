@@ -9,6 +9,8 @@ import {
   LevelPointer,
 } from "./../lineage-types";
 
+import { getChildrenArray, isEmpty } from "./../../../utils";
+
 export default function createNodeElements(
   data: LineageNode[],
   nodeSize: LineageNodeSize,
@@ -80,7 +82,7 @@ export default function createNodeElements(
   ): LineageNodeElement => {
     const nodeElement: LineageNodeElement = {
       id: node.id,
-      data: node.data,
+      templateData: node.templateData,
       links: node.links,
       children: node.children,
       hideChildren:
@@ -99,18 +101,18 @@ export default function createNodeElements(
     /**
      * Check if node has childrens
      */
-    if (node.children && node.children.length > 0) {
+    if (node.children && !isEmpty(node.children)) {
       levelPointer.y += nodeSize.height;
+      const children = getChildrenArray(node.children);
+      const totalChildNodeHeight = childrenNodeSize.height * children.length;
 
-      const totalChildNodeHeight =
-        childrenNodeSize.height * node.children.length;
       if (totalChildNodeHeight > maxChildrenHeight) {
         nodeElement.hasScrollbaleChildren = true;
       }
       /**
        * compute child node elements
        */
-      computeElements(node.children, levelPointer, level, true, node.id);
+      computeElements(children, levelPointer, level, true, nodeElement);
 
       /**
        * storing last child co-ordinates
@@ -188,20 +190,21 @@ export default function createNodeElements(
     node: LineageNodeChildren,
     level: number,
     levelPointer: Pointer,
-    parentId: string | undefined
+    parent: LineageNodeElement | undefined
   ): LineageNodeElement => {
     /**
      * add child node co-ordinates based on current pointer
      */
     const nodeElement: LineageNodeElement = {
       id: node.id,
-      data: node.data,
+      templateData: node.templateData,
       links: node.links,
       level,
       x: levelPointer.x,
       y: levelPointer.y,
       isChildren: true,
-      parentId,
+      parentId: parent?.id,
+      parent,
       nodeTemplate: node.nodeTemplate,
       click: node.click,
       rightClick: node.rightClick,
@@ -225,7 +228,7 @@ export default function createNodeElements(
     levelPointer: Pointer,
     level: number,
     isChildren?: boolean,
-    parentId?: string
+    parent?: LineageNodeElement
   ) => {
     /**
      * Interate through nodes and calculate co-ordinates
@@ -236,15 +239,15 @@ export default function createNodeElements(
           node,
           level,
           levelPointer,
-          parentId
+          parent
         );
         nodeElements.push(nodeElement);
 
-        nodeElementsMap[nodeElement.id] = nodeElement;
+        nodeElementsMap[nodeElement.id as string] = nodeElement;
       } else {
         const nodeElement = getComputedElement(node, level, levelPointer);
         nodeElements.push(nodeElement);
-        nodeElementsMap[nodeElement.id] = nodeElement;
+        nodeElementsMap[nodeElement.id as string] = nodeElement;
       }
 
       const parentNode = node as LineageNode;

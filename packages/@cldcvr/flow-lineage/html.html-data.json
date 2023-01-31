@@ -3,7 +3,7 @@
   "tags": [
     {
       "name": "f-lineage",
-      "description": "Events:\n\n  * `ready` {`CustomEvent<{ [x: number]: LineageNode; length: number; toString(): string; toLocaleString(): string; pop(): LineageNode | undefined; push(...items: LineageNode[]): number; ... 29 more ...; at(index: number): LineageNode | undefined; }>`} - \n\nAttributes:\n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `nodes` - \n\n  * `links` {`LineageNodeLinks`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"center-node\"]` {`string | undefined`} - \n\n  * `[\"stager-load\"]` {`number`} - \n\n  * `[\"children-node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"max-children\"]` {`number | undefined`} - \n\n  * `[\"node-template\"]` {`string | undefined`} - \n\n  * `[\"children-node-template\"]` {`string | undefined`} - \n\nProperties:\n\n  * `svg` {`SVGSVGElement`} - \n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `nodes` - \n\n  * `links` {`LineageNodeLinks`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"center-node\"]` {`string | undefined`} - \n\n  * `[\"stager-load\"]` {`number`} - \n\n  * `[\"children-node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"max-children\"]` {`number | undefined`} - \n\n  * `[\"node-template\"]` {`string | undefined`} - \n\n  * `[\"children-node-template\"]` {`string | undefined`} - \n\n  * `pageNumberElement` - \n\n  * `progressElement` - \n\n  * `maxAvailableLevels` {`number`} - holds maximum available level count\n\n  * `centerNodeElement` {`LineageNodeElement | undefined`} - \n\n  * `biDirectionalLinks` {`string[]`} - \n\n  * `data` {`LineageData`} - \n\n  * `levelsToPlot` {`number[]`} - holds which levels to display\n\n  * `pageToLevels` - page to levels map\n\n  * `lineageDrawParams` {`DrawLineageParams`} - \n\n  * `page` {`number`} - \n\n  * `timeout` {`Timeout`} - \n\n  * `styles` {`CSSResult[]`} - css loaded from scss file",
+      "description": "Events:\n\n  * `ready` {`CustomEvent<{ [x: number]: LineageNode; length: number; toString(): string; toLocaleString(): string; pop(): LineageNode | undefined; push(...items: LineageNode[]): number; ... 29 more ...; at(index: number): LineageNode | undefined; }>`} - \n\nAttributes:\n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `background` {`string | undefined`} - \n\n  * `nodes` - \n\n  * `links` {`LineageNodeLinks`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"center-node\"]` {`string | undefined`} - \n\n  * `[\"stagger-load\"]` {`number`} - \n\n  * `[\"children-node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `[\"max-children\"]` {`number | undefined`} - \n\n  * `[\"node-template\"]` {`string | undefined`} - \n\n  * `[\"children-node-template\"]` {`string | undefined`} - \n\nProperties:\n\n  * `svg` {`SVGSVGElement`} - \n\n  * `direction` {`LineageDirection | undefined`} - \n\n  * `background` {`string | undefined`} - \n\n  * `nodes` - \n\n  * `links` {`LineageNodeLinks`} - \n\n  * `padding` {`number | undefined`} - \n\n  * `gap` {`number | undefined`} - \n\n  * `[\"node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `nodeSize` {`LineageNodeSize | undefined`} - Workaround for vue 2 for property name with hyphen\n\n  * `[\"center-node\"]` {`string | undefined`} - \n\n  * `centerNode` {`string | undefined`} - Workaround for vue 2 for property name with hyphen\n\n  * `[\"stagger-load\"]` {`number`} - \n\n  * `stagerLoad` {`number`} - Workaround for vue 2 for property name with hyphen\n\n  * `[\"children-node-size\"]` {`LineageNodeSize | undefined`} - \n\n  * `childrenNodeSize` {`LineageNodeSize | undefined`} - Workaround for vue 2 for property name with hyphen\n\n  * `[\"max-children\"]` {`number | undefined`} - \n\n  * `maxChildren` {`number | undefined`} - Workaround for vue 2 for property name with hyphen\n\n  * `[\"node-template\"]` {`string | undefined`} - \n\n  * `nodeTemplate` {`string | undefined`} - Workaround for vue 2 for property name with hyphen\n\n  * `[\"children-node-template\"]` {`string | undefined`} - \n\n  * `childrenNodeTemplate` {`string | undefined`} - Workaround for vue 2 for property name with hyphen\n\n  * `pageNumberElement` - \n\n  * `progressElement` - \n\n  * `maxAvailableLevels` {`number`} - holds maximum available level count\n\n  * `centerNodeElement` {`LineageNodeElement | undefined`} - \n\n  * `biDirectionalLinks` {`string[]`} - \n\n  * `data` {`LineageData`} - \n\n  * `foreignObjects` {`Selection<SVGForeignObjectElement, LineageNodeElement, SVGGElement, unknown>`} - \n\n  * `levelsToPlot` {`number[]`} - holds which levels to display\n\n  * `pageToLevels` - page to levels map\n\n  * `lineageDrawParams` {`DrawLineageParams`} - \n\n  * `page` {`number`} - \n\n  * `timeout` {`Timeout`} - \n\n  * `renderCount` {`number`} - \n\n  * `currentTransform` {`null`} - \n\n  * `styles` {`CSSResult[]`} - css loaded from scss file",
       "attributes": [
         {
           "name": "direction",
@@ -16,6 +16,11 @@
               "name": "vertical"
             }
           ]
+        },
+        {
+          "name": "background",
+          "description": "`background` {`string | undefined`} - \n\nProperty: background\n\nDefault: var(--color-surface-default)",
+          "values": []
         },
         {
           "name": "nodes",
@@ -46,8 +51,8 @@
           "values": []
         },
         {
-          "name": "[\"stager-load\"]",
-          "description": "`[\"stager-load\"]` {`number`} - \n\nProperty: [\"stager-load\"]\n\nDefault: 10"
+          "name": "[\"stagger-load\"]",
+          "description": "`[\"stagger-load\"]` {`number`} - \n\nProperty: [\"stagger-load\"]\n\nDefault: 10"
         },
         {
           "name": "[\"children-node-size\"]",

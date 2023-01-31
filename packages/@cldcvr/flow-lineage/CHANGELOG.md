@@ -4,6 +4,102 @@
 
 # Change Log
 
+## [1.3.1] - 2023-01-30
+
+### Improvements
+
+- Hot update feature improved and new object assignment support added.
+
+## [1.3.0] - 2023-01-30
+
+### Features
+
+- 🔥 Hot update when user changes `templateData`.
+
+## [1.2.3] - 2023-01-28
+
+### Improvements
+
+- Primary outline added when node is highlighted.
+- `data` from node schema is renamed to `templateData`.
+- `background` propetry added to customize background of `f-lineage`.
+## [1.2.2] - 2023-01-24
+
+### Improvements
+
+- Show dashed hidden children links when node is focused.
+## [1.2.1] - 2023-01-24
+
+### Bug Fix
+
+- Background link not shifting when we toggle children.
+## [1.2.0] - 2023-01-23
+
+### Improvements
+
+- Outgoing backward connection's gap delta logic updated.
+## [1.1.9] - 2023-01-23
+
+### Improvements
+
+- Same-level link logic implemented.
+
+### Bug fixes
+- Backward connection going though node
+- Curve angle glitch fixed.
+- When we exapnd collapse nodes were overlapping.
+- Chart is dragged if root has backward connection. (Logic updated)
+
+## [1.1.8] - 2023-01-20
+
+### Improvements
+
+- links plotting algorithm updated
+
+## [1.1.7] - 2023-01-18
+
+### Bug Fixes
+
+- Retain zoom and drag levels if nodes or links updated.
+- Extra gap issue fixed while plotting distant links.
+- Chart is dragged if root has backward connection.
+## [1.1.6] - 2023-01-17
+
+### Bug Fixes
+
+- Safari: zoom in/zoom out fixed
+## [1.1.5] - 2023-01-17
+
+### Bug Fixes
+
+- `children` typescript type updated.
+## [1.1.4] - 2023-01-17
+
+### Bug Fixes
+
+- `children` typescript type updated.
+
+## [1.1.3] - 2023-01-17
+
+### Improvements
+
+- `children` data type `Array` converted to `Object`.
+## [1.1.2] - 2023-01-12
+
+### Bug Fixes
+
+- Storybook control update not updating lineage component.
+## [1.1.1] - 2023-01-11
+
+### Bug Fixes
+
+- Vue 2 : property name with hyphen support added.
+## [1.1.0] - 2023-01-11
+
+### Bug Fixes
+
+- `links` vanishing bug resolved.
+
 ## [1.0.9] - 2023-01-10
 
 ### Bug Fixes
@@ -34,7 +130,7 @@
 
 ### Improvements
 - `isChildrenVisible` property changed to `hideChildren` with default value `true.`
-- `degree` property changed to `stager-load`.
+- `degree` property changed to `stagger-load`.
 - `template` field changed to `nodeTemplate` in node schema.
 
 ## [1.0.2] - 2023-01-4

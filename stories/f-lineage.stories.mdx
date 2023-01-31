@@ -31,7 +31,7 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
         control: "select",
         options: ["horizontal", "vertical"],
       },
-      data: {
+      templateData: {
         control: "object",
       },
       padding: {
@@ -189,14 +189,13 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
       ],
       nodes: {
         Calvin: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Calvin",
           },
-          children: [
-            {
-              id: "child1",
+          children: {
+            child1: {
               click: function (event, node) {
                 console.log("Child Node Clicked", event, node);
               },
@@ -204,52 +203,22 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
                 console.log("Child Node Right Clicked", event, node);
               },
             },
-            {
-              id: "child2",
-            },
-            {
-              id: "child3",
-            },
-            {
-              id: "child4",
-            },
-            {
-              id: "child5",
-            },
-            {
-              id: "child6",
-            },
-            {
-              id: "child7",
-            },
-            {
-              id: "child8",
-            },
-            {
-              id: "child9",
-            },
-            {
-              id: "child10",
-            },
-            {
-              id: "child11",
-            },
-            {
-              id: "child12",
-            },
-            {
-              id: "child13",
-            },
-            {
-              id: "child14",
-            },
-            {
-              id: "child15",
-            },
-            {
-              id: "child16",
-            },
-          ],
+            child2: {},
+            child3: {},
+            child4: {},
+            child5: {},
+            child6: {},
+            child7: {},
+            child8: {},
+            child9: {},
+            child10: {},
+            child11: {},
+            child12: {},
+            child13: {},
+            child14: {},
+            child15: {},
+            child16: {},
+          },
           click: function (event, node) {
             console.log("Node Clicked", event, node);
           },
@@ -258,119 +227,83 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
           },
         },
         Hansen: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Hansen",
           },
-          children: [
-            {
-              id: "hchild1",
-            },
-          ],
+          children: { hchild1: {} },
         },
         Alicen: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Alicen",
           },
         },
         Jennifer: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Jennifer",
           },
         },
         Brooke: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Brooke",
           },
         },
         Tamara: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Tamara",
           },
         },
         Bradley: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Bradley",
           },
         },
         Roger: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Roger",
           },
         },
         Max: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Max",
           },
           hideChildren: false,
-          children: [
-            {
-              id: "mchild1",
-            },
-            {
-              id: "mchild2",
-            },
-            {
-              id: "mchild3",
-            },
-            {
-              id: "mchild4",
-            },
-            {
-              id: "mchild5",
-            },
-            {
-              id: "mchild6",
-            },
-            {
-              id: "mchild7",
-            },
-            {
-              id: "mchild8",
-            },
-            {
-              id: "mchild9",
-            },
-            {
-              id: "mchild10",
-            },
-            {
-              id: "mchild11",
-            },
-            {
-              id: "mchild12",
-            },
-            {
-              id: "mchild13",
-            },
-            {
-              id: "mchild14",
-            },
-            {
-              id: "mchild15",
-            },
-            {
-              id: "mchild16",
-            },
-          ],
+          children: {
+            mchild1: {},
+            mchild2: {},
+            mchild3: {},
+            mchild4: {},
+            mchild5: {},
+            mchild6: {},
+            mchild7: {},
+            mchild8: {},
+            mchild9: {},
+            mchild10: {},
+            mchild11: {},
+            mchild12: {},
+            mchild13: {},
+            mchild14: {},
+            mchild15: {},
+            mchild16: {},
+          },
         },
         Tony: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Tony",
@@ -383,7 +316,7 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
         align="middle-left"
         variant="curved"
         gap="small"
-		style="border-radius:100px;"
+    	style="border-radius:100px;"
         \${node.children ? 'border="small solid default bottom"' : ""}
       >
         <f-icon-button icon="i-user"></f-icon-button>
@@ -393,46 +326,46 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
             >x: \${node.x}, y: \${node.y}</f-text
           >
         </f-div>
-		\${node.childrenToggle}
+    	\${node.childrenToggle}
       </f-div>`,
         },
         Charlie: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Roger",
           },
         },
         John: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "John",
           },
         },
         Tim: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Tim",
           },
         },
         Sam: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Sam",
           },
         },
         Rex: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Rex",
           },
         },
         Pat: {
-          data: {
+          templateData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Pat",
@@ -457,7 +390,7 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
         .children-node-template=${args["children-node-template"]}
         .links=${args.links}
         .nodes=${args.nodes}
-        stager-load="1"
+        stagger-load="1"
         @ready=${handleReady}
       ></f-lineage>`;
     }}

@@ -51,10 +51,10 @@
 			<td >Set which node ID is the main/center node of the entire lineage. eg: <code>&lt;f-lineage center-node=&quot;your-node-id&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
-			<td >stager-load</td>
+			<td >stagger-load</td>
 			<td >Number</td>
 			<td >10</td>
-			<td >Flow linage has a staggered load aproach for better preformance. A stager-load defines how many levels of connections will be plotted in a single render.eg: <code>&lt;f-lineage stager-load=&quot;10&quot;&gt;&lt;/f-lineage&gt;</code></td>
+			<td >Flow linage has a staggered load aproach for better preformance. A stagger-load defines how many levels of connections will be plotted in a single render.eg: <code>&lt;f-lineage stagger-load=&quot;10&quot;&gt;&lt;/f-lineage&gt;</code></td>
 		</tr>
 		<tr>
 			<td >max-children</td>
@@ -94,10 +94,10 @@ Nodes are broken into two parts, a parent node `node` and child nodes `children`
 	</thead>
 	<tbody>
 		<tr>
-			<td>data</td>
+			<td>templateData</td>
 			<td>Object</td>
 			<td>-</td>
-			<td>Data contains the metadata that will be consumed by the node-templates to display information on the lineage. For Example : To display name and email address on a node, the data would be  <code>data: {"{ name: 'Harry Potter', email: 'abc@xyz.com'}"}</code>You can use data for both node and child nodes. <a href="#schema">View schema example</a></td>
+			<td>Data contains the metadata that will be consumed by the node-templates to display information on the lineage. For Example : To display name and email address on a node, the templateData would be  <code>templateData: {"{ name: 'Harry Potter', email: 'abc@xyz.com'}"}</code>You can use templateData for both node and child nodes. <a href="#schema">View schema example</a></td>
 		</tr>
 		<tr>
 			<td>nodeTemplate</td>

@@ -24,3 +24,14 @@ export default function removeLinks(
     });
   }
 }
+export function removeDistantLinks(lineage: FLineage) {
+  const root = lineage.shadowRoot;
+  if (root) {
+    root.querySelectorAll(`.distant-link`).forEach((el) => {
+      el.remove();
+    });
+    root.querySelectorAll(`.backward-link`).forEach((el) => {
+      el.remove();
+    });
+  }
+}

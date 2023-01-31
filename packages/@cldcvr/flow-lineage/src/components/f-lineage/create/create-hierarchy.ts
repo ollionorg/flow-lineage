@@ -1,3 +1,4 @@
+import { getChildrenArray, isEmpty } from "./../../../utils";
 import {
   LineageData,
   LineageNode,
@@ -7,7 +8,11 @@ import {
 
 export default function createHierarchy(
   links: LineageNodeLinks,
-  nodes: LineageNodes
+  nodes: LineageNodes,
+  templateHandler: {
+    templateDataProxy: ProxyHandler<Record<string, any>>;
+    nodeDataProxy: ProxyHandler<Record<string, any>>;
+  }
 ) {
   const hierarchyMeta: Record<
     string,
@@ -24,7 +29,17 @@ export default function createHierarchy(
 
   const data: LineageData = [];
 
-  Object.entries(nodes).forEach(([id, n]) => {
+  Object.keys(nodes).forEach((id) => {
+    nodes[id] = new Proxy(nodes[id], templateHandler.nodeDataProxy);
+    const n = nodes[id];
+    n.__id__ = id;
+    if (n.templateData) {
+      n.templateData.__id__ = id;
+      n.templateData = new Proxy(
+        n.templateData,
+        templateHandler.templateDataProxy
+      );
+    }
     const node = {
       id,
       ...n,
@@ -34,14 +49,29 @@ export default function createHierarchy(
       ref: node,
     };
     data.push(node);
-    if (node.children && node.children.length > 0) {
-      node.children.forEach((cNode) => {
-        hierarchyMeta[cNode.id] = {
-          level: 1,
-          ref: cNode,
-          isChildren: true,
-          isLinked: true,
-        };
+    if (node.children && !isEmpty(node.children)) {
+      Object.keys(node.children).forEach((id) => {
+        if (node.children) {
+          node.children[id] = new Proxy(
+            node.children[id],
+            templateHandler.nodeDataProxy
+          );
+          const cNode = node.children[id];
+          cNode.__id__ = id;
+          if (cNode.templateData) {
+            cNode.templateData.__id__ = id;
+            cNode.templateData = new Proxy(
+              cNode.templateData,
+              templateHandler.templateDataProxy
+            );
+          }
+          hierarchyMeta[id] = {
+            level: 1,
+            ref: { id, ...cNode },
+            isChildren: true,
+            isLinked: true,
+          };
+        }
       });
     }
   });
@@ -85,7 +115,7 @@ export default function createHierarchy(
 
           hierarchyMeta[link.to].level = hierarchyMeta[link.from].level + 1;
 
-          to.children?.forEach((cNode) => {
+          getChildrenArray(to.children)?.forEach((cNode) => {
             hierarchyMeta[cNode.id].level = hierarchyMeta[link.to].level;
           });
           hierarchyMeta[link.to].isLinked = true;
@@ -98,7 +128,7 @@ export default function createHierarchy(
           }
 
           from.links.push({
-            nodeid: to.id,
+            nodeid: to.id as string,
           });
         }
 

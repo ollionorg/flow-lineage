@@ -85,7 +85,7 @@ Paste the below snippet in your project, for `src/main.ts`
 
 ```javascript
 import("@cldcvr/flow-core").then(async () => {
-	await import('@cldcvr/flow-lineage');
+	await import("@cldcvr/flow-lineage");
 	//add your application startup/runtime code here **
 });
 ```
@@ -96,6 +96,8 @@ import("@cldcvr/flow-core").then(async () => {
 Paste the below snippet in your project, for `src/index.tsx` or `index.jsx`
 
 </details>
+
+
 
 <br>
 
@@ -181,9 +183,10 @@ export default defineComponent({
     return {
       nodes: {
         rdj: {
-          data: {
+          templateData: {
             fullName: "Robert Downey Jr.",
             description: "Movies",
+            state: "secondary",
           },
         },
         judge: {
@@ -205,9 +208,30 @@ export default defineComponent({
                 title: "Iron man 1",
               },
             },
-            {
-              id: "iman2",
-              data: {
+          },
+        },
+        judge: {
+          templateData: {
+            fullName: "The Judge",
+            description: "Hank Palmer",
+            state: "custom,#006ecc",
+          },
+        },
+        ironman: {
+          templateData: {
+            fullName: "Iron Man",
+            description: "Tony stark",
+            state: "secondary",
+          },
+          children: {
+            irchild1: {
+              templateData: {
+                icon: "i-hashtag",
+                title: "Iron man 1",
+              },
+            },
+            irchild2: {
+              templateData: {
                 icon: "i-paragraph",
                 title: "Iron man 2",
               },
@@ -230,8 +254,8 @@ export default defineComponent({
 		<f-div width="100%" state="primary" height="100%" padding="small" align="top-left" variant="curved" gap="small">
 			<f-pictogram variant="circle" source="\${node.data.fullName}"></f-pictogram>
 			<f-div direction="column">
-				<f-text size="small" ellipsis>\${node.data.fullName}</f-text>
-				<f-text size="x-small" ellipsis>\${node.data.description}</f-text>
+				<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
+				<f-text size="x-small" ellipsis>\${node.templateData.description}</f-text>
 			</f-div>
 			\${node.childrenToggle}
 		</f-div>
@@ -246,6 +270,7 @@ export default defineComponent({
   },
 });
 </script>
+
 
 ```
 
@@ -273,6 +298,7 @@ Flow nodes are represented through templates, this allow you to  easily change, 
 
 
 Head over to [Flow Lineage templates](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page) to view whats available.  
+
 
 
 

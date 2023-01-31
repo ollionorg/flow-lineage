@@ -19,6 +19,8 @@ import lowlightPath from "./highlight/lowlight-path";
 import createHierarchy from "./create/create-hierarchy";
 import { FButton, FDiv } from "@cldcvr/flow-core";
 import { FRoot } from "@cldcvr/flow-core/src/mixins/components/f-root/f-root";
+import { getComputedHTML } from "../../utils";
+import getProxies from "./draw/hot-reload-proxies";
 
 // Renders attribute names of parent element to textContent
 
@@ -34,6 +36,9 @@ export class FLineage extends FRoot {
 
   @property({ reflect: true, type: String })
   direction?: LineageDirection = "horizontal";
+
+  @property({ reflect: true, type: String })
+  background?: string = "var(--color-surface-default)";
 
   @property({ type: Object })
   nodes!: LineageNodes;
@@ -53,41 +58,86 @@ export class FLineage extends FRoot {
   })
   ["node-size"]?: LineageNodeSize;
 
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set nodeSize(value: LineageNodeSize | undefined) {
+    this["node-size"] = value;
+  }
+
   @property({
     reflect: true,
     type: String,
   })
   ["center-node"]?: string;
 
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set centerNode(value: string | undefined) {
+    this["center-node"] = value;
+  }
+
   @property({
     reflect: true,
     type: Number,
   })
-  ["stager-load"] = 10;
+  ["stagger-load"] = 10;
+
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set stagerLoad(value: number) {
+    this["stagger-load"] = value;
+  }
 
   @property({
     reflect: true,
     type: Object,
   })
   ["children-node-size"]?: LineageNodeSize;
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set childrenNodeSize(value: LineageNodeSize | undefined) {
+    this["children-node-size"] = value;
+  }
 
   @property({
     reflect: true,
     type: Number,
   })
   ["max-children"]?: number;
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set maxChildren(value: number | undefined) {
+    this["max-children"] = value;
+  }
 
   @property({
     reflect: false,
     type: String,
   })
   ["node-template"]?: string;
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set nodeTemplate(value: string | undefined) {
+    this["node-template"] = value;
+  }
 
   @property({
     reflect: false,
     type: String,
   })
   ["children-node-template"]?: string;
+  /**
+   * Workaround for vue 2 for property name with hyphen
+   */
+  set childrenNodeTemplate(value: string | undefined) {
+    this["children-node-template"] = value;
+  }
 
   @query("#page-number")
   pageNumberElement!: FButton;
@@ -106,6 +156,13 @@ export class FLineage extends FRoot {
 
   private data!: LineageData;
 
+  foreignObjects!: d3.Selection<
+    SVGForeignObjectElement,
+    LineageNodeElement,
+    SVGGElement,
+    unknown
+  >;
+
   /**
    * holds which levels to display
    */
@@ -121,6 +178,13 @@ export class FLineage extends FRoot {
   page = 1;
 
   timeout!: ReturnType<typeof setTimeout>;
+  renderCount = 0;
+  currentTransform = null;
+
+  applyBackground() {
+    this.style.backgroundColor = this.background as string;
+    this.svg.style.backgroundColor = this.background as string;
+  }
 
   getNumbersFromRange(min: number, max: number) {
     return Array.from({ length: max - min + 1 }, (_, i) => i + min);
@@ -137,12 +201,12 @@ export class FLineage extends FRoot {
     if (this.maxAvailableLevels > maxLevel) {
       this.levelsToPlot = [
         ...this.getNumbersFromRange(
-          minLevel - this["stager-load"],
+          minLevel - this["stagger-load"],
           minLevel - 1
         ),
         ...this.getNumbersFromRange(
           maxLevel + 1,
-          maxLevel + this["stager-load"]
+          maxLevel + this["stagger-load"]
         ),
       ];
 
@@ -190,45 +254,74 @@ export class FLineage extends FRoot {
     }
   }
 
-  reDrawChunk(page: number, level: number) {
+  reDrawChunk(page: number, _level: number) {
     this.shadowRoot
       ?.querySelectorAll(`[data-page="${page}"`)
       .forEach((element) => {
         element.remove();
       });
 
+    const levelsToPlot = this.pageToLevels[page];
+
     drawLineage({
       ...this.lineageDrawParams,
-      levelsToPlot: this.pageToLevels[page],
+      levelsToPlot,
       page,
       filter: (link) => {
-        if (link.source.isChildren && !link.source.isVisible) {
-          return false;
+        if (link.source.isChildren || link.target.isChildren) {
+          return true;
         }
-        if (link.target.isChildren && !link.target.isVisible) {
-          return false;
+        if (
+          link.source.level - link.target.level > 1 ||
+          link.target.level - link.source.level > 1
+        ) {
+          return true;
         }
-        return link.source.level === level || link.target.level === level;
+        if (link.target.level <= link.source.level) {
+          return true;
+        }
+        return (
+          levelsToPlot.includes(link.source.level) ||
+          levelsToPlot.includes(link.target.level)
+        );
       },
     });
   }
 
   render() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.renderCount += 1;
     return html`
       ${unsafeSVG(`<svg xmlns="http://www.w3.org/2000/svg"></svg>`)}
-      <f-div
-        align="middle-center"
-        gap="x-small"
-        padding="small"
-        state="tertiary"
-        variant="curved"
-        width="80px"
-        class="degree-selector"
-        id="progress"
-      >
-        <f-icon source="i-tick" loading></f-icon>
-        <f-text id="page-number">${this.page}%</f-text>
-      </f-div>
+      ${this.renderCount % 2
+        ? html`<f-div
+            align="middle-center"
+            gap="x-small"
+            padding="small"
+            state="tertiary"
+            variant="curved"
+            width="80px"
+            class="degree-selector"
+            id="progress"
+          >
+            <f-icon source="i-tick" loading></f-icon>
+            <f-text id="page-number">${this.page}%</f-text>
+          </f-div>`
+        : html`<f-div
+            align="middle-center"
+            gap="x-small"
+            padding="small"
+            state="tertiary"
+            variant="curved"
+            width="80px"
+            class="degree-selector"
+            id="progress"
+          >
+            <f-icon source="i-tick" loading></f-icon>
+            <f-text id="page-number">${this.page}%</f-text>
+          </f-div>`}
     `;
   }
   connectedCallback() {
@@ -278,14 +371,12 @@ export class FLineage extends FRoot {
   updated() {
     console.group("Lineage");
     console.time("Total duration");
-
+    this.applyBackground();
     /**
      * cleaning up svg if it has any exisitng content
      */
 
-    const nodeSize = this["node-size"]
-      ? this["node-size"]
-      : { width: 200, height: 52 };
+    const nodeSize = this["node-size"] || { width: 200, height: 52 };
 
     const childrenNodeSize = this["children-node-size"]
       ? this["children-node-size"]
@@ -330,9 +421,16 @@ export class FLineage extends FRoot {
       /**
        * Creates hierarchy based on nodes and links provided by user
        */
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+
+      /**
+       * template data proxy for hot reload
+       */
+      const templateDataProxy = getProxies(this);
       const { data, biDirectionalLinks } = createHierarchy(
         this.links,
-        this.nodes
+        this.nodes,
+        templateDataProxy
       );
       this.data = data;
       // holds birectional links
@@ -367,12 +465,12 @@ export class FLineage extends FRoot {
       if (this.centerNodeElement) {
         this.levelsToPlot = [
           ...this.getNumbersFromRange(
-            this.centerNodeElement.level - this["stager-load"],
+            this.centerNodeElement.level - this["stagger-load"],
             this.centerNodeElement.level
           ),
           ...this.getNumbersFromRange(
             this.centerNodeElement.level + 1,
-            this.centerNodeElement.level + this["stager-load"]
+            this.centerNodeElement.level + this["stagger-load"]
           ),
         ];
 
@@ -404,6 +502,13 @@ export class FLineage extends FRoot {
        */
       const lineageContainer = svgElement.append("g");
 
+      /**
+       * Apply transform if it is exists.
+       */
+      if (this.currentTransform) {
+        lineageContainer.attr("transform", this.currentTransform);
+      }
+
       this.lineageDrawParams = {
         lineage,
         svg: lineageContainer,
@@ -419,7 +524,22 @@ export class FLineage extends FRoot {
       drawLineage(this.lineageDrawParams);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleZoom = (e: any) => {
+        /**
+         * store transform and it is used to apply on update
+         */
+        this.currentTransform = e.transform;
         lineageContainer.attr("transform", e.transform);
+        if (this.isSafari()) {
+          const scale = e.transform.k;
+          this.shadowRoot
+            ?.querySelectorAll("foreignObject")
+            .forEach((obj: SVGForeignObjectElement) => {
+              for (let i = 0; i < obj.children.length; i++) {
+                const element = obj.children[i];
+                (element as HTMLElement).style.transform = `scale(${scale}) `;
+              }
+            });
+        }
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const zoom = d3
@@ -444,6 +564,38 @@ export class FLineage extends FRoot {
 
     console.timeEnd("Total duration");
     console.groupEnd();
+  }
+  isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  }
+
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  /* eslint-disable @typescript-eslint/ban-ts-comment */
+  // @ts-ignore
+  doTemplateHotUpdate(node: LineageNodeElement, isChildNode = false) {
+    if (isChildNode) {
+      if (node.nodeTemplate) {
+        return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
+      } else {
+        return getComputedHTML(
+          html`${eval("`" + this["children-node-template"] + "`")}`
+        );
+      }
+    } else {
+      if (node.children) {
+        const iconDirection = node.hideChildren ? "down" : "up";
+        node.childrenToggle = `<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
+      } else {
+        node.childrenToggle = "";
+      }
+      if (node.nodeTemplate) {
+        return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
+      } else {
+        return getComputedHTML(
+          html`${eval("`" + this["node-template"] + "`")}`
+        );
+      }
+    }
   }
 }
 

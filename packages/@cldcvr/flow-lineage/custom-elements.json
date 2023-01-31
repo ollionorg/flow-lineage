@@ -87,13 +87,79 @@
     {
       "kind": "javascript-module",
       "path": "src/utils/index.ts",
-      "declarations": [],
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "isEmpty",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "text": "Object"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getChildrenArray",
+          "return": {
+            "type": {
+              "text": "(LineageNodeChildren & { id: string })[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "children",
+              "type": {
+                "text": "Record<string, LineageNodeChildren> | undefined"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getChildCount",
+          "parameters": [
+            {
+              "name": "children",
+              "type": {
+                "text": "Record<string, LineageNodeChildren> | undefined"
+              }
+            }
+          ]
+        }
+      ],
       "exports": [
         {
           "kind": "js",
           "name": "getComputedHTML",
           "declaration": {
             "name": "getComputedHTML",
+            "module": "src/utils/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isEmpty",
+          "declaration": {
+            "name": "isEmpty",
+            "module": "src/utils/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getChildrenArray",
+          "declaration": {
+            "name": "getChildrenArray",
+            "module": "src/utils/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getChildCount",
+          "declaration": {
+            "name": "getChildCount",
             "module": "src/utils/index.ts"
           }
         }
@@ -123,6 +189,16 @@
               },
               "default": "\"horizontal\"",
               "attribute": "direction",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "background",
+              "type": {
+                "text": "string | undefined"
+              },
+              "default": "\"var(--color-surface-default)\"",
+              "attribute": "background",
               "reflects": true
             },
             {
@@ -172,6 +248,11 @@
             },
             {
               "kind": "field",
+              "name": "nodeSize",
+              "description": "Workaround for vue 2 for property name with hyphen"
+            },
+            {
+              "kind": "field",
               "name": "[\"center-node\"]",
               "type": {
                 "text": "string | undefined"
@@ -181,13 +262,23 @@
             },
             {
               "kind": "field",
-              "name": "[\"stager-load\"]",
+              "name": "centerNode",
+              "description": "Workaround for vue 2 for property name with hyphen"
+            },
+            {
+              "kind": "field",
+              "name": "[\"stagger-load\"]",
               "type": {
                 "text": "number"
               },
               "default": "10",
-              "attribute": "[\"stager-load\"]",
+              "attribute": "[\"stagger-load\"]",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "stagerLoad",
+              "description": "Workaround for vue 2 for property name with hyphen"
             },
             {
               "kind": "field",
@@ -200,12 +291,22 @@
             },
             {
               "kind": "field",
+              "name": "childrenNodeSize",
+              "description": "Workaround for vue 2 for property name with hyphen"
+            },
+            {
+              "kind": "field",
               "name": "[\"max-children\"]",
               "type": {
                 "text": "number | undefined"
               },
               "attribute": "[\"max-children\"]",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "maxChildren",
+              "description": "Workaround for vue 2 for property name with hyphen"
             },
             {
               "kind": "field",
@@ -217,11 +318,21 @@
             },
             {
               "kind": "field",
+              "name": "nodeTemplate",
+              "description": "Workaround for vue 2 for property name with hyphen"
+            },
+            {
+              "kind": "field",
               "name": "[\"children-node-template\"]",
               "type": {
                 "text": "string | undefined"
               },
               "attribute": "[\"children-node-template\"]"
+            },
+            {
+              "kind": "field",
+              "name": "childrenNodeTemplate",
+              "description": "Workaround for vue 2 for property name with hyphen"
             },
             {
               "kind": "field",
@@ -271,6 +382,13 @@
             },
             {
               "kind": "field",
+              "name": "foreignObjects",
+              "type": {
+                "text": "d3.Selection<\n    SVGForeignObjectElement,\n    LineageNodeElement,\n    SVGGElement,\n    unknown\n  >"
+              }
+            },
+            {
+              "kind": "field",
               "name": "levelsToPlot",
               "type": {
                 "text": "number[]"
@@ -309,6 +427,26 @@
               "type": {
                 "text": "ReturnType<typeof setTimeout>"
               }
+            },
+            {
+              "kind": "field",
+              "name": "renderCount",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "currentTransform",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "applyBackground"
             },
             {
               "kind": "method",
@@ -355,7 +493,7 @@
                   }
                 },
                 {
-                  "name": "level",
+                  "name": "_level",
                   "type": {
                     "text": "number"
                   }
@@ -371,6 +509,26 @@
               "kind": "method",
               "name": "getHeight",
               "description": "get height based on what parent is used"
+            },
+            {
+              "kind": "method",
+              "name": "isSafari"
+            },
+            {
+              "kind": "method",
+              "name": "doTemplateHotUpdate",
+              "parameters": [
+                {
+                  "name": "node",
+                  "type": {
+                    "text": "LineageNodeElement"
+                  }
+                },
+                {
+                  "name": "isChildNode",
+                  "default": "false"
+                }
+              ]
             }
           ],
           "attributes": [
@@ -381,6 +539,14 @@
               },
               "default": "\"horizontal\"",
               "fieldName": "direction"
+            },
+            {
+              "name": "background",
+              "type": {
+                "text": "string | undefined"
+              },
+              "default": "\"var(--color-surface-default)\"",
+              "fieldName": "background"
             },
             {
               "name": "nodes",
@@ -427,12 +593,12 @@
               "fieldName": "[\"center-node\"]"
             },
             {
-              "name": "[\"stager-load\"]",
+              "name": "[\"stagger-load\"]",
               "type": {
                 "text": "number"
               },
               "default": "10",
-              "fieldName": "[\"stager-load\"]"
+              "fieldName": "[\"stagger-load\"]"
             },
             {
               "name": "[\"children-node-size\"]",
@@ -514,6 +680,12 @@
               "name": "nodes",
               "type": {
                 "text": "LineageNodes"
+              }
+            },
+            {
+              "name": "templateHandler",
+              "type": {
+                "text": "{\n    templateDataProxy: ProxyHandler<Record<string, any>>;\n    nodeDataProxy: ProxyHandler<Record<string, any>>;\n  }"
               }
             }
           ]
@@ -676,45 +848,45 @@
           "name": "drawElbow",
           "parameters": [
             {
+              "name": "{\n  d,\n  nodeSize,\n  gap,\n  element,\n  childrenNodeSize,\n  levelLinkGap,\n  lineage,\n}",
+              "type": {
+                "text": "DrawElbowParams"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getParentLinkForHiddenChild",
+          "parameters": [
+            {
               "name": "d",
               "type": {
                 "text": "LineageLinkElement"
               }
-            },
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isDashedLink",
+          "parameters": [
             {
-              "name": "levelLinkGap",
+              "name": "d",
               "type": {
-                "text": "LevelLinkGap"
+                "text": "LineageLinkElement"
               }
-            },
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getHiddenChildLinkId",
+          "parameters": [
             {
-              "name": "nodeSize",
+              "name": "d",
               "type": {
-                "text": "LineageNodeSize"
-              }
-            },
-            {
-              "name": "childrenNodeSize",
-              "type": {
-                "text": "LineageNodeSize"
-              }
-            },
-            {
-              "name": "gap",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "direction",
-              "type": {
-                "text": "LineageDirection"
-              }
-            },
-            {
-              "name": "lineage",
-              "type": {
-                "text": "Lineage"
+                "text": "LineageLinkElement"
               }
             }
           ]
@@ -726,6 +898,30 @@
           "name": "default",
           "declaration": {
             "name": "drawElbow",
+            "module": "src/components/f-lineage/draw/draw-elbow.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getParentLinkForHiddenChild",
+          "declaration": {
+            "name": "getParentLinkForHiddenChild",
+            "module": "src/components/f-lineage/draw/draw-elbow.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isDashedLink",
+          "declaration": {
+            "name": "isDashedLink",
+            "module": "src/components/f-lineage/draw/draw-elbow.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getHiddenChildLinkId",
+          "declaration": {
+            "name": "getHiddenChildLinkId",
             "module": "src/components/f-lineage/draw/draw-elbow.ts"
           }
         }
@@ -817,40 +1013,16 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/f-lineage/draw/draw-paths.ts",
+      "path": "src/components/f-lineage/draw/hot-reload-proxies.ts",
       "declarations": [
         {
           "kind": "function",
-          "name": "getForwardLinkPath",
+          "name": "getProxies",
           "parameters": [
             {
-              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  d,\n  lineage,\n}",
+              "name": "element",
               "type": {
-                "text": "HorizontalLinkPathParams"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "getBackwardLinkPath",
-          "parameters": [
-            {
-              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  d,\n  lineage,\n}",
-              "type": {
-                "text": "HorizontalLinkPathParams"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "getVerticalForwardLinkPath",
-          "parameters": [
-            {
-              "name": "{\n  sx,\n  sy,\n  dx,\n  dy,\n  startArcRadius,\n  getLinkGap,\n  nodeSize,\n  gap,\n  lineage,\n  d,\n}",
-              "type": {
-                "text": "VerticalLinkPathParams"
+                "text": "FLineage"
               }
             }
           ]
@@ -859,26 +1031,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "getForwardLinkPath",
+          "name": "default",
           "declaration": {
-            "name": "getForwardLinkPath",
-            "module": "src/components/f-lineage/draw/draw-paths.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getBackwardLinkPath",
-          "declaration": {
-            "name": "getBackwardLinkPath",
-            "module": "src/components/f-lineage/draw/draw-paths.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getVerticalForwardLinkPath",
-          "declaration": {
-            "name": "getVerticalForwardLinkPath",
-            "module": "src/components/f-lineage/draw/draw-paths.ts"
+            "name": "getProxies",
+            "module": "src/components/f-lineage/draw/hot-reload-proxies.ts"
           }
         }
       ]
@@ -904,6 +1060,18 @@
               }
             }
           ]
+        },
+        {
+          "kind": "function",
+          "name": "removeDistantLinks",
+          "parameters": [
+            {
+              "name": "lineage",
+              "type": {
+                "text": "FLineage"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -912,6 +1080,14 @@
           "name": "default",
           "declaration": {
             "name": "removeLinks",
+            "module": "src/components/f-lineage/draw/remove-links.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "removeDistantLinks",
+          "declaration": {
+            "name": "removeDistantLinks",
             "module": "src/components/f-lineage/draw/remove-links.ts"
           }
         }

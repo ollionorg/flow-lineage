@@ -3,9 +3,10 @@
 import { FLineage } from "./f-lineage";
 
 export type LineageBaseNode = {
-  id: string;
+  id?: string;
+  __id__?: string;
   links?: LineageNodeLink[];
-  data?: Record<string, any>;
+  templateData?: Record<string, any>;
   nodeTemplate?: string;
   click?: (event: Event, node: LineageNodeElement) => void;
   rightClick?: (event: Event, node: LineageNodeElement) => void;
@@ -15,7 +16,7 @@ export type LineageNodeChildren = LineageBaseNode;
 export type LineageNode = {
   to?: LineageNode[];
   hideChildren?: boolean;
-  children?: LineageNodeChildren[];
+  children?: Record<string, LineageNodeChildren>;
 } & LineageBaseNode;
 
 // Lineage Node children
@@ -37,6 +38,7 @@ export type LineageNodeElement = {
   childrenXMax?: number;
   hasScrollbaleChildren?: boolean;
   parentId?: string;
+  parent?: LineageNodeElement;
   offset?: number;
   isVisible?: boolean;
   childrenToggle?: string;
@@ -111,6 +113,7 @@ export type CreateLinkPathParams = {
   gap: number;
   d: LineageLinkElement;
   lineage: Lineage;
+  element?: FLineage;
 };
 
 export type HorizontalLinkPathParams = {
@@ -122,7 +125,7 @@ export type VerticalLinkPathParams = {
 
 export type LevelPointer = Record<number, { x: number; y: number }>;
 
-export type LineageNodeChildrens = LineageNodeChildren[];
+export type LineageNodeChildrens = Record<string, LineageNodeChildren>;
 export type LineageNodePartial = Omit<LineageNode, "to" | "links" | "id"> & {
   children?: LineageNodeChildrens;
   click?: (event: Event, node: LineageNodeElement) => void;

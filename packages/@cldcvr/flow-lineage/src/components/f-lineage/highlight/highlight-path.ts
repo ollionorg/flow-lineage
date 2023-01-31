@@ -16,6 +16,10 @@ export default function highlightPath(
     root.querySelectorAll(".highlight").forEach((el) => {
       el.classList.remove("highlight");
     });
+    root.querySelectorAll(".selected").forEach((el) => {
+      el.classList.remove("selected");
+    });
+    root.querySelector(`#${node.id}`)?.classList.add("selected");
     /**
      * Add lowlight class to all eligible elements
      */
@@ -47,6 +51,10 @@ export default function highlightPath(
             if (fromid) highlightFrom(fromid);
           });
           root.querySelectorAll(`[id^="source-dot-${id}->"]`).forEach((el) => {
+            el.classList.add("highlight");
+            el.classList.remove("lowlight");
+          });
+          root.querySelectorAll(`[data-parent-id^="${id}->"]`).forEach((el) => {
             el.classList.add("highlight");
             el.classList.remove("lowlight");
           });
@@ -84,6 +92,10 @@ export default function highlightPath(
             el.classList.add("highlight");
             el.classList.remove("lowlight");
           });
+          root.querySelectorAll(`[data-parent-id$="->${id}"]`).forEach((el) => {
+            el.classList.add("highlight");
+            el.classList.remove("lowlight");
+          });
           root
             .querySelectorAll(`[id$="->${id}~arrow-reverse"]`)
             .forEach((el) => {
@@ -97,8 +109,8 @@ export default function highlightPath(
      * Highlight node based on name
      */
 
-    highlightFrom(node.id);
-    highlightTo(node.id);
+    highlightFrom(node.id as string);
+    highlightTo(node.id as string);
     console.timeEnd("Lineage : highlight duration");
   }
 }
