@@ -6,7 +6,7 @@ import drawLinks from "./draw-links";
 // import * as d3 from "d3";
 
 export default function drawNodes(params: DrawLineageParams) {
-  console.time("Nodes duration");
+  //console.time("Nodes duration");
   const {
     lineage,
     svg,
@@ -392,5 +392,5 @@ export default function drawNodes(params: DrawLineageParams) {
       })`;
     });
 
-  console.timeEnd("Nodes duration");
+  //console.timeEnd("Nodes duration");
 }

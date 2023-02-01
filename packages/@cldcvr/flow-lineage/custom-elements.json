@@ -128,6 +128,18 @@
               }
             }
           ]
+        },
+        {
+          "kind": "function",
+          "name": "debounce",
+          "parameters": [
+            {
+              "name": "func",
+              "type": {
+                "text": "Function"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -160,6 +172,14 @@
           "name": "getChildCount",
           "declaration": {
             "name": "getChildCount",
+            "module": "src/utils/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "debounce",
+          "declaration": {
+            "name": "debounce",
             "module": "src/utils/index.ts"
           }
         }

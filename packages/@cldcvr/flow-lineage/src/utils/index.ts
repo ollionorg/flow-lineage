@@ -30,4 +30,12 @@ function getChildCount(
   }
   return 0;
 }
-export { getComputedHTML, isEmpty, getChildrenArray, getChildCount };
+
+function debounce(func: Function) {
+  let timer: number;
+  return function (event: Event) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(func, 1000, event);
+  };
+}
+export { getComputedHTML, isEmpty, getChildrenArray, getChildCount, debounce };
