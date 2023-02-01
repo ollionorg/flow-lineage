@@ -8,7 +8,7 @@
 
 ### Improvements
 
-- debug statements removed.
+- debug statements removed. 
 ## [1.3.1] - 2023-01-30
 
 ### Improvements
