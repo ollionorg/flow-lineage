@@ -8,19 +8,22 @@ export default function getProxies(element: FLineage) {
   const templateDataProxy = {
     set(target: Record<string, any>, key: string, value: any) {
       target[key] = value;
+      const lineageDrawParams = element.getDrawParams();
 
-      const nodeElement = element
-        .getDrawParams()
-        .lineage.nodes.find((n) => n.id === target.__id__);
-      if (nodeElement) {
-        d3.select(element.svg)
-          .select(`#${target.__id__}-foreign-object`)
-          .html(() => {
-            return element.doTemplateHotUpdate(
-              nodeElement,
-              nodeElement.isChildren
-            );
-          });
+      if (lineageDrawParams) {
+        const nodeElement = lineageDrawParams.lineage.nodes.find(
+          (n) => n.id === target.__id__
+        );
+        if (nodeElement) {
+          d3.select(element.svg)
+            .select(`#${target.__id__}-foreign-object`)
+            .html(() => {
+              return element.doTemplateHotUpdate(
+                nodeElement,
+                nodeElement.isChildren
+              );
+            });
+        }
       }
 
       return true;
