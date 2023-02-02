@@ -395,10 +395,16 @@ h2 + h6 {
 .split {
   display: flex;
   padding-top: 12px;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .split > div {
   width: 50%;
+}
+
+.split > div > img {
+  max-width: 300px;
 }
 
 .split .title {

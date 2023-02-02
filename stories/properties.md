@@ -8,6 +8,8 @@
 			<th>Options</th>
 			<th>Default</th>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td><a href="#direction">direction</a></td>
 			<td>string</td>
@@ -68,7 +70,7 @@
 			<td><b>“template-id/object-name”</b></td>
 			<td>default template</td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 ###### Note: Above properties are written in VueJS syntax. Refer  Angular and React for respective syntax.
@@ -91,6 +93,8 @@ Defines the orientation of the lineage.
 			<th class="row-width">Value</th>
 			<th width="400">Description</th>
 		</tr>
+		</thead>
+	<tbody>
 		<tr>
 			<td><strong>horizontal</strong></td>
 			<td>Nodes will be plotted from left to right.</td>
@@ -101,7 +105,7 @@ Defines the orientation of the lineage.
 			<td>Nodes will be plotted from top to bottom.</td>
 			<td></td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br />
@@ -117,12 +121,14 @@ Define the padding of the lineage component in pixels (px)
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
+		</thead>
+	<tbody>
 		<tr>
 			<td><strong>any-num-value</strong></td>
 			<td>Padding around the content of lineage component</td>
 			<td>16</td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br />
@@ -138,12 +144,14 @@ Define the gap between nodes in pixels (px).
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td><strong>any-num-value</strong></td>
 			<td>Padding around the content of lineage component</td>
 			<td>100</td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br />
@@ -158,12 +166,14 @@ Defines the dimensions of the node template.
 			<th class="row-width">Value</th>
 			<th width="400">Description</th>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td width="200"><strong>width: num, height: num</strong></td>
 			<td>width and height of the node template to render the node correctly</td>
 			<td></td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br />
@@ -178,12 +188,14 @@ Defines the dimensions of the children node template.
 			<th class="row-width">Value</th>
 			<th width="400">Description</th>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td><strong>width: num, height: num</strong></td>
 			<td>width and height of the children node template to render the node correctly</td>
 			<td></td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br />
@@ -199,12 +211,14 @@ Sets which node ID is the main/center node for the entire lineage
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td><strong>your-node-id</strong></td>
 			<td>Sets this node id as center node. By default root node is center node.</td>
 			<td>‘root node id’</td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br />
@@ -220,12 +234,14 @@ Choose how many levels or degrees of nodes you would like to draw at the same ti
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td><strong>any-num-value</strong></td>
 			<td>degree of connections to plot in single render</td>
 			<td>10</td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br />
@@ -241,12 +257,14 @@ Defines the number of child nodes visible at a time when a node is expanded. If 
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td><strong>any-num-value</strong></td>
 			<td>maximum number of child nodes before a scrollbar appears</td>
 			<td>8</td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br />
@@ -262,12 +280,14 @@ As nodes are represented through templates in lineage, node-template property ma
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td><strong>template-id/object-name</strong></td>
 			<td>Maps to the template for a node</td>
 			<td><a href="#node-template-default">defaultTemplate</a></td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br />
@@ -283,12 +303,14 @@ Same as nodes, child nodes are  also represented through templates in lineage. c
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td><strong>template-id/object-name</strong></td>
 			<td>Maps to the template for child nodes</td>
 			<td><a href="#node-template-children">defaultTemplate</a></td>
 		</tr>
-	</thead>
+	</tbody>
 </table>
 
 <br /><br />
@@ -299,11 +321,14 @@ Same as nodes, child nodes are  also represented through templates in lineage. c
 ###### Note: Click on the name to learn more about each oject.
 
 <table>
+<thead>
 	<tr>
 		<th>Name</th>
 		<th>Type</th>
 		<th>Default</th>
 	</tr>
+</thead>
+<tbody>
 	<tr>
 		<td><a href="#node-id">node-id</a></td>
 		<td>string</td>
@@ -339,16 +364,14 @@ Same as nodes, child nodes are  also represented through templates in lineage. c
 		<td>function</td>
 		<td>-</td>
 	</tr>
+</tbody>
 </table>
 
 <br />
 
 ## Sample
 
-<img src="/images/node-example.png"/>
-
 ```
-
 node-id-1: { //Unique node id for each node
   templateData: { 
 		fullName: "Robert Downey Jr.",
@@ -371,27 +394,12 @@ node-id-1: { //Unique node id for each node
 
 <h2 id="node-id">Node ID</h2>
 
-The data required by each node is identified by a unique node ID in the node schema. For example, ‘tony’ in this example is an unique node id. This node ID is also used for setting up link properties. 
+Each node is identified by a unique ID. 
 	
 <div class="split">
 	<div>
 		<div class="title">Node example</div>
-	</div>
-	<div>
-		<div class="title">Node data example</div>
-		<pre>add code here</pre>
-	</div>
-</div>
-
-<br />
-
-<h2 id="nodeTemplate">nodeTemplate</h2>
-
-Nodes are represented through templates, you can pass custom markup to create a custom nodes. A node template is defined at the lineage level but can also be overwritten at an individual node level.
-	
-<div class="split">
-	<div>
-		<div class="title">Node example</div>
+		<img src="/images/node-id.png"/>
 	</div>
 	<div>
 		<div class="title">Node data example</div>
@@ -406,19 +414,48 @@ Nodes are represented through templates, you can pass custom markup to create a 
 
 <br />
 
+<h2 id="nodeTemplate">nodeTemplate</h2>
+
+Nodes are represented through templates, you can pass custom markup to create a custom nodes.
+	
+<div class="split">
+	<div>
+		<div class="title">Node example</div>
+		<img src="/images/nodeTemplate.png"/>
+	</div>
+	<div>
+		<div class="title">Node data example</div>
+		<pre><code>{`nodeTemplate:
+<f-div direction="secondary" width="100%" height="hug-content" align="top-left">
+  <f-text size="large">\${node.data.name}</f-text>
+  <f-text size="small">\${node.data.email}</f-text>
+  <f-text size="small">\${node.data.phone}</f-text>
+</f-div>`}</code></pre>
+	</div>
+</div>
+
+<br />
+
 <h2 id="templateData">templateData</h2>
 
-Each node is represented visually by a node Template. The data required by each node, needs to be present in the node schema . For example, if you a have node that has to display basic user information like name, email, and phone number, and a success state then the templateData would be like below.
+The data required by each node, needs to be present in the node schema . For example, if you a have node that has to display basic user information like name, email, and phone number, and a success state then the templateData would be like below.
 	
 ###### Note: Use “\${node.data.key}” to access templateData in your node template. 
 
 <div class="split">
 	<div>
 		<div class="title">Node example</div>
+		<img src="/images/templateData.png"/>
 	</div>
 	<div>
 		<div class="title">Node data example</div>
-		<pre>add code here</pre>
+		<pre><code>{`tony: {                       
+	templateData: {	//Data goes here
+		name: "Tony stark",
+		email: "ironman1200@stark.com",
+		phone: "+91 99999 99999",
+	},
+},`}</code></pre>
 	</div>
 </div>
 
@@ -426,15 +463,28 @@ Each node is represented visually by a node Template. The data required by each 
 
 <h2 id="children">children</h2>
 
-Each node can have related data represented as children. For example if tony stark were to have friends, then the friends would be represented as node children. 
+Each node can have children. 
 
 <div class="split">
 	<div>
 		<div class="title">Node example</div>
+		<img src="/images/children.png"/>
 	</div>
 	<div>
 		<div class="title">Node data example</div>
-		<pre>add code here</pre>
+		<pre><code>{`tony: {                       //Unique node ID
+	templateData: {
+		name: "Tony stark",
+		email: "ironman1200@stark.com",
+	},
+},
+children: [
+            steve: {            //unique ID for node child
+              templateData: {   //data
+                title: "Steve Rogers",
+              },
+            },
+          ]x`}</code></pre>
 	</div>
 </div>
 
@@ -487,21 +537,25 @@ rightClick: function (event, node) {
 ###### Note: Click on the name to learn more about each oject.
 
 <table>
-	<tr>
-		<th>Name</th>
-		<th>Type</th>
-		<th>Default</th>
-	</tr>
-	<tr>
-		<td><a href="#to">to</a></td>
-		<td>string</td>
-		<td>-</td>
-	</tr>
-	<tr>
-		<td><a href="#from">from</a></td>
-		<td>string</td>
-		<td>-</td>
-	</tr>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Default</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><a href="#to">to</a></td>
+			<td>string</td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<td><a href="#from">from</a></td>
+			<td>string</td>
+			<td>-</td>
+		</tr>
+	</tbody>
 </table>
 
 <br />
