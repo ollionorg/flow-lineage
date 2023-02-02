@@ -369,7 +369,7 @@ export class FLineage extends FRoot {
     return height;
   }
   updated() {
-    console.group("Lineage");
+    console.groupCollapsed("Lineage");
     console.time("Total duration");
     this.applyBackground();
     /**

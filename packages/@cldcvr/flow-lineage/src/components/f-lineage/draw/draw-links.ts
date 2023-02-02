@@ -22,7 +22,7 @@ export default function drawLinks({
   page,
   filter,
 }: DrawLineageParams) {
-  console.time("Links duration");
+  //console.time("Links duration");
 
   /**
    * holds levels links gaps and pointers
@@ -226,5 +226,5 @@ export default function drawLinks({
     .attr("fill", "var(--color-border-default)")
     .text("◀");
 
-  console.timeEnd("Links duration");
+  //console.timeEnd("Links duration");
 }

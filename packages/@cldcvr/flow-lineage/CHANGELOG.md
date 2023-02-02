@@ -4,6 +4,16 @@
 
 # Change Log
 
+## [1.3.3] - 2023-02-01
+
+### Bug fixes
+
+- Proxy set bug fixed
+## [1.3.2] - 2023-02-01
+
+### Improvements
+
+- debug statements removed. 
 ## [1.3.1] - 2023-01-30
 
 ### Improvements

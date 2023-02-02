@@ -73,13 +73,13 @@ const nodes: LineageNodes = {
       state: "secondary",
     },
     children: {
-      child1: {
+      hhchild1: {
         templateData: {
           icon: "i-hashtag",
           title: "Node child 1",
         },
       },
-      child2: {
+      hhchild2: {
         templateData: {
           icon: "i-paragraph",
           title: "Node child 2",
@@ -203,7 +203,7 @@ border="small solid default bottom"
 //   updateCounter += 1;
 
 //   if (nodes.rdj?.templateData) {
-//     nodes.rdj.templateData.fullName = `PropertyUpdate ${updateCounter}`;
+//     nodes.rdj.templateData.fullName = `Property Update ${updateCounter}`;
 //   }
 //   if (nodes.ironman?.templateData) {
 //     nodes.ironman.templateData = {
@@ -212,14 +212,14 @@ border="small solid default bottom"
 //       state: "secondary",
 //     };
 //   }
-//   if (nodes.rdj.children && nodes.rdj.children.child1.templateData) {
-//     nodes.rdj.children.child1.templateData.title = `Child Property Update ${updateCounter}`;
-//   }
-//   if (nodes.rdj.children && nodes.rdj.children.child2.templateData) {
-//     nodes.rdj.children.child2.templateData = {
-//       icon: "i-hashtag",
-//       title: `New Child Object ${updateCounter}`,
-//     };
-//   }
-//   if (nodes.prop1.templateData) nodes.prop1.templateData.state = "danger";
+//   //   if (nodes.rdj.children && nodes.rdj.children.child1.templateData) {
+//   //     nodes.rdj.children.child1.templateData.title = `Child Property Update ${updateCounter}`;
+//   //   }
+//   //   if (nodes.rdj.children && nodes.rdj.children.child2.templateData) {
+//   //     nodes.rdj.children.child2.templateData = {
+//   //       icon: "i-hashtag",
+//   //       title: `New Child Object ${updateCounter}`,
+//   //     };
+//   //   }
+// //   if (nodes.prop1.templateData) nodes.prop1.templateData.state = "danger";
 // }, 5000);
