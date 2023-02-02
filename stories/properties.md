@@ -395,7 +395,12 @@ Nodes are represented through templates, you can pass custom markup to create a 
 	</div>
 	<div>
 		<div class="title">Node data example</div>
-		<pre>add code here</pre>
+		<pre><code>{`tony: {                       //Unique node ID
+	templateData: {
+		name: "Tony stark",
+		email: "ironman1200@stark.com",
+	},
+},`}</code></pre>
 	</div>
 </div>
 
