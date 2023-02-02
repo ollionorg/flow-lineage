@@ -345,6 +345,8 @@ Same as nodes, child nodes are  also represented through templates in lineage. c
 
 ## Sample
 
+<img src="/images/node-example.png"/>
+
 ```
 
 node-id-1: { //Unique node id for each node
@@ -369,7 +371,7 @@ node-id-1: { //Unique node id for each node
 
 <h2 id="node-id">Node ID</h2>
 
-The data required by each node is identified by a unique node ID in the node schema. For example, ‘tony’ in this example is an unique node id.  This node ID is also used for setting up link properties. 
+The data required by each node is identified by a unique node ID in the node schema. For example, ‘tony’ in this example is an unique node id. This node ID is also used for setting up link properties. 
 	
 <div class="split">
 	<div>
