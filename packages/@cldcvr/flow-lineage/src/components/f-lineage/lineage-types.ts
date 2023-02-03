@@ -5,6 +5,7 @@ import { FLineage } from "./f-lineage";
 export type LineageBaseNode = {
   id?: string;
   __id__?: string;
+  __isProxy?: string;
   links?: LineageNodeLink[];
   templateData?: Record<string, any>;
   nodeTemplate?: string;

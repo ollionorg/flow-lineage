@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.3.5] - 2023-02-03
+
+### Bug fixes
+
+- Browser crash issue due to application of Proxy on Proxy fixed.
 ## [1.3.4] - 2023-02-03
 
 ### Bug fixes

@@ -212,14 +212,14 @@ border="small solid default bottom"
 //       state: "secondary",
 //     };
 //   }
-//   //   if (nodes.rdj.children && nodes.rdj.children.child1.templateData) {
-//   //     nodes.rdj.children.child1.templateData.title = `Child Property Update ${updateCounter}`;
-//   //   }
-//   //   if (nodes.rdj.children && nodes.rdj.children.child2.templateData) {
-//   //     nodes.rdj.children.child2.templateData = {
-//   //       icon: "i-hashtag",
-//   //       title: `New Child Object ${updateCounter}`,
-//   //     };
-//   //   }
-// //   if (nodes.prop1.templateData) nodes.prop1.templateData.state = "danger";
+//   if (nodes.rdj.children && nodes.rdj.children.child1.templateData) {
+//     nodes.rdj.children.child1.templateData.title = `Child Property Update ${updateCounter}`;
+//   }
+//   if (nodes.rdj.children && nodes.rdj.children.child2.templateData) {
+//     nodes.rdj.children.child2.templateData = {
+//       icon: "i-hashtag",
+//       title: `New Child Object ${updateCounter}`,
+//     };
+//   }
+//   if (nodes.prop1.templateData) nodes.prop1.templateData.state = "danger";
 // }, 5000);

@@ -30,15 +30,20 @@ export default function createHierarchy(
   const data: LineageData = [];
 
   Object.keys(nodes).forEach((id) => {
-    nodes[id] = new Proxy(nodes[id], templateHandler.nodeDataProxy);
+    if (!nodes[id].__isProxy) {
+      nodes[id] = new Proxy(nodes[id], templateHandler.nodeDataProxy);
+    }
+
     const n = nodes[id];
     n.__id__ = id;
     if (n.templateData) {
       n.templateData.__id__ = id;
-      n.templateData = new Proxy(
-        n.templateData,
-        templateHandler.templateDataProxy
-      );
+      if (!n.templateData.__isProxy) {
+        n.templateData = new Proxy(
+          n.templateData,
+          templateHandler.templateDataProxy
+        );
+      }
     }
     const node = {
       id,
@@ -52,18 +57,22 @@ export default function createHierarchy(
     if (node.children && !isEmpty(node.children)) {
       Object.keys(node.children).forEach((id) => {
         if (node.children) {
-          node.children[id] = new Proxy(
-            node.children[id],
-            templateHandler.nodeDataProxy
-          );
+          if (!node.children[id].__isProxy) {
+            node.children[id] = new Proxy(
+              node.children[id],
+              templateHandler.nodeDataProxy
+            );
+          }
           const cNode = node.children[id];
           cNode.__id__ = id;
           if (cNode.templateData) {
             cNode.templateData.__id__ = id;
-            cNode.templateData = new Proxy(
-              cNode.templateData,
-              templateHandler.templateDataProxy
-            );
+            if (!cNode.templateData.__isProxy) {
+              cNode.templateData = new Proxy(
+                cNode.templateData,
+                templateHandler.templateDataProxy
+              );
+            }
           }
           hierarchyMeta[id] = {
             level: 1,

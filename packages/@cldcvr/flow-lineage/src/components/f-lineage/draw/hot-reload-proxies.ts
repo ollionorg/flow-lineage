@@ -6,6 +6,13 @@ export default function getProxies(element: FLineage) {
    * whenever property of templateData updated then it will be trapped here for update
    */
   const templateDataProxy = {
+    get: (target: Record<string, any>, key: string) => {
+      if (key !== "__isProxy") {
+        return target[key];
+      }
+
+      return true;
+    },
     set(target: Record<string, any>, key: string, value: any) {
       target[key] = value;
       const lineageDrawParams = element.getDrawParams();
@@ -34,6 +41,13 @@ export default function getProxies(element: FLineage) {
    * whenever new templateData assigned then it will be trapped here for update
    */
   const nodeDataProxy = {
+    get: (target: Record<string, any>, key: string) => {
+      if (key !== "__isProxy") {
+        return target[key];
+      }
+
+      return true;
+    },
     set(target: Record<string, any>, key: string, value: any) {
       target[key] = value;
 
