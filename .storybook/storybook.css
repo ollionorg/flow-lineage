@@ -326,7 +326,7 @@ code {
 .sbdocs-table {
   width: 100%;
   padding-top: 12px !important;
-  table-layout:fixed;
+  table-layout: fixed;
 }
 
 .sbdocs-table tr th {
@@ -357,7 +357,7 @@ code {
   margin-top: 0px !important;
   line-height: 22px !important;
   color: var(--color-text-secondary) !important;
-} 
+}
 
 .sbdocs-table tr {
   background-color: var(--color-surface-) !important;
@@ -382,7 +382,7 @@ h2 + h6 {
 }
 
 #docs-root h2::before {
-  content: '';
+  content: "";
   width: 4px;
   height: 16px;
   border-radius: 4px;
@@ -417,4 +417,8 @@ h2 + h6 {
   font-weight: 600;
   padding-bottom: 12px;
   font-size: 14px;
+}
+
+pre .docblock-source.css-bdtlhc {
+  margin: 0px;
 }

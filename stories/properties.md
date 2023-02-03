@@ -84,7 +84,7 @@ Defines the orientation of the lineage.
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 		</tr>
 		</thead>
@@ -111,7 +111,7 @@ Define the padding of the lineage component in pixels (px)
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
@@ -134,7 +134,7 @@ Define the gap between nodes in pixels (px).
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
@@ -157,7 +157,7 @@ Defines the dimensions of the node template.
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 		</tr>
 	</thead>
@@ -179,7 +179,7 @@ Defines the dimensions of the children node template.
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 		</tr>
 	</thead>
@@ -201,7 +201,7 @@ Sets which node ID is the main/center node for the entire lineage
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
@@ -224,7 +224,7 @@ Choose how many levels or degrees of nodes you would like to draw at the same ti
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
@@ -247,7 +247,7 @@ Defines the number of child nodes visible at a time when a node is expanded. If 
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
@@ -270,7 +270,7 @@ Nodes are represented through templates in lineage, you can define your own node
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
@@ -293,7 +293,7 @@ Same as nodes, child nodes are  also represented through templates.
 <table>
 	<thead>
 		<tr>
-			<th class="row-width">Value</th>
+			<th >Value</th>
 			<th width="400">Description</th>
 			<th>Default</th>
 		</tr>
@@ -365,6 +365,8 @@ Same as nodes, child nodes are  also represented through templates.
 
 ## Sample
 
+<br/>
+
 ```
 node-id-1: { //Unique node id for each node
   templateData: { 
@@ -419,12 +421,14 @@ Nodes are represented through templates, you can pass custom markup to create a 
 	</div>
 	<div>
 		<div class="title">Node data example</div>
-		<pre><code>{`nodeTemplate:
-<f-div direction="secondary" width="100%" height="hug-content" align="top-left">
-  <f-text size="large">\${node.data.name}</f-text>
-  <f-text size="small">\${node.data.email}</f-text>
-  <f-text size="small">\${node.data.phone}</f-text>
-</f-div>`}</code></pre>
+		<pre><code>{`tony: {
+	nodeTemplate:\`<f-div direction="secondary" width="100%" height="hug-content" align="top-left">
+		<f-text size="large">\${node.data.name}</f-text>
+		<f-text size="small">\${node.data.email}</f-text>
+		<f-text size="small">\${node.data.phone}</f-text>
+		</f-div>\`
+	}
+}`}</code></pre>
 	</div>
 </div>
 
@@ -466,19 +470,21 @@ Each node can have children.
 	</div>
 	<div>
 		<div class="title">Node data example</div>
-		<pre><code>{`tony: {                       //Unique node ID
+		<pre><code>
+{`tony: {                       //Unique node ID
 	templateData: {
 		name: "Tony stark",
 		email: "ironman1200@stark.com",
 	},
-},
-children: [
-            steve: {            //unique ID for node child
-              templateData: {   //data
-                title: "Steve Rogers",
-              },
-            },
-          ]x`}</code></pre>
+	children: {
+		steve: {            //unique ID for node child
+			templateData: {   //data
+			title: "Steve Rogers",
+			},
+		},
+	}
+}
+`}</code></pre>
 	</div>
 </div>
 

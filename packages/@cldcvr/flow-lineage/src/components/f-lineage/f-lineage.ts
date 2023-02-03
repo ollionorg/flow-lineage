@@ -19,7 +19,7 @@ import lowlightPath from "./highlight/lowlight-path";
 import createHierarchy from "./create/create-hierarchy";
 import { FButton, FDiv } from "@cldcvr/flow-core";
 import { FRoot } from "@cldcvr/flow-core/src/mixins/components/f-root/f-root";
-import { getComputedHTML } from "../../utils";
+import { debounce, getComputedHTML } from "../../utils";
 import getProxies from "./draw/hot-reload-proxies";
 
 // Renders attribute names of parent element to textContent
@@ -326,13 +326,19 @@ export class FLineage extends FRoot {
   }
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener("resize", () => this.requestUpdate());
+    window.addEventListener(
+      "resize",
+      debounce(() => this.requestUpdate())
+    );
   }
   disconnectedCallback() {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
-    window.removeEventListener("resize", () => this.requestUpdate());
+    window.removeEventListener(
+      "resize",
+      debounce(() => this.requestUpdate())
+    );
     super.disconnectedCallback();
   }
   /**
