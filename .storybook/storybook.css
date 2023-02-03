@@ -18,7 +18,7 @@ span.token.tag {
   padding: 10px !important;
 }
 .sbdocs.sbdocs-wrapper {
-  background-color: #131920 !important;
+  background-color: var(--color-surface-subtle) !important;
 }
 
 .sbdocs-title {
@@ -54,14 +54,13 @@ span.token.tag {
   color: #dfe4ec !important;
 }
 .docblock-argstable-body tr td {
-  background-color: #131920 !important;
   color: var(--color-text-secondary) !important;
   font-size: 12px !important;
   font-weight: 400 !important;
-  border-bottom: 0.5px solid var(--color-neutral-secondary) !important;
+  border-bottom: 1px solid var(--color-neutral-secondary) !important;
 }
 .docblock-argstable-body tr {
-  border-top-width: 0.5px !important;
+  border-top-width: 1px !important;
   border-top-style: solid !important;
   border-top-color: var(--color-neutral-secondary) !important;
 }
@@ -118,12 +117,6 @@ body {
 
 .sbdocs-hr {
   border-top: 1px solid var(--color-border-default) !important;
-}
-
-.sbdocs-h5 {
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  line-height: 23.44px !important;
 }
 
 .sbdocs-h6 {
@@ -330,13 +323,102 @@ code {
   color: var(--color-text-default);
 }
 
+.sbdocs-table {
+  width: 100%;
+  padding-top: 12px !important;
+  table-layout: fixed;
+}
+
 .sbdocs-table tr th {
-  color: var(--color-text-default) !important;
+  color: var(--color-text-secondary) !important;
+  text-align: left;
+  border: none !important;
+  font-size: 12px;
+  font-weight: 400 !important;
 }
 
 .sbdocs-table tr td {
   color: var(--color-text-default) !important;
+  border: none !important;
+  border-collapse: collapse;
 }
-.sbdocs-table tr:nth-of-type(2n) {
-  background-color: var(--color-surface-default) !important;
+
+.row-width {
+  width: 250px;
+}
+
+.sbdocs-table tr td a {
+  text-decoration: underline;
+}
+
+.sbdocs-p {
+  max-width: 800px;
+  padding-top: 12px !important;
+  margin-top: 0px !important;
+  line-height: 22px !important;
+  color: var(--color-text-secondary) !important;
+}
+
+.sbdocs-table tr {
+  background-color: var(--color-surface-) !important;
+  border-top: 1px solid var(--color-border-subtle) !important;
+}
+
+h2 + h6 {
+  margin-top: 12px !important;
+}
+
+#docs-root h1 {
+  font-weight: 500;
+  font-size: 26px;
+}
+
+#docs-root h2 {
+  font-size: 20px;
+  font-weight: 600 !important;
+  display: block;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+#docs-root h2::before {
+  content: "";
+  width: 4px;
+  height: 16px;
+  border-radius: 4px;
+  margin-right: 12px;
+  background: var(--color-highlight-secondary);
+  display: inline-block;
+}
+
+#docs-root .sbdocs-h6 {
+  font-size: 13px !important;
+  background: var(--color-surface-secondary);
+  padding: 6px 12px;
+}
+
+.split {
+  display: flex;
+  padding-top: 12px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.split > div {
+  width: 50%;
+}
+
+.split > div > img {
+  max-width: 300px;
+}
+
+.split .title {
+  color: var(--color-highlight-secondary) !important;
+  font-weight: 600;
+  padding-bottom: 12px;
+  font-size: 14px;
+}
+
+pre .docblock-source.css-bdtlhc {
+  margin: 0px;
 }

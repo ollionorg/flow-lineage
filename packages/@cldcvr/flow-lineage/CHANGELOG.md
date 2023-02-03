@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.3.4] - 2023-02-03
+
+### Bug fixes
+
+- Debounce added on resize event
 ## [1.3.3] - 2023-02-01
 
 ### Bug fixes

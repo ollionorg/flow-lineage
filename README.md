@@ -9,7 +9,7 @@ Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html
 
 or
 
-Clone and install the [Flow Lineage demo](https://github.com/cldcvr/flow-core#starter-kits) (Vue JS).
+Clone and install the [Flow Lineage demo](https://github.com/cldcvr/flow-lineage-starterkit-vue) (Vue 3).
 
 <br>
 

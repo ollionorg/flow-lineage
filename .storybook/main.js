@@ -54,4 +54,5 @@ module.exports = {
     // return the customized config
     return config;
   },
+  staticDirs: ["../assets"],
 };
