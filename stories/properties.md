@@ -11,6 +11,18 @@
 	</thead>
 	<tbody>
 		<tr>
+			<td><a href="#node-properties">nodes</a></td>
+			<td>object</td>
+			<td>-</td>
+			<td>{}</td>
+		</tr>
+		<tr>
+			<td><a href="#link-properties">links</a></td>
+			<td>array</td>
+			<td>-</td>
+			<td>[]</td>
+		</tr>
+		<tr>
 			<td><a href="#direction">direction</a></td>
 			<td>string</td>
 			<td><b>horizontal | vertical</b></td>
@@ -309,7 +321,7 @@ Same as nodes, child nodes are  also represented through templates.
 
 <br /><br />
 
-# Node properties
+<h1 id="node-properties">Node properties</h1>
 
 ## API
 ###### Note: Click on the name to learn more about each oject.
@@ -531,7 +543,7 @@ rightClick: function (event, node) {
 },
 ```
 
-# Link properties
+<h1 id="link-properties">Link properties</h1>
 
 ## API
 ###### Note: Click on the name to learn more about each oject.
