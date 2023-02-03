@@ -73,13 +73,7 @@
 	</tbody>
 </table>
 
-###### Note: Above properties are written in VueJS syntax. Refer  Angular and React for respective syntax.
-
-<br />
-
-## Lineage sample
-
-Add sample code here
+###### Note: Above properties are written in VueJS syntax. Refer Angular and React for respective syntax.
 
 <br />
 
@@ -225,7 +219,7 @@ Sets which node ID is the main/center node for the entire lineage
 
 <h2 id="stagger-load">stagger-load</h2>
 
-Choose how many levels or degrees of nodes you would like to draw at the same time, this helps in reducing the load on the browser or larger datasets. 
+Choose how many levels or degrees of nodes you would like to draw at the same time, this helps in reducing the load on the browser for larger datasets. 
 
 <table>
 	<thead>
@@ -271,7 +265,7 @@ Defines the number of child nodes visible at a time when a node is expanded. If 
 
 <h2 id="node-template">node-template</h2>
 
-As nodes are represented through templates in lineage, node-template property maps to the template of a node.
+Nodes are represented through templates in lineage, you can define your own node template. Node templates are defined on a gloabl lineage level and can be defined on an indiviual node level. 
 
 <table>
 	<thead>
@@ -284,7 +278,7 @@ As nodes are represented through templates in lineage, node-template property ma
 	<tbody>
 		<tr>
 			<td><strong>template-id/object-name</strong></td>
-			<td>Maps to the template for a node</td>
+			<td>Add node template</td>
 			<td><a href="#node-template-default">defaultTemplate</a></td>
 		</tr>
 	</tbody>
@@ -294,7 +288,7 @@ As nodes are represented through templates in lineage, node-template property ma
 
 <h2 id="children-node-template">children-node-template</h2>
 
-Same as nodes, child nodes are  also represented through templates in lineage. children-node-template property maps to the template of a child node.
+Same as nodes, child nodes are  also represented through templates.
 
 <table>
 	<thead>
@@ -307,7 +301,7 @@ Same as nodes, child nodes are  also represented through templates in lineage. c
 	<tbody>
 		<tr>
 			<td><strong>template-id/object-name</strong></td>
-			<td>Maps to the template for child nodes</td>
+			<td>Add node template</td>
 			<td><a href="#node-template-children">defaultTemplate</a></td>
 		</tr>
 	</tbody>
@@ -438,7 +432,7 @@ Nodes are represented through templates, you can pass custom markup to create a 
 
 <h2 id="templateData">templateData</h2>
 
-The data required by each node, needs to be present in the node schema . For example, if you a have node that has to display basic user information like name, email, and phone number, and a success state then the templateData would be like below.
+The data required by each node needs to be present in the node schema. 
 	
 ###### Note: Use “\${node.data.key}” to access templateData in your node template. 
 
@@ -571,10 +565,6 @@ links: [
 		to: "node2", 
 	}, 
 	{
-		from: "node2",  // use a reverse link of already defined link to make bidirectional connection
-		to: "node1", 
-	},
-	{
 		from: "node1",  // node to child link
 		to: "child2",
 	}, 
@@ -605,3 +595,98 @@ Unique identifier of the node from where connection line will start. For example
 [{ from: 'A', to :'B'}]
 ```
 
+
+<br />
+
+<h2 id="lineage-sample">Lineage Sample</h2>
+
+<!-- <pre><code>{`
+<template>
+  <f-lineage
+    direction="horizontal"
+    :padding="28"
+    :gap="100"
+    :node-size.prop="{ width: 240, height: 53 }"
+    :children-node-size.prop="{ width: 240, height: 32 }"
+    :max-childrens="8"
+    :links.prop="links" 
+    :nodes.prop="nodes"
+    :node-template="nodeTemplate"
+    :children-node-template="childNodeTemplate"
+  ></f-lineage>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "FlowLineage",
+  data() {
+    return {
+      nodes: {
+        rdj: {
+          templateData: {
+            fullName: "Robert Downey Jr.",
+            description: "Movies",
+          },
+        },
+        judge: {
+          templateData: {
+            fullName: "The Judge",
+            description: "Hank Palmer",
+          },
+        },
+        ironman: {
+          templateData: {
+            fullName: "Iron Man",
+            description: "Tony stark",
+          },
+          children: {
+            irchild1: {
+              templateData: {
+                icon: "i-hashtag",
+                title: "Iron man 1",
+              },
+            },
+            irchild2: {
+              templateData: {
+                icon: "i-paragraph",
+                title: "Iron man 2",
+              },
+            },
+          },
+          hideChildren: false,
+        },
+      },
+      links: [
+        {
+          from: "rdj",
+          to: "judge",
+        },
+        {
+          from: "rdj",
+          to: "ironman",
+        },
+      ],
+      nodeTemplate: `
+			<f-div width="100%" state="secondary" height="100%" padding="small" align="top-left" variant="curved" gap="small">
+				<f-pictogram variant="circle" source="\${node.templateData.fullName}"></f-pictogram>
+				<f-div direction="column">
+					<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
+					<f-text size="x-small" ellipsis>\${node.templateData.description}</f-text>
+				</f-div>
+				\${node.childrenToggle}
+			</f-div>
+			`,
+      childNodeTemplate: `
+			<f-div state="secondary" width="100%" height="100%"padding="none medium" align="middle-left" gap="small" border="small solid default bottom" >
+				<f-icon source="\${node.templateData.icon}" size="small"></f-icon>
+				<f-text  size="small" ellipsis>\${node.templateData.title}</f-text>
+		  </f-div>
+			`,
+    };
+  },
+});
+</script>
+
+`}</code></pre> -->
