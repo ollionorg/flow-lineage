@@ -3,7 +3,7 @@ import { FLineage } from "../f-lineage";
 
 export default function getProxies(element: FLineage) {
   /**
-   * whenever property of templateData updated then it will be trapped here for update
+   * whenever property of fData updated then it will be trapped here for update
    */
   const templateDataProxy = {
     get: (target: Record<string, any>, key: string) => {
@@ -38,7 +38,7 @@ export default function getProxies(element: FLineage) {
   };
 
   /**
-   * whenever new templateData assigned then it will be trapped here for update
+   * whenever new fData assigned then it will be trapped here for update
    */
   const nodeDataProxy = {
     get: (target: Record<string, any>, key: string) => {
@@ -51,7 +51,7 @@ export default function getProxies(element: FLineage) {
     set(target: Record<string, any>, key: string, value: any) {
       target[key] = value;
 
-      if (key === "templateData") {
+      if (key === "fData") {
         const lineageDrawParams = element.getDrawParams();
 
         if (lineageDrawParams) {
@@ -62,7 +62,7 @@ export default function getProxies(element: FLineage) {
           if (nodeElement) {
             target[key].__id__ = target.__id__;
             target[key] = new Proxy(target[key], templateDataProxy);
-            nodeElement.templateData = target[key];
+            nodeElement.fData = target[key];
             d3.select(element.svg)
               .select(`#${target.__id__}-foreign-object`)
               .html(() => {

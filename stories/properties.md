@@ -341,32 +341,32 @@ Same as nodes, child nodes are  also represented through templates.
 		<td>-</td>
 	</tr>
 	<tr>
-		<td><a href="#nodeTemplate">nodeTemplate</a></td>
+		<td><a href="#fNodeTemplate">fNodeTemplate</a></td>
 		<td>string</td>
 		<td>-</td>
 	</tr>
 	<tr>
-		<td><a href="#templateData">templateData</a></td>
+		<td><a href="#fData">fData</a></td>
 		<td>object</td>
 		<td>-</td>
 	</tr>
 	<tr>
-		<td><a href="#children">children</a></td>
+		<td><a href="#fChildren">fChildren</a></td>
 		<td>array</td>
 		<td>-</td>
 	</tr>
 	<tr>
-		<td><a href="#hideChildren">hideChildren</a></td>
+		<td><a href="#fHideChildren">fHideChildren</a></td>
 		<td>boolean</td>
 		<td>true</td>
 	</tr>
 	<tr>
-		<td><a href="#click">click</a></td>
+		<td><a href="#fClick">fClick</a></td>
 		<td>function</td>
 		<td>-</td>
 	</tr>
 	<tr>
-		<td><a href="#rightClick">rightClick</a></td>
+		<td><a href="#fRightClick">fRightClick</a></td>
 		<td>function</td>
 		<td>-</td>
 	</tr>
@@ -381,15 +381,15 @@ Same as nodes, child nodes are  also represented through templates.
 
 ```
 node-id-1: { //Unique node id for each node
-  templateData: { 
+  fData: { 
 		fullName: "Robert Downey Jr.",
 		description: "Movies",
 		state: "secondary",
 	},
-	children: [                  
+	fChildren: [                  
 	{
 		child-id-1: {   //Unique node id for each child node
-			templateData: {
+			fData: {
 				icon: "i-hashtag",
 				title: "Node child 1",
 			},
@@ -412,7 +412,7 @@ Each node is identified by a unique ID.
 	<div>
 		<div class="title">Node data example</div>
 		<pre><code>{`tony: {                       //Unique node ID
-	templateData: {
+	fData: {
 		name: "Tony stark",
 		email: "ironman1200@stark.com",
 	},
@@ -422,7 +422,7 @@ Each node is identified by a unique ID.
 
 <br />
 
-<h2 id="nodeTemplate">nodeTemplate</h2>
+<h2 id="fNodeTemplate">fNodeTemplate</h2>
 
 Nodes are represented through templates, you can pass custom markup to create a custom nodes.
 	
@@ -434,7 +434,7 @@ Nodes are represented through templates, you can pass custom markup to create a 
 	<div>
 		<div class="title">Node data example</div>
 		<pre><code>{`tony: {
-	nodeTemplate:\`<f-div direction="secondary" width="100%" height="hug-content" align="top-left">
+	fNodeTemplate:\`<f-div direction="secondary" width="100%" height="hug-content" align="top-left">
 		<f-text size="large">\${node.data.name}</f-text>
 		<f-text size="small">\${node.data.email}</f-text>
 		<f-text size="small">\${node.data.phone}</f-text>
@@ -446,11 +446,11 @@ Nodes are represented through templates, you can pass custom markup to create a 
 
 <br />
 
-<h2 id="templateData">templateData</h2>
+<h2 id="fData">fData</h2>
 
 The data required by each node needs to be present in the node schema. 
 	
-###### Note: Use “\${node.data.key}” to access templateData in your node template. 
+###### Note: Use “\${node.data.key}” to access fData in your node template. 
 
 <div class="split">
 	<div>
@@ -460,7 +460,7 @@ The data required by each node needs to be present in the node schema.
 	<div>
 		<div class="title">Node data example</div>
 		<pre><code>{`tony: {                       
-	templateData: {	//Data goes here
+	fData: {	//Data goes here
 		name: "Tony stark",
 		email: "ironman1200@stark.com",
 		phone: "+91 99999 99999",
@@ -471,9 +471,9 @@ The data required by each node needs to be present in the node schema.
 
 <br />
 
-<h2 id="children">children</h2>
+<h2 id="fChildren">fChildren</h2>
 
-Each node can have children. 
+Each node can have fChildren. 
 
 <div class="split">
 	<div>
@@ -484,13 +484,13 @@ Each node can have children.
 		<div class="title">Node data example</div>
 		<pre><code>
 {`tony: {                       //Unique node ID
-	templateData: {
+	fData: {
 		name: "Tony stark",
 		email: "ironman1200@stark.com",
 	},
-	children: {
+	fChildren: {
 		steve: {            //unique ID for node child
-			templateData: {   //data
+			fData: {   //data
 			title: "Steve Rogers",
 			},
 		},
@@ -503,7 +503,7 @@ Each node can have children.
 
 <br />
 
-<h2 id="hideChildren">hideChildren</h2>
+<h2 id="fHideChildren">fHideChildren</h2>
 
 Boolean that defines whether node children will be visible on load or not.
 	
@@ -521,24 +521,24 @@ Boolean that defines whether node children will be visible on load or not.
 
 <br />
 
-<h2 id="click">click</h2>
+<h2 id="fClick">fClick</h2>
 
 A callback function for when a node is clicked. Eg:	
 
 ```
-click: function (event, node) {
+fClick: function (event, node) {
 	console.log("Node Clicked", event, node);
 },
 ```
 
 <br />
 
-<h2 id="rightClick">rightClick</h2>
+<h2 id="fRightClick">fRightClick</h2>
 
 A callback function for when a node is right clicked. Eg:
 
 ```
-rightClick: function (event, node) {
+fRightClick: function (event, node) {
 	console.log("Node is right clicked", event, node);
 },
 ```
@@ -616,95 +616,3 @@ Unique identifier of the node from where connection line will start. For example
 
 <br />
 
-<h2 id="lineage-sample">Lineage Sample</h2>
-
-<!-- <pre><code>{`
-<template>
-  <f-lineage
-    direction="horizontal"
-    :padding="28"
-    :gap="100"
-    :node-size.prop="{ width: 240, height: 53 }"
-    :children-node-size.prop="{ width: 240, height: 32 }"
-    :max-childrens="8"
-    :links.prop="links" 
-    :nodes.prop="nodes"
-    :node-template="nodeTemplate"
-    :children-node-template="childNodeTemplate"
-  ></f-lineage>
-</template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "FlowLineage",
-  data() {
-    return {
-      nodes: {
-        rdj: {
-          templateData: {
-            fullName: "Robert Downey Jr.",
-            description: "Movies",
-          },
-        },
-        judge: {
-          templateData: {
-            fullName: "The Judge",
-            description: "Hank Palmer",
-          },
-        },
-        ironman: {
-          templateData: {
-            fullName: "Iron Man",
-            description: "Tony stark",
-          },
-          children: {
-            irchild1: {
-              templateData: {
-                icon: "i-hashtag",
-                title: "Iron man 1",
-              },
-            },
-            irchild2: {
-              templateData: {
-                icon: "i-paragraph",
-                title: "Iron man 2",
-              },
-            },
-          },
-          hideChildren: false,
-        },
-      },
-      links: [
-        {
-          from: "rdj",
-          to: "judge",
-        },
-        {
-          from: "rdj",
-          to: "ironman",
-        },
-      ],
-      nodeTemplate: `
-			<f-div width="100%" state="secondary" height="100%" padding="small" align="top-left" variant="curved" gap="small">
-				<f-pictogram variant="circle" source="\${node.templateData.fullName}"></f-pictogram>
-				<f-div direction="column">
-					<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
-					<f-text size="x-small" ellipsis>\${node.templateData.description}</f-text>
-				</f-div>
-				\${node.childrenToggle}
-			</f-div>
-			`,
-      childNodeTemplate: `
-			<f-div state="secondary" width="100%" height="100%"padding="none medium" align="middle-left" gap="small" border="small solid default bottom" >
-				<f-icon source="\${node.templateData.icon}" size="small"></f-icon>
-				<f-text  size="small" ellipsis>\${node.templateData.title}</f-text>
-		  </f-div>
-			`,
-    };
-  },
-});
-</script>
-
-`}</code></pre> -->

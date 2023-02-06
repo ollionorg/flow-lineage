@@ -29,9 +29,9 @@ export default function createLineage({
   /**
    * create links with their repsepctive co-ordinates
    */
-  console.time("Creating links");
+  //   console.time("Creating links");
   const nodeLinks = createLinks(links, nodeElementsMap, biDirectionalLinks);
-  console.timeEnd("Creating links");
+  //   console.timeEnd("Creating links");
   return {
     nodes: nodeElements,
     links: nodeLinks,

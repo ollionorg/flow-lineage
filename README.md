@@ -183,37 +183,37 @@ export default defineComponent({
     return {
       nodes: {
         rdj: {
-          templateData: {
+          fData: {
             fullName: "Robert Downey Jr.",
             description: "Movies",
           },
         },
         judge: {
-          templateData: {
+          fData: {
             fullName: "The Judge",
             description: "Hank Palmer",
           },
         },
         ironman: {
-          templateData: {
+          fData: {
             fullName: "Iron Man",
             description: "Tony stark",
           },
-          children: {
+          fChildren: {
             irchild1: {
-              templateData: {
+              fData: {
                 icon: "i-hashtag",
                 title: "Iron man 1",
               },
             },
             irchild2: {
-              templateData: {
+              fData: {
                 icon: "i-paragraph",
                 title: "Iron man 2",
               },
             },
           },
-          hideChildren: false,
+          fHideChildren: false,
         },
       },
       links: [
@@ -228,18 +228,18 @@ export default defineComponent({
       ],
       nodeTemplate: `
 			<f-div width="100%" state="secondary" height="100%" padding="small" align="top-left" variant="curved" gap="small">
-				<f-pictogram variant="circle" source="\${node.templateData.fullName}"></f-pictogram>
+				<f-pictogram variant="circle" source="\${node.fData.fullName}"></f-pictogram>
 				<f-div direction="column">
-					<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
-					<f-text size="x-small" ellipsis>\${node.templateData.description}</f-text>
+					<f-text size="small" ellipsis>\${node.fData.fullName}</f-text>
+					<f-text size="x-small" ellipsis>\${node.fData.description}</f-text>
 				</f-div>
 				\${node.childrenToggle}
 			</f-div>
 			`,
       childNodeTemplate: `
 			<f-div state="secondary" width="100%" height="100%"padding="none medium" align="middle-left" gap="small" border="small solid default bottom" >
-				<f-icon source="\${node.templateData.icon}" size="small"></f-icon>
-				<f-text  size="small" ellipsis>\${node.templateData.title}</f-text>
+				<f-icon source="\${node.fData.icon}" size="small"></f-icon>
+				<f-text  size="small" ellipsis>\${node.fData.title}</f-text>
 		  </f-div>
 			`,
     };

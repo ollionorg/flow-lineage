@@ -17,49 +17,49 @@ export default {
 
 const nodes: LineageNodes = {
   rdj: {
-    templateData: {
+    fData: {
       fullName: "Robert Downey Jr.",
       description: "Movies",
       state: "secondary",
     },
-    children: {
+    fChildren: {
       child1: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "Iron man 1",
         },
       },
       child2: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "Iron man 2",
         },
       },
     },
-    hideChildren: false,
+    fHideChildren: false,
   },
   judge: {
-    templateData: {
+    fData: {
       fullName: "The Judge",
       description: "Hank Palmer",
       state: "custom,#006ecc",
     },
   },
   ironman: {
-    templateData: {
+    fData: {
       fullName: "Iron Man",
       description: "Tony stark",
       state: "secondary",
     },
-    children: {
+    fChildren: {
       iman1: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "Iron man 1",
         },
       },
       iman2: {
-        templateData: {
+        fData: {
           icon: "i-paragraph",
           title: "Iron man 2",
         },
@@ -67,42 +67,42 @@ const nodes: LineageNodes = {
     },
   },
   hank: {
-    templateData: {
+    fData: {
       fullName: "Hank Palmer",
       description: "Actor",
       state: "secondary",
     },
-    children: {
+    fChildren: {
       hhchild1: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "Node child 1",
         },
       },
       hhchild2: {
-        templateData: {
+        fData: {
           icon: "i-paragraph",
           title: "Node child 2",
         },
       },
     },
-    hideChildren: false,
+    fHideChildren: false,
   },
   prop1: {
-    templateData: {
+    fData: {
       fullName: "Bugs",
       description: "Roota Voota",
       state: "primary",
     },
-    children: {
+    fChildren: {
       hchild1: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "H Node child 1",
         },
       },
       hchild2: {
-        templateData: {
+        fData: {
           icon: "i-paragraph",
           title: "H Node child 2",
         },
@@ -167,18 +167,18 @@ export const basic = Template.bind({});
 
 basic.args = {
   ["node-template"]: `<f-div
-  state=\${node.templateData.state}
+  state=\${node.fData.state}
   width="100%"
   height="100%"
   padding="small"
   align="top-left"
   variant="curved"
   gap="small"
-  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+  \${node.fChildren && !node.fHideChildren ? 'border="small solid default bottom"' : ""}
 >
-	<f-pictogram variant="circle" source="\${node.templateData.fullName}"></f-pictogram>
+	<f-pictogram variant="circle" source="\${node.fData.fullName}"></f-pictogram>
 	<f-div direction="column">
-		<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
+		<f-text size="small" ellipsis>\${node.fData.fullName}</f-text>
 		<f-text size="small" ellipsis> x : \${node.x} , y : \${node.y}</f-text>
 	</f-div>
 	\${node.childrenToggle}
@@ -192,8 +192,8 @@ align="middle-left"
 gap="small"
 border="small solid default bottom"
 >
-<f-icon source="\${node.templateData.icon}" size="small"></f-icon>
-<f-text  size="small" ellipsis>\${node.templateData.title}</f-text>
+<f-icon source="\${node.fData.icon}" size="small"></f-icon>
+<f-text  size="small" ellipsis>\${node.fData.title}</f-text>
 </f-div>`,
 };
 
@@ -202,24 +202,24 @@ border="small solid default bottom"
 // setInterval(() => {
 //   updateCounter += 1;
 
-//   if (nodes.rdj?.templateData) {
-//     nodes.rdj.templateData.fullName = `Property Update ${updateCounter}`;
+//   if (nodes.rdj?.fData) {
+//     nodes.rdj.fData.fullName = `Property Update ${updateCounter}`;
 //   }
-//   if (nodes.ironman?.templateData) {
-//     nodes.ironman.templateData = {
+//   if (nodes.ironman?.fData) {
+//     nodes.ironman.fData = {
 //       fullName: `New Object ${updateCounter}`,
 //       description: "Tony stark",
 //       state: "secondary",
 //     };
 //   }
-//   if (nodes.rdj.children && nodes.rdj.children.child1.templateData) {
-//     nodes.rdj.children.child1.templateData.title = `Child Property Update ${updateCounter}`;
+//   if (nodes.rdj.fChildren && nodes.rdj.fChildren.child1.fData) {
+//     nodes.rdj.fChildren.child1.fData.title = `Child Property Update ${updateCounter}`;
 //   }
-//   if (nodes.rdj.children && nodes.rdj.children.child2.templateData) {
-//     nodes.rdj.children.child2.templateData = {
+//   if (nodes.rdj.fChildren && nodes.rdj.fChildren.child2.fData) {
+//     nodes.rdj.fChildren.child2.fData = {
 //       icon: "i-hashtag",
 //       title: `New Child Object ${updateCounter}`,
 //     };
 //   }
-//   if (nodes.prop1.templateData) nodes.prop1.templateData.state = "danger";
+//   if (nodes.prop1.fData) nodes.prop1.fData.state = "danger";
 // }, 5000);

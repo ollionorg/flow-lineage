@@ -16,14 +16,14 @@ export default {
 
 const nodes: LineageNodes = {
   noede1: {
-    templateData: {
+    fData: {
       fullName: "Node 1",
       description: "Movies",
       state: "secondary",
     },
-    children: {
+    fChildren: {
       node1child1: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "Node 1 child 1",
         },
@@ -31,86 +31,86 @@ const nodes: LineageNodes = {
     },
   },
   node2: {
-    templateData: {
+    fData: {
       fullName: "Node 2",
       description: "Hank Palmer",
       state: "custom,#006ecc",
     },
-    children: {
+    fChildren: {
       node2child1: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "node 2 child 1",
         },
       },
       node2child2: {
-        templateData: {
+        fData: {
           icon: "i-paragraph",
           title: "node 2 child 2",
         },
       },
     },
-    hideChildren: false,
+    fHideChildren: false,
   },
   node3: {
-    templateData: {
+    fData: {
       fullName: "Node 3",
       description: "Hank Palmer",
       state: "custom,#006ecc",
     },
   },
   node4: {
-    templateData: {
+    fData: {
       fullName: "Node 4",
       description: "Tony stark",
       state: "secondary",
     },
-    children: {
+    fChildren: {
       node4child1: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "node 4 child 1",
         },
       },
       node4child2: {
-        templateData: {
+        fData: {
           icon: "i-paragraph",
           title: "node 4 child 2",
         },
       },
     },
-    hideChildren: false,
+    fHideChildren: false,
   },
   node5: {
-    templateData: {
+    fData: {
       fullName: "Node 5",
       description: "Actor",
       state: "secondary",
     },
-    children: {
+    fChildren: {
       node5child1: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "Node 5 child 1",
         },
       },
       node5child3: {
-        templateData: {
+        fData: {
           icon: "i-hashtag",
           title: "Node 5 child 3",
         },
       },
       node5child2: {
-        templateData: {
+        fData: {
           icon: "i-paragraph",
           title: "Node 5 child 2",
         },
       },
     },
-    hideChildren: false,
+    fHideChildren: false,
   },
   node6: {
-    templateData: {
+    fData: {
       fullName: "Node 6",
       description: "Hank Palmer",
       state: "custom,#006ecc",
@@ -190,22 +190,22 @@ export const basic = Template.bind({});
 
 basic.args = {
   ["node-template"]: `<f-div
-  state=\${node.templateData.state}
+  state=\${node.fData.state}
   width="100%"
   height="100%"
   padding="small"
   align="top-left"
   variant="curved"
   gap="small"
-  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+  \${node.fChildren && !node.fHideChildren ? 'border="small solid default bottom"' : ""}
 >
-	<f-pictogram variant="circle" source="\${node.templateData.fullName}"></f-pictogram>
+	<f-pictogram variant="circle" source="\${node.fData.fullName}"></f-pictogram>
 	<f-div direction="column">
-		<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
+		<f-text size="small" ellipsis>\${node.fData.fullName}</f-text>
 		<f-text size="x-small" ellipsis>\${node.x} \${node.y}</f-text>
 	</f-div>
 	<f-div direction="column">
-		<f-text size="small" ellipsis>\${node.templateData.fullName}</f-text>
+		<f-text size="small" ellipsis>\${node.fData.fullName}</f-text>
 	</f-div>
 	\${node.childrenToggle}
 </f-div>`,
@@ -218,7 +218,7 @@ basic.args = {
   gap="small"
   border="small solid default bottom"
 >
-  <f-icon source="\${node.templateData.icon}" size="small"></f-icon>
-  <f-text  size="small" ellipsis>\${node.templateData.title}</f-text>
+  <f-icon source="\${node.fData.icon}" size="small"></f-icon>
+  <f-text  size="small" ellipsis>\${node.fData.title}</f-text>
 </f-div>`,
 };

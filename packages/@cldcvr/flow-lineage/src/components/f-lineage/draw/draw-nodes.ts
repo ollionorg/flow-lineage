@@ -47,15 +47,15 @@ export default function drawNodes(params: DrawLineageParams) {
     .on("click", (event: MouseEvent, d) => {
       event.stopPropagation();
       highlightPath(d, element);
-      if (d.click) {
-        d.click(event, d);
+      if (d.fClick) {
+        d.fClick(event, d);
       }
     })
     .on("contextmenu", (event: MouseEvent, d) => {
-      if (d.rightClick) {
+      if (d.fRightClick) {
         event.stopPropagation();
         event.preventDefault();
-        d.rightClick(event, d);
+        d.fRightClick(event, d);
       }
     })
     .append("foreignObject")
@@ -79,7 +79,7 @@ export default function drawNodes(params: DrawLineageParams) {
 
       if (toggleElement) {
         event.stopPropagation();
-        d.hideChildren = !d.hideChildren;
+        d.fHideChildren = !d.fHideChildren;
 
         const allChildNodes = lineage.nodes.filter((n) => n.parentId === d.id);
         const childIds = allChildNodes.map((c) => c.id);
@@ -96,7 +96,7 @@ export default function drawNodes(params: DrawLineageParams) {
             childHeight = maxChildrenHeight;
           }
           nodesToUpdate.forEach((n) => {
-            if (!d.hideChildren) {
+            if (!d.fHideChildren) {
               n.y += childHeight;
               if (n.childrenYMax) {
                 n.childrenYMax += childHeight;
@@ -108,7 +108,7 @@ export default function drawNodes(params: DrawLineageParams) {
               }
             }
           });
-          if (!d.hideChildren) {
+          if (!d.fHideChildren) {
             lineage.levelPointers[d.level].y += childHeight;
           } else {
             lineage.levelPointers[d.level].y -= childHeight;
@@ -117,7 +117,7 @@ export default function drawNodes(params: DrawLineageParams) {
           const gapsToUpdate = lineage.gaps[d.level].filter((n) => n.y > d.y);
 
           gapsToUpdate.forEach((n) => {
-            if (!d.hideChildren) {
+            if (!d.fHideChildren) {
               n.y += childHeight;
             } else {
               n.y -= childHeight;
@@ -150,9 +150,9 @@ export default function drawNodes(params: DrawLineageParams) {
     .data(
       lineage.nodes.filter(
         (n) =>
-          n.children &&
-          !n.hideChildren &&
-          !isEmpty(n.children) &&
+          n.fChildren &&
+          !n.fHideChildren &&
+          !isEmpty(n.fChildren) &&
           degreeFilter(n)
       )
     )
@@ -203,7 +203,7 @@ export default function drawNodes(params: DrawLineageParams) {
         /**
          * calculate currentY of scrollbar after addiong delta
          */
-        const noOdChildren = getChildCount(d.children);
+        const noOdChildren = getChildCount(d.fChildren);
         const childHeight = noOdChildren * childrenNodeSize.height;
         let scrollbarOffset =
           (childrenNodeSize.height * maxChildrenHeight) / childHeight;
@@ -243,7 +243,7 @@ export default function drawNodes(params: DrawLineageParams) {
           let start = d.offset;
           let end = d.offset + maxChildrens;
 
-          if (d.children && end > noOdChildren) {
+          if (d.fChildren && end > noOdChildren) {
             start -= -1;
             end -= -1;
           }
@@ -259,7 +259,7 @@ export default function drawNodes(params: DrawLineageParams) {
       return `translate(${d.x},${d.y + nodeSize.height})`;
     })
     .attr("height", (d) => {
-      const noOdChildren = getChildCount(d.children);
+      const noOdChildren = getChildCount(d.fChildren);
       const childHeight = noOdChildren * childrenNodeSize.height;
       if (childHeight > maxChildrenHeight) {
         return maxChildrenHeight;
@@ -319,15 +319,15 @@ export default function drawNodes(params: DrawLineageParams) {
       .on("click", (event: MouseEvent, d) => {
         event.stopPropagation();
         highlightPath(d, element);
-        if (d.click) {
-          d.click(event, d);
+        if (d.fClick) {
+          d.fClick(event, d);
         }
       })
       .on("contextmenu", (event: MouseEvent, d) => {
-        if (d.rightClick) {
+        if (d.fRightClick) {
           event.stopPropagation();
           event.preventDefault();
-          d.rightClick(event, d);
+          d.fRightClick(event, d);
         }
       })
       /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -370,7 +370,7 @@ export default function drawNodes(params: DrawLineageParams) {
     .selectAll("g")
     .data(
       lineage.nodes.filter(
-        (n) => n.hasScrollbaleChildren && !n.hideChildren && degreeFilter(n)
+        (n) => n.hasScrollbaleChildren && !n.fHideChildren && degreeFilter(n)
       )
     )
     .enter()
@@ -380,7 +380,7 @@ export default function drawNodes(params: DrawLineageParams) {
     })
     .attr("width", scrollBarWidth)
     .attr("height", (d) => {
-      const noOdChildren = getChildCount(d.children);
+      const noOdChildren = getChildCount(d.fChildren);
       const childHeight = noOdChildren * childrenNodeSize.height;
       return (maxChildrenHeight / childHeight) * maxChildrenHeight;
     })

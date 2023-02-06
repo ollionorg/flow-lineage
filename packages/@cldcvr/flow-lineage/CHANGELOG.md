@@ -4,6 +4,19 @@
 
 # Change Log
 
+## [1.3.6] - 2023-02-06
+
+### Improvements
+
+- Following node properties renamed :
+  - `nodeTemplate` -> `fNodeTemplate`
+  - `templateData` -> `fData`
+  - `children` -> `fChildren`
+  - `hideChildren` -> `fHideChildren`
+  - `click` -> `fClick`
+  - `rightClick` -> `fRightClick`
+- Error displayed on console + in node when `fData` is undefined.
+
 ## [1.3.5] - 2023-02-03
 
 ### Bug fixes

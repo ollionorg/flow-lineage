@@ -375,8 +375,8 @@ export class FLineage extends FRoot {
     return height;
   }
   updated() {
-    console.groupCollapsed("Lineage");
-    console.time("Total duration");
+    // console.groupCollapsed("Lineage");
+    // console.time("Total duration");
     this.applyBackground();
     /**
      * cleaning up svg if it has any exisitng content
@@ -404,7 +404,7 @@ export class FLineage extends FRoot {
 	  align="middle-left"
 	  variant="curved"
 	  gap="small"
-	  \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+	  \${node.fChildren && !node.fHideChildren ? 'border="small solid default bottom"' : ""}
 	> <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
 	  \${node.childrenToggle}
 	</f-div>`;
@@ -568,8 +568,8 @@ export class FLineage extends FRoot {
       this.progressElement.innerHTML = "No data to display";
     }
 
-    console.timeEnd("Total duration");
-    console.groupEnd();
+    // console.timeEnd("Total duration");
+    // console.groupEnd();
   }
   isSafari() {
     return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -579,28 +579,46 @@ export class FLineage extends FRoot {
   /* eslint-disable @typescript-eslint/ban-ts-comment */
   // @ts-ignore
   doTemplateHotUpdate(node: LineageNodeElement, isChildNode = false) {
-    if (isChildNode) {
-      if (node.nodeTemplate) {
-        return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
+    try {
+      if (isChildNode) {
+        if (node.fNodeTemplate) {
+          return getComputedHTML(html`${eval("`" + node.fNodeTemplate + "`")}`);
+        } else {
+          return getComputedHTML(
+            html`${eval("`" + this["children-node-template"] + "`")}`
+          );
+        }
       } else {
-        return getComputedHTML(
-          html`${eval("`" + this["children-node-template"] + "`")}`
-        );
+        if (node.fChildren) {
+          const iconDirection = node.fHideChildren ? "down" : "up";
+          node.childrenToggle = `<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
+        } else {
+          node.childrenToggle = "";
+        }
+        if (node.fNodeTemplate) {
+          return getComputedHTML(html`${eval("`" + node.fNodeTemplate + "`")}`);
+        } else {
+          return getComputedHTML(
+            html`${eval("`" + this["node-template"] + "`")}`
+          );
+        }
       }
-    } else {
-      if (node.children) {
-        const iconDirection = node.hideChildren ? "down" : "up";
-        node.childrenToggle = `<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
-      } else {
-        node.childrenToggle = "";
-      }
-      if (node.nodeTemplate) {
-        return getComputedHTML(html`${eval("`" + node.nodeTemplate + "`")}`);
-      } else {
-        return getComputedHTML(
-          html`${eval("`" + this["node-template"] + "`")}`
-        );
-      }
+    } catch (error: unknown) {
+      console.error(`Error reading node ${node.id}.fData`);
+      return `<f-div
+	  state="secondary"
+	  width="100%"
+	  height="100%"
+	  padding="none medium"
+	  align="top-left"
+	  direction="column"
+	  overflow="scroll"
+	  variant="curved"
+	  gap="small"
+	  \${node.fChildren && !node.fHideChildren ? 'border="small solid default bottom"' : ""}
+	> <f-text variant="code" size="large" state="danger">Error reading node ${node.id}.fData</f-text>
+
+	</f-div>`;
     }
   }
 }

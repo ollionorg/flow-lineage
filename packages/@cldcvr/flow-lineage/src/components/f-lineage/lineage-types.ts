@@ -7,17 +7,17 @@ export type LineageBaseNode = {
   __id__?: string;
   __isProxy?: string;
   links?: LineageNodeLink[];
-  templateData?: Record<string, any>;
-  nodeTemplate?: string;
-  click?: (event: Event, node: LineageNodeElement) => void;
-  rightClick?: (event: Event, node: LineageNodeElement) => void;
+  fData?: Record<string, any>;
+  fNodeTemplate?: string;
+  fClick?: (event: Event, node: LineageNodeElement) => void;
+  fRightClick?: (event: Event, node: LineageNodeElement) => void;
 };
 export type LineageNodeChildren = LineageBaseNode;
 // Lineage node type
 export type LineageNode = {
   to?: LineageNode[];
-  hideChildren?: boolean;
-  children?: Record<string, LineageNodeChildren>;
+  fHideChildren?: boolean;
+  fChildren?: Record<string, LineageNodeChildren>;
 } & LineageBaseNode;
 
 // Lineage Node children
@@ -43,8 +43,8 @@ export type LineageNodeElement = {
   offset?: number;
   isVisible?: boolean;
   childrenToggle?: string;
-  hideChildren?: boolean;
-  click?: (event: Event, node: LineageNodeElement) => void;
+  fHideChildren?: boolean;
+  fClick?: (event: Event, node: LineageNodeElement) => void;
 } & Omit<LineageNode, "to">;
 
 export type LineageGapElement = {
@@ -128,8 +128,8 @@ export type LevelPointer = Record<number, { x: number; y: number }>;
 
 export type LineageNodeChildrens = Record<string, LineageNodeChildren>;
 export type LineageNodePartial = Omit<LineageNode, "to" | "links" | "id"> & {
-  children?: LineageNodeChildrens;
-  click?: (event: Event, node: LineageNodeElement) => void;
+  fChildren?: LineageNodeChildrens;
+  fClick?: (event: Event, node: LineageNodeElement) => void;
 };
 export type LineageNodes = Record<string, LineageNodePartial>;
 

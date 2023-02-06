@@ -20,7 +20,7 @@ export default function createNodeElements(
   direction: LineageDirection,
   maxChildrenHeight: number
 ) {
-  console.time("Co-ordinate Algo duration");
+  //   console.time("Co-ordinate Algo duration");
   /**
    * sub class to hold current pointers
    */
@@ -82,28 +82,28 @@ export default function createNodeElements(
   ): LineageNodeElement => {
     const nodeElement: LineageNodeElement = {
       id: node.id,
-      templateData: node.templateData,
+      fData: node.fData,
       links: node.links,
-      children: node.children,
-      hideChildren:
-        node.hideChildren === true || node.hideChildren === undefined
+      fChildren: node.fChildren,
+      fHideChildren:
+        node.fHideChildren === true || node.fHideChildren === undefined
           ? true
           : false,
       level,
       x: levelPointer.x,
       y: levelPointer.y,
       offset: 0,
-      nodeTemplate: node.nodeTemplate,
-      click: node.click,
-      rightClick: node.rightClick,
+      fNodeTemplate: node.fNodeTemplate,
+      fClick: node.fClick,
+      fRightClick: node.fRightClick,
     };
 
     /**
      * Check if node has childrens
      */
-    if (node.children && !isEmpty(node.children)) {
+    if (node.fChildren && !isEmpty(node.fChildren)) {
       levelPointer.y += nodeSize.height;
-      const children = getChildrenArray(node.children);
+      const children = getChildrenArray(node.fChildren);
       const totalChildNodeHeight = childrenNodeSize.height * children.length;
 
       if (totalChildNodeHeight > maxChildrenHeight) {
@@ -144,7 +144,7 @@ export default function createNodeElements(
         }
       }
 
-      if (nodeElement.childrenYMax && nodeElement.hideChildren) {
+      if (nodeElement.childrenYMax && nodeElement.fHideChildren) {
         levelPointer.y = nodeElement.y;
       }
     }
@@ -197,7 +197,7 @@ export default function createNodeElements(
      */
     const nodeElement: LineageNodeElement = {
       id: node.id,
-      templateData: node.templateData,
+      fData: node.fData,
       links: node.links,
       level,
       x: levelPointer.x,
@@ -205,9 +205,9 @@ export default function createNodeElements(
       isChildren: true,
       parentId: parent?.id,
       parent,
-      nodeTemplate: node.nodeTemplate,
-      click: node.click,
-      rightClick: node.rightClick,
+      fNodeTemplate: node.fNodeTemplate,
+      fClick: node.fClick,
+      fRightClick: node.fRightClick,
     };
     /**
      * Increment child node pointer
@@ -305,7 +305,7 @@ export default function createNodeElements(
     };
   });
 
-  console.timeEnd("Co-ordinate Algo duration");
+  //   console.timeEnd("Co-ordinate Algo duration");
 
   return { nodeElements, levelGaps, levelPointers, nodeElementsMap };
 }

@@ -29,7 +29,7 @@ The lineage component is broken down into three parts : nodes, node children, an
         control: "select",
         options: ["horizontal", "vertical"],
       },
-      templateData: {
+      fData: {
         control: "object",
       },
       padding: {
@@ -68,7 +68,7 @@ The lineage component is broken down into three parts : nodes, node children, an
         align="middle-left"
         variant="curved"
         gap="small"
-        \${node.children && !node.hideChildren ? 'border="small solid default bottom"' : ""}
+        \${node.fChildren && !node.fHideChildren ? 'border="small solid default bottom"' : ""}
       >
 	  	<f-icon-button icon="i-table" state="neutral"></f-icon-button>
         <f-div direction="column" height="hug-content" align="middle-left">
@@ -187,17 +187,17 @@ The lineage component is broken down into three parts : nodes, node children, an
       ],
       nodes: {
         Calvin: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Calvin",
           },
-          children: {
+          fChildren: {
             child1: {
-              click: function (event, node) {
+              fClick: function (event, node) {
                 console.log("Child Node Clicked", event, node);
               },
-              rightClick: function (event, node) {
+              fRightClick: function (event, node) {
                 console.log("Child Node Right Clicked", event, node);
               },
             },
@@ -217,71 +217,71 @@ The lineage component is broken down into three parts : nodes, node children, an
             child15: {},
             child16: {},
           },
-          click: function (event, node) {
+          fClick: function (event, node) {
             console.log("Node Clicked", event, node);
           },
-          rightClick: function (event, node) {
+          fRightClick: function (event, node) {
             console.log("Node Right Clicked", event, node);
           },
         },
         Hansen: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Hansen",
           },
-          children: { hchild1: {} },
+          fChildren: { hchild1: {} },
         },
         Alicen: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Alicen",
           },
         },
         Jennifer: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Jennifer",
           },
         },
         Brooke: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Brooke",
           },
         },
         Tamara: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Tamara",
           },
         },
         Bradley: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Bradley",
           },
         },
         Roger: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Roger",
           },
         },
         Max: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Max",
           },
-          hideChildren: false,
-          children: {
+          fHideChildren: false,
+          fChildren: {
             mchild1: {},
             mchild2: {},
             mchild3: {},
@@ -301,12 +301,12 @@ The lineage component is broken down into three parts : nodes, node children, an
           },
         },
         Tony: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Tony",
           },
-          nodeTemplate: ` <f-div
+          fNodeTemplate: ` <f-div
         state="custom,#284376"
         width="100%"
         height="100%"
@@ -315,7 +315,7 @@ The lineage component is broken down into three parts : nodes, node children, an
         variant="curved"
         gap="small"
     	style="border-radius:100px;"
-        \${node.children ? 'border="small solid default bottom"' : ""}
+        \${node.fChildren ? 'border="small solid default bottom"' : ""}
       >
         <f-icon-button icon="i-user"></f-icon-button>
         <f-div direction="column" height="hug-content" align="middle-left">
@@ -328,42 +328,42 @@ The lineage component is broken down into three parts : nodes, node children, an
       </f-div>`,
         },
         Charlie: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Roger",
           },
         },
         John: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "John",
           },
         },
         Tim: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Tim",
           },
         },
         Sam: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Sam",
           },
         },
         Rex: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Rex",
           },
         },
         Pat: {
-          templateData: {
+          fData: {
             email: "abc@cldcvr.com",
             mobile: "+91-12345 67890",
             name: "Pat",

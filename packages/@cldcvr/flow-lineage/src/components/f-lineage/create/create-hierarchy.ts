@@ -36,13 +36,10 @@ export default function createHierarchy(
 
     const n = nodes[id];
     n.__id__ = id;
-    if (n.templateData) {
-      n.templateData.__id__ = id;
-      if (!n.templateData.__isProxy) {
-        n.templateData = new Proxy(
-          n.templateData,
-          templateHandler.templateDataProxy
-        );
+    if (n.fData) {
+      n.fData.__id__ = id;
+      if (!n.fData.__isProxy) {
+        n.fData = new Proxy(n.fData, templateHandler.templateDataProxy);
       }
     }
     const node = {
@@ -54,22 +51,22 @@ export default function createHierarchy(
       ref: node,
     };
     data.push(node);
-    if (node.children && !isEmpty(node.children)) {
-      Object.keys(node.children).forEach((id) => {
-        if (node.children) {
-          if (!node.children[id].__isProxy) {
-            node.children[id] = new Proxy(
-              node.children[id],
+    if (node.fChildren && !isEmpty(node.fChildren)) {
+      Object.keys(node.fChildren).forEach((id) => {
+        if (node.fChildren) {
+          if (!node.fChildren[id].__isProxy) {
+            node.fChildren[id] = new Proxy(
+              node.fChildren[id],
               templateHandler.nodeDataProxy
             );
           }
-          const cNode = node.children[id];
+          const cNode = node.fChildren[id];
           cNode.__id__ = id;
-          if (cNode.templateData) {
-            cNode.templateData.__id__ = id;
-            if (!cNode.templateData.__isProxy) {
-              cNode.templateData = new Proxy(
-                cNode.templateData,
+          if (cNode.fData) {
+            cNode.fData.__id__ = id;
+            if (!cNode.fData.__isProxy) {
+              cNode.fData = new Proxy(
+                cNode.fData,
                 templateHandler.templateDataProxy
               );
             }
@@ -124,7 +121,7 @@ export default function createHierarchy(
 
           hierarchyMeta[link.to].level = hierarchyMeta[link.from].level + 1;
 
-          getChildrenArray(to.children)?.forEach((cNode) => {
+          getChildrenArray(to.fChildren)?.forEach((cNode) => {
             hierarchyMeta[cNode.id].level = hierarchyMeta[link.to].level;
           });
           hierarchyMeta[link.to].isLinked = true;
