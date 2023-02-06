@@ -5,7 +5,7 @@ A lineage chart is a graphical representation of a node's ancestors, showing the
 <br>
 
 # Demo
-Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page) for a demo. 
+Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html?path=/story/components-f-lineage--playground) for a demo. 
 
 or
 
@@ -262,7 +262,7 @@ Once it's running, you will see a lineage component like the image below.
 
 # Properties
 
-Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html?path=/story/introduction-about--page) for all properties and playground.
+Head over to [Flow Lineage Storybook](https://flow.cldcvr.com/lineage/index.html?path=/docs/components-f-lineage--playground) for all properties and playground.
 
 
 
