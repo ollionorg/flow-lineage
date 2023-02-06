@@ -407,7 +407,7 @@ Each node is identified by a unique ID.
 <div class="split">
 	<div>
 		<div class="title">Node example</div>
-		<img src="/lineage/images/node-id.png"/>
+		<img src="/images/node-id.png"/>
 	</div>
 	<div>
 		<div class="title">Node data example</div>
@@ -429,7 +429,7 @@ Nodes are represented through templates, you can pass custom markup to create a 
 <div class="split">
 	<div>
 		<div class="title">Node example</div>
-		<img src="/lineage/images/nodeTemplate.png"/>
+		<img src="/images/nodeTemplate.png"/>
 	</div>
 	<div>
 		<div class="title">Node data example</div>
@@ -455,7 +455,7 @@ The data required by each node needs to be present in the node schema.
 <div class="split">
 	<div>
 		<div class="title">Node example</div>
-		<img src="/lineage/images/templateData.png"/>
+		<img src="/images/templateData.png"/>
 	</div>
 	<div>
 		<div class="title">Node data example</div>
@@ -478,7 +478,7 @@ Each node can have children.
 <div class="split">
 	<div>
 		<div class="title">Node example</div>
-		<img src="/lineage/images/children.png"/>
+		<img src="/images/children.png"/>
 	</div>
 	<div>
 		<div class="title">Node data example</div>

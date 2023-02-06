@@ -17,6 +17,7 @@ module.exports = {
     builder: "@storybook/builder-vite",
   },
   async viteFinal(config, { configType }) {
+    config.publicDir = "assets";
     //  config.build.assetsDir = "v2/assets/";
     // customize the Vite config here
     if (!config.optimizeDeps) {
