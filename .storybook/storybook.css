@@ -422,3 +422,7 @@ h2 + h6 {
 pre .docblock-source.css-bdtlhc {
   margin: 0px;
 }
+
+div[id^="story"] > div {
+  min-height: inherit;
+}

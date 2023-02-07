@@ -30,7 +30,7 @@ export const decorators = [
   (story) => {
     return html`
       <div
-        style="background-color:var(--color-surface-default);color:var(--color-text-default);font-family:var(--flow-font);height:inherit;padding: 0px;"
+        style="background-color:var(--color-surface-default);color:var(--color-text-default);font-family:var(--flow-font);height:inherit;padding: 0px;min-height:inherit;"
       >
         ${story()}
       </div>
