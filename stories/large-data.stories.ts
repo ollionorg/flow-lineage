@@ -2,7 +2,7 @@ import { Story, Meta } from "@storybook/web-components";
 import { html } from "lit-html";
 import { LineageNodeLinks, LineageNodes } from "@cldcvr/flow-lineage/src";
 
-export default {
+export const meta = {
   title: "Examples/Large Data",
   argTypes: {
     ["node-template"]: {
@@ -71,3 +71,5 @@ export const basic = Template.bind({});
 basic.args = {
   ["node-template"]: `<f-pictogram source="\${node.id}" variant="circle" clickable></f-text>`,
 };
+
+export default null;

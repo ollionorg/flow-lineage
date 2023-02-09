@@ -2,7 +2,7 @@ import { Story, Meta } from "@storybook/web-components";
 import { html } from "lit-html";
 import { LineageNodeLinks, LineageNodes } from "@cldcvr/flow-lineage/src";
 
-export default {
+export const meta = {
   title: "Debug/dashed-hidden-children-link",
   argTypes: {
     ["node-template"]: {
@@ -226,3 +226,5 @@ basic.args = {
   <f-text  size="small" ellipsis>\${node.fData.title}</f-text>
 </f-div>`,
 };
+
+export default null;

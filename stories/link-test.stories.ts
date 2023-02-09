@@ -3,7 +3,7 @@ import { html } from "lit-html";
 import { LineageNodeLinks, LineageNodes } from "@cldcvr/flow-lineage/src";
 import * as d3 from "d3";
 
-export default {
+export const meta = {
   title: "Debug/Links",
   argTypes: {
     ["node-template"]: {
@@ -223,3 +223,4 @@ border="small solid default bottom"
 //   }
 //   if (nodes.prop1.fData) nodes.prop1.fData.state = "danger";
 // }, 5000);
+export default null;
