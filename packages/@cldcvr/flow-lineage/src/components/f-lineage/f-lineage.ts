@@ -1,4 +1,4 @@
-import { html, unsafeCSS } from "lit";
+import { html, PropertyValues, unsafeCSS } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import eleStyle from "./f-lineage.scss";
 import * as d3 from "d3";
@@ -374,7 +374,8 @@ export class FLineage extends FRoot {
     }
     return height;
   }
-  updated() {
+  protected updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
     // console.groupCollapsed("Lineage");
     // console.time("Total duration");
     this.applyBackground();
@@ -422,6 +423,7 @@ export class FLineage extends FRoot {
 	> <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
 	</f-div>`;
     this.svg.innerHTML = ``;
+    this.page = 1;
 
     if (this.links && this.links.length > 0) {
       /**

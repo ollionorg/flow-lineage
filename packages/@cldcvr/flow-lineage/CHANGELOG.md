@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.3.7] - 2023-02-14
+
+### Bug fixes
+
+- open/close children bug in storybook canvas tab.
 ## [1.3.6] - 2023-02-06
 
 ### Improvements
