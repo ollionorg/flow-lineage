@@ -148,7 +148,6 @@ export class FLineage extends FRoot {
   @queryAssignedElements({ slot: "node-meta" })
   _metaNodes!: NodeListOf<HTMLElement>;
 
-  @state()
   _hasMetaNodes = false;
 
   /**
@@ -618,7 +617,7 @@ export class FLineage extends FRoot {
   }
 
   nodeMetaDispatchEvent(node: LineageNodeElement, isChildNode = false) {
-    const nodeMeta = new CustomEvent("node-meta", {
+    const nodeMeta = new CustomEvent("nodeMeta", {
       detail: { node: node, isChildNode: isChildNode },
       bubbles: true,
       composed: true,
