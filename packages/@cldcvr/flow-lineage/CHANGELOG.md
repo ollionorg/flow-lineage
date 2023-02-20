@@ -4,11 +4,18 @@
 
 # Change Log
 
+## [1.3.8] - 2023-02-20
+
+### Improvements
+
+- `fNodeMeta` is added, and when it is provided, then on right click of any node, popover opens displaying the node-meta data.
+
 ## [1.3.7] - 2023-02-14
 
 ### Bug fixes
 
 - open/close children bug in storybook canvas tab.
+
 ## [1.3.6] - 2023-02-06
 
 ### Improvements
@@ -27,21 +34,25 @@
 ### Bug fixes
 
 - Browser crash issue due to application of Proxy on Proxy fixed.
+
 ## [1.3.4] - 2023-02-03
 
 ### Bug fixes
 
 - Debounce added on resize event
+
 ## [1.3.3] - 2023-02-01
 
 ### Bug fixes
 
 - Proxy set bug fixed
+
 ## [1.3.2] - 2023-02-01
 
 ### Improvements
 
-- debug statements removed. 
+- debug statements removed.
+
 ## [1.3.1] - 2023-01-30
 
 ### Improvements
@@ -61,21 +72,25 @@
 - Primary outline added when node is highlighted.
 - `data` from node schema is renamed to `templateData`.
 - `background` propetry added to customize background of `f-lineage`.
+
 ## [1.2.2] - 2023-01-24
 
 ### Improvements
 
 - Show dashed hidden children links when node is focused.
+
 ## [1.2.1] - 2023-01-24
 
 ### Bug Fix
 
 - Background link not shifting when we toggle children.
+
 ## [1.2.0] - 2023-01-23
 
 ### Improvements
 
 - Outgoing backward connection's gap delta logic updated.
+
 ## [1.1.9] - 2023-01-23
 
 ### Improvements
@@ -83,6 +98,7 @@
 - Same-level link logic implemented.
 
 ### Bug fixes
+
 - Backward connection going though node
 - Curve angle glitch fixed.
 - When we exapnd collapse nodes were overlapping.
@@ -101,16 +117,19 @@
 - Retain zoom and drag levels if nodes or links updated.
 - Extra gap issue fixed while plotting distant links.
 - Chart is dragged if root has backward connection.
+
 ## [1.1.6] - 2023-01-17
 
 ### Bug Fixes
 
 - Safari: zoom in/zoom out fixed
+
 ## [1.1.5] - 2023-01-17
 
 ### Bug Fixes
 
 - `children` typescript type updated.
+
 ## [1.1.4] - 2023-01-17
 
 ### Bug Fixes
@@ -122,16 +141,19 @@
 ### Improvements
 
 - `children` data type `Array` converted to `Object`.
+
 ## [1.1.2] - 2023-01-12
 
 ### Bug Fixes
 
 - Storybook control update not updating lineage component.
+
 ## [1.1.1] - 2023-01-11
 
 ### Bug Fixes
 
 - Vue 2 : property name with hyphen support added.
+
 ## [1.1.0] - 2023-01-11
 
 ### Bug Fixes
@@ -143,17 +165,20 @@
 ### Bug Fixes
 
 - `width` and `height` isssue solved when rendred other than `f-div`.
+
 ## [1.0.8] - 2023-01-9
 
 ### Bug Fixes
 
 - `width` and `height` isssue solved when rendred other than `f-div`.
+
 ## [1.0.7] - 2023-01-9
 
 ### Improvements
 
 - `max-childrens` renamed to `max-children`.
 - `width` and `height` isssue solved when rendred in `f-div`.
+
 ## [1.0.6] - 2023-01-9
 
 ### Features
@@ -167,6 +192,7 @@
 - `rightClick` event support added in node schema.
 
 ### Improvements
+
 - `isChildrenVisible` property changed to `hideChildren` with default value `true.`
 - `degree` property changed to `stagger-load`.
 - `template` field changed to `nodeTemplate` in node schema.
@@ -176,6 +202,7 @@
 ### Improvements
 
 - version added in console to debug
+
 ## [1.0.1] - 2023-01-4
 
 ### Improvements
@@ -187,6 +214,7 @@
 ### Features
 
 - Emitting `ready` event when plotting finishes.
+
 ## [0.2.3] - 2022-12-9
 
 ### Features
@@ -207,17 +235,20 @@
 ### Improvements
 
 - show dot only for children links
+
 ## [0.2.0] - 2022-12-5
 
 ### Features
 
 - Collapssible children in node
+
 ## [0.1.9] - 2022-12-2
 
 ### Features
 
 - Auto load degree after intial render
 - Show percentage of loaded
+
 ## [0.1.8] - 2022-12-2
 
 ### Improvements
@@ -248,6 +279,7 @@
 ### Features
 
 - Birectional link if `from` and `to` are swapped and added as additional link.
+
 ## [0.1.3] - 2022-11-25
 
 ### Bug fixes
@@ -259,12 +291,14 @@
 ### Features
 
 - `links` and `node` property support added for flat data structure.
+
 ## [0.1.1] - 2022-11-18
 
 ### Features
 
 - `children-node-template` property support added.
 - We can specify template on individual node as well (for more customization and advanced usecases)
+
 ## [0.1.0] - 2022-11-18
 
 ### Features
@@ -277,6 +311,7 @@
 ### Improvements
 
 - `links` logic improved and it is not overlapping with any node
+
 ## [0.0.8] - 2022-11-15
 
 ### Features
@@ -296,6 +331,7 @@
 ### Improvements
 
 - `children` pagination logic updated.
+
 ## [0.0.5] - 2022-11-08
 
 ### Features
@@ -307,6 +343,7 @@
 ### Features
 
 - `children` support added in `data` property.
+
 ## [0.0.3] - 2022-11-04
 
 ### Features
@@ -322,8 +359,6 @@
 
 ## [0.0.1] - 2022-11-01
 
-
 ### Improvements
 
 - Initial release.
-
