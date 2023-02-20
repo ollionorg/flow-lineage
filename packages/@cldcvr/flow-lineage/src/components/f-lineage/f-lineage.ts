@@ -609,7 +609,7 @@ export class FLineage extends FRoot {
   /* eslint-disable @typescript-eslint/no-unused-vars */
   /* eslint-disable @typescript-eslint/ban-ts-comment */
   // @ts-ignore
-  doPopoverTemplateUpdate(node: LineageNodeElement, popoverElement: FPopover, isChildNode = false) {
+  nodeMetaDispatchEvent(node: LineageNodeElement, popoverElement: FPopover, isChildNode = false) {
     const nodeMeta = new CustomEvent("node-meta", {
       detail: { node: node, isChildNode: isChildNode },
       bubbles: true,

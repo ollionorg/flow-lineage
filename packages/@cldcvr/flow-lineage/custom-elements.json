@@ -559,7 +559,7 @@
             },
             {
               "kind": "method",
-              "name": "doPopoverTemplateUpdate",
+              "name": "nodeMetaDispatchEvent",
               "parameters": [
                 {
                   "name": "node",

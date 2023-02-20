@@ -37,7 +37,7 @@ export default function drawNodes(params: DrawLineageParams) {
       const closeIcon = popoverElement?.querySelector(".f-lineage-popover-close");
       popoverElement.target = nodeEl;
       popoverElement.open = true;
-      element.doPopoverTemplateUpdate(d, popoverElement, isChildNode);
+      element.nodeMetaDispatchEvent(d, popoverElement, isChildNode);
       popoverElement?.addEventListener("overlay-click", () => {
         popoverElement.open = false;
       });
