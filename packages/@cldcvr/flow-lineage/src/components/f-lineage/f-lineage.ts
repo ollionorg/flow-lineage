@@ -17,11 +17,11 @@ import drawLineage from "./draw/draw-lineage";
 import flowCoreCSS from "@cldcvr/flow-core/dist/style.css";
 import lowlightPath from "./highlight/lowlight-path";
 import createHierarchy from "./create/create-hierarchy";
-import { FButton, FDiv } from "@cldcvr/flow-core";
+import { FButton, FDiv, FPopover } from "@cldcvr/flow-core";
 import { FRoot } from "@cldcvr/flow-core/src/mixins/components/f-root/f-root";
 import { debounce, getComputedHTML } from "../../utils";
 import getProxies from "./draw/hot-reload-proxies";
-
+import { ref, createRef, Ref } from "lit/directives/ref.js";
 // Renders attribute names of parent element to textContent
 
 @customElement("f-lineage")
@@ -156,12 +156,7 @@ export class FLineage extends FRoot {
 
   private data!: LineageData;
 
-  foreignObjects!: d3.Selection<
-    SVGForeignObjectElement,
-    LineageNodeElement,
-    SVGGElement,
-    unknown
-  >;
+  foreignObjects!: d3.Selection<SVGForeignObjectElement, LineageNodeElement, SVGGElement, unknown>;
 
   /**
    * holds which levels to display
@@ -180,6 +175,8 @@ export class FLineage extends FRoot {
   timeout!: ReturnType<typeof setTimeout>;
   renderCount = 0;
   currentTransform = null;
+
+  popoverRef: Ref<FPopover> = createRef();
 
   applyBackground() {
     this.style.backgroundColor = this.background as string;
@@ -200,22 +197,15 @@ export class FLineage extends FRoot {
 
     if (this.maxAvailableLevels > maxLevel) {
       this.levelsToPlot = [
-        ...this.getNumbersFromRange(
-          minLevel - this["stagger-load"],
-          minLevel - 1
-        ),
-        ...this.getNumbersFromRange(
-          maxLevel + 1,
-          maxLevel + this["stagger-load"]
-        ),
+        ...this.getNumbersFromRange(minLevel - this["stagger-load"], minLevel - 1),
+        ...this.getNumbersFromRange(maxLevel + 1, maxLevel + this["stagger-load"]),
       ];
 
       this.page += 1;
       this.pageToLevels[this.page] = this.levelsToPlot;
-      this.pageNumberElement.innerText = `${(
-        (maxLevel * 100) /
-        this.maxAvailableLevels
-      ).toFixed(0)}%`;
+      this.pageNumberElement.innerText = `${((maxLevel * 100) / this.maxAvailableLevels).toFixed(
+        0
+      )}%`;
       drawLineage({
         ...this.lineageDrawParams,
         levelsToPlot: this.levelsToPlot,
@@ -246,20 +236,16 @@ export class FLineage extends FRoot {
       this.page -= 1;
       this.levelsToPlot = this.pageToLevels[this.page];
       this.pageNumberElement.label = `${this.page}`;
-      this.shadowRoot
-        ?.querySelectorAll(`[data-page="${pageToDelete}"`)
-        .forEach((element) => {
-          element.remove();
-        });
+      this.shadowRoot?.querySelectorAll(`[data-page="${pageToDelete}"`).forEach((element) => {
+        element.remove();
+      });
     }
   }
 
   reDrawChunk(page: number, _level: number) {
-    this.shadowRoot
-      ?.querySelectorAll(`[data-page="${page}"`)
-      .forEach((element) => {
-        element.remove();
-      });
+    this.shadowRoot?.querySelectorAll(`[data-page="${page}"`).forEach((element) => {
+      element.remove();
+    });
 
     const levelsToPlot = this.pageToLevels[page];
 
@@ -280,10 +266,7 @@ export class FLineage extends FRoot {
         if (link.target.level <= link.source.level) {
           return true;
         }
-        return (
-          levelsToPlot.includes(link.source.level) ||
-          levelsToPlot.includes(link.target.level)
-        );
+        return levelsToPlot.includes(link.source.level) || levelsToPlot.includes(link.target.level);
       },
     });
   }
@@ -322,6 +305,18 @@ export class FLineage extends FRoot {
             <f-icon source="i-tick" loading></f-icon>
             <f-text id="page-number">${this.page}%</f-text>
           </f-div>`}
+      <f-popover ${ref(this.popoverRef)} ?open=${false}
+        ><f-div height="100%"
+          ><f-icon-button
+            icon="i-close"
+            size="small"
+            variant="block"
+            type="packed"
+            state="inherit"
+            class="f-lineage-popover-close"
+          ></f-icon-button
+          ><slot name="meta-info"></slot></f-div
+      ></f-popover>
     `;
   }
   connectedCallback() {
@@ -460,14 +455,10 @@ export class FLineage extends FRoot {
         biDirectionalLinks: this.biDirectionalLinks,
       });
 
-      this.centerNodeElement = lineage.nodes.find(
-        (n) => n.id === this.data[0].id
-      );
+      this.centerNodeElement = lineage.nodes.find((n) => n.id === this.data[0].id);
 
       if (this["center-node"]) {
-        this.centerNodeElement = lineage.nodes.find(
-          (n) => n.id === this["center-node"]
-        );
+        this.centerNodeElement = lineage.nodes.find((n) => n.id === this["center-node"]);
       }
 
       if (this.centerNodeElement) {
@@ -487,15 +478,12 @@ export class FLineage extends FRoot {
         console.warn(`center-node ${this["center-node"]} not found!`);
       }
 
-      this.maxAvailableLevels = lineage.nodes.reduce(
-        (preValue, currentNode) => {
-          if (currentNode.level > preValue) {
-            preValue = currentNode.level;
-          }
-          return preValue;
-        },
-        0
-      );
+      this.maxAvailableLevels = lineage.nodes.reduce((preValue, currentNode) => {
+        if (currentNode.level > preValue) {
+          preValue = currentNode.level;
+        }
+        return preValue;
+      }, 0);
 
       /**
        * main svg element: setting height and width
@@ -528,6 +516,7 @@ export class FLineage extends FRoot {
         element: this,
         levelsToPlot: this.levelsToPlot,
         page: this.page,
+        popoverRef: this.popoverRef,
       };
       drawLineage(this.lineageDrawParams);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -550,10 +539,7 @@ export class FLineage extends FRoot {
         }
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const zoom = d3
-        .zoom()
-        .scaleExtent([0.3, 4])
-        .on("zoom", handleZoom) as any;
+      const zoom = d3.zoom().scaleExtent([0.3, 4]).on("zoom", handleZoom) as any;
 
       svgElement.call(zoom).on("dblclick.zoom", null);
 
@@ -586,9 +572,7 @@ export class FLineage extends FRoot {
         if (node.fNodeTemplate) {
           return getComputedHTML(html`${eval("`" + node.fNodeTemplate + "`")}`);
         } else {
-          return getComputedHTML(
-            html`${eval("`" + this["children-node-template"] + "`")}`
-          );
+          return getComputedHTML(html`${eval("`" + this["children-node-template"] + "`")}`);
         }
       } else {
         if (node.fChildren) {
@@ -600,9 +584,7 @@ export class FLineage extends FRoot {
         if (node.fNodeTemplate) {
           return getComputedHTML(html`${eval("`" + node.fNodeTemplate + "`")}`);
         } else {
-          return getComputedHTML(
-            html`${eval("`" + this["node-template"] + "`")}`
-          );
+          return getComputedHTML(html`${eval("`" + this["node-template"] + "`")}`);
         }
       }
     } catch (error: unknown) {
@@ -622,6 +604,18 @@ export class FLineage extends FRoot {
 
 	</f-div>`;
     }
+  }
+
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  /* eslint-disable @typescript-eslint/ban-ts-comment */
+  // @ts-ignore
+  doPopoverTemplateUpdate(node: LineageNodeElement, popoverElement: FPopover, isChildNode = false) {
+    const nodeMeta = new CustomEvent("node-meta", {
+      detail: { node: node, isChildNode: isChildNode },
+      bubbles: true,
+      composed: true,
+    });
+    this.dispatchEvent(nodeMeta);
   }
 }
 

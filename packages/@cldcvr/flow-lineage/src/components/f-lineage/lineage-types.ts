@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { FPopover } from "@cldcvr/flow-core";
 import { FLineage } from "./f-lineage";
+import { Ref } from "lit-html/directives/ref.js";
 
 export type LineageBaseNode = {
   id?: string;
@@ -8,7 +10,9 @@ export type LineageBaseNode = {
   __isProxy?: string;
   links?: LineageNodeLink[];
   fData?: Record<string, any>;
+  fNodeMeta?: Record<string, any>;
   fNodeTemplate?: string;
+  fPopoverTemplate?: string;
   fClick?: (event: Event, node: LineageNodeElement) => void;
   fRightClick?: (event: Event, node: LineageNodeElement) => void;
 };
@@ -43,6 +47,7 @@ export type LineageNodeElement = {
   offset?: number;
   isVisible?: boolean;
   childrenToggle?: string;
+  popoverToggle?: string;
   fHideChildren?: boolean;
   fClick?: (event: Event, node: LineageNodeElement) => void;
 } & Omit<LineageNode, "to">;
@@ -69,10 +74,7 @@ export type LineageLinkElement = {
 
 export type LineageDirection = "horizontal" | "vertical";
 
-export type LevelLinkGap = Record<
-  number,
-  { linkgap: number; nodeLinkGap: Record<string, number> }
->;
+export type LevelLinkGap = Record<number, { linkgap: number; nodeLinkGap: Record<string, number> }>;
 
 export type LineageData = LineageNode[];
 
@@ -88,6 +90,7 @@ export type DrawLineageParams = {
   levelsToPlot: number[];
   page: number;
   filter?: (link: LineageLinkElement) => boolean;
+  popoverRef?: Ref<FPopover>;
 };
 
 export type CreateLineageParams = {

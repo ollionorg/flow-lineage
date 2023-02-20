@@ -404,7 +404,7 @@
               "kind": "field",
               "name": "foreignObjects",
               "type": {
-                "text": "d3.Selection<\n    SVGForeignObjectElement,\n    LineageNodeElement,\n    SVGGElement,\n    unknown\n  >"
+                "text": "d3.Selection<SVGForeignObjectElement, LineageNodeElement, SVGGElement, unknown>"
               }
             },
             {
@@ -463,6 +463,13 @@
                 "text": "null"
               },
               "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "popoverRef",
+              "type": {
+                "text": "Ref<FPopover>"
+              }
             },
             {
               "kind": "method",
@@ -542,6 +549,28 @@
                   "name": "node",
                   "type": {
                     "text": "LineageNodeElement"
+                  }
+                },
+                {
+                  "name": "isChildNode",
+                  "default": "false"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "doPopoverTemplateUpdate",
+              "parameters": [
+                {
+                  "name": "node",
+                  "type": {
+                    "text": "LineageNodeElement"
+                  }
+                },
+                {
+                  "name": "popoverElement",
+                  "type": {
+                    "text": "FPopover"
                   }
                 },
                 {

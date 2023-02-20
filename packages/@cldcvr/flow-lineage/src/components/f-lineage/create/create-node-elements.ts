@@ -45,10 +45,7 @@ export default function createNodeElements(
         /**
          * for horizontal direction calculate appropriate gap
          */
-        Pointer.levelPointers[level] = new Pointer(
-          this.x + nodeSize.width + gap,
-          padding
-        );
+        Pointer.levelPointers[level] = new Pointer(this.x + nodeSize.width + gap, padding);
       } else {
         /**
          * for vertical direction calculate appropriate gap
@@ -83,17 +80,16 @@ export default function createNodeElements(
     const nodeElement: LineageNodeElement = {
       id: node.id,
       fData: node.fData,
+      fNodeMeta: node.fNodeMeta,
       links: node.links,
       fChildren: node.fChildren,
-      fHideChildren:
-        node.fHideChildren === true || node.fHideChildren === undefined
-          ? true
-          : false,
+      fHideChildren: node.fHideChildren === true || node.fHideChildren === undefined ? true : false,
       level,
       x: levelPointer.x,
       y: levelPointer.y,
       offset: 0,
       fNodeTemplate: node.fNodeTemplate,
+      fPopoverTemplate: node.fPopoverTemplate,
       fClick: node.fClick,
       fRightClick: node.fRightClick,
     };
@@ -123,12 +119,8 @@ export default function createNodeElements(
         /**
          * checking level max Y
          */
-        const maxYWhenScrollBar =
-          nodeElement.y + nodeSize.height + maxChildrenHeight;
-        if (
-          nodeElement.hasScrollbaleChildren &&
-          levelPointer.y > maxYWhenScrollBar
-        ) {
+        const maxYWhenScrollBar = nodeElement.y + nodeSize.height + maxChildrenHeight;
+        if (nodeElement.hasScrollbaleChildren && levelPointer.y > maxYWhenScrollBar) {
           levelPointer.maxY = maxYWhenScrollBar;
           nodeElement.childrenYMax = maxYWhenScrollBar;
         } else if (levelPointer.y > (levelPointer.maxY ?? 0)) {
@@ -198,6 +190,7 @@ export default function createNodeElements(
     const nodeElement: LineageNodeElement = {
       id: node.id,
       fData: node.fData,
+      fNodeMeta: node.fNodeMeta,
       links: node.links,
       level,
       x: levelPointer.x,
@@ -206,6 +199,7 @@ export default function createNodeElements(
       parentId: parent?.id,
       parent,
       fNodeTemplate: node.fNodeTemplate,
+      fPopoverTemplate: node.fPopoverTemplate,
       fClick: node.fClick,
       fRightClick: node.fRightClick,
     };
@@ -235,12 +229,7 @@ export default function createNodeElements(
      */
     nodes.forEach((node) => {
       if (isChildren) {
-        const nodeElement = getComputedChildrenElement(
-          node,
-          level,
-          levelPointer,
-          parent
-        );
+        const nodeElement = getComputedChildrenElement(node, level, levelPointer, parent);
         nodeElements.push(nodeElement);
 
         nodeElementsMap[nodeElement.id as string] = nodeElement;
@@ -274,11 +263,7 @@ export default function createNodeElements(
          * check if any node has inconsistent gap
          */
         const nodeToCompare = nodeElements.find((node) => {
-          return (
-            node.level === level + 1 &&
-            node.y - maxY !== gap &&
-            !node.isChildren
-          );
+          return node.level === level + 1 && node.y - maxY !== gap && !node.isChildren;
         });
         /**
          * Inconsistent node found , now update y for those nodes

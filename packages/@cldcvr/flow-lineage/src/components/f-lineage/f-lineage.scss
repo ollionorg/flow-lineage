@@ -29,6 +29,14 @@ f-div[direction="row"] {
   > svg {
     animation: none !important;
   }
+  > f-popover {
+    .f-lineage-popover-close {
+      position: absolute;
+      z-index: 10;
+      right: 0;
+      transform: translateY(21px) translateX(-12px);
+    }
+  }
 
   foreignObject {
     cursor: pointer;
