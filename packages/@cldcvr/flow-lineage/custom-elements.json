@@ -370,6 +370,21 @@
             },
             {
               "kind": "field",
+              "name": "_metaNodes",
+              "type": {
+                "text": "NodeListOf<HTMLElement>"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "_hasMetaNodes",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
               "name": "maxAvailableLevels",
               "type": {
                 "text": "number"
@@ -404,7 +419,7 @@
               "kind": "field",
               "name": "foreignObjects",
               "type": {
-                "text": "d3.Selection<\n    SVGForeignObjectElement,\n    LineageNodeElement,\n    SVGGElement,\n    unknown\n  >"
+                "text": "d3.Selection<SVGForeignObjectElement, LineageNodeElement, SVGGElement, unknown>"
               }
             },
             {
@@ -465,6 +480,13 @@
               "default": "null"
             },
             {
+              "kind": "field",
+              "name": "popoverRef",
+              "type": {
+                "text": "Ref<FPopover>"
+              }
+            },
+            {
               "kind": "method",
               "name": "applyBackground"
             },
@@ -522,6 +544,10 @@
             },
             {
               "kind": "method",
+              "name": "_onPopoverSlotChange"
+            },
+            {
+              "kind": "method",
               "name": "getWidth",
               "description": "get width based on what parent is used"
             },
@@ -537,6 +563,22 @@
             {
               "kind": "method",
               "name": "doTemplateHotUpdate",
+              "parameters": [
+                {
+                  "name": "node",
+                  "type": {
+                    "text": "LineageNodeElement"
+                  }
+                },
+                {
+                  "name": "isChildNode",
+                  "default": "false"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "nodeMetaDispatchEvent",
               "parameters": [
                 {
                   "name": "node",

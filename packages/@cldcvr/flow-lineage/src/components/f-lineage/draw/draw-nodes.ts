@@ -7,6 +7,7 @@ import drawLinks from "./draw-links";
 
 export default function drawNodes(params: DrawLineageParams) {
   //console.time("Nodes duration");
+
   const {
     lineage,
     svg,
@@ -16,7 +17,9 @@ export default function drawNodes(params: DrawLineageParams) {
     element,
     levelsToPlot,
     page,
+    popoverRef,
   } = params;
+
   const scrollBarWidth = 8;
   const maxChildrens = maxChildrenHeight / childrenNodeSize.height;
   const degreeFilter = (n: LineageNodeElement) => {
@@ -26,9 +29,33 @@ export default function drawNodes(params: DrawLineageParams) {
     return true;
   };
 
-  const parentNodesMeta = lineage.nodes.filter(
-    (n) => !n.isChildren && degreeFilter(n)
-  );
+  const openPopover = (d: LineageNodeElement, isChildNode = false) => {
+    const lineage = document.body.querySelector("f-lineage");
+    const nodeEl = lineage?.shadowRoot?.querySelector(`#${d?.id}-foreign-object`) as HTMLElement;
+    const popoverElement = popoverRef?.value;
+    if (popoverElement && nodeEl) {
+      const closeIcon = popoverElement?.querySelector<HTMLElement>(".f-lineage-popover-close");
+      popoverElement.target = nodeEl;
+      popoverElement.open = true;
+      element.nodeMetaDispatchEvent(d, isChildNode);
+      popoverElement?.addEventListener("overlay-click", () => {
+        popoverElement.open = false;
+        if (popoverElement.cleanup) {
+          popoverElement.cleanup();
+        }
+      });
+      if (closeIcon) {
+        closeIcon.onclick = () => {
+          popoverElement.open = false;
+          if (popoverElement.cleanup) {
+            popoverElement.cleanup();
+          }
+        };
+      }
+    }
+  };
+
+  const parentNodesMeta = lineage.nodes.filter((n) => !n.isChildren && degreeFilter(n));
   element.foreignObjects = svg
     .append("g")
     .attr("class", "nodes")
@@ -52,6 +79,11 @@ export default function drawNodes(params: DrawLineageParams) {
       }
     })
     .on("contextmenu", (event: MouseEvent, d) => {
+      if (element._hasMetaNodes && d.fNodeMeta) {
+        event.stopPropagation();
+        event.preventDefault();
+        openPopover(d, true);
+      }
       if (d.fRightClick) {
         event.stopPropagation();
         event.preventDefault();
@@ -73,14 +105,11 @@ export default function drawNodes(params: DrawLineageParams) {
     .on("click", function (event: MouseEvent, d) {
       const toggleElement = event
         .composedPath()
-        .find((el) =>
-          (el as HTMLElement).classList?.contains("children-toggle")
-        );
+        .find((el) => (el as HTMLElement).classList?.contains("children-toggle"));
 
       if (toggleElement) {
         event.stopPropagation();
         d.fHideChildren = !d.fHideChildren;
-
         const allChildNodes = lineage.nodes.filter((n) => n.parentId === d.id);
         const childIds = allChildNodes.map((c) => c.id);
         if (d.childrenYMax) {
@@ -149,11 +178,7 @@ export default function drawNodes(params: DrawLineageParams) {
     .selectAll("g")
     .data(
       lineage.nodes.filter(
-        (n) =>
-          n.fChildren &&
-          !n.fHideChildren &&
-          !isEmpty(n.fChildren) &&
-          degreeFilter(n)
+        (n) => n.fChildren && !n.fHideChildren && !isEmpty(n.fChildren) && degreeFilter(n)
       )
     )
     .enter()
@@ -205,8 +230,7 @@ export default function drawNodes(params: DrawLineageParams) {
          */
         const noOdChildren = getChildCount(d.fChildren);
         const childHeight = noOdChildren * childrenNodeSize.height;
-        let scrollbarOffset =
-          (childrenNodeSize.height * maxChildrenHeight) / childHeight;
+        let scrollbarOffset = (childrenNodeSize.height * maxChildrenHeight) / childHeight;
         if (event.deltaY < 0) {
           scrollbarOffset *= -1;
         }
@@ -268,11 +292,7 @@ export default function drawNodes(params: DrawLineageParams) {
     })
     .attr("width", childrenNodeSize.width);
 
-  const paginateChildrens = (
-    nData: LineageNodeElement,
-    start: number,
-    end: number
-  ) => {
+  const paginateChildrens = (nData: LineageNodeElement, start: number, end: number) => {
     // console.log("In paginateChildrens");
     const allChildNodes = lineage.nodes.filter((n) => n.parentId === nData.id);
     allChildNodes.forEach((cn) => {
@@ -324,6 +344,11 @@ export default function drawNodes(params: DrawLineageParams) {
         }
       })
       .on("contextmenu", (event: MouseEvent, d) => {
+        if (element._hasMetaNodes && d.fNodeMeta) {
+          event.stopPropagation();
+          event.preventDefault();
+          openPopover(d, true);
+        }
         if (d.fRightClick) {
           event.stopPropagation();
           event.preventDefault();
@@ -369,9 +394,7 @@ export default function drawNodes(params: DrawLineageParams) {
     .attr("data-page", page)
     .selectAll("g")
     .data(
-      lineage.nodes.filter(
-        (n) => n.hasScrollbaleChildren && !n.fHideChildren && degreeFilter(n)
-      )
+      lineage.nodes.filter((n) => n.hasScrollbaleChildren && !n.fHideChildren && degreeFilter(n))
     )
     .enter()
     .append("rect")
@@ -387,9 +410,7 @@ export default function drawNodes(params: DrawLineageParams) {
     .attr("rx", scrollBarWidth / 2)
     .attr("ry", scrollBarWidth / 2)
     .attr("transform", (d) => {
-      return `translate(${d.x + nodeSize.width - scrollBarWidth},${
-        d.y + nodeSize.height
-      })`;
+      return `translate(${d.x + nodeSize.width - scrollBarWidth},${d.y + nodeSize.height})`;
     });
 
   //console.timeEnd("Nodes duration");
