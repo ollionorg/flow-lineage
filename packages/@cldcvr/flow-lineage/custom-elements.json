@@ -370,6 +370,21 @@
             },
             {
               "kind": "field",
+              "name": "_metaNodes",
+              "type": {
+                "text": "NodeListOf<HTMLElement>"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "_hasMetaNodes",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
               "name": "maxAvailableLevels",
               "type": {
                 "text": "number"
@@ -529,6 +544,10 @@
             },
             {
               "kind": "method",
+              "name": "_onPopoverSlotChange"
+            },
+            {
+              "kind": "method",
               "name": "getWidth",
               "description": "get width based on what parent is used"
             },
@@ -565,12 +584,6 @@
                   "name": "node",
                   "type": {
                     "text": "LineageNodeElement"
-                  }
-                },
-                {
-                  "name": "popoverElement",
-                  "type": {
-                    "text": "FPopover"
                   }
                 },
                 {

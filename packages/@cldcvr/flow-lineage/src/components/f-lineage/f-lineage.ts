@@ -1,5 +1,5 @@
 import { html, PropertyValues, unsafeCSS } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, property, query, queryAssignedElements, state } from "lit/decorators.js";
 import eleStyle from "./f-lineage.scss";
 import * as d3 from "d3";
 import createLineage from "./create/create-lineage";
@@ -145,6 +145,12 @@ export class FLineage extends FRoot {
   @query("#progress")
   progressElement!: FDiv;
 
+  @queryAssignedElements({ slot: "node-meta" })
+  _metaNodes!: NodeListOf<HTMLElement>;
+
+  @state()
+  _hasMetaNodes = false;
+
   /**
    * holds maximum available level count
    */
@@ -271,6 +277,10 @@ export class FLineage extends FRoot {
     });
   }
 
+  _onPopoverSlotChange() {
+    this._hasMetaNodes = this._metaNodes.length > 0;
+  }
+
   render() {
     if (this.timeout) {
       clearTimeout(this.timeout);
@@ -315,7 +325,7 @@ export class FLineage extends FRoot {
             state="inherit"
             class="f-lineage-popover-close"
           ></f-icon-button
-          ><slot name="meta-info"></slot></f-div
+          ><slot name="node-meta" @slotchange=${this._onPopoverSlotChange}></slot></f-div
       ></f-popover>
     `;
   }
@@ -330,6 +340,7 @@ export class FLineage extends FRoot {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
+
     window.removeEventListener(
       "resize",
       debounce(() => this.requestUpdate())
@@ -606,10 +617,7 @@ export class FLineage extends FRoot {
     }
   }
 
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  /* eslint-disable @typescript-eslint/ban-ts-comment */
-  // @ts-ignore
-  nodeMetaDispatchEvent(node: LineageNodeElement, popoverElement: FPopover, isChildNode = false) {
+  nodeMetaDispatchEvent(node: LineageNodeElement, isChildNode = false) {
     const nodeMeta = new CustomEvent("node-meta", {
       detail: { node: node, isChildNode: isChildNode },
       bubbles: true,

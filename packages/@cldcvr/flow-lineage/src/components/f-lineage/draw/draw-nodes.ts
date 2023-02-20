@@ -31,19 +31,27 @@ export default function drawNodes(params: DrawLineageParams) {
 
   const openPopover = (d: LineageNodeElement, isChildNode = false) => {
     const lineage = document.body.querySelector("f-lineage");
-    const nodeEl = lineage?.shadowRoot?.querySelector(`#${d?.id}`) as HTMLElement;
+    const nodeEl = lineage?.shadowRoot?.querySelector(`#${d?.id}-foreign-object`) as HTMLElement;
     const popoverElement = popoverRef?.value;
     if (popoverElement && nodeEl) {
-      const closeIcon = popoverElement?.querySelector(".f-lineage-popover-close");
+      const closeIcon = popoverElement?.querySelector<HTMLElement>(".f-lineage-popover-close");
       popoverElement.target = nodeEl;
       popoverElement.open = true;
-      element.nodeMetaDispatchEvent(d, popoverElement, isChildNode);
+      element.nodeMetaDispatchEvent(d, isChildNode);
       popoverElement?.addEventListener("overlay-click", () => {
         popoverElement.open = false;
+        if (popoverElement.cleanup) {
+          popoverElement.cleanup();
+        }
       });
-      closeIcon?.addEventListener("click", () => {
-        popoverElement.open = false;
-      });
+      if (closeIcon) {
+        closeIcon.onclick = () => {
+          popoverElement.open = false;
+          if (popoverElement.cleanup) {
+            popoverElement.cleanup();
+          }
+        };
+      }
     }
   };
 
@@ -71,11 +79,15 @@ export default function drawNodes(params: DrawLineageParams) {
       }
     })
     .on("contextmenu", (event: MouseEvent, d) => {
+      if (element._hasMetaNodes && d.fNodeMeta) {
+        event.stopPropagation();
+        event.preventDefault();
+        openPopover(d, true);
+      }
       if (d.fRightClick) {
         event.stopPropagation();
         event.preventDefault();
         d.fRightClick(event, d);
-        openPopover(d);
       }
     })
     .append("foreignObject")
@@ -98,7 +110,6 @@ export default function drawNodes(params: DrawLineageParams) {
       if (toggleElement) {
         event.stopPropagation();
         d.fHideChildren = !d.fHideChildren;
-
         const allChildNodes = lineage.nodes.filter((n) => n.parentId === d.id);
         const childIds = allChildNodes.map((c) => c.id);
         if (d.childrenYMax) {
@@ -333,11 +344,15 @@ export default function drawNodes(params: DrawLineageParams) {
         }
       })
       .on("contextmenu", (event: MouseEvent, d) => {
+        if (element._hasMetaNodes && d.fNodeMeta) {
+          event.stopPropagation();
+          event.preventDefault();
+          openPopover(d, true);
+        }
         if (d.fRightClick) {
           event.stopPropagation();
           event.preventDefault();
           d.fRightClick(event, d);
-          openPopover(d, true);
         }
       })
       /* eslint-disable @typescript-eslint/ban-ts-comment */
