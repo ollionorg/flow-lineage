@@ -89,7 +89,6 @@ export default function createNodeElements(
       y: levelPointer.y,
       offset: 0,
       fNodeTemplate: node.fNodeTemplate,
-      fPopoverTemplate: node.fPopoverTemplate,
       fClick: node.fClick,
       fRightClick: node.fRightClick,
     };
@@ -199,7 +198,6 @@ export default function createNodeElements(
       parentId: parent?.id,
       parent,
       fNodeTemplate: node.fNodeTemplate,
-      fPopoverTemplate: node.fPopoverTemplate,
       fClick: node.fClick,
       fRightClick: node.fRightClick,
     };

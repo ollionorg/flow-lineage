@@ -12,7 +12,6 @@ export type LineageBaseNode = {
   fData?: Record<string, any>;
   fNodeMeta?: Record<string, any>;
   fNodeTemplate?: string;
-  fPopoverTemplate?: string;
   fClick?: (event: Event, node: LineageNodeElement) => void;
   fRightClick?: (event: Event, node: LineageNodeElement) => void;
 };
