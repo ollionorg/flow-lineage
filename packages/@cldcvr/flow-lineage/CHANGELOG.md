@@ -4,6 +4,12 @@
 
 # Change Log
 
+## [1.3.9] - 2023-02-21
+
+### Bug fixes
+
+- `nodeMeta` event name for opening meta-data changed to `node-meta`
+
 ## [1.3.8] - 2023-02-20
 
 ### Improvements

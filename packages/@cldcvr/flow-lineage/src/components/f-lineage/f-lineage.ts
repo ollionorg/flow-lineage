@@ -617,7 +617,7 @@ export class FLineage extends FRoot {
   }
 
   nodeMetaDispatchEvent(node: LineageNodeElement, isChildNode = false) {
-    const nodeMeta = new CustomEvent("nodeMeta", {
+    const nodeMeta = new CustomEvent("node-meta", {
       detail: { node: node, isChildNode: isChildNode },
       bubbles: true,
       composed: true,
