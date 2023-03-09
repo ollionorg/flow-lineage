@@ -419,7 +419,7 @@
               "kind": "field",
               "name": "foreignObjects",
               "type": {
-                "text": "d3.Selection<SVGForeignObjectElement, LineageNodeElement, SVGGElement, unknown>"
+                "text": "d3.Selection<\n    SVGForeignObjectElement,\n    LineageNodeElement,\n    SVGGElement,\n    unknown\n  >"
               }
             },
             {
