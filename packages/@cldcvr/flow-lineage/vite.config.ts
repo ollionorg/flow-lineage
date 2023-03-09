@@ -4,6 +4,7 @@ import path from "path";
 
 export default defineConfig({
   build: {
+    sourcemap: true,
     lib: {
       entry: "src/index.ts",
       name: "flow-lineage",
@@ -12,7 +13,7 @@ export default defineConfig({
     },
     // outDir: "dist",
     rollupOptions: {
-      external: ["@cldcvr/flow-core"],
+      external: ["@cldcvr/flow-core", /^lit/],
       output: {
         globals: {
           "@cldcvr/flow-core": "@cldcvr/flow-core",

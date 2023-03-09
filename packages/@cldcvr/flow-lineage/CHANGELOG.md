@@ -4,6 +4,13 @@
 
 # Change Log
 
+## [1.4.0] - 2023-03-09
+
+### Improvements
+
+- `sourceMap` included.
+- dependecies excluded from bundling.
+
 ## [1.3.9] - 2023-02-21
 
 ### Bug fixes
