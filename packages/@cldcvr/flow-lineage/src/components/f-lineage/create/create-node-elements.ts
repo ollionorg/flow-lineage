@@ -45,7 +45,10 @@ export default function createNodeElements(
         /**
          * for horizontal direction calculate appropriate gap
          */
-        Pointer.levelPointers[level] = new Pointer(this.x + nodeSize.width + gap, padding);
+        Pointer.levelPointers[level] = new Pointer(
+          this.x + nodeSize.width + gap,
+          padding
+        );
       } else {
         /**
          * for vertical direction calculate appropriate gap
@@ -83,7 +86,10 @@ export default function createNodeElements(
       fNodeMeta: node.fNodeMeta,
       links: node.links,
       fChildren: node.fChildren,
-      fHideChildren: node.fHideChildren === true || node.fHideChildren === undefined ? true : false,
+      fHideChildren:
+        node.fHideChildren === true || node.fHideChildren === undefined
+          ? true
+          : false,
       level,
       x: levelPointer.x,
       y: levelPointer.y,
@@ -107,7 +113,11 @@ export default function createNodeElements(
       /**
        * compute child node elements
        */
-      computeElements(children, levelPointer, level, true, nodeElement);
+      computeElements(children, levelPointer, level, true, nodeElement).catch(
+        (error) => {
+          console.error(error);
+        }
+      );
 
       /**
        * storing last child co-ordinates
@@ -118,8 +128,12 @@ export default function createNodeElements(
         /**
          * checking level max Y
          */
-        const maxYWhenScrollBar = nodeElement.y + nodeSize.height + maxChildrenHeight;
-        if (nodeElement.hasScrollbaleChildren && levelPointer.y > maxYWhenScrollBar) {
+        const maxYWhenScrollBar =
+          nodeElement.y + nodeSize.height + maxChildrenHeight;
+        if (
+          nodeElement.hasScrollbaleChildren &&
+          levelPointer.y > maxYWhenScrollBar
+        ) {
           levelPointer.maxY = maxYWhenScrollBar;
           nodeElement.childrenYMax = maxYWhenScrollBar;
         } else if (levelPointer.y > (levelPointer.maxY ?? 0)) {
@@ -227,7 +241,12 @@ export default function createNodeElements(
      */
     nodes.forEach((node) => {
       if (isChildren) {
-        const nodeElement = getComputedChildrenElement(node, level, levelPointer, parent);
+        const nodeElement = getComputedChildrenElement(
+          node,
+          level,
+          levelPointer,
+          parent
+        );
         nodeElements.push(nodeElement);
 
         nodeElementsMap[nodeElement.id as string] = nodeElement;
@@ -239,12 +258,20 @@ export default function createNodeElements(
 
       const parentNode = node as LineageNode;
       if (parentNode.to && parentNode.to.length > 0) {
-        computeElements(parentNode.to, levelPointer.next(level + 1), level + 1);
+        computeElements(
+          parentNode.to,
+          levelPointer.next(level + 1),
+          level + 1
+        ).catch((error) => {
+          console.error(error);
+        });
       }
     });
   };
   const pointer = Pointer.levelPointers[1];
-  computeElements(data, pointer, 1);
+  computeElements(data, pointer, 1).catch((error) => {
+    console.error(error);
+  });
 
   /**
    * Adjusting vertical gaps
@@ -261,7 +288,11 @@ export default function createNodeElements(
          * check if any node has inconsistent gap
          */
         const nodeToCompare = nodeElements.find((node) => {
-          return node.level === level + 1 && node.y - maxY !== gap && !node.isChildren;
+          return (
+            node.level === level + 1 &&
+            node.y - maxY !== gap &&
+            !node.isChildren
+          );
         });
         /**
          * Inconsistent node found , now update y for those nodes

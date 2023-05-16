@@ -232,11 +232,15 @@ export class FLineage extends FRoot {
         ...this.lineageDrawParams,
         levelsToPlot: this.levelsToPlot,
         page: this.page,
-      }).then(() => {
-        this.timeout = setTimeout(() => {
-          this.increaseDegree();
-        }, 500);
-      });
+      })
+        .then(() => {
+          this.timeout = setTimeout(() => {
+            this.increaseDegree();
+          }, 500);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     } else {
       this.dispatchReadyEvent();
       this.pageNumberElement.innerText = `100%`;
@@ -297,6 +301,8 @@ export class FLineage extends FRoot {
           levelsToPlot.includes(link.target.level)
         );
       },
+    }).catch((error) => {
+      console.error(error);
     });
   }
 
@@ -319,7 +325,7 @@ export class FLineage extends FRoot {
             state="tertiary"
             variant="curved"
             width="80px"
-            class="degree-selector"
+            class="degree-selector even"
             id="progress"
           >
             <f-icon source="i-tick" loading></f-icon>
@@ -332,7 +338,7 @@ export class FLineage extends FRoot {
             state="tertiary"
             variant="curved"
             width="80px"
-            class="degree-selector"
+            class="degree-selector odd"
             id="progress"
           >
             <f-icon source="i-tick" loading></f-icon>
@@ -562,7 +568,9 @@ export class FLineage extends FRoot {
         page: this.page,
         popoverRef: this.popoverRef,
       };
-      drawLineage(this.lineageDrawParams);
+      drawLineage(this.lineageDrawParams).catch((error) => {
+        console.error(error);
+      });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleZoom = (e: any) => {
         /**

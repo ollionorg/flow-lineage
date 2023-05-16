@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.4.1] - 2023-05-16
+
+### Improvements
+
+- Sonar scan fixes
 ## [1.4.0] - 2023-03-09
 
 ### Improvements
