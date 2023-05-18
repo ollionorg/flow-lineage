@@ -1,6 +1,6 @@
 {
   "name": "@cldcvr/flow-lineage",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Lineage dependency for flow design system",
   "module": "dist/flow-lineage.es.js",
   "main": "dist/flow-lineage.cjs.js",

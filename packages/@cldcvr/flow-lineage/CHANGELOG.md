@@ -4,6 +4,10 @@
 
 # Change Log
 
+## [1.4.2] - 2023-05-18
+
+### Improvements
+- Slack notifications integrated
 ## [1.4.1] - 2023-05-16
 
 ### Improvements
