@@ -1313,13 +1313,27 @@
   resolved "https://registry.yarnpkg.com/@cldcvr/custom-elements-manifest-to-types/-/custom-elements-manifest-to-types-1.0.4.tgz#f017df0e151d78b13b604ce6a9b28066b08fbbe7"
   integrity sha512-gj1UP3O/I1PRq3iZ3+/fi73YEVc9H6tni8pIQp1UbKx3l8ppYR257aVKXMjd3CzUYWqPJheo2HOP4auIxAi2Og==
 
-"@cldcvr/flow-core@*", "@cldcvr/flow-core@1.3.1":
+"@cldcvr/flow-core@*":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@cldcvr/flow-core/-/flow-core-1.3.1.tgz#14dfc1ac168556059417a4e3f502c0a88af27aca"
   integrity sha512-qb7blNLhzFnPvri0OHrf+uZ8NhZGdg+8+V9SdgQTP4tZBbjBQoL/Y1zdtiQjTjq6ddUbhcnilRuEdu+FHOa2EA==
   dependencies:
     "@floating-ui/dom" "^1.0.2"
     axios "^0.27.2"
+    lit "^2.2.4"
+    rxjs "^7.5.7"
+    validate-color "^2.2.1"
+
+"@cldcvr/flow-core@^1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@cldcvr/flow-core/-/flow-core-1.17.0.tgz#c984e9db8dde949c34561c79e89c326d29a4750e"
+  integrity sha512-ChgviIVAKFxTHd/hx+kgokweEE7qG5ParCGxv2AJnOb9FpHNhxqhz0iY1NEek2EdxlGJgcEAx0Gtnc3EanTxBQ==
+  dependencies:
+    "@emoji-mart/data" "^1.1.2"
+    "@floating-ui/dom" "^1.0.2"
+    axios "^0.27.2"
+    emoji-mart "^5.5.2"
+    flatpickr "^4.6.13"
     lit "^2.2.4"
     rxjs "^7.5.7"
     validate-color "^2.2.1"
@@ -1362,6 +1376,11 @@
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
+
+"@emoji-mart/data@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@emoji-mart/data/-/data-1.1.2.tgz#777c976f8f143df47cbb23a7077c9ca9fe5fc513"
+  integrity sha512-1HP8BxD2azjqWJvxIaWAMyTySeZY0Osr83ukYjltPVkNXeJvTz7yDrPLBtnrD5uqJ3tg4CcLuuBW09wahqL/fg==
 
 "@esbuild/linux-loong64@0.14.54":
   version "0.14.54"
@@ -6030,6 +6049,11 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
+emoji-mart@^5.5.2:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/emoji-mart/-/emoji-mart-5.5.2.tgz#3ddbaf053139cf4aa217650078bc1c50ca8381af"
+  integrity sha512-Sqc/nso4cjxhOwWJsp9xkVm8OF5c+mJLZJFoFfzRuKO+yWiN7K8c96xmtughYb0d/fZ8UC6cLIQ/p4BR6Pv3/A==
+
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
@@ -6913,6 +6937,11 @@ flat-cache@^3.0.4:
   dependencies:
     flatted "^3.1.0"
     rimraf "^3.0.2"
+
+flatpickr@^4.6.13:
+  version "4.6.13"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.13.tgz#8a029548187fd6e0d670908471e43abe9ad18d94"
+  integrity sha512-97PMG/aywoYpB4IvbvUJi0RQi8vearvU0oov1WW3k0WZPBMrTQVqekSX5CjSG/M4Q3i6A/0FKXC7RyAoAUUSPw==
 
 flatted@^3.1.0:
   version "3.2.7"

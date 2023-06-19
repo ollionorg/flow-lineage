@@ -10,7 +10,7 @@
   "scripts": {
     "preinstall": "npx only-allow yarn",
     "storybook": "start-storybook -p 6009",
-    "start": "yarn storybook",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider  yarn storybook",
     "build-storybook": "build-storybook",
     "build-packages": "cd packages/@cldcvr/flow-lineage && yarn compile",
     "release": "cp README.md packages/@cldcvr/flow-lineage && yarn build-packages && yarn changeset publish",
@@ -51,6 +51,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "@cldcvr/flow-system-icon": "^1.0.5"
+    "@cldcvr/flow-system-icon": "^1.0.5",
+    "@cldcvr/flow-core": "^1.17.0"
   }
 }

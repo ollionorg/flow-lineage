@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.4.3] - 2023-06-19
+
+### Improvements
+- `flow-core` css updated.
+
 ## [1.4.2] - 2023-05-18
 
 ### Improvements

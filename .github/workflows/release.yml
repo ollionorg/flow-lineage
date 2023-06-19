@@ -44,7 +44,7 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         id: md-converter
         uses: LoveToKnow/slackify-markdown-action@v1.0.0
-        with: 
+        with:
           text: ${{ steps.extract-release-notes.outputs.release_notes }}
       - name: Send Slack Notification
         if: steps.changesets.outputs.published == 'true'
@@ -54,7 +54,7 @@ jobs:
           # For posting a rich message using Block Kit
           payload: |
             {
-              "text": "Updates",
+              "text": "New Release Alert: ${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].name }}@${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}",
               "blocks": [
                 {
                   "type": "header",
@@ -79,7 +79,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Hello everyone! We are thrilled to announce that a new version of the *${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].name }}* package is now available! 🎉. \nPlease find below the changelogs for the new version *${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}*:"
+                    "text": "Hello everyone! \nPlease find below the changelogs for ${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].name }}@${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}:"
                   }
                 },
                 {
@@ -124,7 +124,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-      
+
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v2
         with:
@@ -138,10 +138,10 @@ jobs:
           cmd: echo "`jq '.publishConfig.registry="https://npm.pkg.github.com"' packages/@cldcvr/flow-lineage/package.json`" > packages/@cldcvr/flow-lineage/package.json
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: "16.x"
+          registry-url: "https://npm.pkg.github.com"
           always-auth: true
-          scope: '@cldcvr'
+          scope: "@cldcvr"
       - name: Creating .npmrc
         run: |
           cat << EOF > "$HOME/.npmrc"
