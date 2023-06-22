@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [1.4.5] - 2023-06-19
+
+###  Bug fixes
+
+- `flow-core` css duplication fixed.
 ## [1.4.3] - 2023-06-19
 
 ### Improvements

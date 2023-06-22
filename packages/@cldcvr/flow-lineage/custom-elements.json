@@ -53,6 +53,14 @@
             "name": "content",
             "module": "src/shims.d.ts"
           }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "content",
+            "module": "src/shims.d.ts"
+          }
         }
       ]
     },

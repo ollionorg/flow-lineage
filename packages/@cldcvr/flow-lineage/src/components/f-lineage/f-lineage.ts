@@ -19,7 +19,7 @@ import {
 } from "./lineage-types";
 import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
 import drawLineage from "./draw/draw-lineage";
-import flowCoreCSS from "@cldcvr/flow-core/dist/style.css";
+import flowCoreCSS from "@cldcvr/flow-core/dist/style.css?inline";
 import lowlightPath from "./highlight/lowlight-path";
 import createHierarchy from "./create/create-hierarchy";
 import { FButton, FDiv, FPopover } from "@cldcvr/flow-core";
