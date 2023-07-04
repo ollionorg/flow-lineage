@@ -340,7 +340,7 @@
               "kind": "field",
               "name": "[\"node-template\"]",
               "type": {
-                "text": "string | undefined"
+                "text": "LineageNodeTemplate | undefined"
               },
               "attribute": "[\"node-template\"]"
             },
@@ -353,7 +353,7 @@
               "kind": "field",
               "name": "[\"children-node-template\"]",
               "type": {
-                "text": "string | undefined"
+                "text": "LineageNodeTemplate | undefined"
               },
               "attribute": "[\"children-node-template\"]"
             },
@@ -687,14 +687,14 @@
             {
               "name": "[\"node-template\"]",
               "type": {
-                "text": "string | undefined"
+                "text": "LineageNodeTemplate | undefined"
               },
               "fieldName": "[\"node-template\"]"
             },
             {
               "name": "[\"children-node-template\"]",
               "type": {
-                "text": "string | undefined"
+                "text": "LineageNodeTemplate | undefined"
               },
               "fieldName": "[\"children-node-template\"]"
             }

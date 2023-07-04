@@ -16,6 +16,7 @@ import {
   LineageNodeLinks,
   LineageNodes,
   LineageNodeSize,
+  LineageNodeTemplate,
 } from "./lineage-types";
 import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
 import drawLineage from "./draw/draw-lineage";
@@ -124,11 +125,11 @@ export class FLineage extends FRoot {
     reflect: false,
     type: String,
   })
-  ["node-template"]?: string;
+  ["node-template"]?: LineageNodeTemplate;
   /**
    * Workaround for vue 2 for property name with hyphen
    */
-  set nodeTemplate(value: string | undefined) {
+  set nodeTemplate(value: LineageNodeTemplate | undefined) {
     this["node-template"] = value;
   }
 
@@ -136,11 +137,11 @@ export class FLineage extends FRoot {
     reflect: false,
     type: String,
   })
-  ["children-node-template"]?: string;
+  ["children-node-template"]?: LineageNodeTemplate;
   /**
    * Workaround for vue 2 for property name with hyphen
    */
-  set childrenNodeTemplate(value: string | undefined) {
+  set childrenNodeTemplate(value: LineageNodeTemplate | undefined) {
     this["children-node-template"] = value;
   }
 
@@ -435,31 +436,39 @@ export class FLineage extends FRoot {
 
     this["node-template"] =
       this["node-template"] ??
-      `<f-div
-	  state="secondary"
-	  width="100%"
-	  height="100%"
-	  padding="none medium"
-	  align="middle-left"
-	  variant="curved"
-	  gap="small"
-	  \${node.fChildren && !node.fHideChildren ? 'border="small solid default bottom"' : ""}
-	> <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
-	  \${node.childrenToggle}
-	</f-div>`;
+      function (node) {
+        return html`<f-div
+          state="secondary"
+          width="100%"
+          height="100%"
+          padding="none medium"
+          align="middle-left"
+          variant="curved"
+          gap="small"
+          ${node.fChildren && !node.fHideChildren
+            ? 'border="small solid default bottom"'
+            : ""}
+        >
+          <f-text variant="code" size="large" ellipsis>${node.id}</f-text>
+          ${node.childrenToggle}
+        </f-div>`;
+      };
     this["children-node-template"] =
       this["children-node-template"] ??
-      `<f-div
-	  state="secondary"
-	  width="100%"
-	  height="100%"
-	  padding="none medium"
-	  align="middle-left"
-	  variant="curved"
-	  gap="small"
-	  border="small solid default bottom"
-	> <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
-	</f-div>`;
+      function (node) {
+        return html`<f-div
+          state="secondary"
+          width="100%"
+          height="100%"
+          padding="none medium"
+          align="middle-left"
+          variant="curved"
+          gap="small"
+          border="small solid default bottom"
+        >
+          <f-text variant="code" size="large" ellipsis>${node.id}</f-text>
+        </f-div>`;
+      };
     this.svg.innerHTML = ``;
     this.page = 1;
 
@@ -625,25 +634,25 @@ export class FLineage extends FRoot {
     try {
       if (isChildNode) {
         if (node.fNodeTemplate) {
-          return getComputedHTML(html`${eval("`" + node.fNodeTemplate + "`")}`);
+          return getComputedHTML(node.fNodeTemplate(node));
         } else {
-          return getComputedHTML(
-            html`${eval("`" + this["children-node-template"] + "`")}`
-          );
+          return this["children-node-template"]
+            ? getComputedHTML(this["children-node-template"](node))
+            : ``;
         }
       } else {
         if (node.fChildren) {
           const iconDirection = node.fHideChildren ? "down" : "up";
-          node.childrenToggle = `<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
+          node.childrenToggle = html`<f-icon-button type="transparent" state="inherit" icon="i-chevron-${iconDirection}" class="children-toggle" size="x-small"></f-icon>`;
         } else {
-          node.childrenToggle = "";
+          node.childrenToggle = html``;
         }
         if (node.fNodeTemplate) {
-          return getComputedHTML(html`${eval("`" + node.fNodeTemplate + "`")}`);
+          return getComputedHTML(node.fNodeTemplate(node));
         } else {
-          return getComputedHTML(
-            html`${eval("`" + this["node-template"] + "`")}`
-          );
+          return this["node-template"]
+            ? getComputedHTML(this["node-template"](node))
+            : ``;
         }
       }
     } catch (error: unknown) {

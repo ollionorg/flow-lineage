@@ -58,28 +58,28 @@ The lineage component is broken down into three parts : nodes, node children, an
       ["node-size"]: { width: 200, height: 52 },
       ["children-node-size"]: { width: 200, height: 32 },
       ["max-children"]: 8,
-      ["node-template"]: `
+      ["node-template"]: function(node){return html`
 	  <f-div style="position:absolute;top:-20px;z-index:1;" gap="x-small">
 	   <f-tag label="Construction" state="primary" size="small" ></f-tag>
 	   <f-tag label="Cat" size="small" counter="35"></f-tag>
 	 </f-div>
 	  <f-div
-        state=\${node.id==="Max"?'custom,#006ecc':'secondary'}
+        state=${node.id==="Max"?'custom,#006ecc':'secondary'}
         width="100%"
         height="100%"
         padding="none medium"
         align="middle-left"
         variant="curved"
         gap="small"
-        \${node.fChildren && !node.fHideChildren ? 'border="small solid default bottom"' : ""}
+        ${node.fChildren && !node.fHideChildren ? 'border="small solid default bottom"' : ""}
       >
 	  	<f-icon-button icon="i-table" state="neutral"></f-icon-button>
         <f-div direction="column" height="hug-content" align="middle-left">
-          <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
+          <f-text variant="code" size="large" ellipsis>${node.id}</f-text>
         </f-div>
-		\${node.childrenToggle}
-      </f-div>`,
-      ["children-node-template"]: `<f-div
+		${node.childrenToggle}
+      </f-div>`},
+      ["children-node-template"]:  function(node){return html`<f-div
           state="secondary"
           width="100%"
           height="100%"
@@ -89,20 +89,8 @@ The lineage component is broken down into three parts : nodes, node children, an
           border="small solid default bottom"
         >
           <f-icon source="i-hashtag" size="small"></f-icon> 
-          <f-text variant="code" size="medium" ellipsis>\${node.id}</f-text>
-        </f-div>`,
-      ["children-node-template"]: `<f-div
-          state="secondary"
-          width="100%"
-          height="100%"
-          padding="none medium"
-          align="middle-left"
-          gap="small"
-          border="small solid default bottom"
-        >
-          <f-icon source="i-hashtag" size="small"></f-icon>
-          <f-text variant="code" size="medium" ellipsis>\${node.id}</f-text>
-        </f-div>`,
+          <f-text variant="code" size="medium" ellipsis>${node.id}</f-text>
+        </f-div>`},
       links: [
         {
           from: "Tony",
@@ -433,7 +421,7 @@ The lineage component is broken down into three parts : nodes, node children, an
             mobile: "+91-12345 67890",
             name: "Tony",
           },
-          fNodeTemplate: ` <f-div
+          fNodeTemplate: function(node){return html` <f-div
         state="custom,#284376"
         width="100%"
         height="100%"
@@ -442,17 +430,17 @@ The lineage component is broken down into three parts : nodes, node children, an
         variant="curved"
         gap="small"
     	style="border-radius:100px;"
-        \${node.fChildren ? 'border="small solid default bottom"' : ""}
+        ${node.fChildren ? 'border="small solid default bottom"' : ""}
       >
         <f-icon-button icon="i-user"></f-icon-button>
         <f-div direction="column" height="hug-content" align="middle-left">
-          <f-text variant="code" size="large" ellipsis>\${node.id}</f-text>
+          <f-text variant="code" size="large" ellipsis>${node.id}</f-text>
           <f-text variant="code" size="small" ellipsis
-            >x: \${node.x}, y: \${node.y}</f-text
+            >x: ${node.x}, y: ${node.y}</f-text
           >
         </f-div>
-    	\${node.childrenToggle}
-      </f-div>`,
+    	${node.childrenToggle}
+      </f-div>`},
         },
         Charlie: {
           fData: {
