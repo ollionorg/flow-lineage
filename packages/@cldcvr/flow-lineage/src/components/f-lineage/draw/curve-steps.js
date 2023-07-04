@@ -1,23 +1,22 @@
-function Step(context, curve) {
-  this._context = context;
-  this._curve = curve;
-}
-
-Step.prototype = {
-  areaStart: function () {
+class Step {
+  constructor(context, curve) {
+    this._context = context;
+    this._curve = curve;
+  }
+  areaStart() {
     this._line = 0;
-  },
-  areaEnd: function () {
+  }
+  areaEnd() {
     this._line = NaN;
-  },
-  lineStart: function () {
+  }
+  lineStart() {
     this._x = this._y = NaN;
     this._point = 0;
-  },
-  lineEnd: function () {
+  }
+  lineEnd() {
     this._context.lineTo(this._x, this._y);
-  },
-  point: function (x, y) {
+  }
+  point(x, y) {
     (x = +x), (y = +y);
     switch (this._point) {
       case 0:
@@ -92,8 +91,8 @@ Step.prototype = {
       }
     }
     (this._x = x), (this._y = y);
-  },
-};
+  }
+}
 
 export default (function custom(angle) {
   function curvedStep(context) {

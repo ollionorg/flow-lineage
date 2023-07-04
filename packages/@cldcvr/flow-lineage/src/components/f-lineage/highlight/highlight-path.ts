@@ -5,7 +5,7 @@ export default function highlightPath(
   node: LineageNodeElement,
   lineage: FLineage
 ) {
-  console.time("Lineage : highlight duration");
+  //   console.time("Lineage : highlight duration");
   const highlightedToNodeIds: Record<string, boolean> = {};
   const highlightedFromNodeIds: Record<string, boolean> = {};
   /**
@@ -111,6 +111,6 @@ export default function highlightPath(
 
     highlightFrom(node.id as string);
     highlightTo(node.id as string);
-    console.timeEnd("Lineage : highlight duration");
+    // console.timeEnd("Lineage : highlight duration");
   }
 }

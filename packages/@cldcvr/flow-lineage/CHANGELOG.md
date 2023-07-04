@@ -4,6 +4,16 @@
 
 # Change Log
 
+## [1.4.6] - 2023-07-04
+
+### Improvements
+- Debugging console.log removed.
+- Snapshot test added.
+###  Bug fixes
+
+- Typescript error in `curve-steps.js`.
+- Empty links not plotting lineage.
+
 ## [1.4.5] - 2023-06-19
 
 ###  Bug fixes

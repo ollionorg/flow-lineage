@@ -463,7 +463,7 @@ export class FLineage extends FRoot {
     this.svg.innerHTML = ``;
     this.page = 1;
 
-    if (this.links && this.links.length > 0) {
+    if (this.links) {
       /**
        * Creates hierarchy based on nodes and links provided by user
        */
