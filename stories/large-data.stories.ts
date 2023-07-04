@@ -11,14 +11,10 @@ export const meta = {
   },
 } as Meta;
 
-const makeid = (length: number) => {
-  let result = "";
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
+const makeid = () => {
+  const crypto = window.crypto;
+  const array = new Uint32Array(1);
+  return `${crypto.getRandomValues(array)[0]}`;
 };
 
 function randomNumber(min: number, max: number) {
@@ -32,7 +28,7 @@ const levels: Record<number, string[]> = {};
 
 for (let l = 0; l < 50; l++) {
   for (let n = 0; n < 20; n++) {
-    const nodeid = makeid(5);
+    const nodeid = makeid();
     nodes[nodeid] = {};
     if (!levels[l]) {
       levels[l] = [];
