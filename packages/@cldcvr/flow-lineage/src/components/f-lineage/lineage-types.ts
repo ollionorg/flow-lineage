@@ -3,6 +3,11 @@
 import { FPopover } from "@cldcvr/flow-core";
 import { FLineage } from "./f-lineage";
 import { Ref } from "lit-html/directives/ref.js";
+import { HTMLTemplateResult } from "lit";
+
+export type LineageNodeTemplate = (
+  node: LineageNodeElement
+) => HTMLTemplateResult;
 
 export type LineageBaseNode = {
   id?: string;
@@ -11,7 +16,7 @@ export type LineageBaseNode = {
   links?: LineageNodeLink[];
   fData?: Record<string, any>;
   fNodeMeta?: Record<string, any>;
-  fNodeTemplate?: string;
+  fNodeTemplate?: LineageNodeTemplate;
   fClick?: (event: Event, node: LineageNodeElement) => void;
   fRightClick?: (event: Event, node: LineageNodeElement) => void;
 };
@@ -45,7 +50,7 @@ export type LineageNodeElement = {
   parent?: LineageNodeElement;
   offset?: number;
   isVisible?: boolean;
-  childrenToggle?: string;
+  childrenToggle?: HTMLTemplateResult;
   popoverToggle?: string;
   fHideChildren?: boolean;
   fClick?: (event: Event, node: LineageNodeElement) => void;

@@ -1,101 +1,21 @@
-import { Story, Meta } from "@storybook/web-components";
+import { Story } from "@storybook/web-components";
 import { html } from "lit-html";
-import { LineageNodeLinks, LineageNodes } from "@cldcvr/flow-lineage/src";
+import { LineageNodeLinks } from "@cldcvr/flow-lineage/src";
+import nodes from "./nodes";
+import { nodeTemplate, childrenNodeTemplate } from "./nodeTemplates";
 
-export const meta = {
-  title: "Debug/Reverse-bend",
-  argTypes: {
-    ["node-template"]: {
-      control: false,
-    },
-    ["children-node-template"]: {
-      control: false,
-    },
-  },
-} as Meta;
+// export default {
+//   title: "Debug/Reverse-bend",
+//   argTypes: {
+//     ["node-template"]: {
+//       control: false,
+//     },
+//     ["children-node-template"]: {
+//       control: false,
+//     },
+//   },
+// } as Meta;
 
-const nodes: LineageNodes = {
-  node1: {
-    fData: {
-      fullName: "Node 1",
-      description: "Movies",
-      state: "secondary",
-    },
-    fChildren: {
-      noede1_child: {
-        fData: {
-          icon: "i-hashtag",
-          title: "Iron man 1",
-        },
-      },
-    },
-  },
-  node2: {
-    fData: {
-      fullName: "Node 2",
-      description: "Hank Palmer",
-      state: "custom,#006ecc",
-    },
-  },
-  node3: {
-    fData: {
-      fullName: "Node 3",
-      description: "Hank Palmer",
-      state: "custom,#006ecc",
-    },
-  },
-  node4: {
-    fData: {
-      fullName: "Node 4",
-      description: "Tony stark",
-      state: "secondary",
-    },
-    fChildren: {
-      node4child1: {
-        fData: {
-          icon: "i-hashtag",
-          title: "node 4 child 1",
-        },
-      },
-      node4child2: {
-        fData: {
-          icon: "i-paragraph",
-          title: "node 4 child 2",
-        },
-      },
-    },
-    fHideChildren: false,
-  },
-  node5: {
-    fData: {
-      fullName: "Node 5",
-      description: "Actor",
-      state: "secondary",
-    },
-    fChildren: {
-      node5child1: {
-        fData: {
-          icon: "i-hashtag",
-          title: "Node 5 child 1",
-        },
-      },
-      node5child2: {
-        fData: {
-          icon: "i-paragraph",
-          title: "Node 5 child 2",
-        },
-      },
-    },
-    fHideChildren: false,
-  },
-  node6: {
-    fData: {
-      fullName: "Node 6",
-      description: "Hank Palmer",
-      state: "custom,#006ecc",
-    },
-  },
-};
 const links: LineageNodeLinks = [
   {
     from: "node1",
@@ -160,38 +80,6 @@ const Template: Story<unknown> = (args: any) => {
 export const basic = Template.bind({});
 
 basic.args = {
-  ["node-template"]: `<f-div
-  state=\${node.fData.state}
-  width="100%"
-  height="100%"
-  padding="small"
-  align="top-left"
-  variant="curved"
-  gap="small"
-  \${node.fChildren && !node.fHideChildren ? 'border="small solid default bottom"' : ""}
->
-	<f-pictogram variant="circle" source="\${node.fData.fullName}"></f-pictogram>
-	<f-div direction="column">
-		<f-text size="small" ellipsis>\${node.fData.fullName}</f-text>
-		<f-text size="x-small" ellipsis>\${node.x} \${node.y}</f-text>
-	</f-div>
-	<f-div direction="column">
-		<f-text size="small" ellipsis>\${node.fData.fullName}</f-text>
-	</f-div>
-	\${node.childrenToggle}
-</f-div>`,
-  ["children-node-template"]: `<f-div
-  state="secondary"
-  width="100%"
-  height="100%"
-  padding="none medium"
-  align="middle-left"
-  gap="small"
-  border="small solid default bottom"
->
-  <f-icon source="\${node.fData.icon}" size="small"></f-icon>
-  <f-text  size="small" ellipsis>\${node.fData.title}</f-text>
-</f-div>`,
+  ["node-template"]: nodeTemplate,
+  ["children-node-template"]: childrenNodeTemplate,
 };
-
-export default null;

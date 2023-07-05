@@ -1,24 +1,24 @@
-import { Story, Meta } from "@storybook/web-components";
+import { Story } from "@storybook/web-components";
 import { html } from "lit-html";
-import { LineageNodeLinks, LineageNodes } from "@cldcvr/flow-lineage/src";
+import {
+  LineageNodeElement,
+  LineageNodeLinks,
+  LineageNodes,
+} from "@cldcvr/flow-lineage/src";
 
-export const meta = {
-  title: "Examples/Large Data",
-  argTypes: {
-    ["node-template"]: {
-      control: false,
-    },
-  },
-} as Meta;
+// export default {
+//   title: "Examples/Large Data",
+//   argTypes: {
+//     ["node-template"]: {
+//       control: false,
+//     },
+//   },
+// } as Meta;
 
-const makeid = (length: number) => {
-  let result = "";
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
+const makeid = () => {
+  const crypto = window.crypto;
+  const array = new Uint32Array(1);
+  return `N${crypto.getRandomValues(array)[0]}`;
 };
 
 function randomNumber(min: number, max: number) {
@@ -32,7 +32,7 @@ const levels: Record<number, string[]> = {};
 
 for (let l = 0; l < 50; l++) {
   for (let n = 0; n < 20; n++) {
-    const nodeid = makeid(5);
+    const nodeid = makeid();
     nodes[nodeid] = {};
     if (!levels[l]) {
       levels[l] = [];
@@ -69,7 +69,7 @@ const Template: Story<unknown> = (args: any) => {
 export const basic = Template.bind({});
 
 basic.args = {
-  ["node-template"]: `<f-pictogram source="\${node.id}" variant="circle" clickable></f-text>`,
+  ["node-template"]: function (node: LineageNodeElement) {
+    return html`<f-pictogram source="${node.id}" variant="circle" clickable></f-text>`;
+  },
 };
-
-export default null;
