@@ -1,7 +1,7 @@
 import { LineageNodes } from "packages/@cldcvr/flow-lineage/src";
 
 const nodes: LineageNodes = {
-  noede1: {
+  node1: {
     fData: {
       fullName: "Node 1",
       description: "Movies",
