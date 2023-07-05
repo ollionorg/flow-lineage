@@ -22,7 +22,13 @@ const makeid = () => {
 };
 
 function randomNumber(min: number, max: number) {
-  return +(Math.random() * (max - min) + min).toFixed(0);
+  // Get the current timestamp in milliseconds
+  const timestamp = new Date().getTime();
+
+  // Calculate a random number using the timestamp
+  const randomNum = (timestamp % (max - min + 1)) + min;
+
+  return randomNum;
 }
 
 const nodes: LineageNodes = {};
