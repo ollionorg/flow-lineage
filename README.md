@@ -178,6 +178,7 @@ We have created a sample lineage component along with it's schema to get you goi
 ```html
 <script lang="ts">
 import { defineComponent } from "vue";
+import { html } from "lit";
 
 export default defineComponent({
   name: "FlowLineage",
@@ -228,22 +229,45 @@ export default defineComponent({
           to: "ironman",
         },
       ],
-      nodeTemplate: `
-			<f-div width="100%" state="secondary" height="100%" padding="small" align="top-left" variant="curved" gap="small">
-				<f-pictogram variant="circle" source="\${node.fData.fullName}"></f-pictogram>
+       nodeTemplate: function (node: LineageNodeElement) {
+			return html`
+			<f-div
+				width="100%"
+				state="secondary"
+				height="100%"
+				padding="small"
+				align="top-left"
+				variant="curved"
+				gap="small"
+			>
+				<f-pictogram
+				variant="circle"
+				source="${node.fData.fullName}"
+				></f-pictogram>
 				<f-div direction="column">
-					<f-text size="small" ellipsis>\${node.fData.fullName}</f-text>
-					<f-text size="x-small" ellipsis>\${node.fData.description}</f-text>
+				<f-text size="small" ellipsis>${node.fData.fullName}</f-text>
+				<f-text size="x-small" ellipsis>${node.fData.description}</f-text>
 				</f-div>
-				\${node.childrenToggle}
+				${node.childrenToggle}
 			</f-div>
-			`,
-      childNodeTemplate: `
-			<f-div state="secondary" width="100%" height="100%"padding="none medium" align="middle-left" gap="small" border="small solid default bottom" >
-				<f-icon source="\${node.fData.icon}" size="small"></f-icon>
-				<f-text  size="small" ellipsis>\${node.fData.title}</f-text>
-		  </f-div>
-			`,
+			`;
+		},
+		childNodeTemplate: function (node: LineageNodeElement) {
+			return html`
+			<f-div
+				state="secondary"
+				width="100%"
+				height="100%"
+				padding="none medium"
+				align="middle-left"
+				gap="small"
+				border="small solid default bottom"
+			>
+				<f-icon source="${node.fData.icon}" size="small"></f-icon>
+				<f-text size="small" ellipsis>${node.fData.title}</f-text>
+			</f-div>
+			`;
+		},
     };
   },
 });

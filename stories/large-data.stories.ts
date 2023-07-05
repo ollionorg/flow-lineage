@@ -1,20 +1,24 @@
 import { Story, Meta } from "@storybook/web-components";
 import { html } from "lit-html";
-import { LineageNodeLinks, LineageNodes } from "@cldcvr/flow-lineage/src";
+import {
+  LineageNodeElement,
+  LineageNodeLinks,
+  LineageNodes,
+} from "@cldcvr/flow-lineage/src";
 
-export const meta = {
-  title: "Examples/Large Data",
-  argTypes: {
-    ["node-template"]: {
-      control: false,
-    },
-  },
-} as Meta;
+// export default {
+//   title: "Examples/Large Data",
+//   argTypes: {
+//     ["node-template"]: {
+//       control: false,
+//     },
+//   },
+// } as Meta;
 
 const makeid = () => {
   const crypto = window.crypto;
   const array = new Uint32Array(1);
-  return `${crypto.getRandomValues(array)[0]}`;
+  return `N${crypto.getRandomValues(array)[0]}`;
 };
 
 function randomNumber(min: number, max: number) {
@@ -65,7 +69,9 @@ const Template: Story<unknown> = (args: any) => {
 export const basic = Template.bind({});
 
 basic.args = {
-  ["node-template"]: `<f-pictogram source="\${node.id}" variant="circle" clickable></f-text>`,
+  ["node-template"]: function (node: LineageNodeElement) {
+    return html`<f-pictogram source="${node.id}" variant="circle" clickable></f-text>`;
+  },
 };
 
 export default null;
