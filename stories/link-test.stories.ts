@@ -1,11 +1,10 @@
-import { Story, Meta } from "@storybook/web-components";
+import { Story } from "@storybook/web-components";
 import { html } from "lit-html";
 import {
   LineageNodeElement,
   LineageNodeLinks,
   LineageNodes,
 } from "@cldcvr/flow-lineage/src";
-import * as d3 from "d3";
 
 // export default {
 //   title: "Debug/Links",
@@ -236,4 +235,3 @@ basic.args = {
 //   }
 //   if (nodes.prop1.fData) nodes.prop1.fData.state = "danger";
 // }, 5000);
-export default null;

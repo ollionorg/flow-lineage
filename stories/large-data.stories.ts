@@ -1,4 +1,4 @@
-import { Story, Meta } from "@storybook/web-components";
+import { Story } from "@storybook/web-components";
 import { html } from "lit-html";
 import {
   LineageNodeElement,
@@ -73,5 +73,3 @@ basic.args = {
     return html`<f-pictogram source="${node.id}" variant="circle" clickable></f-text>`;
   },
 };
-
-export default null;
