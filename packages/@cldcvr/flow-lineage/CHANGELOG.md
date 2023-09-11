@@ -4,6 +4,11 @@
 
 # Change Log
 
+## [2.0.1] - 2023-09-11
+
+### Improvements
+- `ResizeObserver` used instead of window's `resize` event for better accuracy.
+- Re-size debounce timeout updated for better user experience.
 ## [2.0.0] - 2023-07-05
 
 ### BREAKING CHANGES :alert:  :alert:
