@@ -380,7 +380,7 @@ export class FLineage extends FRoot {
     /**
      * Creating ResizeObserver Instance
      */
-    this.resizeObserver = new ResizeObserver(async () => {
+    this.resizeObserver = new ResizeObserver(() => {
       //avoid first call , since it is not required
       if (this.activateResizeObserver) {
         this.debounceUpdate(new CustomEvent("f-resize"));
