@@ -194,6 +194,19 @@ export class FLineage extends FRoot {
 
   popoverRef: Ref<FPopover> = createRef();
 
+  /**
+   * To debounce requestUpdate
+   */
+  debounceUpdate = debounce(() => this.requestUpdate());
+  /**
+   * For obeserving size changes
+   */
+  resizeObserver?: ResizeObserver;
+  /**
+   * To avoid first resize observer call when connected to DOM
+   */
+  activateResizeObserver = false;
+
   applyBackground() {
     this.style.backgroundColor = this.background as string;
     this.svg.style.backgroundColor = this.background as string;
@@ -237,7 +250,7 @@ export class FLineage extends FRoot {
         .then(() => {
           this.timeout = setTimeout(() => {
             this.increaseDegree();
-          }, 500);
+          });
         })
         .catch((error) => {
           console.error(error);
@@ -364,20 +377,27 @@ export class FLineage extends FRoot {
   }
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener(
-      "resize",
-      debounce(() => this.requestUpdate())
-    );
+    /**
+     * Creating ResizeObserver Instance
+     */
+    this.resizeObserver = new ResizeObserver(() => {
+      //avoid first call , since it is not required
+      if (this.activateResizeObserver) {
+        this.debounceUpdate(new CustomEvent("f-resize"));
+      }
+      this.activateResizeObserver = true;
+    });
+
+    this.resizeObserver.observe(this);
   }
   disconnectedCallback() {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
-
-    window.removeEventListener(
-      "resize",
-      debounce(() => this.requestUpdate())
-    );
+    /**
+     * disconnecting resize observer
+     */
+    this.resizeObserver?.disconnect();
     super.disconnectedCallback();
   }
   /**
@@ -613,7 +633,7 @@ export class FLineage extends FRoot {
       });
       this.timeout = setTimeout(() => {
         this.increaseDegree();
-      }, 1000);
+      });
     } else {
       //this.pageNumberElement.innerText = `No data to display`;
       this.progressElement.setAttribute("width", "500px");

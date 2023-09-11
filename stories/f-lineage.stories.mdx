@@ -4,6 +4,7 @@ import { unsafeSVG } from "lit-html/directives/unsafe-svg.js";
 import Properties from "./properties.md";
 import { useState, useEffect } from "@storybook/client-api";
 import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
+import { createRef, ref } from "lit/directives/ref.js";
 
 <Meta
   title="Components/f-lineage"
@@ -509,8 +510,16 @@ The lineage component is broken down into three parts : nodes, node children, an
       const handleChangeTab = (id) => {
         setSelected(id);
       };
-      //  const data = lineageDataGenerator();
-      return html`<f-lineage
+	    const divRef=createRef();
+    //   setInterval(()=> {
+    // 	if(divRef.value && divRef.value.style.display==="flex"){
+    // 		divRef.value.style.display="none";
+    // 		}else{
+	// 			divRef.value.style.display="flex";
+	// 		}
+    // 		},2000);
+// const data = lineageDataGenerator();
+return html`<f-div ${ref(divRef)} height="100%"><f-div><f-lineage
         .direction=${args.direction}
         .padding=${args.padding}
         .gap=${args.gap}
@@ -656,7 +665,7 @@ The lineage component is broken down into three parts : nodes, node children, an
               </f-div>
             <!--End : node-details content section  -->
             </f-div>
-      </f-lineage>`;
+      </f-lineage></f-div></f-div>`;
     }}
   </Story>
 </Canvas>

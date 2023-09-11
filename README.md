@@ -168,8 +168,8 @@ We have created a sample lineage component along with it's schema to get you goi
     :max-childrens="8"
     :links.prop="links" 
     :nodes.prop="nodes"
-    :node-template="nodeTemplate"
-    :children-node-template="childNodeTemplate"
+    :node-template.prop="nodeTemplate"
+    :children-node-template.prop="childNodeTemplate"
   ></f-lineage>
 </template>
 ```
